@@ -1,0 +1,344 @@
+<html>
+<head>
+<meta charset="utf-8">
+<title>ShopForHer.org Redesign and Upgrade Brief</title>
+<style>
+body {
+  margin: 40px auto;
+  max-width: 860px;
+  padding: 0 28px 48px;
+  font-family: "Aptos", "Segoe UI", Arial, sans-serif;
+  line-height: 1.5;
+  font-size: 11pt;
+  color: #111111;
+  background: #ffffff;
+}
+h1 {
+  font-size: 24pt;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: 15pt;
+  margin: 28px 0 10px;
+  padding-top: 6px;
+  border-top: 1px solid #dddddd;
+}
+h3 {
+  font-size: 12pt;
+  margin: 18px 0 8px;
+}
+p {
+  margin: 0 0 10px;
+}
+ul, ol {
+  margin: 8px 0 12px 22px;
+}
+li {
+  margin: 4px 0;
+}
+code {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 10pt;
+  background: #f5f5f5;
+  padding: 1px 4px;
+}
+.eyebrow {
+  font-size: 9pt;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #666666;
+  margin-bottom: 10px;
+}
+.meta {
+  color: #444444;
+  margin-bottom: 18px;
+}
+.callout {
+  border: 1px solid #d9d9d9;
+  background: #fafafa;
+  padding: 14px 16px;
+  margin: 14px 0;
+}
+.grid {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 18px;
+}
+.grid th,
+.grid td {
+  border: 1px solid #dddddd;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+.grid th {
+  background: #f6f6f6;
+  font-weight: 700;
+}
+.small {
+  font-size: 10pt;
+  color: #555555;
+}
+</style>
+</head>
+<body>
+<p class="eyebrow">ShopForHer.org / Product / Redesign Brief</p>
+<h1>ShopForHer.org Redesign and Upgrade Brief</h1>
+<p class="meta"><b>Date:</b> 2026-03-06 (UTC)<br>
+<b>Prepared for:</b> Jose<br>
+<b>Purpose:</b> Replace the earlier memo with a usable redesign and upgrade brief that matches the current live product direction.</p>
+
+<div class="callout">
+  <p><b>Decision:</b> ShopForHer should not behave like a blog, a generic affiliate grid, or a dashboard. It should behave like a fast mobile decision surface for men buying gifts for girlfriends or wives, with a secondary date-booking layer.</p>
+  <p><b>Current best product framing:</b> <code>Popular</code>, <code>Hot</code>, <code>Dates</code>, <code>Saved</code>.</p>
+</div>
+
+<h2>1) Why this document exists</h2>
+<p>The previous document was useful as a conversation summary, but weak as an execution artifact. It mixed audit language, design commentary, and product direction without enough structure to guide implementation. This version corrects that.</p>
+<p>This document is now intended to do four jobs:</p>
+<ol>
+  <li>State the product clearly</li>
+  <li>Define the mobile design direction</li>
+  <li>Set the next implementation priorities</li>
+  <li>Reduce drift while the live site is being refined</li>
+</ol>
+
+<h2>2) Current product position</h2>
+<p>ShopForHer is a mobile-first affiliate product for men who want to buy something good for their girlfriend or wife without doing a lot of thinking, researching, or comparing.</p>
+<p>The strongest use case is simple:</p>
+<ol>
+  <li>See a good item or hot content tile</li>
+  <li>Open a quick view</li>
+  <li>Buy fast on the merchant site</li>
+</ol>
+<p>The adjacent use case is:</p>
+<ol>
+  <li>Pick a nearby date spot</li>
+  <li>Open a reservation path</li>
+  <li>Pair that with a gift or saved item</li>
+</ol>
+
+<h2>3) Product principles</h2>
+<ul>
+  <li><b>Fast over deep:</b> the user should get to a viable answer in under a minute</li>
+  <li><b>Product-first:</b> gifts and date spots are the core content, not UI controls</li>
+  <li><b>Male and straightforward:</b> direct language, low friction, no decorative softness</li>
+  <li><b>Trust over hype:</b> clean structure, simple disclosures, visible merchant handoff</li>
+  <li><b>Mobile-native:</b> the site should feel correct on iPhone before desktop</li>
+</ul>
+
+<h2>4) Competitive direction</h2>
+<p>The best reference pattern is not one site. It is a blend:</p>
+<ul>
+  <li><b>From men’s editorial mobile sites:</b> strong section rhythm, short headings, product or story first, minimal explanation</li>
+  <li><b>From viral/mobile feed products:</b> hot tiles, obvious recency, visual browsing, fast action paths</li>
+  <li><b>From commerce:</b> clear CTA hierarchy, low-risk quick view, obvious price and purpose</li>
+</ul>
+
+<table class="grid">
+  <tr>
+    <th>Pattern to keep</th>
+    <th>Pattern to avoid</th>
+  </tr>
+  <tr>
+    <td>Title + items + direct action</td>
+    <td>Explainer-heavy hero sections</td>
+  </tr>
+  <tr>
+    <td>Short mobile sections with strong hierarchy</td>
+    <td>Large dashboard-style control surfaces</td>
+  </tr>
+  <tr>
+    <td>One obvious next action</td>
+    <td>Competing buttons and decorative chips</td>
+  </tr>
+  <tr>
+    <td>Clean white editorial spacing</td>
+    <td>Soft gradients, fake luxury, glassmorphism</td>
+  </tr>
+</table>
+
+<h2>5) Information architecture</h2>
+<p>The live navigation is correct in broad shape. It should be refined, not replaced.</p>
+
+<table class="grid">
+  <tr>
+    <th>Section</th>
+    <th>Job</th>
+    <th>Primary action</th>
+  </tr>
+  <tr>
+    <td><b>Popular</b></td>
+    <td>Show the safest, fastest gift answers</td>
+    <td><code>View</code> then <code>Buy</code></td>
+  </tr>
+  <tr>
+    <td><b>Hot</b></td>
+    <td>Show visual, viral, current gift ideas</td>
+    <td><code>Tap to view</code></td>
+  </tr>
+  <tr>
+    <td><b>Dates</b></td>
+    <td>Show simple reservation-ready places nearby</td>
+    <td><code>Book</code></td>
+  </tr>
+  <tr>
+    <td><b>Saved</b></td>
+    <td>Hold shortlisted items for later action</td>
+    <td><code>Buy now</code></td>
+  </tr>
+</table>
+
+<h2>6) Recommended page behavior</h2>
+
+<h3>6.1 Popular</h3>
+<ul>
+  <li>One short intro only</li>
+  <li>A clean lead list of strong gifts</li>
+  <li>No large form at the top</li>
+  <li>Gift cards should prioritize: image, name, short hook, price, actions</li>
+</ul>
+
+<h3>6.2 Hot</h3>
+<ul>
+  <li>Should feel more like a visual feed than a catalog</li>
+  <li>Large tiles are acceptable, but copy must stay short</li>
+  <li>Every tile should lead to the same quick-view pattern</li>
+  <li>Use visual heat, not UI noise, to convey trendiness</li>
+</ul>
+
+<h3>6.3 Dates</h3>
+<ul>
+  <li>Replace abstract guide content with a booking-oriented list</li>
+  <li>Use area + venue + vibe + next slot + <code>Book</code></li>
+  <li>Keep attribution clear if OpenTable or similar is used</li>
+  <li>Do not fake ownership of booking inventory</li>
+</ul>
+
+<h3>6.4 Saved</h3>
+<ul>
+  <li>Keep it plain and useful</li>
+  <li>No decorative empty state</li>
+  <li>Focus on direct re-entry to <code>Buy now</code></li>
+</ul>
+
+<h2>7) Visual system</h2>
+<p>The site should remain white, minimal, and masculine, but more precise than soft.</p>
+
+<table class="grid">
+  <tr>
+    <th>Element</th>
+    <th>Direction</th>
+  </tr>
+  <tr>
+    <td>Background</td>
+    <td>White or near-white only. Minimal texture. No atmospheric haze.</td>
+  </tr>
+  <tr>
+    <td>Header</td>
+    <td>Slim, clean, stable. Logo must be crisp, not blurred or glow-treated.</td>
+  </tr>
+  <tr>
+    <td>Typography</td>
+    <td>Use a sharp sans system. Strong weight for nav and actions. Avoid gimmick display fonts.</td>
+  </tr>
+  <tr>
+    <td>Cards</td>
+    <td>Round-square corners are acceptable, but reduce softness. Border and spacing matter more than shadow.</td>
+  </tr>
+  <tr>
+    <td>Shadows</td>
+    <td>Very light and sparse. Most surfaces should read through spacing, not elevation.</td>
+  </tr>
+  <tr>
+    <td>Color</td>
+    <td>White, black, neutral gray. Any accent should be controlled and secondary.</td>
+  </tr>
+</table>
+
+<h2>8) Brand and copy direction</h2>
+<p>Brand tone should feel confident, not loud. The user is not browsing for inspiration. He is trying to avoid a bad pick.</p>
+<p>Copy rules:</p>
+<ul>
+  <li>Short sentences</li>
+  <li>Low-adjective language</li>
+  <li>Do not over-explain the site</li>
+  <li>Prefer decision language over editorial language</li>
+</ul>
+
+<div class="callout">
+  <p><b>Good:</b> “Gifts to buy right now.”</p>
+  <p><b>Good:</b> “Book a place fast.”</p>
+  <p><b>Bad:</b> “Curated moments for elevated relationship experiences.”</p>
+</div>
+
+<h2>9) Conversion and trust requirements</h2>
+<p>The site is affiliate-driven, so trust has to be explicit and lightweight.</p>
+<ul>
+  <li>Quick view should always explain that checkout happens on the merchant site</li>
+  <li>Fast checkout references such as Apple Pay should only be mentioned as merchant-side availability</li>
+  <li>Affiliate disclosure should be visible in the footer</li>
+  <li>Saved state should be explained as local/on-device</li>
+  <li>Where reservation inventory is external, attribution must remain visible</li>
+</ul>
+
+<h2>10) Technical and deployment upgrades</h2>
+<p>The redesign should also reduce unnecessary weight and deployment ambiguity.</p>
+<ol>
+  <li>Remove dead dependencies and dead imports from the web bundle</li>
+  <li>Keep the Cloudflare Pages deployment path simple and root-based</li>
+  <li>Add real static files for <code>robots.txt</code>, <code>sitemap.xml</code>, and basic site metadata</li>
+  <li>Add a lightweight legal/footer layer: privacy, terms, affiliate disclosure</li>
+  <li>Use real 404 handling where practical instead of treating every path as a success page</li>
+</ol>
+
+<h2>11) Dates and OpenTable integration guidance</h2>
+<p>The right integration model is not “mask OpenTable.” The right model is a clean ShopForHer UI that opens into OpenTable when necessary.</p>
+<p>Recommended approach:</p>
+<ol>
+  <li>Phase 1: static or semi-static date spot rows with external booking links</li>
+  <li>Phase 2: partner-driven directory integration for real restaurant data</li>
+  <li>Phase 3: if permitted, deeper booking integration while preserving attribution</li>
+</ol>
+
+<h2>12) Implementation roadmap</h2>
+
+<h3>Phase 1: tighten the live product</h3>
+<ul>
+  <li>Refine header, footer, and legal/trust layer</li>
+  <li>Keep <code>Popular</code> simple and product-first</li>
+  <li>Keep <code>Hot</code> visual but controlled</li>
+  <li>Turn <code>Dates</code> into a strong reservation list</li>
+</ul>
+
+<h3>Phase 2: reduce friction</h3>
+<ul>
+  <li>Improve quick-view consistency across all gift surfaces</li>
+  <li>Add clearer availability or freshness signals where real</li>
+  <li>Reduce bundle weight and dead CSS</li>
+</ul>
+
+<h3>Phase 3: trust and growth</h3>
+<ul>
+  <li>Add legal pages and SEO basics</li>
+  <li>Add better product imagery/video quality</li>
+  <li>Add instrumentation around click-through and save behavior</li>
+</ul>
+
+<h2>13) Definition of done for the redesign direction</h2>
+<ol>
+  <li>The site feels immediately usable on iPhone</li>
+  <li>The user can get from discovery to merchant in one obvious path</li>
+  <li>The visual system feels cleaner, sharper, and less experimental</li>
+  <li>The <code>Dates</code> page feels like a real booking layer, not a concept</li>
+  <li>The product no longer feels split between blog, dashboard, and marketplace ideas</li>
+</ol>
+
+<h2>14) Final recommendation</h2>
+<p>Do not keep expanding sideways. The strongest version of ShopForHer is narrow and decisive: gifts first, viral discovery second, date booking third, saved items last. The redesign should keep stripping away anything that does not make those paths faster and more trustworthy.</p>
+
+<p class="small">This version supersedes the earlier conversation-summary document and should be used as the working redesign brief for the current live site.</p>
+</body>
+</html>

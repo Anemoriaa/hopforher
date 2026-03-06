@@ -14,6 +14,11 @@
   --font-body: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+/* Smooth Scroll Behavior */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   overflow-x: hidden;
   overflow-y: auto;
@@ -22,6 +27,43 @@ body {
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
+}
+
+/* Polished Card Hover Effects */
+.gs-product-card,
+.gs-bento-card,
+.gs-saved-row,
+.gs-spot-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gs-product-card:hover,
+.gs-bento-card:hover,
+.gs-saved-row:hover,
+.gs-spot-card:hover {
+  border-color: var(--text);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Button Polish */
+.gs-primary-btn, .gs-secondary-btn {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 11px 8px;
+  cursor: pointer;
+  border: 1px solid;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .gs-slider-app {
@@ -29,18 +71,8 @@ body {
   position: relative;
 }
 
-.gs-ascii-bg {
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Ctext x='10' y='20' fill='rgba(0,0,0,0.06)' font-family='monospace' font-size='14'%3E/ // / // / //%3C/text%3E%3Ctext x='10' y='40' fill='rgba(0,0,0,0.06)' font-family='monospace' font-size='14'%3E// / / // / /%3C/text%3E%3Ctext x='10' y='60' fill='rgba(0,0,0,0.06)' font-family='monospace' font-size='14'%3E/ // // / / /%3C/text%3E%3Ctext x='10' y='80' fill='rgba(0,0,0,0.06)' font-family='monospace' font-size='14'%3E// / // // /%3C/text%3E%3Ctext x='10' y='100' fill='rgba(0,0,0,0.06)' font-family='monospace' font-size='14'%3E/ / // / // /%3C/text%3E%3Ctext x='10' y='120' fill='rgba(0,0,0,0.06)' font-family='monospace' font-size='14'%3E// / / // / /%3C/text%3E%3C/svg%3E");
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%);
-  z-index: 0;
-  pointer-events: none;
-}
-
 .gs-phone-frame {
-  width: min(100%, 860px);
+  width: min(100%, 780px);
   min-height: 100dvh;
   margin: 0 auto;
   display: flex;
@@ -54,7 +86,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 30;
-  padding: calc(14px + env(safe-area-inset-top)) 24px 10px;
+  padding: calc(12px + env(safe-area-inset-top)) 24px 10px;
   background: rgba(247, 247, 247, 0.98);
   border-bottom: 1px solid var(--border);
 }
@@ -76,11 +108,12 @@ body {
 
 .gs-site-nav {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   overflow-x: auto;
   flex: 1;
   justify-content: center;
   scrollbar-width: none;
+  margin-top: 2px;
 }
 .gs-site-nav::-webkit-scrollbar {
   display: none;
@@ -88,10 +121,10 @@ body {
 
 .gs-site-link {
   font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   color: var(--text-soft);
   background: none;
   border: none;
@@ -99,6 +132,11 @@ body {
   cursor: pointer;
   position: relative;
   white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.gs-site-link:hover {
+  color: var(--text);
 }
 
 .gs-site-link.is-active {
@@ -108,11 +146,12 @@ body {
 .gs-site-link.is-active::after {
   content: "";
   position: absolute;
-  bottom: -6px;
+  bottom: -8px;
   left: 0;
   right: 0;
   height: 2px;
-  background: var(--accent);
+  background: var(--text);
+  border-radius: 2px 2px 0 0;
 }
 
 .gs-nav-save {
@@ -320,19 +359,21 @@ h2, h3 {
 }
 
 .gs-bento-content h3 {
-  font-size: 1.1rem;
-  line-height: 1.2;
-  margin-bottom: 6px;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
 }
 
 .gs-bento-card:nth-child(1) .gs-bento-content h3 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
 }
 
 .gs-bento-content p {
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--text-soft);
-  line-height: 1.4;
+  line-height: 1.5;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -503,11 +544,7 @@ h2, h3 {
   background: var(--surface);
   border: 1px solid var(--border);
   padding: 16px;
-  transition: border-color 0.2s;
-}
-
-.gs-product-card:hover {
-  border-color: var(--text-soft);
+  border-radius: 12px;
 }
 
 .gs-product-rank {
@@ -528,12 +565,13 @@ h2, h3 {
 
 .gs-product-main h3 {
   font-size: 1.05rem;
-  line-height: 1.2;
+  line-height: 1.25;
   margin-bottom: 4px;
+  letter-spacing: -0.01em;
 }
 
 .gs-product-main p {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   color: var(--text-soft);
   line-height: 1.5;
   margin: 0;
@@ -552,7 +590,8 @@ h2, h3 {
   font-weight: 700;
   text-transform: uppercase;
   background: var(--accent-dim);
-  padding: 3px 6px;
+  padding: 4px 8px;
+  border-radius: 4px;
   color: var(--text);
   letter-spacing: 0.05em;
 }
@@ -564,19 +603,7 @@ h2, h3 {
   margin-top: 20px;
 }
 
-.gs-primary-btn, .gs-secondary-btn {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 10px 6px;
-  cursor: pointer;
-  border: 1px solid;
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  transition: all 0.2s;
-}
+/* Button Polish styles handled above */
 
 .gs-primary-btn {
   background: var(--text);
@@ -606,20 +633,31 @@ h2, h3 {
 /* Guides Row - making it more editorial */
 .gs-guide-row {
   border: 1px solid var(--border);
-  padding: 20px;
+  padding: 24px;
   margin-bottom: 16px;
   background: var(--surface);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.gs-guide-row:hover {
+  transform: translateY(-2px);
+  border-color: var(--text-soft);
 }
 
 .gs-guide-row h3 {
-  font-size: 1.15rem;
-  margin: 6px 0 8px;
+  font-size: 1.25rem;
+  margin: 8px 0 10px;
+  letter-spacing: -0.03em;
 }
 
 .gs-guide-row p {
   color: var(--text-soft);
-  font-size: 0.85rem;
-  line-height: 1.5;
+  font-size: 0.9rem;
+  line-height: 1.6;
   margin: 0;
 }
 
@@ -629,6 +667,8 @@ h2, h3 {
   border: 1px dashed var(--border);
   color: var(--text-soft);
   display: flex;
+  flex-direction: column;
+  gap: 10px;
   align-items: center;
   justify-content: center;
 }
@@ -638,39 +678,48 @@ h2, h3 {
   font-size: 0.85rem;
 }
 
+.gs-empty-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
 /* TikTok / Lemon8 Grid Layout */
 .gs-tiktok-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 200px;
-  gap: 12px;
+  gap: 10px;
   margin-top: 16px;
 }
 
-.gs-map-panel {
+.gs-date-shell {
   display: grid;
   gap: 14px;
+  margin-top: 16px;
 }
 
-.gs-map-topbar {
+.gs-date-toolbar {
   display: flex;
   align-items: end;
   justify-content: space-between;
   gap: 12px;
 }
 
-.gs-map-location {
+.gs-date-area {
   display: grid;
   gap: 4px;
 }
 
-.gs-map-location strong {
+.gs-date-area strong {
   font-family: var(--font-display);
   font-size: 1.05rem;
   line-height: 1;
 }
 
-.gs-map-locate {
+.gs-date-locate {
   border: 1px solid var(--border);
   background: var(--surface);
   color: var(--text);
@@ -683,120 +732,53 @@ h2, h3 {
   cursor: pointer;
 }
 
-.gs-map-container {
-  width: 100%;
-  height: 420px;
-  border: 1px solid var(--border);
-  position: relative;
-  overflow: hidden;
-  background: #fafafa;
-}
-
-.gs-topo-map {
-  background-image:
-    linear-gradient(rgba(17, 17, 17, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(17, 17, 17, 0.03) 1px, transparent 1px);
-  background-size: 28px 28px;
-}
-
-.gs-topo-lines {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: rgba(17, 17, 17, 0.14);
-  stroke-width: 0.7;
-}
-
-.gs-topo-lines path:nth-child(odd) {
-  stroke: rgba(17, 17, 17, 0.1);
-}
-
-.gs-map-user {
-  position: absolute;
-  left: 50%;
-  top: 52%;
-  width: 16px;
-  height: 16px;
-  transform: translate(-50%, -50%);
-  border-radius: 999px;
-  background: #ffffff;
-  border: 2px solid #111111;
-  box-shadow: 0 0 0 6px rgba(17, 17, 17, 0.05);
-}
-
-.gs-map-user span {
-  position: absolute;
-  inset: 3px;
-  border-radius: 999px;
-  background: #111111;
-}
-
-.gs-map-pin {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  transform: translate(-50%, -50%);
-  border-radius: 999px;
-  border: 1px solid #111111;
-  background: #ffffff;
-  color: #111111;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: transform 0.2s, background 0.2s, color 0.2s;
-}
-
-.gs-map-pin.is-active,
-.gs-map-pin:hover {
-  background: #111111;
-  color: #ffffff;
-  transform: translate(-50%, -50%) scale(1.06);
-}
-
-.gs-map-label {
-  position: absolute;
-  left: 16px;
-  bottom: 16px;
-  padding: 6px 8px;
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.94);
-  font-family: var(--font-display);
-  font-size: 0.68rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.gs-map-feature {
+.gs-date-feature {
   display: grid;
-  gap: 8px;
+  gap: 12px;
   padding: 16px;
   border: 1px solid var(--border);
   background: var(--surface);
 }
 
-.gs-map-feature h3 {
+.gs-date-feature-head {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.gs-date-feature h3 {
+  margin: 0;
   font-size: 1.05rem;
   line-height: 1.05;
 }
 
-.gs-map-feature p {
+.gs-date-distance {
+  font-family: var(--font-display);
+  font-size: 0.66rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.gs-date-copy,
+.gs-date-powered p {
   margin: 0;
   color: var(--text-soft);
   line-height: 1.5;
 }
 
-.gs-map-meta {
+.gs-date-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.gs-map-meta span,
-.gs-spot-meta span {
+.gs-date-meta span,
+.gs-date-row-top span,
+.gs-date-powered span {
   font-family: var(--font-display);
   font-size: 0.64rem;
   font-weight: 800;
@@ -805,31 +787,63 @@ h2, h3 {
   color: var(--text-soft);
 }
 
-.gs-spot-list {
+.gs-date-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gs-date-time {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gs-date-list {
   display: grid;
   gap: 10px;
 }
 
-.gs-spot-card {
+.gs-date-row {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
   padding: 14px;
   border: 1px solid var(--border);
   background: var(--surface);
+}
+
+.gs-date-row.is-active,
+.gs-date-row:hover,
+.gs-date-time:hover,
+.gs-date-locate:hover {
+  border-color: var(--text);
+}
+
+.gs-date-row-main {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
   text-align: left;
   cursor: pointer;
 }
 
-.gs-spot-card.is-active,
-.gs-spot-card:hover {
-  border-color: #111111;
-}
-
-.gs-spot-icon {
-  width: 38px;
-  height: 38px;
+.gs-date-row-icon {
+  width: 36px;
+  height: 36px;
   background: #111111;
   color: #ffffff;
   display: inline-flex;
@@ -838,24 +852,160 @@ h2, h3 {
   flex-shrink: 0;
 }
 
-.gs-spot-info {
+.gs-date-row-copy {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.gs-date-row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.gs-date-row-top strong {
+  font-family: var(--font-display);
+  font-size: 0.96rem;
+  color: var(--text);
+}
+
+.gs-date-row-bottom {
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+.gs-date-row-action {
+  padding: 10px 14px;
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.gs-date-powered {
   display: grid;
   gap: 4px;
 }
 
-.gs-spot-info h4 {
-  margin: 0;
+.gs-trust-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.gs-trust-chip {
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
   font-family: var(--font-display);
-  font-size: 0.98rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+}
+
+.gs-content-block {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.gs-lane-list,
+.gs-hot-list,
+.gs-date-playbook {
+  display: grid;
+  gap: 10px;
+}
+
+.gs-lane-row,
+.gs-hot-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.gs-lane-copy,
+.gs-hot-copy {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.gs-lane-rank {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+}
+
+.gs-lane-copy strong,
+.gs-hot-copy strong,
+.gs-playbook-card strong,
+.gs-saved-helper strong {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
   color: var(--text);
 }
 
-.gs-spot-info p {
-  margin: 0;
+.gs-lane-copy p,
+.gs-hot-copy p,
+.gs-playbook-card p,
+.gs-saved-helper p {
+  margin: 4px 0 0;
   font-size: 0.8rem;
-  color: var(--text-soft);
   line-height: 1.45;
+  color: var(--text-soft);
 }
+
+.gs-hot-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gs-text-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.gs-playbook-card,
+.gs-saved-helper {
+  padding: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
 
 @media (min-width: 640px) {
   .gs-tiktok-grid {
@@ -867,13 +1017,13 @@ h2, h3 {
 
 .gs-tiktok-card {
   position: relative;
-  border-radius: 12px;
+  border-radius: 8px;
   overflow: hidden;
   display: block;
   grid-row: span 1;
   background: var(--surface);
   border: 1px solid var(--border);
-  transition: transform 0.2s;
+  transition: border-color 0.2s;
   text-decoration: none;
   padding: 0;
   cursor: pointer;
@@ -881,8 +1031,7 @@ h2, h3 {
 }
 
 .gs-tiktok-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--text-soft);
+  border-color: var(--text);
 }
 
 .gs-tiktok-card.is-tall {
@@ -905,12 +1054,12 @@ h2, h3 {
 .gs-tiktok-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 50%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.08) 48%, rgba(0, 0, 0, 0) 72%);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 12px;
-  color: #ffffff; /* Always white on dark overlay */
+  color: #ffffff;
 }
 
 .gs-tiktok-badge {
@@ -919,7 +1068,6 @@ h2, h3 {
   align-items: center;
   gap: 4px;
   background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
   padding: 4px 8px;
   border-radius: 999px;
   font-size: 0.7rem;
@@ -938,7 +1086,8 @@ h2, h3 {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 800;
-  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
   padding: 2px 6px;
   border-radius: 4px;
   width: fit-content;
@@ -972,6 +1121,21 @@ h2, h3 {
   color: rgba(255, 255, 255, 0.92);
 }
 
+.gs-tiktok-heat {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 7px;
+  margin-top: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
 .gs-tiktok-overlay::after {
   content: "►";
   position: absolute;
@@ -1001,15 +1165,14 @@ h2, h3 {
   display: flex;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 10px;
   overflow: hidden;
-  transition: transform 0.2s, border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
   height: 120px;
 }
 
 .gs-saved-row:hover {
-  border-color: var(--text-soft);
-  transform: translateY(-2px);
+  border-color: var(--text);
 }
 
 .gs-saved-image-wrap {
@@ -1072,7 +1235,7 @@ h2, h3 {
 
 .gs-logo {
   display: block;
-  height: 24px;
+  height: 22px;
   width: auto;
   max-width: 132px;
   object-fit: contain;
@@ -1082,39 +1245,7 @@ h2, h3 {
   height: 24px;
   width: auto;
   object-fit: contain;
-  mix-blend-mode: multiply;
   margin-bottom: 8px;
-}
-
-.gs-brand-lockup {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.gs-brand-text {
-  font-family: var(--font-display);
-  font-size: 0.92rem;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-  text-rendering: geometricPrecision;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.gs-brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  height: 22px;
-  color: var(--text);
-}
-
-.gs-brand-mark svg {
-  display: block;
 }
 
 .gs-footer {
@@ -1122,7 +1253,7 @@ h2, h3 {
   padding: 24px 0 12px;
   border-top: 1px solid var(--border);
   display: grid;
-  gap: 14px;
+  gap: 12px;
   text-align: left;
 }
 
@@ -1150,6 +1281,22 @@ h2, h3 {
 .gs-footer-meta {
   display: grid;
   gap: 6px;
+}
+
+.gs-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.gs-footer-links a {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text);
+  text-decoration: none;
 }
 
 .gs-footer-meta a {

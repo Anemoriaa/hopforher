@@ -14,7 +14,7 @@ import {
 const slides = [
   { id: "popular", label: "Popular", number: "01" },
   { id: "hot", label: "Hot", number: "02" },
-  { id: "guides", label: "Guides", number: "03" },
+  { id: "guides", label: "Dates", number: "03" },
   { id: "saved", label: "Saved", number: "04" },
 ];
 
@@ -55,31 +55,67 @@ const sliderFields = [
   { key: "intent", label: "What should it feel like", options: intentOptions },
 ];
 
-const guideNotes = [
+const dateSpotTemplates = [
   {
-    label: "Birthday",
-    title: "Birthday gifts she will actually use",
-    body: "Keep it clean, useful, and easy to like at first glance. Do not overbuild the meaning.",
+    id: "dinner-room",
+    name: "Low-light dinner room",
+    type: "Dinner",
+    neighborhood: "Near downtown",
+    description: "Straight reservation. Strong first answer when you want the night to feel handled.",
+    vibe: "Easy confidence",
+    slots: ["6:30 PM", "7:15 PM", "8:00 PM"],
+    bookingUrl: "https://www.opentable.com/",
   },
   {
-    label: "Anniversary",
-    title: "Anniversary gifts with more signal",
-    body: "Higher polish, stronger quality, and a clearer sense of occasion without drifting into generic luxury.",
+    id: "wine-bar",
+    name: "Natural wine bar",
+    type: "Drinks",
+    neighborhood: "10 min away",
+    description: "Best for a cleaner, lower-pressure date that still feels intentional.",
+    vibe: "Low noise",
+    slots: ["6:00 PM", "6:45 PM", "8:15 PM"],
+    bookingUrl: "https://www.opentable.com/",
   },
   {
-    label: "Under $100",
-    title: "Under-$100 gifts that still feel premium",
-    body: "This is the sweet spot for visible quality, lower risk, and better hit rate without overspending.",
+    id: "rooftop",
+    name: "Rooftop dinner spot",
+    type: "Night out",
+    neighborhood: "City center",
+    description: "Use this when you want a little more visual payoff without overcomplicating it.",
+    vibe: "Looks strong",
+    slots: ["7:00 PM", "7:30 PM", "8:30 PM"],
+    bookingUrl: "https://www.opentable.com/",
   },
-];
-
-const dateAreaTemplates = [
-  { id: "coffee", name: "Coffee stop", type: "Low pressure", description: "Quiet coffee, short sit, easy first move.", vibe: "Easy start", x: 28, y: 34 },
-  { id: "wine", name: "Wine bar", type: "Night", description: "Small room, good lighting, stronger signal.", vibe: "Dressier", x: 64, y: 28 },
-  { id: "dinner", name: "Dinner spot", type: "Classic", description: "Straight dinner reservation with less guesswork.", vibe: "Safe plan", x: 72, y: 54 },
-  { id: "dessert", name: "Dessert stop", type: "Short date", description: "Good when you want something lighter and easier.", vibe: "Short + sweet", x: 42, y: 66 },
-  { id: "walk", name: "Walk route", type: "Day", description: "Open-air route with room to talk and keep moving.", vibe: "Casual", x: 18, y: 58 },
-  { id: "bookstore", name: "Bookstore", type: "Interest", description: "Clean fallback when she likes slower, quieter spots.", vibe: "Thoughtful", x: 54, y: 44 },
+  {
+    id: "dessert-bar",
+    name: "Dessert and cocktail bar",
+    type: "After dinner",
+    neighborhood: "Close by",
+    description: "Shorter plan. Good when you want something easy to say yes to.",
+    vibe: "Short + polished",
+    slots: ["8:00 PM", "8:45 PM", "9:15 PM"],
+    bookingUrl: "https://www.opentable.com/",
+  },
+  {
+    id: "brunch",
+    name: "Weekend brunch room",
+    type: "Day date",
+    neighborhood: "Uptown",
+    description: "Clean daytime option when dinner feels too heavy.",
+    vibe: "Easy daytime",
+    slots: ["11:00 AM", "11:45 AM", "12:30 PM"],
+    bookingUrl: "https://www.opentable.com/",
+  },
+  {
+    id: "quiet-room",
+    name: "Quiet neighborhood spot",
+    type: "Safe pick",
+    neighborhood: "Near you",
+    description: "Reliable room, good lighting, easy conversation, less risk.",
+    vibe: "Zero drama",
+    slots: ["6:15 PM", "7:00 PM", "7:45 PM"],
+    bookingUrl: "https://www.opentable.com/",
+  },
 ];
 
 function rankGiftMatches(gifts, filters) {
@@ -105,7 +141,7 @@ export default function App() {
   const [savedIds, setSavedIds] = useState(() => loadSaved());
   const [previewGift, setPreviewGift] = useState(null);
   const [geoState, setGeoState] = useState({ status: "idle", label: "Preview area", coords: null });
-  const [activeDateSpotId, setActiveDateSpotId] = useState(dateAreaTemplates[0].id);
+  const [activeDateSpotId, setActiveDateSpotId] = useState(dateSpotTemplates[0].id);
   const [brief, setBrief] = useState({
     relationship: 1,
     budget: 1,
@@ -138,43 +174,28 @@ export default function App() {
   );
 
   const rankedMatches = useMemo(() => rankGiftMatches(gifts, activeFilters), [gifts, activeFilters]);
-  const topPicks = rankedMatches.slice(0, 6);
+  const topPicks = useMemo(() => {
+    const byScore = [...gifts].sort((a, b) => scoreGift(b, activeFilters) - scoreGift(a, activeFilters));
+    const merged = [...rankedMatches, ...byScore].filter(
+      (gift, index, array) => array.findIndex((item) => item.id === gift.id) === index
+    );
+
+    return merged.slice(0, 12);
+  }, [gifts, rankedMatches, activeFilters]);
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
-  const trendingStories = useMemo(
-    () =>
-      signalOptions
-        .map((option) => {
-          const gift = rankGiftMatches(gifts, { ...activeFilters, tab: option.id })[0] || null;
-          return gift
-            ? {
-                ...option,
-                gift,
-                current: option.id === activeSignal.id,
-                rank: rankGiftMatches(gifts, { ...activeFilters, tab: option.id }).findIndex(
-                  (item) => item.id === gift.id
-                ) + 1,
-              }
-            : null;
-        })
-        .filter(Boolean),
-    [activeFilters, activeSignal.id, gifts]
-  );
   const savedGifts = useMemo(
     () => gifts.filter((gift) => savedIds.includes(gift.id)),
     [gifts, savedIds]
-  );
-  const guidePicks = useMemo(
-    () => rankGiftMatches(gifts, { ...activeFilters, budget: "under-100" }).slice(0, 3),
-    [gifts, activeFilters]
   );
   const nearbyDateSpots = useMemo(() => {
     const base = geoState.coords
       ? Math.abs(Math.round(geoState.coords.latitude * 1000) + Math.round(geoState.coords.longitude * 1000))
       : 124;
 
-    return dateAreaTemplates.map((spot, index) => ({
+    return dateSpotTemplates.map((spot, index) => ({
       ...spot,
       distance: `${((base % 5) * 0.2 + 0.3 + index * 0.18).toFixed(1)} mi`,
+      nextSlot: spot.slots[0],
     }));
   }, [geoState.coords]);
   const activeDateSpot = nearbyDateSpots.find((spot) => spot.id === activeDateSpotId) || nearbyDateSpots[0] || null;
@@ -183,52 +204,98 @@ export default function App() {
       {
         id: "women",
         label: "For women",
+        heat: "Rising",
         filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
       },
       {
         id: "wives",
         label: "For wives",
+        heat: "Most booked",
         filters: { relationship: "wife", budget: "premium", tab: "looks-expensive", intent: "looks-expensive" },
       },
       {
         id: "girlfriends",
         label: "For girlfriends",
+        heat: "Easy win",
         filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
       },
       {
         id: "under-100",
         label: "Under $100",
+        heat: "Under budget",
         filters: { budget: "under-100", tab: "best-overall", intent: "everyday" },
       },
       {
         id: "expensive",
         label: "Looks expensive",
+        heat: "Looks strong",
         filters: { tab: "looks-expensive", budget: "premium", intent: "looks-expensive" },
       },
       {
         id: "useful",
         label: "Actually useful",
+        heat: "Repeat use",
         filters: { tab: "daily-use", budget: "under-100", intent: "everyday" },
       },
       {
         id: "anniversary",
         label: "Anniversary",
+        heat: "Higher signal",
         filters: { relationship: "anniversary", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
       },
       {
         id: "new-relationship",
         label: "New relationship",
+        heat: "Low pressure",
         filters: { relationship: "new-relationship", budget: "under-50", tab: "best-overall", intent: "thoughtful" },
       },
       {
         id: "cozy",
         label: "Cozy home",
+        heat: "Soft lane",
         filters: { budget: "under-100", tab: "cozy-home", intent: "cozy" },
       },
       {
         id: "daily-upgrade",
         label: "Daily upgrade",
+        heat: "Used daily",
         filters: { relationship: "wife", budget: "under-100", tab: "daily-use", intent: "everyday" },
+      },
+      {
+        id: "wife-under-100",
+        label: "Wife under $100",
+        heat: "Safe buy",
+        filters: { relationship: "wife", budget: "under-100", tab: "best-overall", intent: "everyday" },
+      },
+      {
+        id: "girlfriend-premium",
+        label: "Girlfriend premium",
+        heat: "Higher spend",
+        filters: { relationship: "girlfriend", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
+      },
+      {
+        id: "under-50",
+        label: "Under $50",
+        heat: "Quick buy",
+        filters: { budget: "under-50", tab: "best-overall", intent: "everyday" },
+      },
+      {
+        id: "thoughtful",
+        label: "Thoughtful",
+        heat: "Cleaner choice",
+        filters: { tab: "best-overall", intent: "thoughtful" },
+      },
+      {
+        id: "polished",
+        label: "Polished",
+        heat: "Looks better",
+        filters: { tab: "looks-expensive", intent: "looks-expensive" },
+      },
+      {
+        id: "soft",
+        label: "Soft",
+        heat: "Cozy lane",
+        filters: { tab: "cozy-home", intent: "cozy" },
       },
     ];
 
@@ -362,7 +429,7 @@ export default function App() {
         <div className="gs-bento-content">
           {eyebrow && <p className="gs-overline">{eyebrow}</p>}
           <h3>{gift.name}</h3>
-          <p>{deck}</p>
+          {deck ? <p>{deck}</p> : null}
           <div className="gs-bento-footer">
              <div className="gs-product-meta" style={{ marginTop: 0 }}>
                <span>{gift.priceLabel}</span>
@@ -485,15 +552,29 @@ export default function App() {
           <p>Affiliate links. We may earn from qualifying purchases.</p>
           <p>Checkout happens on the merchant site. Apple Pay or similar fast checkout appears there when supported.</p>
           <p>Saved picks stay on this device. Updated weekly.</p>
+          <div className="gs-footer-links">
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+            <a href="/affiliate-disclosure.html">Affiliate</a>
+          </div>
           <a href="mailto:hello@shopforher.org">hello@shopforher.org</a>
         </div>
       </footer>
     );
   }
 
+  function renderTrustStrip() {
+    return (
+      <section className="gs-trust-strip" aria-label="Why ShopForHer works">
+        <span className="gs-trust-chip">Strong picks only</span>
+        <span className="gs-trust-chip">Updated weekly</span>
+        <span className="gs-trust-chip">Fast merchant checkout</span>
+      </section>
+    );
+  }
+
   return (
     <div className="gs-slider-app">
-      <div className="gs-ascii-bg" />
       <div className="gs-phone-frame">
         <header className="gs-header">
           <div className="gs-navbar">
@@ -535,7 +616,7 @@ export default function App() {
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">Popular</p>
                   <h2>Gifts to buy right now.</h2>
-                  <p>Clean picks for girlfriends and wives.</p>
+                  <p>Straight picks for girlfriends and wives.</p>
                 </div>
 
                 <section className="gs-product-list">
@@ -547,10 +628,12 @@ export default function App() {
                     {topPicks.map((gift, index) =>
                       renderBentoCard(gift, index + 1, {
                         eyebrow: index === 0 ? "Best overall" : gift.badge,
+                        deck: gift.bestFor || "",
                       })
                     )}
                   </div>
                 </section>
+                {renderTrustStrip()}
                 {renderFooter()}
               </div>
             </section>
@@ -559,8 +642,8 @@ export default function App() {
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">Hot</p>
-                  <h2>Hot gift ideas.</h2>
-                  <p>Watch. View. Buy.</p>
+                  <h2>What is moving right now.</h2>
+                  <p>See it. View it. Buy it.</p>
                 </div>
 
                 <section className="gs-tiktok-grid">
@@ -583,6 +666,7 @@ export default function App() {
                           </div>
                           <div className="gs-tiktok-info">
                             <span className="gs-tiktok-category">{item.label}</span>
+                            <span className="gs-tiktok-heat">{item.heat}</span>
                             <h3>{gift.name}</h3>
                             <p>{gift.priceLabel}</p>
                             <span className="gs-tiktok-cta">Tap to view</span>
@@ -599,85 +683,92 @@ export default function App() {
             <section className="gs-slide">
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
-                  <p className="gs-overline">Guides</p>
-                  <h2>Date area map.</h2>
-                  <p>Simple black and white spots near you.</p>
+                  <p className="gs-overline">Dates</p>
+                  <h2>Book a place fast.</h2>
+                  <p>Dinner and drinks spots you can book fast.</p>
                 </div>
 
-                <section className="gs-map-panel">
-                  <div className="gs-map-topbar">
-                    <div className="gs-map-location">
+                <section className="gs-date-shell">
+                  <div className="gs-date-toolbar">
+                    <div className="gs-date-area">
                       <p className="gs-overline">Area</p>
                       <strong>{geoState.label}</strong>
                     </div>
-                    <button type="button" className="gs-map-locate" onClick={useMyArea}>
+                    <button type="button" className="gs-date-locate" onClick={useMyArea}>
                       {geoState.status === "loading" ? "Locating..." : "Use my area"}
                     </button>
                   </div>
 
-                  <div className="gs-map-container gs-topo-map">
-                    <svg className="gs-topo-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                      <path d="M-5 22C9 15 18 32 31 26s20-18 35-12 20 18 39 10" />
-                      <path d="M-4 34c14-8 22 8 34 3s16-16 29-14 21 16 42 9" />
-                      <path d="M-6 48c13-6 24 8 37 1s17-18 29-13 20 16 41 8" />
-                      <path d="M-2 62c12-6 22 6 33 0s18-16 31-12 20 14 40 8" />
-                      <path d="M-1 76c13-7 24 7 36 1s18-15 30-11 20 12 39 7" />
-                    </svg>
-
-                    <div className="gs-map-user">
-                      <span />
-                    </div>
-
-                    {nearbyDateSpots.map((spot) => (
-                      <button
-                        key={spot.id}
-                        type="button"
-                        className={classNames("gs-map-pin", activeDateSpot?.id === spot.id && "is-active")}
-                        style={{ left: `${spot.x}%`, top: `${spot.y}%` }}
-                        onClick={() => setActiveDateSpotId(spot.id)}
-                        aria-label={`${spot.name}, ${spot.distance}`}
-                      >
-                        <MapPin size={14} />
-                      </button>
-                    ))}
-
-                    <div className="gs-map-label">{geoState.label}</div>
-                  </div>
-
                   {activeDateSpot ? (
-                    <article className="gs-map-feature">
-                      <p className="gs-overline">{activeDateSpot.type}</p>
-                      <h3>{activeDateSpot.name}</h3>
-                      <p>{activeDateSpot.description}</p>
-                      <div className="gs-map-meta">
-                        <span>{activeDateSpot.distance}</span>
+                    <article className="gs-date-feature">
+                      <div className="gs-date-feature-head">
+                        <div>
+                          <p className="gs-overline">{activeDateSpot.type}</p>
+                          <h3>{activeDateSpot.name}</h3>
+                        </div>
+                        <span className="gs-date-distance">{activeDateSpot.distance}</span>
+                      </div>
+                      <p className="gs-date-copy">{activeDateSpot.description}</p>
+                      <div className="gs-date-meta">
+                        <span>{activeDateSpot.neighborhood}</span>
                         <span>{activeDateSpot.vibe}</span>
+                        <span>OpenTable</span>
+                      </div>
+                      <div className="gs-date-times">
+                        {activeDateSpot.slots.map((slot) => (
+                          <a
+                            key={`${activeDateSpot.id}-${slot}`}
+                            className="gs-date-time"
+                            href={activeDateSpot.bookingUrl}
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {slot}
+                          </a>
+                        ))}
                       </div>
                     </article>
                   ) : null}
-                </section>
 
-                <section className="gs-spot-list">
+                <section className="gs-date-list">
                   {nearbyDateSpots.map((spot) => (
-                    <button
-                      key={spot.id}
-                      type="button"
-                      className={classNames("gs-spot-card", activeDateSpot?.id === spot.id && "is-active")}
-                      onClick={() => setActiveDateSpotId(spot.id)}
-                    >
-                      <div className="gs-spot-icon">
-                        <MapPin size={18} />
-                      </div>
-                      <div className="gs-spot-info">
-                        <h4>{spot.name}</h4>
-                        <p>{spot.description}</p>
-                      </div>
-                      <div className="gs-spot-meta">
-                        <span>{spot.distance}</span>
-                      </div>
-                    </button>
+                    <article key={spot.id} className={classNames("gs-date-row", activeDateSpot?.id === spot.id && "is-active")}>
+                      <button
+                        type="button"
+                        className="gs-date-row-main"
+                        onClick={() => setActiveDateSpotId(spot.id)}
+                      >
+                        <span className="gs-date-row-icon">
+                          <MapPin size={16} />
+                        </span>
+                        <span className="gs-date-row-copy">
+                          <span className="gs-date-row-top">
+                            <strong>{spot.name}</strong>
+                            <span>{spot.distance}</span>
+                          </span>
+                          <span className="gs-date-row-bottom">
+                            {spot.type} · {spot.neighborhood} · {spot.nextSlot}
+                          </span>
+                        </span>
+                      </button>
+                      <a
+                        className="gs-date-row-action"
+                        href={spot.bookingUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Book
+                      </a>
+                    </article>
                   ))}
                 </section>
+
+                <div className="gs-date-powered">
+                  <span>Powered by OpenTable path</span>
+                  <p>Reservations open on OpenTable. Live inventory can be connected through partner access.</p>
+                </div>
+                </section>
+
                 {renderFooter()}
               </div>
             </section>
@@ -691,15 +782,34 @@ export default function App() {
                 </div>
 
                 <section className="gs-stack">
-                  <div className="gs-saved-list">
-                    {savedGifts.length ? (
-                      savedGifts.map((gift, index) => renderSavedRow(gift, index))
-                    ) : (
+                  {savedGifts.length ? (
+                    <>
+                      <section className="gs-saved-helper">
+                        <strong>{savedGifts.length} saved right now</strong>
+                        <p>Keep the shortlist tight. If one still looks obvious, buy it.</p>
+                      </section>
+                      <div className="gs-saved-list">
+                        {savedGifts.map((gift, index) => renderSavedRow(gift, index))}
+                      </div>
+                    </>
+                  ) : (
+                    <div className="gs-saved-list">
                       <article className="gs-empty-panel">
                         <p>No saved picks yet. Save the cover pick or one of the hot stories and it will live here.</p>
+                        <div className="gs-empty-actions">
+                          <button type="button" className="gs-text-link-btn" onClick={() => setSlide(0)}>
+                            Open Popular
+                          </button>
+                          <button type="button" className="gs-text-link-btn" onClick={() => setSlide(1)}>
+                            Open Hot
+                          </button>
+                          <button type="button" className="gs-text-link-btn" onClick={() => setSlide(2)}>
+                            Open Dates
+                          </button>
+                        </div>
                       </article>
-                    )}
-                  </div>
+                    </div>
+                  )}
                 </section>
                 {renderFooter()}
               </div>
