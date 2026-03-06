@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpRight, Bookmark, BookmarkCheck, Gem, MapPin, Play } from "lucide-react";
+import { ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Play } from "lucide-react";
 import Map, { Marker, Popup } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import {
@@ -445,6 +445,37 @@ export default function App() {
     );
   }
 
+  function renderSavedRow(gift, index) {
+    const imageUrl = `https://picsum.photos/seed/${encodeURIComponent(gift.id)}/200/200`;
+
+    return (
+      <article key={`${gift.id}-saved`} className="gs-saved-row">
+        <div className="gs-saved-image-wrap">
+          <img src={imageUrl} alt={gift.name} className="gs-saved-image" loading="lazy" />
+        </div>
+        <div className="gs-saved-content">
+          <div className="gs-saved-main">
+            <h3>{gift.name}</h3>
+            <p className="gs-saved-price">{gift.priceLabel}</p>
+          </div>
+          <div className="gs-saved-actions">
+            <a className="gs-primary-btn" href={buildAffiliateLink(gift)} target="_blank" rel="noreferrer">
+              BUY NOW
+            </a>
+            <button
+              type="button"
+              className="gs-icon-btn is-active"
+              onClick={() => toggleSaved(gift.id)}
+              aria-label="Remove from saved"
+            >
+              <BookmarkCheck />
+            </button>
+          </div>
+        </div>
+      </article>
+    );
+  }
+
   function renderFooter() {
     return (
       <footer className="gs-footer">
@@ -468,7 +499,7 @@ export default function App() {
         <header className="gs-header">
           <div className="gs-navbar">
             <a href="/" className="gs-brand" aria-label="ShopForHer home">
-              <img src="/logo2.png" alt="ShopForHer" className="gs-logo" />
+              <img src="/logo1.png" alt="ShopForHer" className="gs-logo" />
             </a>
             <nav className="gs-site-nav" aria-label="Primary">
               {editorialSlides.map((slide, index) => (
@@ -661,14 +692,9 @@ export default function App() {
                 </div>
 
                 <section className="gs-stack">
-                  <div className="gs-product-grid">
+                  <div className="gs-saved-list">
                     {savedGifts.length ? (
-                      savedGifts.map((gift, index) =>
-                        renderGiftCard(gift, index + 1, {
-                          eyebrow: "Saved",
-                          primaryLabel: "BUY",
-                        })
-                      )
+                      savedGifts.map((gift, index) => renderSavedRow(gift, index))
                     ) : (
                       <article className="gs-empty-panel">
                         <p>No saved picks yet. Save the cover pick or one of the hot stories and it will live here.</p>
