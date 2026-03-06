@@ -1,0 +1,386 @@
+.ga-app {
+  width: min(1440px, calc(100% - 24px));
+  margin: 12px auto 20px;
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+}
+
+.ga-header,
+.ga-metric-card,
+.ga-list-shell,
+.ga-detail-card,
+.ga-config-card {
+  padding: 22px;
+}
+
+.ga-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.ga-header-copy {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.ga-mark {
+  width: 54px;
+  height: 54px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #9ec8ff 0%, #4f79a6 58%, #17314d 100%);
+  color: #ffffff;
+  font-family: var(--font-display);
+  letter-spacing: 0.18em;
+  text-indent: 0.18em;
+}
+
+.ga-label,
+.ga-code,
+.ga-status {
+  margin: 0;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.ga-label {
+  color: var(--text-soft);
+  font-size: 0.76rem;
+}
+
+.ga-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(142, 188, 255, 0.1);
+  color: var(--accent-deep);
+  font-size: 0.72rem;
+}
+
+.ga-header h1,
+.ga-panel-head h2,
+.ga-row strong,
+.ga-detail-hero strong,
+.ga-meta-card strong,
+.ga-config-row strong,
+.ga-metric-card strong,
+.ga-field span,
+.ga-action {
+  margin: 0;
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.ga-header h1 {
+  font-size: 1.5rem;
+}
+
+.ga-header p,
+.ga-row p,
+.ga-copy-block p,
+.ga-metric-card span,
+.ga-empty {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.ga-tag,
+.ga-count,
+.ga-code,
+.ga-price,
+.ga-tab,
+.ga-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.ga-tag,
+.ga-count,
+.ga-price {
+  color: var(--text-soft);
+}
+
+.ga-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.ga-metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ga-metric-card strong {
+  font-size: 1.3rem;
+}
+
+.ga-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(420px, 0.8fr);
+  gap: 14px;
+}
+
+.ga-list-shell,
+.ga-detail-card,
+.ga-config-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+}
+
+.ga-detail-stack {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 14px;
+  min-height: 0;
+}
+
+.ga-panel-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ga-toolbar {
+  display: grid;
+  gap: 12px;
+}
+
+.ga-search,
+.ga-field input,
+.ga-field textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 14px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface-muted);
+  color: var(--text);
+  outline: none;
+}
+
+.ga-field textarea {
+  min-height: 110px;
+  padding: 12px 14px;
+  resize: vertical;
+}
+
+.ga-search:focus,
+.ga-field input:focus,
+.ga-field textarea:focus {
+  border-color: var(--line-strong);
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(142, 188, 255, 0.14);
+}
+
+.ga-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ga-tab,
+.ga-row,
+.ga-action {
+  cursor: pointer;
+}
+
+.ga-tab {
+  color: var(--accent-deep);
+}
+
+.ga-tab.is-active,
+.ga-row.is-active {
+  background: var(--accent-weak);
+  border-color: rgba(47, 98, 151, 0.22);
+}
+
+.ga-list {
+  display: grid;
+  gap: 10px;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.ga-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+.ga-list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(47, 98, 151, 0.18);
+}
+
+.ga-row {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  text-align: left;
+  border-radius: 18px;
+  border: 1px solid rgba(21, 50, 79, 0.08);
+  background: var(--surface-muted);
+}
+
+.ga-row-top,
+.ga-dual-pills {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.ga-detail-hero {
+  padding: 18px;
+  border-radius: 20px;
+  color: #ffffff;
+  display: grid;
+  gap: 6px;
+}
+
+.ga-detail-hero p,
+.ga-detail-hero span {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.ga-detail-hero strong {
+  font-size: 1.2rem;
+}
+
+.ga-copy-block {
+  display: grid;
+  gap: 14px;
+}
+
+.ga-meta-grid,
+.ga-editor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ga-meta-card,
+.ga-config-row,
+.ga-empty,
+.ga-editor-shell {
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(21, 50, 79, 0.08);
+  background: var(--surface-muted);
+}
+
+.ga-editor-shell {
+  display: grid;
+  gap: 14px;
+}
+
+.ga-meta-card {
+  display: grid;
+  gap: 6px;
+}
+
+.ga-field {
+  display: grid;
+  gap: 8px;
+}
+
+.ga-field span {
+  font-size: 0.92rem;
+  color: var(--accent-deep);
+}
+
+.ga-field-wide {
+  grid-column: 1 / -1;
+}
+
+.ga-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ga-action {
+  color: var(--accent-deep);
+}
+
+.ga-action-primary {
+  border-color: transparent;
+  color: #ffffff;
+  background: linear-gradient(145deg, #90beff, #2f6297);
+}
+
+.ga-action-danger {
+  border-color: rgba(153, 50, 50, 0.14);
+  color: #7a2830;
+  background: #fff6f6;
+}
+
+.ga-file-input {
+  display: none;
+}
+
+.ga-config-list {
+  display: grid;
+  gap: 10px;
+}
+
+.ga-config-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.ga-config-row span {
+  color: var(--text-soft);
+}
+
+@media (max-width: 1120px) {
+  .ga-metrics,
+  .ga-workspace,
+  .ga-meta-grid,
+  .ga-editor-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ga-detail-stack {
+    grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  .ga-app {
+    width: min(100% - 16px, 1440px);
+  }
+
+  .ga-header,
+  .ga-header-copy,
+  .ga-panel-head,
+  .ga-row-top,
+  .ga-dual-pills,
+  .ga-config-row,
+  .ga-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
