@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Play } from "lucide-react";
-import Map, { Marker, Popup } from "react-map-gl/mapbox";
-import "mapbox-gl/dist/mapbox-gl.css";
 import {
   buildAffiliateLink,
   classNames,
@@ -486,7 +484,8 @@ export default function App() {
         <div className="gs-footer-meta">
           <p>Affiliate links. We may earn from qualifying purchases.</p>
           <p>Checkout happens on the merchant site. Apple Pay or similar fast checkout appears there when supported.</p>
-          <a href="mailto:hello@giftsher.co">hello@giftsher.co</a>
+          <p>Saved picks stay on this device. Updated weekly.</p>
+          <a href="mailto:hello@shopforher.org">hello@shopforher.org</a>
         </div>
       </footer>
     );
