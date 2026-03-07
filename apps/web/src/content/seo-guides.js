@@ -1,3 +1,6 @@
+import { applyProductMedia } from "../../../../packages/catalog/media.js";
+import { normalizeSeoCatalog } from "../../../../packages/catalog/schema.js";
+
 export const seoSite = {
   name: "ShopForHer",
   url: "https://shopforher.org",
@@ -11,7 +14,7 @@ export const seoSite = {
   affiliateBaseUrl: "https://www.amazon.com/s",
 };
 
-export const seoCatalog = [
+const rawSeoCatalog = [
   {
     id: "silk-pillowcase",
     slug: "mulberry-silk-pillowcase-set",
@@ -301,6 +304,8 @@ export const seoCatalog = [
   },
 ];
 
+export const seoCatalog = normalizeSeoCatalog(rawSeoCatalog.map((gift) => applyProductMedia(gift)));
+
 export const seoGuides = [
   {
     slug: "gifts-for-girlfriend",
@@ -340,6 +345,50 @@ export const seoGuides = [
       {
         q: "Is spending over $100 necessary for a girlfriend gift?",
         a: "Not usually. Under-$100 gifts often perform better because they feel thoughtful without making the moment feel heavier than it is.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "Soft, feminine gifts that look polished fast",
+        giftId: "silk-pillowcase",
+        body: "Use this when you want the gift to feel attractive and clearly chosen without crossing into a heavy romantic gesture.",
+      },
+      {
+        title: "Fun, current gifts she can actually use and share",
+        giftId: "mini-photo-printer",
+        body: "This is the cleaner answer when you want more energy and personality than another safe home object.",
+      },
+      {
+        title: "A more organized, put-together travel or accessories lane",
+        giftId: "jewelry-case",
+        body: "Best when she likes polished everyday items and you want the gift to look more intentional than random.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid heavy commitment gifts if the relationship is still light",
+        body: "A girlfriend gift usually works better when it feels easy to receive rather than like a major emotional statement.",
+      },
+      {
+        title: "Avoid fragrance, sizing, and hyper-specific style bets",
+        body: "Those gifts miss more often because they require more personal preference data than most buyers actually have.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Lower spend",
+        giftId: "candle-warmer",
+        body: "The safest low-cost answer when you still want a gift that feels warm, aesthetic, and obviously for her.",
+      },
+      {
+        title: "Most giftable overall",
+        giftId: "silk-pillowcase",
+        body: "The cleanest all-around first pick when you want something attractive, low-risk, and easy to defend.",
+      },
+      {
+        title: "Best if you want more personality",
+        giftId: "mini-photo-printer",
+        body: "Use this when the gift should feel more current and fun instead of calm and ultra-safe.",
       },
     ],
     itemIds: ["silk-pillowcase", "mini-photo-printer", "jewelry-case", "earbuds", "candle-warmer", "sunrise-alarm"],
@@ -385,6 +434,50 @@ export const seoGuides = [
         a: "Usually yes. The gift does not need to be flashy, but it should feel more deliberate, substantial, or better-finished.",
       },
     ],
+    bestFits: [
+      {
+        title: "Meaningful home gifts with stronger emotional payoff",
+        giftId: "digital-frame",
+        body: "Best when you want the gift to feel personal and useful at the same time instead of just premium for its own sake.",
+      },
+      {
+        title: "Daily-use upgrades that still read like a real gift",
+        giftId: "temperature-mug",
+        body: "Use this when routine payoff matters and you want the gift to keep feeling strong after the first day.",
+      },
+      {
+        title: "A bigger premium move with clearer presence",
+        giftId: "walking-pad",
+        body: "This is the higher-conviction answer when you want more impact than a smaller accessory can deliver.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid novelty clutter when quality is the real signal",
+        body: "A wife gift usually benefits more from finish, usefulness, and brand trust than from trend-shaped impulse products.",
+      },
+      {
+        title: "Avoid low-spend filler when one stronger gift would do",
+        body: "Several smaller mediocre items often feel weaker than one clear upgrade with a better reason to exist.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best daily-use pick",
+        giftId: "temperature-mug",
+        body: "The safest answer when you want utility, polish, and a premium-feeling upgrade in one move.",
+      },
+      {
+        title: "Best emotional pick",
+        giftId: "digital-frame",
+        body: "Use this when you want the gift to feel more personal without getting cheesy or hard to explain.",
+      },
+      {
+        title: "Best bigger move",
+        giftId: "walking-pad",
+        body: "Choose this when you want the wife gift to feel more substantial and clearly above the routine-gift line.",
+      },
+    ],
     itemIds: ["digital-frame", "temperature-mug", "cashmere-robe", "vanity-mirror", "walking-pad", "projector"],
     related: ["anniversary-gifts-for-her", "luxury-gifts-for-her", "daily-use-gifts-for-her"],
   },
@@ -426,6 +519,50 @@ export const seoGuides = [
       {
         q: "Should I optimize for romance or usefulness on an anniversary?",
         a: "Romance or emotional signal should lead. Usefulness helps, but it should not be the only reason the gift is there.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "A more emotional reveal that still feels useful later",
+        giftId: "digital-frame",
+        body: "Best when you want the anniversary gift to land as personal, not just premium.",
+      },
+      {
+        title: "A shared-night or experience-shaped gift",
+        giftId: "projector",
+        body: "Use this when the point is to make the night itself stronger instead of only adding another object.",
+      },
+      {
+        title: "Soft luxury with a calmer, more intimate feel",
+        giftId: "cashmere-robe",
+        body: "This is the cleaner answer when you want warmth, polish, and a stronger sense of occasion.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid routine practical gifts if the moment matters more",
+        body: "An anniversary gift should feel more intentional than something chosen only for everyday utility.",
+      },
+      {
+        title: "Avoid low-cost filler if you want real signal",
+        body: "Cheap add-ons can dilute the feeling of the gift unless they clearly support a stronger main pick.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Lower spend",
+        giftId: "silk-pillowcase",
+        body: "The cleanest lower-budget answer when you still want softness, polish, and a more premium feel.",
+      },
+      {
+        title: "Most emotional",
+        giftId: "digital-frame",
+        body: "Use this when you want the anniversary gift to feel personal quickly and keep that meaning after the night ends.",
+      },
+      {
+        title: "Best shared experience",
+        giftId: "projector",
+        body: "The strongest answer when you want the gift and the date itself to reinforce each other.",
       },
     ],
     itemIds: ["digital-frame", "projector", "cashmere-robe", "silk-pillowcase", "jewelry-case", "mini-photo-printer"],
@@ -557,6 +694,50 @@ export const seoGuides = [
         a: "Overly gimmicky products, low-trust tech, and anything that looks like it was bought only because it was cheap.",
       },
     ],
+    bestFits: [
+      {
+        title: "Cozy gifts that still look presentable",
+        giftId: "ugg-slippers",
+        body: "Use this when you want the comfort lane but still need the gift to feel branded and clearly above generic homewear.",
+      },
+      {
+        title: "A lower-cost gift that still reads polished",
+        giftId: "silk-pillowcase",
+        body: "Best when you want the spend to stay modest without making the gift feel obviously budget-first.",
+      },
+      {
+        title: "A trendy small luxury or add-on lane",
+        giftId: "laneige-set",
+        body: "This works when you need a tiny spend with quick gift energy and more current beauty-category appeal.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid bargain-bin tech with weak trust signals",
+        body: "Cheap electronics often feel worse than a simpler cozy or beauty gift in this price range.",
+      },
+      {
+        title: "Avoid anything that looks like a random errand buy",
+        body: "The fastest way to make a sub-$75 gift feel weak is choosing something with no obvious presentation or personal fit.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Lowest spend",
+        giftId: "laneige-set",
+        body: "The easiest answer when you need a genuinely small spend that still feels current and gift-ready.",
+      },
+      {
+        title: "Safest cozy pick",
+        giftId: "ugg-slippers",
+        body: "Use this when comfort is the lane but you still want recognizable brand energy and cleaner presentation.",
+      },
+      {
+        title: "Best polished pick",
+        giftId: "silk-pillowcase",
+        body: "The strongest answer when you want the gift to look more expensive than the spend without overcomplicating it.",
+      },
+    ],
     itemIds: ["candle-warmer", "laneige-set", "stanley-quencher", "owala-bottle", "ugg-slippers", "silk-pillowcase"],
     related: ["best-gifts-under-100", "gifts-for-girlfriend", "last-minute-gifts-for-her"],
   },
@@ -598,6 +779,50 @@ export const seoGuides = [
       {
         q: "When should I drop to the under-$75 page instead?",
         a: "Use the under-$75 page when the budget is fixed and you need the strongest low-spend answer without stretching for a more expensive category.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "A giftable, current pick with more personality",
+        giftId: "mini-photo-printer",
+        body: "Best when you want something that feels more memorable than a standard practical upgrade without going fully premium.",
+      },
+      {
+        title: "Everyday products she will actually use",
+        giftId: "earbuds",
+        body: "Use this when the safest path is obvious utility with enough quality to still feel like a real gift.",
+      },
+      {
+        title: "Branded cozy gifts that look stronger than the spend",
+        giftId: "ugg-slippers",
+        body: "This is the clean home-comfort lane when you still want the product to read polished immediately.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid fake-luxury products that stretch the budget too thin",
+        body: "At this range, cleaner branded picks beat products trying too hard to look premium while compromising quality.",
+      },
+      {
+        title: "Avoid trying to solve every use case with one gift",
+        body: "It works better to choose one clear lane such as cozy, daily-use, or fun-tech instead of forcing a do-everything answer.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Lowest spend",
+        giftId: "owala-bottle",
+        body: "The easiest answer when you want a current branded product without using much of the budget.",
+      },
+      {
+        title: "Most giftable overall",
+        giftId: "mini-photo-printer",
+        body: "Use this when you want the strongest mix of fun, presentability, and obvious gift energy under this budget ceiling.",
+      },
+      {
+        title: "Best practical pick",
+        giftId: "earbuds",
+        body: "The safest move when the gift should feel useful immediately and keep winning through repeat use.",
       },
     ],
     itemIds: ["ugg-slippers", "mini-photo-printer", "stanley-quencher", "owala-bottle", "earbuds", "laneige-set", "candle-warmer"],
@@ -643,6 +868,50 @@ export const seoGuides = [
         a: "Skip it when you want something more timeless, more premium, or more tailored to the relationship instead of the trend cycle.",
       },
     ],
+    bestFits: [
+      {
+        title: "Mainstream products she already recognizes online",
+        giftId: "stanley-quencher",
+        body: "Best when you want the gift to feel current immediately without needing a lot of explanation.",
+      },
+      {
+        title: "Beauty-category gifts with fast trend recognition",
+        giftId: "sol-de-janeiro",
+        body: "Use this when you want a smaller viral pick that still feels feminine and clearly chosen for her.",
+      },
+      {
+        title: "Bigger home or hobby gifts that still feel current",
+        giftId: "ninja-creami",
+        body: "This is the better answer when the viral gift should have more presence than a small add-on product.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid trend-only products with no real use case",
+        body: "If the appeal disappears once the hype is gone, the gift will feel weaker than it looked in the search result.",
+      },
+      {
+        title: "Avoid this lane if you need timeless or relationship-specific signal",
+        body: "Viral gifts are strongest when current relevance matters more than lasting emotional meaning or premium polish.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Lower spend",
+        giftId: "sol-de-janeiro",
+        body: "The easiest smaller viral pick when you want trend energy without turning the gift into a bigger purchase.",
+      },
+      {
+        title: "Safest mainstream pick",
+        giftId: "stanley-quencher",
+        body: "Use this when you want the most instantly recognizable viral gift with an obvious everyday role.",
+      },
+      {
+        title: "Best bigger trend gift",
+        giftId: "ninja-creami",
+        body: "The strongest answer when the gift should feel more substantial while still carrying current online momentum.",
+      },
+    ],
     itemIds: ["ninja-creami", "stanley-quencher", "owala-bottle", "sol-de-janeiro", "laneige-set", "mini-photo-printer"],
     related: ["gifts-for-girlfriend", "tech-gifts-for-her", "amazon-gifts-for-her"],
   },
@@ -684,6 +953,50 @@ export const seoGuides = [
       {
         q: "When should I choose luxury gifts over anniversary gifts?",
         a: "Choose this page when the main goal is premium feel first. Choose anniversary when emotional signal or shared-moment value matters more.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "Quiet premium gifts for readers and calmer routines",
+        giftId: "kindle-paperwhite",
+        body: "Best when you want a luxury-leaning gift that feels smart, polished, and easy to justify over time.",
+      },
+      {
+        title: "Upgraded home rituals that look expensive fast",
+        giftId: "nespresso-machine",
+        body: "Use this when the gift should signal premium everyday living instead of trendiness or novelty.",
+      },
+      {
+        title: "A bigger wellness move with stronger presence",
+        giftId: "theragun-relief",
+        body: "This is the better answer when you want premium utility with a more serious feel than a smaller accessory.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid paying luxury prices for products with weak routine fit",
+        body: "Premium gifts feel stronger when they match something she already does often instead of forcing a new habit.",
+      },
+      {
+        title: "Avoid loud status-signaling if polish is the goal",
+        body: "Calmer, better-finished products usually read more expensive than flashy picks that are trying too hard.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Quiet premium",
+        giftId: "kindle-paperwhite",
+        body: "The cleanest answer when the gift should feel elevated, useful, and understated rather than flashy.",
+      },
+      {
+        title: "Best home luxury",
+        giftId: "nespresso-machine",
+        body: "Use this when you want the premium feel to show up immediately in an everyday routine.",
+      },
+      {
+        title: "Best bigger move",
+        giftId: "theragun-relief",
+        body: "The stronger answer when you want the luxury gift to feel more substantial and obviously above a small upgrade.",
       },
     ],
     itemIds: ["kindle-paperwhite", "digital-frame", "temperature-mug", "nespresso-machine", "theragun-relief", "bose-speaker"],
@@ -765,6 +1078,50 @@ export const seoGuides = [
         a: "Avoid very personal, size-sensitive, or commitment-heavy gifts that can make a simple good gesture feel loaded.",
       },
     ],
+    bestFits: [
+      {
+        title: "A polished gift that still feels light and easy",
+        giftId: "silk-pillowcase",
+        body: "Best when you want attractive and thoughtful without making the relationship feel more serious than it is.",
+      },
+      {
+        title: "A more playful, current gift with personality",
+        giftId: "mini-photo-printer",
+        body: "Use this when the new relationship already has more fun energy and you want the gift to reflect that.",
+      },
+      {
+        title: "A warm home gift with low pressure",
+        giftId: "candle-warmer",
+        body: "This is the cleaner answer when you want something cozy and easy to receive with almost no risk.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid oversized romance if you are still establishing the lane",
+        body: "The goal is to look considered, not intense or commitment-heavy before the relationship naturally gets there.",
+      },
+      {
+        title: "Avoid deeply personal taste bets too early",
+        body: "Anything that depends on size, scent, or hyper-specific aesthetic preference can make an early gift feel riskier than it needs to be.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Lower spend",
+        giftId: "candle-warmer",
+        body: "The safest low-pressure gift when you want warmth and giftability without signaling too much.",
+      },
+      {
+        title: "Most thoughtful overall",
+        giftId: "silk-pillowcase",
+        body: "Use this when you want the cleanest balance of polish, femininity, and easy-to-receive energy.",
+      },
+      {
+        title: "Best playful pick",
+        giftId: "mini-photo-printer",
+        body: "The stronger answer when the relationship already leans fun and the gift should feel more current than quiet.",
+      },
+    ],
     itemIds: ["silk-pillowcase", "mini-photo-printer", "sunrise-alarm", "luxury-throw", "magsafe-stand", "candle-warmer"],
     related: ["gifts-for-girlfriend", "best-gifts-under-75", "last-minute-gifts-for-her"],
   },
@@ -820,6 +1177,50 @@ export const seoGuides = [
         a: "Leave it when you still have enough time to optimize for the occasion or relationship stage instead of pure speed.",
       },
     ],
+    bestFits: [
+      {
+        title: "A simple practical gift that still looks intentional",
+        giftId: "stanley-quencher",
+        body: "Best when you need the product to make sense on sight and feel current enough that the rush does not show.",
+      },
+      {
+        title: "A polished smaller gift you can buy fast",
+        giftId: "laneige-set",
+        body: "Use this when the spend is small and the gift still needs to read as present-ready immediately.",
+      },
+      {
+        title: "A calmer home-comfort lane with very low friction",
+        giftId: "luxury-throw",
+        body: "This is the easy answer when you want the gift to feel softer and more elevated than a generic practical product.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid explanation-heavy gifts when time is the real issue",
+        body: "If the product needs a story to justify it, it will usually read weaker than a simpler gift with obvious fit.",
+      },
+      {
+        title: "Avoid custom or highly personal lanes when you are already late",
+        body: "Speed works best with products that have immediate visual logic and do not depend on extra context to land.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Small spend",
+        giftId: "laneige-set",
+        body: "The fastest path when you need a current, giftable product with a genuinely low spend.",
+      },
+      {
+        title: "Safest practical pick",
+        giftId: "stanley-quencher",
+        body: "Use this when the goal is recognizable, useful, and easy to buy without overthinking the decision.",
+      },
+      {
+        title: "Best softer pick",
+        giftId: "luxury-throw",
+        body: "The cleaner answer when you want last-minute speed without making the gift feel overly utilitarian.",
+      },
+    ],
     itemIds: ["magsafe-stand", "laneige-set", "stanley-quencher", "earbuds", "owala-bottle", "luxury-throw"],
     related: ["amazon-gifts-for-her", "best-gifts-under-75", "gifts-for-girlfriend"],
   },
@@ -861,6 +1262,50 @@ export const seoGuides = [
       {
         q: "When should I choose anniversary gifts instead of date-night gifts?",
         a: "Choose anniversary gifts when the emotional signal matters more than the shared-night feel. Choose date-night gifts when you want the experience to carry the moment.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "A shared-night gift that becomes part of the plan",
+        giftId: "projector",
+        body: "Best when you want the gift to create a second moment together instead of only being opened and set aside.",
+      },
+      {
+        title: "A softer reveal with more intimate home energy",
+        giftId: "cashmere-robe",
+        body: "Use this when the night should feel warmer, more premium, and less like a standard practical buy.",
+      },
+      {
+        title: "A low-pressure mood-setting add-on",
+        giftId: "candle-warmer",
+        body: "This is the cleaner answer when the date-night gift should support atmosphere without becoming the whole event.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid ultra-practical gifts when the experience matters more",
+        body: "The strongest date-night gifts feel tied to the mood or memory of the night instead of solving a random everyday problem.",
+      },
+      {
+        title: "Avoid solo-use products with no shared-angle payoff",
+        body: "This lane works best when the gift naturally creates a moment you can both step into, even briefly.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best cozy pick",
+        giftId: "candle-warmer",
+        body: "The easiest answer when you want a lower-pressure date-night gift that still improves the mood fast.",
+      },
+      {
+        title: "Best shared experience",
+        giftId: "projector",
+        body: "Use this when the gift should become part of the date itself and feel more memorable than a basic object.",
+      },
+      {
+        title: "Best premium reveal",
+        giftId: "cashmere-robe",
+        body: "The cleaner answer when you want the date-night gift to feel softer, more luxurious, and clearly intentional.",
       },
     ],
     itemIds: ["projector", "mini-photo-printer", "cashmere-robe", "candle-warmer", "digital-frame", "luxury-throw"],
@@ -940,6 +1385,50 @@ export const seoGuides = [
       {
         q: "When should I use this page instead of the luxury page?",
         a: "Use this page when the visual impression matters more than true premium spend. Use luxury when you want both higher finish and a higher actual budget.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "Polished home gifts with immediate visual payoff",
+        giftId: "digital-frame",
+        body: "Best when you want the product to look premium quickly and still have enough usefulness to feel like a smart buy.",
+      },
+      {
+        title: "Soft luxury that reads expensive on contact",
+        giftId: "cashmere-robe",
+        body: "Use this when fabric, finish, and immediate comfort are the main signals you want her to notice first.",
+      },
+      {
+        title: "A premium-feeling kitchen or routine upgrade",
+        giftId: "nespresso-machine",
+        body: "This is the stronger answer when the gift should look elevated while still fitting a real everyday habit.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid loud trend products if visual polish is the goal",
+        body: "Trendy products can look current, but they do not always create the calm premium impression this page is trying to solve for.",
+      },
+      {
+        title: "Avoid fake-luxury clutter with weak finish",
+        body: "A simpler branded product with cleaner materials usually reads more expensive than a complicated product doing too much.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Lower spend",
+        giftId: "ugg-slippers",
+        body: "The easiest answer when you want recognizable brand energy and a premium-looking result without a major budget jump.",
+      },
+      {
+        title: "Best visual impact",
+        giftId: "digital-frame",
+        body: "Use this when the gift should look polished immediately and still hold up once she actually starts using it.",
+      },
+      {
+        title: "Best routine upgrade",
+        giftId: "nespresso-machine",
+        body: "The cleaner answer when the expensive-looking signal should come from a better everyday ritual rather than pure decoration.",
       },
     ],
     itemIds: ["ugg-slippers", "kindle-paperwhite", "cashmere-robe", "digital-frame", "nespresso-machine", "bose-speaker"],

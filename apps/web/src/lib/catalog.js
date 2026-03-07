@@ -2,6 +2,8 @@ import {
   affiliateConfig as baseAffiliateConfig,
   tabs as baseTabs,
 } from "../../../../packages/catalog/index.js";
+import { applyProductMedia } from "../../../../packages/catalog/media.js";
+import { normalizeCatalogGifts } from "../../../../packages/catalog/schema.js";
 import {
   getCatalogSnapshot,
   subscribeToCatalogUpdates,
@@ -13,7 +15,7 @@ export function readLiveCatalog() {
   return {
     affiliateConfig: snapshot.affiliateConfig || baseAffiliateConfig,
     tabs: snapshot.tabs?.length ? snapshot.tabs : baseTabs,
-    gifts: snapshot.gifts || [],
+    gifts: normalizeCatalogGifts((snapshot.gifts || []).map((gift) => applyProductMedia(gift))),
   };
 }
 

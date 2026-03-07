@@ -105,11 +105,14 @@ function rankGiftMatches(gifts, filters) {
 
 export default function App() {
   const touchRef = useRef({ x: 0, y: 0 });
+  const tabRefs = useRef([]);
+  const previewCloseRef = useRef(null);
   const initialDateTime = getDefaultDateTimeInput();
   const [catalog, setCatalog] = useState(() => readLiveCatalog());
   const [activeSlide, setActiveSlide] = useState(0);
   const [savedIds, setSavedIds] = useState(() => loadSaved());
   const [previewGift, setPreviewGift] = useState(null);
+  const [previewImageIndex, setPreviewImageIndex] = useState(0);
   const [geoState, setGeoState] = useState({ status: "idle", label: "Preview area", coords: null });
   const [dateSearch, setDateSearch] = useState(() => ({
     partySize: DEFAULT_DATE_PARTY_SIZE,
@@ -152,12 +155,15 @@ export default function App() {
     const previousOverflow = document.body.style.overflow;
     const onKeyDown = (event) => {
       if (event.key === "Escape") {
-        setPreviewGift(null);
+        closePreview();
       }
     };
 
     document.body.style.overflow = "hidden";
     document.addEventListener("keydown", onKeyDown);
+    requestAnimationFrame(() => {
+      previewCloseRef.current?.focus();
+    });
 
     return () => {
       document.body.style.overflow = previousOverflow;
@@ -191,7 +197,14 @@ export default function App() {
     return merged.slice(0, 18);
   }, [gifts, rankedMatches, activeFilters]);
   const linkedTopProducts = useMemo(
-    () => topPicks.map((gift) => seoCatalogById.get(gift.id)).filter(Boolean).slice(0, 6),
+    () =>
+      topPicks
+        .map((gift) => {
+          const seoGift = seoCatalogById.get(gift.id);
+          return seoGift ? { ...gift, slug: seoGift.slug } : null;
+        })
+        .filter(Boolean)
+        .slice(0, 6),
     [topPicks]
   );
   const featuredCatalogProducts = useMemo(
@@ -241,6 +254,14 @@ export default function App() {
   const previewIntentTags = previewGift
     ? (previewGift.intents || []).slice(0, 4).map((value) => stateLabels[value] || value)
     : [];
+  const previewImages = useMemo(() => {
+    if (!previewGift) {
+      return [];
+    }
+
+    return [...new Set([getGiftImageUrl(previewGift), ...(previewGift.galleryImages || [])].filter(Boolean))];
+  }, [previewGift]);
+  const activePreviewImage = previewImages[previewImageIndex] || previewImages[0] || "";
   const videoStories = useMemo(() => {
     const definitions = [
       {
@@ -536,6 +557,40 @@ export default function App() {
     setActiveSlide(nextIndex);
   }
 
+  function setTabRef(index, node) {
+    tabRefs.current[index] = node;
+  }
+
+  function focusSlideTab(index) {
+    tabRefs.current[index]?.focus();
+  }
+
+  function onTabKeyDown(event, index) {
+    if (!["ArrowRight", "ArrowLeft", "Home", "End"].includes(event.key)) {
+      return;
+    }
+
+    event.preventDefault();
+
+    if (event.key === "Home") {
+      setSlide(0);
+      focusSlideTab(0);
+      return;
+    }
+
+    if (event.key === "End") {
+      const lastIndex = slides.length - 1;
+      setSlide(lastIndex);
+      focusSlideTab(lastIndex);
+      return;
+    }
+
+    const direction = event.key === "ArrowRight" ? 1 : -1;
+    const nextIndex = (index + direction + slides.length) % slides.length;
+    setSlide(nextIndex);
+    focusSlideTab(nextIndex);
+  }
+
   function updateBrief(key, value) {
     setBrief((current) => ({
       ...current,
@@ -592,14 +647,39 @@ export default function App() {
   }
 
   function getGiftImageUrl(gift) {
-    return gift.imageUrl || gift.image || `https://picsum.photos/seed/${encodeURIComponent(gift.id)}/640/480`;
+    return gift?.imageUrl || gift?.image || "/logo1.png";
+  }
+
+  function getGiftHeroImageUrl(gift) {
+    return gift?.galleryImages?.[0] || getGiftImageUrl(gift);
+  }
+
+  function getGiftImageStyleVars(gift) {
+    const productShot = gift?.imageLayout === "product";
+
+    return {
+      "--gift-image-fit": gift?.imageFit || (productShot ? "contain" : "cover"),
+      "--gift-image-position": gift?.imagePosition || "center center",
+      "--gift-image-bg": gift?.imageBackground || (productShot ? "#f5f3ee" : "#ececec"),
+    };
+  }
+
+  function getGiftImageFrameProps(gift, baseClassName) {
+    const productShot = gift?.imageLayout === "product";
+
+    return {
+      className: classNames(baseClassName, productShot && "is-product-shot"),
+      style: getGiftImageStyleVars(gift),
+    };
   }
 
   function openPreview(gift) {
+    setPreviewImageIndex(0);
     setPreviewGift(gift);
   }
 
   function closePreview() {
+    setPreviewImageIndex(0);
     setPreviewGift(null);
   }
 
@@ -643,6 +723,7 @@ export default function App() {
     return (
       <article 
         ref={ref} 
+        role="listitem"
         className={classNames(
           "gs-bento-card",
           imageOnly && "is-image-only",
@@ -656,15 +737,15 @@ export default function App() {
             type="button"
             className="gs-bento-image-hit"
             onClick={() => openPreview(gift)}
-            aria-label={`Open ${gift.name}`}
+            aria-label={`Preview ${gift.name}`}
           >
-            <div className="gs-bento-image-wrap">
+            <div {...getGiftImageFrameProps(gift, "gs-bento-image-wrap")}>
               <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
             </div>
           </button>
         ) : (
           <>
-            <div className="gs-bento-image-wrap">
+            <div {...getGiftImageFrameProps(gift, "gs-bento-image-wrap")}>
               <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
             </div>
             <div className="gs-bento-content">
@@ -682,7 +763,7 @@ export default function App() {
                       type="button"
                       className="gs-icon-btn"
                       onClick={() => openPreview(gift)}
-                      aria-label={`View ${gift.name}`}
+                      aria-label={`Preview ${gift.name}`}
                     >
                       <Play />
                     </button>
@@ -690,7 +771,8 @@ export default function App() {
                       type="button"
                       className={classNames("gs-icon-btn", isSaved && "is-active")}
                       onClick={() => toggleSaved(gift.id)}
-                      aria-label={isSaved ? "Remove from saved" : "Save"}
+                      aria-pressed={isSaved}
+                      aria-label={isSaved ? `Remove ${gift.name} from saved picks` : `Save ${gift.name}`}
                     >
                       {isSaved ? <BookmarkCheck /> : <Bookmark />}
                     </button>
@@ -699,7 +781,7 @@ export default function App() {
                       href={buildAffiliateLink(gift)}
                       target="_blank"
                       rel="noreferrer"
-                      aria-label="Buy"
+                      aria-label={`Buy ${gift.name} on ${affiliateConfig.merchantName}`}
                     >
                       <ArrowUpRight />
                     </a>
@@ -724,6 +806,7 @@ export default function App() {
     return (
       <article
         ref={ref}
+        role="listitem"
         className={classNames(
           "gs-hot-feed-card",
           inView && "animate-fade-up",
@@ -738,7 +821,7 @@ export default function App() {
           type="button"
           className="gs-hot-feed-hit"
           onClick={() => openPreview(gift)}
-          aria-label={`View ${gift.name}`}
+          aria-label={`Preview ${gift.name} from the ${item.label} lane`}
         >
           <div className="gs-hot-feed-media">
             <img
@@ -771,7 +854,8 @@ export default function App() {
     );
   }
 
-  function renderGiftCard(gift, index, options = {}) {    const isSaved = savedIds.includes(gift.id);
+  function renderGiftCard(gift, index, options = {}) {
+    const isSaved = savedIds.includes(gift.id);
     const {
       eyebrow = gift.badge,
       deck = gift.hook,
@@ -780,7 +864,7 @@ export default function App() {
     } = options;
 
     return (
-      <article key={`${gift.id}-${eyebrow}-${index}`} className="gs-product-card">
+      <article key={`${gift.id}-${eyebrow}-${index}`} className="gs-product-card" role="listitem">
         <span className="gs-product-rank">/{String(index).padStart(2, "0")}</span>
         <div className="gs-product-main">
           {eyebrow && <p className="gs-overline">{eyebrow}</p>}
@@ -796,15 +880,24 @@ export default function App() {
         </div>
         <div className="gs-product-actions">
           <button type="button" className="gs-secondary-btn" onClick={() => openPreview(gift)}>
+            <span className="gs-visually-hidden">{`Preview ${gift.name}. `}</span>
             VIEW
           </button>
-          <a className="gs-primary-btn" href={buildAffiliateLink(gift)} target="_blank" rel="noreferrer">
+          <a
+            className="gs-primary-btn"
+            href={buildAffiliateLink(gift)}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Buy ${gift.name} on ${affiliateConfig.merchantName}`}
+          >
             {primaryLabel}
           </a>
           <button
             type="button"
             className={classNames("gs-secondary-btn", isSaved && "is-active")}
             onClick={() => toggleSaved(gift.id)}
+            aria-pressed={isSaved}
+            aria-label={isSaved ? `Remove ${gift.name} from saved picks` : `Save ${gift.name}`}
           >
             {isSaved ? "SAVED" : "SAVE"}
           </button>
@@ -817,8 +910,8 @@ export default function App() {
     const imageUrl = getGiftImageUrl(gift);
 
     return (
-      <article key={`${gift.id}-saved`} className="gs-saved-row">
-        <div className="gs-saved-image-wrap">
+      <article key={`${gift.id}-saved`} className="gs-saved-row" role="listitem">
+        <div {...getGiftImageFrameProps(gift, "gs-saved-image-wrap")}>
           <img src={imageUrl} alt={gift.name} className="gs-saved-image" loading="lazy" />
         </div>
         <div className="gs-saved-content">
@@ -828,13 +921,15 @@ export default function App() {
           </div>
           <div className="gs-saved-actions">
             <a className="gs-primary-btn" href={buildAffiliateLink(gift)} target="_blank" rel="noreferrer">
+              <span className="gs-visually-hidden">{`Buy ${gift.name} on ${affiliateConfig.merchantName}. `}</span>
               BUY NOW
             </a>
             <button
               type="button"
               className="gs-icon-btn is-active"
               onClick={() => toggleSaved(gift.id)}
-              aria-label="Remove from saved"
+              aria-pressed={true}
+              aria-label={`Remove ${gift.name} from saved picks`}
             >
               <BookmarkCheck />
             </button>
@@ -932,37 +1027,62 @@ export default function App() {
             <a href="/" className="gs-brand" aria-label="ShopForHer home">
               <img src="/logo1.png" alt="ShopForHer" className="gs-logo" />
             </a>
-            <nav className="gs-site-nav" aria-label="Primary">
-              {editorialSlides.map((slide, index) => (
+            <nav className="gs-site-nav-wrap" aria-label="Primary">
+              <div className="gs-site-nav" role="tablist" aria-label="Gift pages">
+                {editorialSlides.map((slide, index) => (
+                  <button
+                    key={slide.id}
+                    ref={(node) => setTabRef(index, node)}
+                    id={`tab-${slide.id}`}
+                    role="tab"
+                    type="button"
+                    className={classNames("gs-site-link", activeSlide === index && "is-active")}
+                    onClick={() => setSlide(index)}
+                    onKeyDown={(event) => onTabKeyDown(event, index)}
+                    aria-selected={activeSlide === index}
+                    aria-controls={`panel-${slide.id}`}
+                    tabIndex={activeSlide === index ? 0 : -1}
+                  >
+                    {slide.label}
+                  </button>
+                ))}
                 <button
-                  key={slide.id}
+                  ref={(node) => setTabRef(savedSlideIndex, node)}
+                  id="tab-saved"
+                  role="tab"
                   type="button"
-                  className={classNames("gs-site-link", activeSlide === index && "is-active")}
-                  onClick={() => setSlide(index)}
-                  aria-current={activeSlide === index ? "page" : undefined}
+                  className={classNames("gs-nav-save", activeSlide === savedSlideIndex && "is-active")}
+                  onClick={() => setSlide(savedSlideIndex)}
+                  onKeyDown={(event) => onTabKeyDown(event, savedSlideIndex)}
+                  aria-selected={activeSlide === savedSlideIndex}
+                  aria-controls="panel-saved"
+                  tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
                 >
-                  {slide.label}
+                  Saved
+                  <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
+                    <span className="gs-visually-hidden">Saved picks count: </span>
+                    {savedGifts.length}
+                  </span>
                 </button>
-              ))}
+              </div>
             </nav>
-            <button
-              type="button"
-              className={classNames("gs-nav-save", activeSlide === savedSlideIndex && "is-active")}
-              onClick={() => setSlide(savedSlideIndex)}
-              aria-current={activeSlide === savedSlideIndex ? "page" : undefined}
-            >
-              Saved
-              <span className="gs-nav-save-count">{savedGifts.length}</span>
-            </button>
           </div>
         </header>
 
+        <main className="gs-main" id="gs-main-content">
         <section className="gs-slider-stage" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           <div
             className="gs-slider-track"
             style={{ transform: `translateX(-${(activeSlide * 100) / slides.length}%)` }}
           >
-            <section className="gs-slide">
+            <section
+              id="panel-popular"
+              className="gs-slide"
+              role="tabpanel"
+              aria-labelledby="tab-popular"
+              aria-hidden={activeSlide !== 0}
+              tabIndex={activeSlide === 0 ? 0 : -1}
+            >
               <div className="gs-slide-scroll">
                 <section className="gs-popular-hero">
                   <div className="gs-popular-hero-copy">
@@ -982,8 +1102,12 @@ export default function App() {
                   <div className="gs-popular-hero-visual">
                     <div className="gs-popular-hero-stack" aria-hidden="true">
                       {popularHeroProducts.map((gift, index) => (
-                        <a key={gift.slug} href={`/gift/${gift.slug}/`} className={`gs-popular-hero-card is-layer-${index + 1}`}>
-                          <img src={getGiftImageUrl(gift)} alt={gift.name} loading="lazy" />
+                        <a
+                          key={gift.slug}
+                          href={`/gift/${gift.slug}/`}
+                          {...getGiftImageFrameProps(gift, `gs-popular-hero-card is-layer-${index + 1}`)}
+                        >
+                          <img src={getGiftHeroImageUrl(gift)} alt={gift.name} loading="lazy" />
                         </a>
                       ))}
                     </div>
@@ -995,7 +1119,7 @@ export default function App() {
                     <p className="gs-overline">Top picks</p>
                     <h3>Most bought</h3>
                   </div>
-                  <div className="gs-bento-grid gs-popular-grid">
+                  <div className="gs-bento-grid gs-popular-grid" role="list" aria-label="Most bought gifts">
                     {topPicks.map((gift, index) =>
                       renderBentoCard(gift, index + 1, {
                         motion: "minimal",
@@ -1012,7 +1136,7 @@ export default function App() {
                   <p className="gs-popular-library-note">
                     New Amazon product pages added directly into the catalog so people can open the exact item fast.
                   </p>
-                  <div className="gs-bento-grid gs-popular-grid">
+                  <div className="gs-bento-grid gs-popular-grid" role="list" aria-label="New exact product picks">
                     {featuredCatalogProducts.map((gift, index) =>
                       renderBentoCard(gift, topPicks.length + index + 1, {
                         motion: "minimal",
@@ -1080,7 +1204,14 @@ export default function App() {
               </div>
             </section>
 
-            <section className="gs-slide">
+            <section
+              id="panel-hot"
+              className="gs-slide"
+              role="tabpanel"
+              aria-labelledby="tab-hot"
+              aria-hidden={activeSlide !== 1}
+              tabIndex={activeSlide === 1 ? 0 : -1}
+            >
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">Hot</p>
@@ -1092,6 +1223,8 @@ export default function App() {
                   breakpointCols={{ default: 2, 360: 1 }}
                   className="gs-masonry-grid"
                   columnClassName="gs-masonry-grid_column"
+                  role="list"
+                  aria-label="Hot gift stories"
                 >
                   {videoStories.map((item, index) => (
                     <AnimatedHotCard key={`${item.gift.id}-hot-${index}`} item={item} index={index} openPreview={openPreview} />
@@ -1125,7 +1258,14 @@ export default function App() {
               </div>
             </section>
 
-            <section className="gs-slide">
+            <section
+              id="panel-guides"
+              className="gs-slide"
+              role="tabpanel"
+              aria-labelledby="tab-guides"
+              aria-hidden={activeSlide !== 2}
+              tabIndex={activeSlide === 2 ? 0 : -1}
+            >
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">Dates</p>
@@ -1139,7 +1279,12 @@ export default function App() {
                       <p className="gs-overline">Area</p>
                       <strong>{dateResults.areaLabel || geoState.label}</strong>
                     </div>
-                    <button type="button" className="gs-date-locate" onClick={useMyArea}>
+                    <button
+                      type="button"
+                      className="gs-date-locate"
+                      onClick={useMyArea}
+                      aria-label="Use my current location to rank nearby date spots"
+                    >
                       {geoState.status === "loading" ? "Locating..." : "Use my area"}
                     </button>
                   </div>
@@ -1168,7 +1313,12 @@ export default function App() {
                     </label>
                   </div>
 
-                  <div className={classNames("gs-date-status", dateResults.status === "error" && "is-error")}>
+                  <div
+                    className={classNames("gs-date-status", dateResults.status === "error" && "is-error")}
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="true"
+                  >
                     <div>
                       <span>{dateStatusLabel}</span>
                       <p>{dateResults.note}</p>
@@ -1178,6 +1328,7 @@ export default function App() {
                       href={dateResults.searchUrl}
                       target="_blank"
                       rel="noreferrer"
+                      aria-label={`${getDateSpotSearchLinkLabel(activeDateProvider)} for ${dateResults.areaLabel || "your area"}`}
                     >
                       {getDateSpotSearchLinkLabel(activeDateProvider)}
                     </a>
@@ -1225,6 +1376,7 @@ export default function App() {
                           href={activeDateSpot.bookingUrl}
                           target="_blank"
                           rel="noreferrer"
+                          aria-label={`${activeDateSpot.actionLabel} for ${activeDateSpot.name}`}
                         >
                           {activeDateSpot.actionLabel}
                         </a>
@@ -1233,6 +1385,7 @@ export default function App() {
                           href={activeDateSecondaryUrl}
                           target="_blank"
                           rel="noreferrer"
+                          aria-label={`${activeDateSecondaryLabel} for ${activeDateSpot.name}`}
                         >
                           {activeDateSecondaryLabel}
                         </a>
@@ -1246,13 +1399,19 @@ export default function App() {
                   )}
 
                   {dateResults.spots.length > 0 ? (
-                    <section className="gs-date-list">
+                    <section className="gs-date-list" role="list" aria-label="Nearby date spots">
                       {dateResults.spots.map((spot) => (
-                        <article key={spot.id} className={classNames("gs-date-row", activeDateSpot?.id === spot.id && "is-active")}>
+                        <article
+                          key={spot.id}
+                          role="listitem"
+                          className={classNames("gs-date-row", activeDateSpot?.id === spot.id && "is-active")}
+                        >
                           <button
                             type="button"
                             className="gs-date-row-main"
                             onClick={() => setActiveDateSpotId(spot.id)}
+                            aria-pressed={activeDateSpot?.id === spot.id}
+                            aria-label={`Show details for ${spot.name}`}
                           >
                             <span className="gs-date-row-icon">
                               <MapPin size={16} />
@@ -1272,6 +1431,7 @@ export default function App() {
                             href={spot.bookingUrl}
                             target="_blank"
                             rel="noreferrer"
+                            aria-label={`${spot.actionLabel} for ${spot.name}`}
                           >
                             {spot.actionLabel}
                           </a>
@@ -1314,7 +1474,14 @@ export default function App() {
               </div>
             </section>
 
-            <section className="gs-slide">
+            <section
+              id="panel-saved"
+              className="gs-slide"
+              role="tabpanel"
+              aria-labelledby="tab-saved"
+              aria-hidden={activeSlide !== savedSlideIndex}
+              tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
+            >
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">Saved</p>
@@ -1325,16 +1492,16 @@ export default function App() {
                 <section className="gs-stack">
                   {savedGifts.length ? (
                     <>
-                      <section className="gs-saved-helper">
+                      <section className="gs-saved-helper" role="status" aria-live="polite" aria-atomic="true">
                         <strong>{savedGifts.length} saved right now</strong>
                         <p>Keep the shortlist tight. If one still looks obvious, buy it.</p>
                       </section>
-                      <div className="gs-saved-list">
+                      <div className="gs-saved-list" role="list" aria-label="Saved gift picks">
                         {savedGifts.map((gift, index) => renderSavedRow(gift, index))}
                       </div>
                     </>
                   ) : (
-                    <div className="gs-saved-list">
+                    <div className="gs-saved-list" role="status" aria-live="polite" aria-atomic="true">
                       <article className="gs-empty-panel">
                         <p>No saved picks yet. Save the cover pick or one of the hot stories and it will live here.</p>
                         <div className="gs-empty-actions">
@@ -1357,6 +1524,7 @@ export default function App() {
             </section>
           </div>
         </section>
+        </main>
 
         {previewGift ? (
           <div
@@ -1375,9 +1543,26 @@ export default function App() {
               }}
             >
               <div className="gs-preview-media">
-                <div className="gs-preview-media-frame">
-                  <img src={getGiftImageUrl(previewGift)} alt={previewGift.name} className="gs-preview-image" />
+                <div {...getGiftImageFrameProps(previewGift, "gs-preview-media-frame")}>
+                  <img src={activePreviewImage || getGiftImageUrl(previewGift)} alt={previewGift.name} className="gs-preview-image" />
                 </div>
+                {previewImages.length > 1 ? (
+                  <div className="gs-preview-gallery" aria-label={`${previewGift.name} images`}>
+                    {previewImages.map((imageUrl, index) => (
+                      <button
+                        key={`${previewGift.id}-image-${index}`}
+                        type="button"
+                        className={classNames("gs-preview-thumb", previewGift.imageLayout === "product" && "is-product-shot", index === previewImageIndex && "is-active")}
+                        style={getGiftImageStyleVars(previewGift)}
+                        onClick={() => setPreviewImageIndex(index)}
+                        aria-pressed={index === previewImageIndex}
+                        aria-label={`View image ${index + 1} of ${previewImages.length} for ${previewGift.name}`}
+                      >
+                        <img src={imageUrl} alt="" className="gs-preview-thumb-image" />
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
                 <div className="gs-preview-media-bar">
                   <span>{previewGift.badge}</span>
                   <span>{previewGift.priceLabel}</span>
@@ -1393,11 +1578,21 @@ export default function App() {
                   </div>
                   <div className="gs-preview-head-actions">
                     {previewSeoGift ? (
-                      <a className="gs-preview-inline-link" href={`/gift/${previewSeoGift.slug}/`}>
+                      <a
+                        className="gs-preview-inline-link"
+                        href={`/gift/${previewSeoGift.slug}/`}
+                        aria-label={`Open the full page for ${previewGift.name}`}
+                      >
                         Open full page
                       </a>
                     ) : null}
-                    <button type="button" className="gs-preview-close" onClick={closePreview}>
+                    <button
+                      ref={previewCloseRef}
+                      type="button"
+                      className="gs-preview-close"
+                      onClick={closePreview}
+                      aria-label={`Close preview for ${previewGift.name}`}
+                    >
                       Close
                     </button>
                   </div>
@@ -1446,7 +1641,13 @@ export default function App() {
                 </div>
 
                 <div className="gs-preview-actions">
-                  <a className="gs-primary-btn gs-preview-primary" href={buildAffiliateLink(previewGift)} target="_blank" rel="noreferrer">
+                  <a
+                    className="gs-primary-btn gs-preview-primary"
+                    href={buildAffiliateLink(previewGift)}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={`Buy ${previewGift.name} on ${affiliateConfig.merchantName}`}
+                  >
                     Buy on {affiliateConfig.merchantName}
                   </a>
                   <div className="gs-preview-secondary-actions">
@@ -1454,11 +1655,21 @@ export default function App() {
                       type="button"
                       className={classNames("gs-secondary-btn gs-preview-secondary", savedIds.includes(previewGift.id) && "is-active")}
                       onClick={() => toggleSaved(previewGift.id)}
+                      aria-pressed={savedIds.includes(previewGift.id)}
+                      aria-label={
+                        savedIds.includes(previewGift.id)
+                          ? `Remove ${previewGift.name} from saved picks`
+                          : `Save ${previewGift.name}`
+                      }
                     >
                       {savedIds.includes(previewGift.id) ? "Saved" : "Save"}
                     </button>
                     {previewSeoGift ? (
-                      <a className="gs-secondary-btn gs-preview-secondary" href={`/gift/${previewSeoGift.slug}/`}>
+                      <a
+                        className="gs-secondary-btn gs-preview-secondary"
+                        href={`/gift/${previewSeoGift.slug}/`}
+                        aria-label={`Open more details for ${previewGift.name}`}
+                      >
                         Details
                       </a>
                     ) : null}

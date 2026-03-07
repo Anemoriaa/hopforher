@@ -89,7 +89,9 @@ a {
   width: 100%;
   height: auto;
   aspect-ratio: 3 / 4;
-  object-fit: cover;
+  padding: 20px;
+  object-fit: contain;
+  background: #f5f3ee;
 }
 
 .discovery-poster-copy {
@@ -164,6 +166,50 @@ a {
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.discovery-product-media {
+  display: grid;
+  gap: 12px;
+}
+
+.discovery-product-image,
+.discovery-product-thumb {
+  margin: 0;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+.discovery-product-image {
+  padding: 24px;
+}
+
+.discovery-product-image img,
+.discovery-product-thumb img {
+  display: block;
+  width: 100%;
+  background: #f5f3ee;
+  object-fit: contain;
+}
+
+.discovery-product-image img {
+  aspect-ratio: 1 / 1;
+}
+
+.discovery-product-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 12px;
+}
+
+.discovery-product-thumb {
+  padding: 10px;
+}
+
+.discovery-product-thumb img {
+  aspect-ratio: 1 / 1;
 }
 
 .discovery-section-head {
@@ -272,8 +318,14 @@ a {
   gap: 12px;
 }
 
+.discovery-decision-grid {
+  display: grid;
+  gap: 12px;
+}
+
 .discovery-faq,
-.discovery-related-link {
+.discovery-related-link,
+.discovery-decision-card {
   padding: 16px 0;
   border-top: 1px solid var(--border);
 }
@@ -281,6 +333,33 @@ a {
 .discovery-related-link {
   display: block;
   text-decoration: none;
+}
+
+.discovery-decision-card h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.discovery-decision-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.discovery-decision-card .discovery-text-link,
+.discovery-decision-card .discovery-best-for {
+  display: inline-flex;
+  margin-top: 10px;
+}
+
+.discovery-decision-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .discovery-related-link span {
@@ -333,6 +412,11 @@ a {
   }
 
   .discovery-related {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 20px;
+  }
+
+  .discovery-decision-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0 20px;
   }

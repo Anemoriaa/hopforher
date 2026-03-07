@@ -145,6 +145,20 @@ function productUrl(gift) {
   return `${siteUrl}/gift/${gift.slug}/`;
 }
 
+function productImages(gift) {
+  const images = [...new Set([gift.imageUrl, ...(gift.galleryImages || [])].filter(Boolean))];
+  return images.length ? images : [`${siteUrl}/logo1.png`];
+}
+
+function primaryImageUrl(gift) {
+  return productImages(gift)[0];
+}
+
+function guideImageUrl(guide) {
+  const firstGift = guideItems(guide)[0];
+  return firstGift ? primaryImageUrl(firstGift) : `${siteUrl}/logo1.png`;
+}
+
 function hotThumbUrl(story) {
   return `https://picsum.photos/seed/shopforher-${story.slug}/1200/1600`;
 }
@@ -241,6 +255,83 @@ function renderGuideSignalsSection(guide) {
       </section>`;
 }
 
+function renderGuideBestFitsSection(guide) {
+  if (!guide.bestFits?.length) {
+    return "";
+  }
+
+  return `<section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Decision guide</p>
+          <h2>Best if she likes...</h2>
+        </div>
+        <div class="discovery-decision-grid">
+          ${guide.bestFits
+            .map((entry) => {
+              const gift = catalogById.get(entry.giftId);
+
+              return `<article class="discovery-decision-card">
+            <span class="discovery-decision-label">Best if</span>
+            <h3>${escapeHtml(entry.title)}</h3>
+            <p>${escapeHtml(entry.body)}</p>
+            ${gift ? `<a class="discovery-text-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)} · ${escapeHtml(gift.priceLabel)}</a>` : ""}
+          </article>`;
+            })
+            .join("")}
+        </div>
+      </section>`;
+}
+
+function renderGuideAvoidSection(guide) {
+  if (!guide.avoidNotes?.length) {
+    return "";
+  }
+
+  return `<section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Avoid</p>
+          <h2>Skip these moves if...</h2>
+        </div>
+        <div class="discovery-faqs">
+          ${guide.avoidNotes
+            .map(
+              (note) => `<article class="discovery-faq">
+            <h3>${escapeHtml(note.title)}</h3>
+            <p>${escapeHtml(note.body)}</p>
+          </article>`
+            )
+            .join("")}
+        </div>
+      </section>`;
+}
+
+function renderGuidePickLanesSection(guide) {
+  if (!guide.pickLanes?.length) {
+    return "";
+  }
+
+  return `<section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Short answer</p>
+          <h2>Best pick by budget or use case</h2>
+        </div>
+        <div class="discovery-decision-grid">
+          ${guide.pickLanes
+            .map((entry) => {
+              const gift = catalogById.get(entry.giftId);
+
+              return `<article class="discovery-decision-card">
+            <span class="discovery-decision-label">${escapeHtml(entry.title)}</span>
+            <h3>${gift ? `<a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a>` : escapeHtml(entry.title)}</h3>
+            <p>${escapeHtml(entry.body)}</p>
+            ${gift ? `<p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}</p>` : ""}
+          </article>`;
+            })
+            .join("")}
+        </div>
+      </section>`;
+}
+
 function guideFaqs(guide, items) {
   if (guide.faqs?.length) {
     return guide.faqs;
@@ -266,6 +357,7 @@ function renderGuidePage(guide) {
   const canonical = `${siteUrl}/${guide.slug}/`;
   const pageTitle = guide.title;
   const faqs = guideFaqs(guide, items);
+  const pageImage = guideImageUrl(guide);
 
   const itemListSchema = {
     "@context": "https://schema.org",
@@ -353,12 +445,12 @@ function renderGuidePage(guide) {
   <meta property="og:title" content="${escapeHtml(pageTitle)}">
   <meta property="og:description" content="${escapeHtml(guide.description)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${siteUrl}/logo1.png">
+  <meta property="og:image" content="${escapeHtml(pageImage)}">
   <meta property="article:modified_time" content="${updatedAt}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
   <meta name="twitter:description" content="${escapeHtml(guide.description)}">
-  <meta name="twitter:image" content="${siteUrl}/logo1.png">
+  <meta name="twitter:image" content="${escapeHtml(pageImage)}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${feedLinkTag()}
@@ -394,6 +486,9 @@ function renderGuidePage(guide) {
 
       ${renderGuideMethodSection(guide)}
       ${renderGuideSignalsSection(guide)}
+      ${renderGuideBestFitsSection(guide)}
+      ${renderGuideAvoidSection(guide)}
+      ${renderGuidePickLanesSection(guide)}
 
       <section class="discovery-section">
         <div class="discovery-section-head">
@@ -474,6 +569,8 @@ function renderProductPage(gift) {
   const canonical = productUrl(gift);
   const pageTitle = `${gift.name} | ShopForHer`;
   const description = `${gift.name} is a ${gift.badge} pick on ShopForHer. ${gift.why}`;
+  const images = productImages(gift);
+  const primaryImage = primaryImageUrl(gift);
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -481,7 +578,7 @@ function renderProductPage(gift) {
     description,
     category: "Gift for her",
     sku: gift.id,
-    image: [`${siteUrl}/logo1.png`],
+    image: images,
     brand: {
       "@type": "Brand",
       name: "ShopForHer Picks",
@@ -537,11 +634,11 @@ function renderProductPage(gift) {
   <meta property="og:title" content="${escapeHtml(pageTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${siteUrl}/logo1.png">
+  <meta property="og:image" content="${escapeHtml(primaryImage)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
-  <meta name="twitter:image" content="${siteUrl}/logo1.png">
+  <meta name="twitter:image" content="${escapeHtml(primaryImage)}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${feedLinkTag()}
@@ -571,6 +668,26 @@ function renderProductPage(gift) {
           <span>${escapeHtml(gift.badge)}</span>
           <span>Updated ${escapeHtml(formattedDate)}</span>
         </div>
+      </section>
+
+      <section class="discovery-product-media">
+        <figure class="discovery-product-image">
+          <img src="${escapeHtml(primaryImage)}" alt="${escapeHtml(gift.name)}">
+        </figure>
+        ${
+          images.length > 1
+            ? `<div class="discovery-product-gallery">
+          ${images
+            .slice(1, 7)
+            .map(
+              (imageUrl, index) => `<figure class="discovery-product-thumb">
+            <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(`${gift.name} image ${index + 2}`)}">
+          </figure>`
+            )
+            .join("")}
+        </div>`
+            : ""
+        }
       </section>
 
       <section class="discovery-section">

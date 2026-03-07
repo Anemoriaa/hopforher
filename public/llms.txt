@@ -4,6 +4,8 @@
 
 ## Main guide index
 - https://shopforher.org/guides/
+- https://shopforher.org/site-map.html
+- https://shopforher.org/feed.xml
 
 ## Trust pages
 - [About ShopForHer](https://shopforher.org/about.html)

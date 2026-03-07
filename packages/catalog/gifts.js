@@ -310,7 +310,6 @@
       tabs: ["best-overall", "looks-expensive", "daily-use"],
       query: "Kindle Paperwhite Signature Edition gift for her",
       amazonAsin: "B0DC85J75V",
-      imageUrl: "https://m.media-amazon.com/images/I/81I4120duxL._AC_SY300_SX300_QL70_ML2_.jpg",
       baseScore: 92,
       accentFrom: "#c4dcff",
       accentTo: "#386897"
@@ -331,7 +330,6 @@
       tabs: ["best-overall", "daily-use", "looks-expensive"],
       query: "Ninja CREAMi Deluxe gift for her",
       amazonAsin: "B0B9CZ6XBQ",
-      imageUrl: "https://m.media-amazon.com/images/I/71JYt9fprVL._AC_SY300_SX300_QL70_ML2_.jpg",
       baseScore: 90,
       accentFrom: "#cce1ff",
       accentTo: "#4673a5"
@@ -352,7 +350,6 @@
       tabs: ["best-overall", "looks-expensive", "daily-use"],
       query: "Nespresso Vertuo Next gift for her",
       amazonAsin: "B084GY7284",
-      imageUrl: "https://m.media-amazon.com/images/I/51gQiltmkIL.__AC_SX300_SY300_QL70_ML2_.jpg",
       baseScore: 90,
       accentFrom: "#d1e4ff",
       accentTo: "#567ea8"
@@ -373,7 +370,6 @@
       tabs: ["under-100", "daily-use", "best-overall"],
       query: "Owala FreeSip Sway bottle gift for her",
       amazonAsin: "B0FJZDV6BH",
-      imageUrl: "https://cdn.shopify.com/s/files/1/0439/2537/3087/files/OW_90s_kid_30oz_FreeSip_Sway_Side.png?crop=center&height=500&v=1772218716&width=500",
       baseScore: 87,
       accentFrom: "#c7ddff",
       accentTo: "#4a739f"
@@ -394,7 +390,6 @@
       tabs: ["best-overall", "daily-use", "looks-expensive"],
       query: "Theragun Relief gift for her",
       amazonAsin: "B0CNS894RH",
-      imageUrl: "https://m.media-amazon.com/images/I/61f9mqZJ4rL._AC_SY300_SX300_QL70_ML2_.jpg",
       baseScore: 89,
       accentFrom: "#bdd8ff",
       accentTo: "#426d9a"
@@ -415,7 +410,6 @@
       tabs: ["best-overall", "under-100", "cozy-home", "looks-expensive"],
       query: "UGG slippers gift for her",
       amazonAsin: "B0CB978WSZ",
-      imageUrl: "https://cdn.file-sync.shop/cdn/429/2024/10/26/thumb300-main-Koolaburra-by-UGG-Womens-Burree-SlipperBlack-5492712-1007725.webp",
       baseScore: 90,
       accentFrom: "#d7e7ff",
       accentTo: "#6489af"
@@ -436,7 +430,6 @@
       tabs: ["best-overall", "under-100", "daily-use"],
       query: "Stanley Quencher H2.0 gift for her",
       amazonAsin: "B0FB7LKQXV",
-      imageUrl: "https://m.media-amazon.com/images/I/41xhWXRupeL._AC_SY300_SX300_QL70_ML2_.jpg",
       baseScore: 86,
       accentFrom: "#bdd6ff",
       accentTo: "#3f6b97"
@@ -457,7 +450,6 @@
       tabs: ["best-overall", "under-100", "looks-expensive"],
       query: "LANEIGE Midnight Minis Lip Set gift for her",
       amazonAsin: "B0F24ZZN95",
-      imageUrl: "https://whitehorseboutique.com/cdn/shop/files/2AEBDE3C-93A3-49B7-BB15-A411975436CC.jpg?v=1732737545&width=1445",
       baseScore: 85,
       accentFrom: "#d9e8ff",
       accentTo: "#6a8eb3"
@@ -478,7 +470,6 @@
       tabs: ["best-overall", "daily-use", "looks-expensive"],
       query: "Bose SoundLink Flex 2nd Gen gift for her",
       amazonAsin: "B0D6W8X6L2",
-      imageUrl: "https://assets.bosecreative.com/transform/7a38af47-ac9d-4a4e-8b49-e6d6b2a9e2bb/SLFLXII_AlpineSage_SF_PDP_Gallery_01?io=width%3A816%2Cheight%3A667%2Ctransform%3Afit&io=width%3A816%2Cheight%3A667%2Ctransform%3Afit&quality=90",
       baseScore: 88,
       accentFrom: "#c7ddff",
       accentTo: "#446f9c"
@@ -498,7 +489,6 @@
       intents: ["viral", "thoughtful", "looks-expensive"],
       tabs: ["best-overall", "under-100", "looks-expensive"],
       query: "Sol de Janeiro Bum Bum Jet Set gift for her",
-      imageUrl: "https://www.cultbeauty.com/images?auto=avif&fit=cover&format=webp&height=985&url=https%3A%2F%2Fstatic.thcdn.com%2Fproductimg%2Foriginal%2F12545102-1214895116732476.jpg&width=985",
       baseScore: 84,
       accentFrom: "#d4e5ff",
       accentTo: "#5b83ad"
