@@ -159,12 +159,13 @@ export default function App() {
       (gift, index, array) => array.findIndex((item) => item.id === gift.id) === index
     );
 
-    return merged.slice(0, 12);
+    return merged.slice(0, 18);
   }, [gifts, rankedMatches, activeFilters]);
   const linkedTopProducts = useMemo(
     () => topPicks.map((gift) => seoCatalogById.get(gift.id)).filter(Boolean).slice(0, 6),
     [topPicks]
   );
+  const popularHeroProducts = linkedTopProducts.slice(0, 3);
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
   const datesSlideIndex = slides.findIndex((slide) => slide.id === "guides");
   const savedGifts = useMemo(
@@ -553,12 +554,18 @@ export default function App() {
     const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "0px 0px -50px 0px" });
     const isSaved = savedIds.includes(gift.id);
     const { eyebrow = gift.badge, deck = gift.hook } = options;
-    const delayClass = index % 3 === 1 ? 'delay-100' : index % 3 === 2 ? 'delay-200' : '';
+    const minimalMotion = options.motion === "minimal";
+    const delayClass = minimalMotion ? "" : index % 3 === 1 ? "delay-100" : index % 3 === 2 ? "delay-200" : "";
 
     return (
       <article 
         ref={ref} 
-        className={classNames("gs-bento-card", inView && "animate-fade-up", delayClass)}
+        className={classNames(
+          "gs-bento-card",
+          minimalMotion && "is-minimal-motion",
+          inView && (minimalMotion ? "animate-fade-soft" : "animate-fade-up"),
+          delayClass
+        )}
       >
         <div className="gs-bento-image-wrap">
           <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
@@ -824,11 +831,22 @@ export default function App() {
           >
             <section className="gs-slide">
               <div className="gs-slide-scroll">
-                <div className="gs-parallax-copy">
-                  <p className="gs-overline">Popular</p>
-                  <h2>Start with these.</h2>
-                  <p>Clean gift picks for her.</p>
-                </div>
+                <section className="gs-popular-hero">
+                  <div className="gs-popular-hero-copy">
+                    <p className="gs-overline">Popular</p>
+                    <h2>Gifts to buy right now.</h2>
+                    <p>Clean picks in {activeBudget.label.toLowerCase()} and {activeSignal.label.toLowerCase()}.</p>
+                  </div>
+                  <div className="gs-popular-hero-visual" aria-hidden="true">
+                    <div className="gs-popular-hero-stack">
+                      {popularHeroProducts.map((gift, index) => (
+                        <a key={gift.slug} href={`/gift/${gift.slug}/`} className={`gs-popular-hero-card is-layer-${index + 1}`}>
+                          <img src={getGiftImageUrl(gift)} alt={gift.name} loading="lazy" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </section>
 
                 <section className="gs-product-list">
                   <div className="gs-section-head">
@@ -840,52 +858,66 @@ export default function App() {
                       renderBentoCard(gift, index + 1, {
                         eyebrow: index === 0 ? "Best overall" : "",
                         deck: "",
+                        motion: "minimal",
                       })
                     )}
                   </div>
                 </section>
-                <section className="gs-seo-guide-section" aria-label="Browse product pages">
+                <section className="gs-popular-library" aria-label="Popular page organization">
                   <div className="gs-section-head">
-                    <p className="gs-overline">Products</p>
-                    <h3>Open a product page</h3>
+                    <p className="gs-overline">Continue</p>
+                    <h3>Browse cleanly from here</h3>
                   </div>
-                  <div className="gs-seo-guide-list">
-                    {linkedTopProducts.map((gift) => (
-                      <a key={gift.slug} href={`/gift/${gift.slug}/`} className="gs-seo-guide-link">
-                        <div>
-                          <span className="gs-seo-guide-eyebrow">{gift.badge}</span>
-                          <strong>{gift.name}</strong>
-                        </div>
-                        <ArrowUpRight size={16} />
-                      </a>
-                    ))}
-                  </div>
-                </section>
-                <section className="gs-seo-guide-section" aria-label="Browse more gift guides">
-                  <div className="gs-section-head">
-                    <p className="gs-overline">More ways to shop</p>
-                    <h3>Real gift guides</h3>
-                  </div>
-                  <div className="gs-seo-guide-list">
-                    {featuredSeoGuides.map((guide) => (
-                      <a key={guide.slug} href={`/${guide.slug}/`} className="gs-seo-guide-link">
-                        <div>
-                          <span className="gs-seo-guide-eyebrow">{guide.groupLabel}</span>
-                          <strong>{guide.label}</strong>
-                        </div>
-                        <ArrowUpRight size={16} />
-                      </a>
-                    ))}
-                    <a href="/guides/" className="gs-seo-guide-link is-all">
-                      <div>
-                        <span className="gs-seo-guide-eyebrow">Index</span>
-                        <strong>All guides</strong>
+                  <p className="gs-popular-library-note">
+                    Open a product page when one pick already looks right. Use a guide when you still need the cleanest lane.
+                  </p>
+                  <div className="gs-popular-library-grid">
+                    <article className="gs-popular-library-panel">
+                      <div className="gs-popular-library-head">
+                        <span className="gs-overline">Products</span>
+                        <strong>Direct product pages</strong>
+                        <p>Best when you want the exact item, price range, and merchant path fast.</p>
                       </div>
-                      <ArrowUpRight size={16} />
-                    </a>
+                      <div className="gs-popular-library-list">
+                        {linkedTopProducts.map((gift) => (
+                          <a key={gift.slug} href={`/gift/${gift.slug}/`} className="gs-popular-library-link">
+                            <div>
+                              <span className="gs-seo-guide-eyebrow">{gift.badge}</span>
+                              <strong>{gift.name}</strong>
+                            </div>
+                            <ArrowUpRight size={16} />
+                          </a>
+                        ))}
+                      </div>
+                    </article>
+                    <article className="gs-popular-library-panel">
+                      <div className="gs-popular-library-head">
+                        <span className="gs-overline">Guides</span>
+                        <strong>Organized gift lanes</strong>
+                        <p>Best when you want a tighter shortlist by relationship, budget, or mood before buying.</p>
+                      </div>
+                      <div className="gs-popular-library-list">
+                        {featuredSeoGuides.map((guide) => (
+                          <a key={guide.slug} href={`/${guide.slug}/`} className="gs-popular-library-link">
+                            <div>
+                              <span className="gs-seo-guide-eyebrow">{guide.groupLabel}</span>
+                              <strong>{guide.label}</strong>
+                            </div>
+                            <ArrowUpRight size={16} />
+                          </a>
+                        ))}
+                        <a href="/guides/" className="gs-popular-library-link is-all">
+                          <div>
+                            <span className="gs-seo-guide-eyebrow">Index</span>
+                            <strong>All guides</strong>
+                          </div>
+                          <ArrowUpRight size={16} />
+                        </a>
+                      </div>
+                    </article>
                   </div>
+                  {renderTrustStrip()}
                 </section>
-                {renderTrustStrip()}
                 {renderFooter()}
               </div>
             </section>
