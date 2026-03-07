@@ -869,6 +869,8 @@ export default function App() {
       ? "Loading nearby spots"
       : dateResults.mode === "live"
         ? `${dateResults.spots.length} nearby ${dateResults.spots.length === 1 ? "spot" : "spots"}`
+        : dateResults.mode === "unconfigured"
+          ? "Provider not configured"
         : dateResults.mode === "fallback"
           ? "Fallback date lanes"
           : "Location needed";
@@ -879,8 +881,16 @@ export default function App() {
         ? "Links open on OpenTable and nearby ranking comes from the configured partner feed."
         : "Nearby ranking comes from Google Places. Actions open the venue site when available, otherwise Google Maps."
       : activeDateProvider === DATE_SPOTS_PROVIDER_OPENTABLE
-        ? "Configure OPENTABLE_DIRECTORY_API_URL and partner credentials to replace the fallback lanes with live nearby OpenTable results."
-        : "Add GOOGLE_PLACES_API_KEY in Cloudflare Pages to replace the fallback lane with live nearby places.";
+        ? dateResults.mode === "unconfigured"
+          ? "Configure OPENTABLE_DIRECTORY_API_URL and partner credentials in Cloudflare Pages, then redeploy."
+          : dateResults.mode === "fallback" || dateResults.status === "error"
+            ? "OpenTable did not return live nearby results. Retry, redeploy after env changes, or check the Pages function logs."
+            : "Enable location to rank nearby OpenTable spots instead of showing the fallback lane."
+        : dateResults.mode === "unconfigured"
+          ? "GOOGLE_PLACES_API_KEY is not available to the Pages function. Add it in Cloudflare Pages and redeploy."
+          : dateResults.mode === "fallback" || dateResults.status === "error"
+            ? "Google Places did not return live nearby results. Retry, redeploy after env changes, or check the Pages function logs."
+            : "Enable location to rank nearby Google Places spots instead of showing the fallback lane.";
 
   function getDateSpotSummaryLabel(spot) {
     return [spot.distanceLabel, spot.priceHint].filter(Boolean).join(" · ") || spot.sourceLabel;
