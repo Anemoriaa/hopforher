@@ -1,12 +1,36 @@
 import {
   DEFAULT_DATE_PARTY_SIZE,
   DEFAULT_DATE_SPOT_LIMIT,
+  DATE_SPOTS_PROVIDER_GOOGLE_PLACES,
+  DATE_SPOTS_PROVIDER_OPENTABLE,
+  buildDateSpotSearchUrl,
   buildFallbackDateSpots,
-  buildOpenTableNearbyUrl,
   deriveDateAreaLabel,
   extractDateSpotArray,
+  getDateSpotPoweredLabel,
+  getGooglePlacesSearchContext,
   normalizeDateSpot,
+  resolveDateSpotProvider,
 } from "../../apps/web/src/lib/date-spots.js";
+
+const GOOGLE_PLACES_SEARCH_NEARBY_URL = "https://places.googleapis.com/v1/places:searchNearby";
+const DEFAULT_GOOGLE_PLACES_FIELD_MASK = [
+  "places.id",
+  "places.displayName",
+  "places.primaryType",
+  "places.primaryTypeDisplayName",
+  "places.formattedAddress",
+  "places.shortFormattedAddress",
+  "places.location",
+  "places.googleMapsUri",
+  "places.websiteUri",
+  "places.rating",
+  "places.userRatingCount",
+  "places.priceLevel",
+  "places.currentOpeningHours.openNow",
+  "places.currentOpeningHours.nextOpenTime",
+  "places.currentOpeningHours.nextCloseTime",
+].join(",");
 
 function createJsonResponse(body, init = {}) {
   const headers = new Headers(init.headers);
@@ -57,16 +81,35 @@ function applyQueryParam(url, key, value) {
   url.searchParams.set(key, String(value));
 }
 
-function buildFallbackResponse(search, mode, note, areaLabel, status = 200) {
+function getConfiguredProvider(env) {
+  const explicit = String(env.DATE_SPOTS_PROVIDER || "").trim();
+
+  if (explicit) {
+    return resolveDateSpotProvider(explicit);
+  }
+
+  if (env.GOOGLE_PLACES_API_KEY) {
+    return DATE_SPOTS_PROVIDER_GOOGLE_PLACES;
+  }
+
+  if (env.OPENTABLE_DIRECTORY_API_URL) {
+    return DATE_SPOTS_PROVIDER_OPENTABLE;
+  }
+
+  return DATE_SPOTS_PROVIDER_GOOGLE_PLACES;
+}
+
+function buildFallbackResponse(search, provider, mode, note, areaLabel, status = 200) {
   return createJsonResponse(
     {
       ok: true,
+      provider,
       mode,
-      sourceLabel: "Powered by OpenTable",
+      sourceLabel: getDateSpotPoweredLabel(provider),
       areaLabel,
       note,
-      searchUrl: buildOpenTableNearbyUrl(search),
-      spots: buildFallbackDateSpots(search),
+      searchUrl: buildDateSpotSearchUrl(search, { provider }),
+      spots: buildFallbackDateSpots(search, { provider }),
     },
     { status }
   );
@@ -88,15 +131,167 @@ async function fetchJsonWithTimeout(resource, options = {}, timeoutMs = 8000) {
   }
 }
 
-export async function onRequestGet(context) {
-  const requestUrl = new URL(context.request.url);
-  const search = getSearchParams(requestUrl);
-  const areaLabel = search.latitude !== null && search.longitude !== null ? "Near you" : "Preview area";
+function getGooglePlacesLanguageCode(context) {
+  const explicit = String(context.env.GOOGLE_PLACES_LANGUAGE_CODE || "").trim();
+
+  if (explicit) {
+    return explicit;
+  }
+
+  const header = context.request.headers.get("accept-language") || "";
+  const requested = header.split(",")[0]?.trim();
+
+  return requested || "en";
+}
+
+function getGooglePlacesRegionCode(context) {
+  const explicit = String(context.env.GOOGLE_PLACES_REGION_CODE || "").trim();
+
+  if (explicit) {
+    return explicit;
+  }
+
+  const header = context.request.headers.get("cf-ipcountry") || "";
+  return /^[A-Z]{2}$/i.test(header) ? header.toUpperCase() : undefined;
+}
+
+function getGooglePlacesRankPreference(env) {
+  const value = String(env.GOOGLE_PLACES_RANK_PREFERENCE || "POPULARITY")
+    .trim()
+    .toUpperCase();
+
+  return value === "DISTANCE" ? "DISTANCE" : "POPULARITY";
+}
+
+function getGooglePlacesRadiusMeters(env) {
+  return Math.min(
+    50000,
+    Math.max(500, Number(env.GOOGLE_PLACES_SEARCH_RADIUS_METERS) || 4000)
+  );
+}
+
+function buildGooglePlacesSearchBody(search, context) {
+  const { includedPrimaryTypes } = getGooglePlacesSearchContext(search);
+  const body = {
+    maxResultCount: search.limit,
+    includedPrimaryTypes,
+    rankPreference: getGooglePlacesRankPreference(context.env),
+    locationRestriction: {
+      circle: {
+        center: {
+          latitude: search.latitude,
+          longitude: search.longitude,
+        },
+        radius: getGooglePlacesRadiusMeters(context.env),
+      },
+    },
+    languageCode: getGooglePlacesLanguageCode(context),
+  };
+  const regionCode = getGooglePlacesRegionCode(context);
+
+  if (regionCode) {
+    body.regionCode = regionCode;
+  }
+
+  return body;
+}
+
+async function loadGooglePlacesResults(context, search, areaLabel) {
+  const provider = DATE_SPOTS_PROVIDER_GOOGLE_PLACES;
+
+  if (!context.env.GOOGLE_PLACES_API_KEY) {
+    return buildFallbackResponse(
+      search,
+      provider,
+      "unconfigured",
+      "Add GOOGLE_PLACES_API_KEY in Cloudflare Pages to load live nearby results from Google Places.",
+      areaLabel
+    );
+  }
+
+  if (search.latitude === null || search.longitude === null) {
+    return buildFallbackResponse(
+      search,
+      provider,
+      "idle",
+      "Location is required to rank nearby places. Enable location and retry.",
+      areaLabel
+    );
+  }
+
+  try {
+    const upstreamResponse = await fetchJsonWithTimeout(
+      GOOGLE_PLACES_SEARCH_NEARBY_URL,
+      {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json",
+          "X-Goog-Api-Key": context.env.GOOGLE_PLACES_API_KEY,
+          "X-Goog-FieldMask": context.env.GOOGLE_PLACES_FIELD_MASK || DEFAULT_GOOGLE_PLACES_FIELD_MASK,
+        },
+        body: JSON.stringify(buildGooglePlacesSearchBody(search, context)),
+        cf: { cacheTtl: 0, cacheEverything: false },
+      }
+    );
+
+    if (!upstreamResponse.ok) {
+      return buildFallbackResponse(
+        search,
+        provider,
+        "fallback",
+        `Google Places returned ${upstreamResponse.status}. Showing fallback date lanes instead.`,
+        areaLabel
+      );
+    }
+
+    const payload = await upstreamResponse.json();
+    const spots = extractDateSpotArray(payload)
+      .map((spot, index) => normalizeDateSpot(spot, index, search, { provider }))
+      .filter(Boolean)
+      .slice(0, search.limit);
+
+    if (!spots.length) {
+      return createJsonResponse({
+        ok: true,
+        provider,
+        mode: "live",
+        sourceLabel: getDateSpotPoweredLabel(provider),
+        areaLabel: payload.areaLabel || deriveDateAreaLabel(spots, areaLabel),
+        note: "No nearby matches came back for this time. Try a different time or widen the search radius.",
+        searchUrl: buildDateSpotSearchUrl(search, { provider }),
+        spots: [],
+      });
+    }
+
+    return createJsonResponse({
+      ok: true,
+      provider,
+      mode: "live",
+      sourceLabel: getDateSpotPoweredLabel(provider),
+      areaLabel: payload.areaLabel || deriveDateAreaLabel(spots, areaLabel),
+      note: payload.note || "Nearby results are coming from Google Places.",
+      searchUrl: buildDateSpotSearchUrl(search, { provider }),
+      spots,
+    });
+  } catch (error) {
+    const note =
+      error?.name === "AbortError"
+        ? "Google Places timed out while loading nearby spots. Showing fallback date lanes instead."
+        : "Could not load live nearby results from Google Places. Showing fallback date lanes instead.";
+
+    return buildFallbackResponse(search, provider, "fallback", note, areaLabel);
+  }
+}
+
+async function loadOpenTableResults(context, search, areaLabel) {
+  const provider = DATE_SPOTS_PROVIDER_OPENTABLE;
   const upstreamUrl = context.env.OPENTABLE_DIRECTORY_API_URL;
 
   if (!upstreamUrl) {
     return buildFallbackResponse(
       search,
+      provider,
       "unconfigured",
       "Add OPENTABLE_DIRECTORY_API_URL and partner credentials in Cloudflare Pages to load live nearby results.",
       areaLabel
@@ -131,6 +326,7 @@ export async function onRequestGet(context) {
     if (!upstreamResponse.ok) {
       return buildFallbackResponse(
         search,
+        provider,
         "fallback",
         `OpenTable returned ${upstreamResponse.status}. Showing fallback date lanes instead.`,
         areaLabel
@@ -139,29 +335,31 @@ export async function onRequestGet(context) {
 
     const payload = await upstreamResponse.json();
     const spots = extractDateSpotArray(payload)
-      .map((spot, index) => normalizeDateSpot(spot, index, search))
+      .map((spot, index) => normalizeDateSpot(spot, index, search, { provider }))
       .filter(Boolean)
       .slice(0, search.limit);
 
     if (!spots.length) {
       return createJsonResponse({
         ok: true,
+        provider,
         mode: "live",
-        sourceLabel: "Powered by OpenTable",
+        sourceLabel: getDateSpotPoweredLabel(provider),
         areaLabel: payload.areaLabel || payload.locationLabel || areaLabel,
         note: "No nearby matches came back for this time. Try a different time or party size.",
-        searchUrl: buildOpenTableNearbyUrl(search),
+        searchUrl: buildDateSpotSearchUrl(search, { provider }),
         spots: [],
       });
     }
 
     return createJsonResponse({
       ok: true,
+      provider,
       mode: "live",
-      sourceLabel: "Powered by OpenTable",
+      sourceLabel: getDateSpotPoweredLabel(provider),
       areaLabel: payload.areaLabel || payload.locationLabel || deriveDateAreaLabel(spots, areaLabel),
       note: payload.note || "Nearby results are coming from the configured OpenTable feed.",
-      searchUrl: buildOpenTableNearbyUrl(search),
+      searchUrl: buildDateSpotSearchUrl(search, { provider }),
       spots,
     });
   } catch (error) {
@@ -170,6 +368,19 @@ export async function onRequestGet(context) {
         ? "OpenTable timed out while loading nearby spots. Showing fallback date lanes instead."
         : "Could not load live nearby results from OpenTable. Showing fallback date lanes instead.";
 
-    return buildFallbackResponse(search, "fallback", note, areaLabel);
+    return buildFallbackResponse(search, provider, "fallback", note, areaLabel);
   }
+}
+
+export async function onRequestGet(context) {
+  const requestUrl = new URL(context.request.url);
+  const search = getSearchParams(requestUrl);
+  const areaLabel = search.latitude !== null && search.longitude !== null ? "Near you" : "Preview area";
+  const provider = getConfiguredProvider(context.env);
+
+  if (provider === DATE_SPOTS_PROVIDER_OPENTABLE) {
+    return loadOpenTableResults(context, search, areaLabel);
+  }
+
+  return loadGooglePlacesResults(context, search, areaLabel);
 }

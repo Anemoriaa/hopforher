@@ -1,24 +1,31 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Play } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Play } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
 import { featuredSeoGuides, seoCatalog, seoDateCities, seoHotStories } from "./content/seo-guides.js";
 import {
   buildAffiliateLink,
   classNames,
+  getBudgetReadout,
   loadSaved,
   matchesBudget,
   persistSaved,
   readLiveCatalog,
   scoreGift,
+  stateLabels,
   subscribeToCatalogUpdates,
 } from "./lib/catalog.js";
 import {
+  DATE_SPOTS_PROVIDER_OPENTABLE,
+  DEFAULT_DATE_SPOTS_PROVIDER,
+  buildDateSpotSearchUrl,
   buildFallbackDateSpots,
-  buildOpenTableNearbyUrl,
   DEFAULT_DATE_PARTY_SIZE,
   formatDateTimeSummary,
+  getDateSpotPoweredLabel,
+  getDateSpotSearchLinkLabel,
   getDefaultDateTimeInput,
+  resolveDateSpotProvider,
 } from "./lib/date-spots.js";
 
 const slides = [
@@ -109,15 +116,16 @@ export default function App() {
     dateTime: initialDateTime,
   }));
   const [dateResults, setDateResults] = useState(() => ({
+    provider: DEFAULT_DATE_SPOTS_PROVIDER,
     status: "idle",
     mode: "idle",
     areaLabel: "Preview area",
-    note: "Use your location to load nearby OpenTable spots.",
-    sourceLabel: "Powered by OpenTable",
-    searchUrl: buildOpenTableNearbyUrl({
+    note: "Use your location to load nearby date spots.",
+    sourceLabel: getDateSpotPoweredLabel(DEFAULT_DATE_SPOTS_PROVIDER),
+    searchUrl: buildDateSpotSearchUrl({
       partySize: DEFAULT_DATE_PARTY_SIZE,
       dateTime: initialDateTime,
-    }),
+    }, { provider: DEFAULT_DATE_SPOTS_PROVIDER }),
     spots: [],
   }));
   const [activeDateSpotId, setActiveDateSpotId] = useState(null);
@@ -135,6 +143,27 @@ export default function App() {
       setCatalog(readLiveCatalog());
     });
   }, []);
+
+  useEffect(() => {
+    if (!previewGift || typeof document === "undefined") {
+      return undefined;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setPreviewGift(null);
+      }
+    };
+
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [previewGift]);
 
   const activeRelationship = relationshipOptions[brief.relationship];
   const activeBudget = budgetOptions[brief.budget];
@@ -174,6 +203,30 @@ export default function App() {
   );
   const activeDateSpot =
     dateResults.spots.find((spot) => spot.id === activeDateSpotId) || dateResults.spots[0] || null;
+  const activeDateProvider = resolveDateSpotProvider(dateResults.provider);
+  const activeDateSecondaryUrl =
+    activeDateSpot?.mapUrl && activeDateSpot.mapUrl !== activeDateSpot.bookingUrl
+      ? activeDateSpot.mapUrl
+      : dateResults.searchUrl;
+  const activeDateSecondaryLabel =
+    activeDateSpot?.mapUrl && activeDateSpot.mapUrl !== activeDateSpot.bookingUrl ? "Open in Maps" : "Nearby search";
+  const activeDateMeta = activeDateSpot
+    ? [
+        activeDateSpot.priceHint,
+        activeDateSpot.ratingLabel,
+        activeDateProvider === DATE_SPOTS_PROVIDER_OPENTABLE ? activeDateSpot.neighborhood : null,
+        activeDateSpot.cuisine,
+        activeDateSpot.vibe,
+      ].filter(Boolean)
+    : [];
+  const previewSeoGift = previewGift ? seoCatalogById.get(previewGift.id) || null : null;
+  const previewBudgetReadout = previewGift ? getBudgetReadout(previewGift, activeBudget.id) : "";
+  const previewRelationshipTags = previewGift
+    ? (previewGift.relationships || []).slice(0, 4).map((value) => stateLabels[value] || value)
+    : [];
+  const previewIntentTags = previewGift
+    ? (previewGift.intents || []).slice(0, 4).map((value) => stateLabels[value] || value)
+    : [];
   const videoStories = useMemo(() => {
     const definitions = [
       {
@@ -342,31 +395,38 @@ export default function App() {
   useEffect(() => {
     const latitude = geoState.coords?.latitude ?? null;
     const longitude = geoState.coords?.longitude ?? null;
-    const searchUrl = buildOpenTableNearbyUrl({
+    const provider = resolveDateSpotProvider(dateResults.provider);
+    const searchUrl = buildDateSpotSearchUrl({
       latitude,
       longitude,
       partySize: dateSearch.partySize,
       dateTime: dateSearch.dateTime,
-    });
+    }, { provider });
 
     if (latitude === null || longitude === null) {
       const blocked = geoState.status === "denied" || geoState.status === "unsupported";
 
       setDateResults({
+        provider,
         status: geoState.status === "loading" ? "loading" : blocked ? "ready" : "idle",
         mode: blocked ? "fallback" : "idle",
         areaLabel: geoState.label,
         note:
           geoState.status === "denied"
-            ? "Location access is blocked. You can still open OpenTable directly or enable location to rank nearby spots."
+            ? "Location access is blocked. You can still open nearby places in Maps or enable location to rank spots."
             : geoState.status === "unsupported"
               ? "This browser does not expose location, so nearby ranking is unavailable here."
               : geoState.status === "loading"
                 ? "Locating you now."
-                : "Use your location to load nearby OpenTable spots.",
-        sourceLabel: "Powered by OpenTable",
+                : "Use your location to load nearby date spots.",
+        sourceLabel: getDateSpotPoweredLabel(provider),
         searchUrl,
-        spots: blocked ? buildFallbackDateSpots({ partySize: dateSearch.partySize, dateTime: dateSearch.dateTime }) : [],
+        spots: blocked
+          ? buildFallbackDateSpots(
+              { partySize: dateSearch.partySize, dateTime: dateSearch.dateTime },
+              { provider }
+            )
+          : [],
       });
       return;
     }
@@ -380,7 +440,7 @@ export default function App() {
         mode: current.mode,
         areaLabel: geoState.label,
         note: `Searching near you for ${dateSearch.partySize} ${dateSearch.partySize === 1 ? "person" : "people"} at ${formatDateTimeSummary(dateSearch.dateTime)}.`,
-        sourceLabel: "Powered by OpenTable",
+        sourceLabel: getDateSpotPoweredLabel(provider),
         searchUrl,
       }));
 
@@ -410,13 +470,21 @@ export default function App() {
           return;
         }
 
+        const nextProvider = resolveDateSpotProvider(payload.provider || provider);
+
         setDateResults({
           status: "ready",
+          provider: nextProvider,
           mode: payload.mode || "live",
           areaLabel: payload.areaLabel || geoState.label,
           note: payload.note || "Nearby results are ready.",
-          sourceLabel: payload.sourceLabel || "Powered by OpenTable",
-          searchUrl: payload.searchUrl || searchUrl,
+          sourceLabel: payload.sourceLabel || getDateSpotPoweredLabel(nextProvider),
+          searchUrl: payload.searchUrl || buildDateSpotSearchUrl({
+            latitude,
+            longitude,
+            partySize: dateSearch.partySize,
+            dateTime: dateSearch.dateTime,
+          }, { provider: nextProvider }),
           spots: Array.isArray(payload.spots) ? payload.spots : [],
         });
       } catch (error) {
@@ -426,17 +494,18 @@ export default function App() {
 
         setDateResults({
           status: "error",
+          provider,
           mode: "fallback",
           areaLabel: geoState.label,
-          note: "Nearby results could not be loaded. You can still open OpenTable directly or configure the partner endpoint.",
-          sourceLabel: "Powered by OpenTable",
+          note: "Nearby results could not be loaded. You can still open Maps or configure the live provider.",
+          sourceLabel: getDateSpotPoweredLabel(provider),
           searchUrl,
           spots: buildFallbackDateSpots({
             latitude,
             longitude,
             partySize: dateSearch.partySize,
             dateTime: dateSearch.dateTime,
-          }),
+          }, { provider }),
         });
       }
     }
@@ -553,7 +622,7 @@ export default function App() {
   function AnimatedBentoCard({ gift, index, options, savedIds, toggleSaved, openPreview }) {
     const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "0px 0px -50px 0px" });
     const isSaved = savedIds.includes(gift.id);
-    const { eyebrow = gift.badge, deck = gift.hook } = options;
+    const { eyebrow = gift.badge, deck = gift.hook, imageOnly = false } = options;
     const minimalMotion = options.motion === "minimal";
     const delayClass = minimalMotion ? "" : index % 3 === 1 ? "delay-100" : index % 3 === 2 ? "delay-200" : "";
 
@@ -562,51 +631,69 @@ export default function App() {
         ref={ref} 
         className={classNames(
           "gs-bento-card",
+          imageOnly && "is-image-only",
           minimalMotion && "is-minimal-motion",
           inView && (minimalMotion ? "animate-fade-soft" : "animate-fade-up"),
           delayClass
         )}
       >
-        <div className="gs-bento-image-wrap">
-          <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
-        </div>
-        <div className="gs-bento-content">
-          {eyebrow && <p className="gs-overline">{eyebrow}</p>}
-          <h3>{gift.name}</h3>
-          {deck ? <p>{deck}</p> : null}
-          <div className="gs-bento-footer">
-             <div className="gs-product-meta" style={{ marginTop: 0 }}>
-               <span>{gift.priceLabel}</span>
-             </div>
-             <div className="gs-bento-actions">
-                <button
-                  type="button"
-                  className="gs-icon-btn"
-                  onClick={() => openPreview(gift)}
-                  aria-label={`View ${gift.name}`}
-                >
-                  <Play />
-                </button>
-                <button
-                  type="button"
-                  className={classNames("gs-icon-btn", isSaved && "is-active")}
-                  onClick={() => toggleSaved(gift.id)}
-                  aria-label={isSaved ? "Remove from saved" : "Save"}
-                >
-                  {isSaved ? <BookmarkCheck /> : <Bookmark />}
-                </button>
-                <a
-                  className="gs-icon-btn"
-                  href={buildAffiliateLink(gift)}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Buy"
-                >
-                  <ArrowUpRight />
-                </a>
-             </div>
-          </div>
-        </div>
+        {imageOnly ? (
+          <button
+            type="button"
+            className="gs-bento-image-hit"
+            onClick={() => openPreview(gift)}
+            aria-label={`Open ${gift.name}`}
+          >
+            <div className="gs-bento-image-wrap">
+              <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
+            </div>
+          </button>
+        ) : (
+          <>
+            <div className="gs-bento-image-wrap">
+              <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
+            </div>
+            <div className="gs-bento-content">
+              <div className="gs-bento-copy">
+                {eyebrow && <p className="gs-overline gs-bento-eyebrow">{eyebrow}</p>}
+                <h3>{gift.name}</h3>
+                {deck ? <p className="gs-bento-deck">{deck}</p> : null}
+              </div>
+              <div className="gs-bento-footer">
+                 <div className="gs-product-meta" style={{ marginTop: 0 }}>
+                   <span>{gift.priceLabel}</span>
+                 </div>
+                 <div className="gs-bento-actions">
+                    <button
+                      type="button"
+                      className="gs-icon-btn"
+                      onClick={() => openPreview(gift)}
+                      aria-label={`View ${gift.name}`}
+                    >
+                      <Play />
+                    </button>
+                    <button
+                      type="button"
+                      className={classNames("gs-icon-btn", isSaved && "is-active")}
+                      onClick={() => toggleSaved(gift.id)}
+                      aria-label={isSaved ? "Remove from saved" : "Save"}
+                    >
+                      {isSaved ? <BookmarkCheck /> : <Bookmark />}
+                    </button>
+                    <a
+                      className="gs-icon-btn"
+                      href={buildAffiliateLink(gift)}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="Buy"
+                    >
+                      <ArrowUpRight />
+                    </a>
+                 </div>
+              </div>
+            </div>
+          </>
+        )}
       </article>
     );
   }
@@ -788,8 +875,25 @@ export default function App() {
 
   const datePoweredCopy =
     dateResults.mode === "live"
-      ? "Links open on OpenTable and nearby ranking comes from the configured partner feed."
-      : "Configure OPENTABLE_DIRECTORY_API_URL and partner credentials to replace the fallback lanes with live nearby OpenTable results.";
+      ? activeDateProvider === DATE_SPOTS_PROVIDER_OPENTABLE
+        ? "Links open on OpenTable and nearby ranking comes from the configured partner feed."
+        : "Nearby ranking comes from Google Places. Actions open the venue site when available, otherwise Google Maps."
+      : activeDateProvider === DATE_SPOTS_PROVIDER_OPENTABLE
+        ? "Configure OPENTABLE_DIRECTORY_API_URL and partner credentials to replace the fallback lanes with live nearby OpenTable results."
+        : "Add GOOGLE_PLACES_API_KEY in Cloudflare Pages to replace the fallback lane with live nearby places.";
+
+  function getDateSpotSummaryLabel(spot) {
+    return [spot.distanceLabel, spot.priceHint].filter(Boolean).join(" · ") || spot.sourceLabel;
+  }
+
+  function getDateRowSummary(spot) {
+    const leadMeta =
+      activeDateProvider === DATE_SPOTS_PROVIDER_OPENTABLE
+        ? [spot.type, spot.neighborhood, spot.ratingLabel]
+        : [spot.type, spot.ratingLabel];
+
+    return [...leadMeta, spot.availabilityLabel].filter(Boolean).join(" · ");
+  }
 
   return (
     <div className="gs-slider-app">
@@ -836,9 +940,18 @@ export default function App() {
                     <p className="gs-overline">Popular</p>
                     <h2>Gifts to buy right now.</h2>
                     <p>Clean picks in {activeBudget.label.toLowerCase()} and {activeSignal.label.toLowerCase()}.</p>
+                    <button
+                      type="button"
+                      className="gs-popular-next-indicator"
+                      onClick={() => setSlide(1)}
+                      aria-label="Open the Hot page"
+                    >
+                      <span>Scroll right for Hot</span>
+                      <ArrowRight size={14} />
+                    </button>
                   </div>
-                  <div className="gs-popular-hero-visual" aria-hidden="true">
-                    <div className="gs-popular-hero-stack">
+                  <div className="gs-popular-hero-visual">
+                    <div className="gs-popular-hero-stack" aria-hidden="true">
                       {popularHeroProducts.map((gift, index) => (
                         <a key={gift.slug} href={`/gift/${gift.slug}/`} className={`gs-popular-hero-card is-layer-${index + 1}`}>
                           <img src={getGiftImageUrl(gift)} alt={gift.name} loading="lazy" />
@@ -856,9 +969,8 @@ export default function App() {
                   <div className="gs-bento-grid gs-popular-grid">
                     {topPicks.map((gift, index) =>
                       renderBentoCard(gift, index + 1, {
-                        eyebrow: index === 0 ? "Best overall" : "",
-                        deck: "",
                         motion: "minimal",
+                        imageOnly: true,
                       })
                     )}
                   </div>
@@ -971,8 +1083,8 @@ export default function App() {
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">Dates</p>
-                  <h2>Book a place fast.</h2>
-                  <p>Dinner and drinks spots you can book fast.</p>
+                  <h2>Find a place fast.</h2>
+                  <p>Nearby dinner and drinks spots that open in Maps or on the venue site.</p>
                 </div>
 
                 <section className="gs-date-shell">
@@ -1021,7 +1133,7 @@ export default function App() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Open OpenTable
+                      {getDateSpotSearchLinkLabel(activeDateProvider)}
                     </a>
                   </div>
 
@@ -1033,17 +1145,17 @@ export default function App() {
                           <h3>{activeDateSpot.name}</h3>
                         </div>
                         <span className="gs-date-distance">
-                          {activeDateSpot.distanceLabel || activeDateSpot.priceHint || activeDateSpot.sourceLabel}
+                          {getDateSpotSummaryLabel(activeDateSpot)}
                         </span>
                       </div>
                       <p className="gs-date-copy">{activeDateSpot.description}</p>
-                      <div className="gs-date-meta">
-                        {[activeDateSpot.neighborhood, activeDateSpot.cuisine, activeDateSpot.vibe, activeDateSpot.ratingLabel]
-                          .filter(Boolean)
-                          .map((value) => (
+                      {activeDateMeta.length ? (
+                        <div className="gs-date-meta">
+                          {activeDateMeta.map((value) => (
                             <span key={`${activeDateSpot.id}-${value}`}>{value}</span>
                           ))}
-                      </div>
+                        </div>
+                      ) : null}
                       {activeDateSpot.nextSlots?.length ? (
                         <div className="gs-date-times">
                           {activeDateSpot.nextSlots.map((slot) => (
@@ -1068,22 +1180,22 @@ export default function App() {
                           target="_blank"
                           rel="noreferrer"
                         >
-                          {activeDateSpot.actionLabel} on OpenTable
+                          {activeDateSpot.actionLabel}
                         </a>
                         <a
                           className="gs-date-secondary"
-                          href={dateResults.searchUrl}
+                          href={activeDateSecondaryUrl}
                           target="_blank"
                           rel="noreferrer"
                         >
-                          Nearby search
+                          {activeDateSecondaryLabel}
                         </a>
                       </div>
                     </article>
                   ) : (
                     <article className="gs-date-empty">
                       <strong>Use your area to load nearby spots.</strong>
-                      <p>Once location is available, this lane can rank nearby places and hand off to OpenTable.</p>
+                      <p>Once location is available, this lane can rank nearby places and hand off to Maps or the venue site.</p>
                     </article>
                   )}
 
@@ -1102,10 +1214,10 @@ export default function App() {
                             <span className="gs-date-row-copy">
                               <span className="gs-date-row-top">
                                 <strong>{spot.name}</strong>
-                                <span>{spot.distanceLabel || spot.priceHint || spot.sourceLabel}</span>
+                                <span>{getDateSpotSummaryLabel(spot)}</span>
                               </span>
                               <span className="gs-date-row-bottom">
-                                {[spot.type, spot.neighborhood, spot.availabilityLabel].filter(Boolean).join(" · ")}
+                                {getDateRowSummary(spot)}
                               </span>
                             </span>
                           </button>
@@ -1201,43 +1313,115 @@ export default function App() {
         </section>
 
         {previewGift ? (
-          <div className="gs-preview-shell" role="dialog" aria-modal="true" aria-label={`${previewGift.name} quick view`}>
+          <div
+            className="gs-preview-shell"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`preview-title-${previewGift.id}`}
+            aria-describedby={`preview-description-${previewGift.id}`}
+          >
             <button type="button" className="gs-preview-backdrop" onClick={closePreview} aria-label="Close preview" />
-            <section className="gs-preview-sheet">
+            <section
+              className="gs-preview-sheet"
+              style={{
+                "--preview-accent-from": previewGift.accentFrom,
+                "--preview-accent-to": previewGift.accentTo,
+              }}
+            >
               <div className="gs-preview-media">
-                <img src={getGiftImageUrl(previewGift)} alt={previewGift.name} className="gs-preview-image" />
+                <div className="gs-preview-media-frame">
+                  <img src={getGiftImageUrl(previewGift)} alt={previewGift.name} className="gs-preview-image" />
+                </div>
+                <div className="gs-preview-media-bar">
+                  <span>{previewGift.badge}</span>
+                  <span>{previewGift.priceLabel}</span>
+                  <span>{previewBudgetReadout}</span>
+                </div>
               </div>
               <div className="gs-preview-body">
                 <div className="gs-preview-head">
-                  <div>
-                    <p className="gs-overline">Quick view</p>
-                    <h3>{previewGift.name}</h3>
+                  <div className="gs-preview-head-copy">
+                    <p className="gs-overline">Quick buy</p>
+                    <h3 id={`preview-title-${previewGift.id}`}>{previewGift.name}</h3>
+                    <p className="gs-preview-copy" id={`preview-description-${previewGift.id}`}>{previewGift.hook}</p>
                   </div>
-                  <button type="button" className="gs-preview-close" onClick={closePreview}>
-                    Close
-                  </button>
+                  <div className="gs-preview-head-actions">
+                    {previewSeoGift ? (
+                      <a className="gs-preview-inline-link" href={`/gift/${previewSeoGift.slug}/`}>
+                        Open full page
+                      </a>
+                    ) : null}
+                    <button type="button" className="gs-preview-close" onClick={closePreview}>
+                      Close
+                    </button>
+                  </div>
                 </div>
-                <p className="gs-preview-copy">{previewGift.hook}</p>
-                <div className="gs-preview-meta">
-                  <span>{previewGift.badge}</span>
-                  <span>{previewGift.priceLabel}</span>
-                  <span>{previewGift.bestFor}</span>
+
+                <div className="gs-preview-summary-grid">
+                  <article className="gs-preview-summary-card">
+                    <span className="gs-preview-label">Price range</span>
+                    <strong>{previewGift.priceLabel}</strong>
+                    <p>{previewBudgetReadout} for the lane you have selected.</p>
+                  </article>
+                  <article className="gs-preview-summary-card">
+                    <span className="gs-preview-label">Best for</span>
+                    <strong>{previewGift.bestFor}</strong>
+                    <p>Use this when you want the safest fit without overexplaining the gift.</p>
+                  </article>
+                  <article className="gs-preview-summary-card">
+                    <span className="gs-preview-label">Feels like</span>
+                    <strong>{previewGift.vibe}</strong>
+                    <p>{previewGift.badge} energy with a clean, easy-to-understand reason to buy.</p>
+                  </article>
                 </div>
-                <p className="gs-preview-note">
-                  Buy on {affiliateConfig.merchantName}. Apple Pay or other fast checkout appears there when supported.
-                </p>
+
+                <section className="gs-preview-detail-block">
+                  <span className="gs-preview-label">Why it works</span>
+                  <p className="gs-preview-detail-copy">{previewGift.why}</p>
+                </section>
+
+                <div className="gs-preview-tag-grid">
+                  <section className="gs-preview-detail-block">
+                    <span className="gs-preview-label">Works for</span>
+                    <div className="gs-preview-meta">
+                      {previewRelationshipTags.map((tag) => (
+                        <span key={`${previewGift.id}-relationship-${tag}`}>{tag}</span>
+                      ))}
+                    </div>
+                  </section>
+                  <section className="gs-preview-detail-block">
+                    <span className="gs-preview-label">Gift angle</span>
+                    <div className="gs-preview-meta">
+                      {previewIntentTags.map((tag) => (
+                        <span key={`${previewGift.id}-intent-${tag}`}>{tag}</span>
+                      ))}
+                    </div>
+                  </section>
+                </div>
+
                 <div className="gs-preview-actions">
-                  <a className="gs-primary-btn" href={buildAffiliateLink(previewGift)} target="_blank" rel="noreferrer">
-                    BUY NOW
+                  <a className="gs-primary-btn gs-preview-primary" href={buildAffiliateLink(previewGift)} target="_blank" rel="noreferrer">
+                    Buy on {affiliateConfig.merchantName}
                   </a>
-                  <button
-                    type="button"
-                    className={classNames("gs-secondary-btn", savedIds.includes(previewGift.id) && "is-active")}
-                    onClick={() => toggleSaved(previewGift.id)}
-                  >
-                    {savedIds.includes(previewGift.id) ? "SAVED" : "SAVE"}
-                  </button>
+                  <div className="gs-preview-secondary-actions">
+                    <button
+                      type="button"
+                      className={classNames("gs-secondary-btn gs-preview-secondary", savedIds.includes(previewGift.id) && "is-active")}
+                      onClick={() => toggleSaved(previewGift.id)}
+                    >
+                      {savedIds.includes(previewGift.id) ? "Saved" : "Save"}
+                    </button>
+                    {previewSeoGift ? (
+                      <a className="gs-secondary-btn gs-preview-secondary" href={`/gift/${previewSeoGift.slug}/`}>
+                        Details
+                      </a>
+                    ) : null}
+                  </div>
                 </div>
+
+                <p className="gs-preview-note">
+                  Checkout continues on {affiliateConfig.merchantName}. Click outside or press Esc any time to go straight back to the list.
+                </p>
               </div>
             </section>
           </div>
