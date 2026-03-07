@@ -49,8 +49,9 @@ a {
 
 .discovery-brand img {
   display: block;
-  height: 24px;
+  height: 36px;
   width: auto;
+  max-width: 220px;
 }
 
 .discovery-nav {

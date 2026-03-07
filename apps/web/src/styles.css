@@ -1931,17 +1931,17 @@ h2, h3 {
 
 .gs-logo {
   display: block;
-  height: 22px;
+  height: 34px;
   width: auto;
-  max-width: 132px;
+  max-width: 220px;
   object-fit: contain;
 }
 
 .gs-footer-img {
-  height: 24px;
+  height: 42px;
   width: auto;
   object-fit: contain;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .gs-footer {
