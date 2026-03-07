@@ -11,6 +11,7 @@ import {
   getGooglePlacesSearchContext,
   normalizeDateSpot,
   resolveDateSpotProvider,
+  sortGooglePlaceResults,
 } from "../../apps/web/src/lib/date-spots.js";
 
 const GOOGLE_PLACES_SEARCH_NEARBY_URL = "https://places.googleapis.com/v1/places:searchNearby";
@@ -246,7 +247,7 @@ async function loadGooglePlacesResults(context, search, areaLabel) {
     }
 
     const payload = await upstreamResponse.json();
-    const spots = extractDateSpotArray(payload)
+    const spots = sortGooglePlaceResults(extractDateSpotArray(payload), search)
       .map((spot, index) => normalizeDateSpot(spot, index, search, { provider }))
       .filter(Boolean)
       .slice(0, search.limit);

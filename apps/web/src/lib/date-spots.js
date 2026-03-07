@@ -185,6 +185,8 @@ export function getGooglePlacesSearchContext(search = {}) {
   if (hour >= 23 || hour < 5) {
     return {
       includedPrimaryTypes: ["bar", "restaurant"],
+      preferredTypes: ["cocktail_bar", "wine_bar", "bar", "restaurant", "lounge"],
+      demotedTypes: ["sandwich_shop", "fast_food_restaurant", "hamburger_restaurant", "ice_cream_shop"],
       searchQuery: "late night drinks and dinner",
     };
   }
@@ -192,6 +194,8 @@ export function getGooglePlacesSearchContext(search = {}) {
   if (hour < 11) {
     return {
       includedPrimaryTypes: ["cafe", "restaurant"],
+      preferredTypes: ["coffee_shop", "cafe", "breakfast_restaurant", "brunch_restaurant", "restaurant"],
+      demotedTypes: ["bar", "night_club", "hamburger_restaurant", "sandwich_shop"],
       searchQuery: "coffee and brunch date spots",
     };
   }
@@ -199,6 +203,8 @@ export function getGooglePlacesSearchContext(search = {}) {
   if (hour < 16) {
     return {
       includedPrimaryTypes: ["restaurant", "cafe"],
+      preferredTypes: ["restaurant", "brunch_restaurant", "cafe", "coffee_shop"],
+      demotedTypes: ["fast_food_restaurant", "hamburger_restaurant", "sandwich_shop"],
       searchQuery: "brunch and lunch date spots",
     };
   }
@@ -206,12 +212,26 @@ export function getGooglePlacesSearchContext(search = {}) {
   if (hour < 22) {
     return {
       includedPrimaryTypes: ["restaurant", "bar"],
+      preferredTypes: [
+        "restaurant",
+        "wine_bar",
+        "cocktail_bar",
+        "french_restaurant",
+        "italian_restaurant",
+        "japanese_restaurant",
+        "mediterranean_restaurant",
+        "steak_house",
+        "seafood_restaurant",
+      ],
+      demotedTypes: ["sandwich_shop", "fast_food_restaurant", "hamburger_restaurant", "chicken_restaurant"],
       searchQuery: "date night restaurants and cocktail bars",
     };
   }
 
   return {
     includedPrimaryTypes: ["bar", "restaurant"],
+    preferredTypes: ["cocktail_bar", "wine_bar", "bar", "restaurant", "lounge"],
+    demotedTypes: ["sandwich_shop", "fast_food_restaurant", "hamburger_restaurant", "ice_cream_shop"],
     searchQuery: "cocktail bars and dinner spots",
   };
 }
@@ -514,6 +534,97 @@ function getGoogleSpotName(raw) {
   }
 
   return null;
+}
+
+function toPriceLevelScore(value) {
+  if (typeof value === "string" && /^PRICE_LEVEL_/i.test(value)) {
+    const normalized = value.replace(/^PRICE_LEVEL_/i, "").toUpperCase();
+    const priceLevelMap = {
+      FREE: 1,
+      INEXPENSIVE: 1,
+      MODERATE: 2,
+      EXPENSIVE: 3,
+      VERY_EXPENSIVE: 4,
+    };
+
+    return priceLevelMap[normalized] || 0;
+  }
+
+  return toNumber(value) || 0;
+}
+
+function scoreGooglePlaceResult(raw, search = {}) {
+  const primaryType = String(pickPath(raw, ["primaryType"]) || "");
+  const { preferredTypes = [], demotedTypes = [] } = getGooglePlacesSearchContext(search);
+  const preferred = new Set(preferredTypes);
+  const demoted = new Set(demotedTypes);
+  const parsed = new Date(search.dateTime);
+  const hour = Number.isNaN(parsed.getTime()) ? 19 : parsed.getHours();
+  const rating = toNumber(pickPath(raw, ["rating"]));
+  const reviewCount = toNumber(pickPath(raw, ["userRatingCount"]));
+  const priceLevel = toPriceLevelScore(pickPath(raw, ["priceLevel"]));
+  const openNow = pickPath(raw, ["currentOpeningHours.openNow"]);
+  let score = 0;
+
+  if (preferred.has(primaryType)) {
+    score += 12;
+  }
+
+  if (demoted.has(primaryType)) {
+    score -= 12;
+  }
+
+  if (primaryType === "restaurant") {
+    score += 4;
+  }
+
+  if (primaryType.endsWith("_restaurant")) {
+    score += 2;
+  }
+
+  if ((primaryType === "bar" || primaryType.endsWith("_bar")) && hour >= 16) {
+    score += 3;
+  }
+
+  if (rating !== null) {
+    score += Math.max(0, (rating - 4) * 4);
+  }
+
+  if (reviewCount) {
+    score += Math.min(4, Math.log10(reviewCount + 1));
+  }
+
+  if (priceLevel >= 2 && priceLevel <= 3 && hour >= 16) {
+    score += 1.5;
+  }
+
+  if (pickPath(raw, ["websiteUri"])) {
+    score += 1.5;
+  }
+
+  if (openNow === true) {
+    score += 1.5;
+  }
+
+  if (openNow === false) {
+    score -= 4;
+  }
+
+  return score;
+}
+
+export function sortGooglePlaceResults(rawPlaces, search = {}) {
+  return [...rawPlaces]
+    .sort((placeA, placeB) => scoreGooglePlaceResult(placeB, search) - scoreGooglePlaceResult(placeA, search))
+    .filter((place, index, array) => {
+      const placeId = pickPath(place, ["id"]) || getGoogleSpotName(place);
+
+      if (!placeId) {
+        return true;
+      }
+
+      return array.findIndex((candidate) => (pickPath(candidate, ["id"]) || getGoogleSpotName(candidate)) === placeId) === index;
+    });
 }
 
 function normalizeGoogleDateSpot(raw, index, search = {}) {
