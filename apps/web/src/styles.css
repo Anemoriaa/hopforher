@@ -358,6 +358,50 @@ h2, h3 {
   padding: 24px;
 }
 
+.gs-seo-guide-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.gs-seo-guide-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.gs-seo-guide-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.gs-seo-guide-link.is-all {
+  border-bottom: 1px solid var(--border);
+}
+
+.gs-seo-guide-link strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.gs-seo-guide-eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
 .gs-bento-content h3 {
   font-size: 1.15rem;
   line-height: 1.25;
@@ -686,23 +730,35 @@ h2, h3 {
   margin-top: 14px;
 }
 
-/* TikTok / Lemon8 Grid Layout */
-.gs-tiktok-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 200px;
-  gap: 10px;
-  margin-top: 16px;
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
+.animate-fade-up {
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
 
 .gs-date-shell {
   display: grid;
-  gap: 14px;
+  gap: 12px;
   margin-top: 16px;
 }
 
 .gs-date-toolbar {
   display: flex;
+  flex-wrap: wrap;
   align-items: end;
   justify-content: space-between;
   gap: 12px;
@@ -715,8 +771,8 @@ h2, h3 {
 
 .gs-date-area strong {
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  line-height: 1;
+  font-size: 1.04rem;
+  line-height: 1.05;
 }
 
 .gs-date-locate {
@@ -732,9 +788,84 @@ h2, h3 {
   cursor: pointer;
 }
 
+.gs-date-search {
+  display: grid;
+  grid-template-columns: minmax(0, 120px) minmax(0, 1fr);
+  gap: 10px;
+}
+
+.gs-date-field {
+  display: grid;
+  gap: 6px;
+}
+
+.gs-date-field span,
+.gs-date-status span {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+}
+
+.gs-date-field select,
+.gs-date-field input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  padding: 10px 12px;
+  font: inherit;
+  font-size: 0.86rem;
+  line-height: 1.2;
+}
+
+.gs-date-field.is-wide {
+  min-width: 0;
+}
+
+.gs-date-status {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.gs-date-status.is-error {
+  border-color: #b0b0b0;
+}
+
+.gs-date-status p {
+  margin: 4px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text-soft);
+}
+
+.gs-date-status-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: #ffffff;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
 .gs-date-feature {
   display: grid;
-  gap: 12px;
+  gap: 14px;
   padding: 16px;
   border: 1px solid var(--border);
   background: var(--surface);
@@ -770,6 +901,13 @@ h2, h3 {
   line-height: 1.5;
 }
 
+.gs-date-availability {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+
 .gs-date-meta {
   display: flex;
   flex-wrap: wrap;
@@ -777,8 +915,7 @@ h2, h3 {
 }
 
 .gs-date-meta span,
-.gs-date-row-top span,
-.gs-date-powered span {
+ .gs-date-powered span {
   font-family: var(--font-display);
   font-size: 0.64rem;
   font-weight: 800;
@@ -806,6 +943,59 @@ h2, h3 {
   letter-spacing: 0.05em;
 }
 
+.gs-date-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.gs-date-primary,
+.gs-date-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.gs-date-primary {
+  border: 1px solid var(--text);
+  background: var(--text);
+  color: #ffffff;
+}
+
+.gs-date-secondary {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+.gs-date-empty {
+  display: grid;
+  gap: 6px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.gs-date-empty strong {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  color: var(--text);
+}
+
+.gs-date-empty p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--text-soft);
+}
+
 .gs-date-list {
   display: grid;
   gap: 10px;
@@ -824,7 +1014,10 @@ h2, h3 {
 .gs-date-row.is-active,
 .gs-date-row:hover,
 .gs-date-time:hover,
-.gs-date-locate:hover {
+ .gs-date-locate:hover,
+ .gs-date-status-link:hover,
+ .gs-date-primary:hover,
+ .gs-date-secondary:hover {
   border-color: var(--text);
 }
 
@@ -860,7 +1053,7 @@ h2, h3 {
 
 .gs-date-row-top {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   gap: 10px;
 }
@@ -869,6 +1062,16 @@ h2, h3 {
   font-family: var(--font-display);
   font-size: 0.96rem;
   color: var(--text);
+}
+
+.gs-date-row-top span {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+  white-space: nowrap;
 }
 
 .gs-date-row-bottom {
@@ -896,23 +1099,80 @@ h2, h3 {
   gap: 4px;
 }
 
+@media (max-width: 639px) {
+  .gs-date-search,
+  .gs-date-status,
+  .gs-date-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gs-date-row-action,
+  .gs-date-status-link,
+  .gs-date-primary,
+  .gs-date-secondary {
+    width: 100%;
+  }
+
+  .gs-date-row-top {
+    flex-direction: column;
+    align-items: start;
+  }
+}
+
 .gs-trust-strip {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 18px;
+  gap: 6px;
+  margin-top: 14px;
 }
 
 .gs-trust-chip {
-  padding: 8px 10px;
+  padding: 6px 8px;
   border: 1px solid var(--border);
-  background: var(--surface);
+  background: transparent;
   font-family: var(--font-display);
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-soft);
+}
+
+.gs-popular-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.gs-popular-grid .gs-bento-card {
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.gs-popular-grid .gs-bento-image-wrap {
+  aspect-ratio: 1 / 1;
+}
+
+.gs-popular-grid .gs-bento-content {
+  padding: 10px;
+  gap: 8px;
+}
+
+.gs-popular-grid .gs-bento-content h3 {
+  font-size: 0.92rem;
+  line-height: 1.15;
+}
+
+.gs-popular-grid .gs-bento-footer {
+  gap: 8px;
+}
+
+.gs-popular-grid .gs-product-meta span {
+  font-size: 0.64rem;
+}
+
+.gs-popular-grid .gs-icon-btn {
+  width: 32px;
+  height: 32px;
 }
 
 .gs-content-block {
@@ -1007,151 +1267,199 @@ h2, h3 {
 }
 
 
+/* Hot Feed Masonry */
+.gs-masonry-grid {
+  display: flex;
+  width: auto;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.gs-masonry-grid_column {
+  background-clip: padding-box;
+}
+
+.gs-masonry-grid_column > div {
+  margin-bottom: 18px;
+}
+
 @media (min-width: 640px) {
-  .gs-tiktok-grid {
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 240px;
-    gap: 16px;
+  .gs-masonry-grid {
+    gap: 18px;
+  }
+  .gs-masonry-grid_column > div {
+    margin-bottom: 20px;
   }
 }
 
-.gs-tiktok-card {
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  display: block;
-  grid-row: span 1;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  transition: border-color 0.2s;
-  text-decoration: none;
+.gs-hot-feed-card {
+  opacity: 0;
+  width: 100%;
+}
+
+.gs-hot-feed-hit {
+  display: grid;
+  gap: 12px;
+  width: 100%;
   padding: 0;
+  border: 0;
+  background: transparent;
   cursor: pointer;
   text-align: left;
 }
 
-.gs-tiktok-card:hover {
-  border-color: var(--text);
+.gs-hot-feed-hit:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 4px;
+  border-radius: 18px;
 }
 
-.gs-tiktok-card.is-tall {
-  grid-row: span 2;
+.gs-hot-feed-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: linear-gradient(135deg, var(--story-accent-from), var(--story-accent-to));
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
 
-.gs-tiktok-video-thumb {
+.gs-hot-feed-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
   display: block;
-  opacity: 0.9;
-  transition: opacity 0.3s;
+  object-fit: cover;
+  filter: saturate(0.96) contrast(1.02);
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-.gs-tiktok-card:hover .gs-tiktok-video-thumb {
-  opacity: 1;
+.gs-hot-feed-hit:hover .gs-hot-feed-image {
+  transform: scale(1.03);
 }
 
-.gs-tiktok-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.08) 48%, rgba(0, 0, 0, 0) 72%);
+.gs-hot-feed-chip-row {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 12px;
-  color: #ffffff;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
 }
 
-.gs-tiktok-badge {
-  align-self: flex-end;
+.gs-hot-feed-chip {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  background: rgba(0, 0, 0, 0.5);
+  min-height: 24px;
   padding: 4px 8px;
   border-radius: 999px;
-  font-size: 0.7rem;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--surface);
+  color: var(--text-soft);
+  border: 1px solid var(--border);
 }
 
-.gs-tiktok-info {
+.gs-hot-feed-chip.is-heat {
+  background: #111111;
+  color: #ffffff;
+  border-color: #111111;
+}
+
+.gs-hot-feed-body {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
+  padding: 0 2px 2px;
 }
 
-.gs-tiktok-category {
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  font-weight: 800;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.08);
-  padding: 2px 6px;
-  border-radius: 4px;
-  width: fit-content;
-}
-
-.gs-tiktok-info h3 {
+.gs-hot-feed-body h3 {
+  font-family: var(--font-body);
   font-size: 1rem;
-  line-height: 1.2;
+  line-height: 1.24;
   margin: 0;
-  color: #ffffff;
+  color: var(--text);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-transform: none; /* override the global h3 uppercase if it exists */
-  font-weight: 600;
+  text-transform: none;
+  letter-spacing: -0.03em;
+  font-weight: 800;
 }
 
-.gs-tiktok-info p {
-  font-size: 0.8rem;
+.gs-hot-feed-body p {
+  font-size: 0.79rem;
   margin: 0;
-  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.48;
+  color: var(--text-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
   font-weight: 600;
 }
 
-.gs-tiktok-cta {
-  font-size: 0.68rem;
+.gs-hot-feed-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.gs-hot-feed-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gs-hot-feed-source-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--story-accent-to), #111111);
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.56rem;
   font-weight: 800;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.92);
 }
 
-.gs-tiktok-heat {
+.gs-hot-feed-source-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.gs-hot-feed-meta-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.gs-hot-feed-meta-tags span {
   display: inline-flex;
-  width: fit-content;
-  padding: 4px 7px;
-  margin-top: 2px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(255, 255, 255, 0.08);
-  font-family: var(--font-display);
-  font-size: 0.62rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  color: rgba(255, 255, 255, 0.92);
+  align-items: center;
+  padding: 4px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-soft);
 }
 
-.gs-tiktok-overlay::after {
-  content: "►";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0.8);
-  font-size: 2.5rem;
-  color: rgba(255, 255, 255, 0.8);
-  opacity: 0;
-  transition: all 0.2s ease;
-  pointer-events: none;
-}
+@media (min-width: 640px) {
+  .gs-hot-feed-hit {
+    gap: 14px;
+  }
 
-.gs-tiktok-card:hover .gs-tiktok-overlay::after {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
+  .gs-hot-feed-body h3 {
+    font-size: 1.04rem;
+  }
 }
 
 /* Saved List Layout */

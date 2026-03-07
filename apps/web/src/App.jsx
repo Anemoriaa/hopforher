@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Play } from "lucide-react";
+import { useInView } from "react-intersection-observer";
+import Masonry from "react-masonry-css";
+import { featuredSeoGuides, seoCatalog, seoDateCities, seoHotStories } from "./content/seo-guides.js";
 import {
   buildAffiliateLink,
   classNames,
@@ -10,6 +13,13 @@ import {
   scoreGift,
   subscribeToCatalogUpdates,
 } from "./lib/catalog.js";
+import {
+  buildFallbackDateSpots,
+  buildOpenTableNearbyUrl,
+  DEFAULT_DATE_PARTY_SIZE,
+  formatDateTimeSummary,
+  getDefaultDateTimeInput,
+} from "./lib/date-spots.js";
 
 const slides = [
   { id: "popular", label: "Popular", number: "01" },
@@ -19,6 +29,7 @@ const slides = [
 ];
 
 const editorialSlides = slides.filter((slide) => slide.id !== "saved");
+const seoCatalogById = new Map(seoCatalog.map((gift) => [gift.id, gift]));
 
 const relationshipOptions = [
   { id: "girlfriend", label: "Girlfriend", note: "Lower pressure, cleaner yes, easier first hit." },
@@ -55,68 +66,19 @@ const sliderFields = [
   { key: "intent", label: "What should it feel like", options: intentOptions },
 ];
 
-const dateSpotTemplates = [
-  {
-    id: "dinner-room",
-    name: "Low-light dinner room",
-    type: "Dinner",
-    neighborhood: "Near downtown",
-    description: "Straight reservation. Strong first answer when you want the night to feel handled.",
-    vibe: "Easy confidence",
-    slots: ["6:30 PM", "7:15 PM", "8:00 PM"],
-    bookingUrl: "https://www.opentable.com/",
-  },
-  {
-    id: "wine-bar",
-    name: "Natural wine bar",
-    type: "Drinks",
-    neighborhood: "10 min away",
-    description: "Best for a cleaner, lower-pressure date that still feels intentional.",
-    vibe: "Low noise",
-    slots: ["6:00 PM", "6:45 PM", "8:15 PM"],
-    bookingUrl: "https://www.opentable.com/",
-  },
-  {
-    id: "rooftop",
-    name: "Rooftop dinner spot",
-    type: "Night out",
-    neighborhood: "City center",
-    description: "Use this when you want a little more visual payoff without overcomplicating it.",
-    vibe: "Looks strong",
-    slots: ["7:00 PM", "7:30 PM", "8:30 PM"],
-    bookingUrl: "https://www.opentable.com/",
-  },
-  {
-    id: "dessert-bar",
-    name: "Dessert and cocktail bar",
-    type: "After dinner",
-    neighborhood: "Close by",
-    description: "Shorter plan. Good when you want something easy to say yes to.",
-    vibe: "Short + polished",
-    slots: ["8:00 PM", "8:45 PM", "9:15 PM"],
-    bookingUrl: "https://www.opentable.com/",
-  },
-  {
-    id: "brunch",
-    name: "Weekend brunch room",
-    type: "Day date",
-    neighborhood: "Uptown",
-    description: "Clean daytime option when dinner feels too heavy.",
-    vibe: "Easy daytime",
-    slots: ["11:00 AM", "11:45 AM", "12:30 PM"],
-    bookingUrl: "https://www.opentable.com/",
-  },
-  {
-    id: "quiet-room",
-    name: "Quiet neighborhood spot",
-    type: "Safe pick",
-    neighborhood: "Near you",
-    description: "Reliable room, good lighting, easy conversation, less risk.",
-    vibe: "Zero drama",
-    slots: ["6:15 PM", "7:00 PM", "7:45 PM"],
-    bookingUrl: "https://www.opentable.com/",
-  },
-];
+const datePartySizeOptions = Array.from({ length: 8 }, (_, index) => index + 1);
+const dateSpotsApiPath = import.meta.env.VITE_DATE_SPOTS_API_PATH || "/api/date-spots";
+
+const hotStoryHeights = [520, 640, 760, 580, 700, 840, 620];
+
+function getStableSeed(...parts) {
+  return parts.join("-").split("").reduce((total, char) => total + char.charCodeAt(0), 0);
+}
+
+function buildHotStoryImage(giftId, storyId) {
+  const imageHeight = hotStoryHeights[getStableSeed(giftId, storyId) % hotStoryHeights.length];
+  return `https://picsum.photos/seed/${encodeURIComponent(`${giftId}-${storyId}-story`)}/480/${imageHeight}`;
+}
 
 function rankGiftMatches(gifts, filters) {
   const exact = gifts.filter(
@@ -136,12 +98,29 @@ function rankGiftMatches(gifts, filters) {
 
 export default function App() {
   const touchRef = useRef({ x: 0, y: 0 });
+  const initialDateTime = getDefaultDateTimeInput();
   const [catalog, setCatalog] = useState(() => readLiveCatalog());
   const [activeSlide, setActiveSlide] = useState(0);
   const [savedIds, setSavedIds] = useState(() => loadSaved());
   const [previewGift, setPreviewGift] = useState(null);
   const [geoState, setGeoState] = useState({ status: "idle", label: "Preview area", coords: null });
-  const [activeDateSpotId, setActiveDateSpotId] = useState(dateSpotTemplates[0].id);
+  const [dateSearch, setDateSearch] = useState(() => ({
+    partySize: DEFAULT_DATE_PARTY_SIZE,
+    dateTime: initialDateTime,
+  }));
+  const [dateResults, setDateResults] = useState(() => ({
+    status: "idle",
+    mode: "idle",
+    areaLabel: "Preview area",
+    note: "Use your location to load nearby OpenTable spots.",
+    sourceLabel: "Powered by OpenTable",
+    searchUrl: buildOpenTableNearbyUrl({
+      partySize: DEFAULT_DATE_PARTY_SIZE,
+      dateTime: initialDateTime,
+    }),
+    spots: [],
+  }));
+  const [activeDateSpotId, setActiveDateSpotId] = useState(null);
   const [brief, setBrief] = useState({
     relationship: 1,
     budget: 1,
@@ -182,23 +161,18 @@ export default function App() {
 
     return merged.slice(0, 12);
   }, [gifts, rankedMatches, activeFilters]);
+  const linkedTopProducts = useMemo(
+    () => topPicks.map((gift) => seoCatalogById.get(gift.id)).filter(Boolean).slice(0, 6),
+    [topPicks]
+  );
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
+  const datesSlideIndex = slides.findIndex((slide) => slide.id === "guides");
   const savedGifts = useMemo(
     () => gifts.filter((gift) => savedIds.includes(gift.id)),
     [gifts, savedIds]
   );
-  const nearbyDateSpots = useMemo(() => {
-    const base = geoState.coords
-      ? Math.abs(Math.round(geoState.coords.latitude * 1000) + Math.round(geoState.coords.longitude * 1000))
-      : 124;
-
-    return dateSpotTemplates.map((spot, index) => ({
-      ...spot,
-      distance: `${((base % 5) * 0.2 + 0.3 + index * 0.18).toFixed(1)} mi`,
-      nextSlot: spot.slots[0],
-    }));
-  }, [geoState.coords]);
-  const activeDateSpot = nearbyDateSpots.find((spot) => spot.id === activeDateSpotId) || nearbyDateSpots[0] || null;
+  const activeDateSpot =
+    dateResults.spots.find((spot) => spot.id === activeDateSpotId) || dateResults.spots[0] || null;
   const videoStories = useMemo(() => {
     const definitions = [
       {
@@ -297,6 +271,30 @@ export default function App() {
         heat: "Cozy lane",
         filters: { tab: "cozy-home", intent: "cozy" },
       },
+      {
+        id: "birthday",
+        label: "Birthday",
+        heat: "Gift-ready",
+        filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
+      },
+      {
+        id: "wife-premium",
+        label: "Wife premium",
+        heat: "Big move",
+        filters: { relationship: "wife", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
+      },
+      {
+        id: "anniversary-under-100",
+        label: "Anniversary under $100",
+        heat: "Smart spend",
+        filters: { relationship: "anniversary", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
+      },
+      {
+        id: "daily-soft",
+        label: "Daily soft",
+        heat: "Easy home",
+        filters: { budget: "under-100", tab: "cozy-home", intent: "everyday" },
+      },
     ];
 
     const usedIds = new Set();
@@ -315,12 +313,139 @@ export default function App() {
         return {
           ...story,
           gift,
-          views: `${130 + index * 47}k`,
-          imageUrl: `https://picsum.photos/seed/${encodeURIComponent(`${gift.id}-${story.id}-video`)}/400/600`,
+          imageUrl: buildHotStoryImage(gift.id, story.id),
         };
       })
       .filter(Boolean);
   }, [gifts, activeFilters]);
+
+  useEffect(() => {
+    if (activeSlide === datesSlideIndex && geoState.status === "idle") {
+      useMyArea();
+    }
+  }, [activeSlide, datesSlideIndex, geoState.status]);
+
+  useEffect(() => {
+    if (!dateResults.spots.length) {
+      if (activeDateSpotId !== null) {
+        setActiveDateSpotId(null);
+      }
+      return;
+    }
+
+    if (!dateResults.spots.some((spot) => spot.id === activeDateSpotId)) {
+      setActiveDateSpotId(dateResults.spots[0].id);
+    }
+  }, [activeDateSpotId, dateResults.spots]);
+
+  useEffect(() => {
+    const latitude = geoState.coords?.latitude ?? null;
+    const longitude = geoState.coords?.longitude ?? null;
+    const searchUrl = buildOpenTableNearbyUrl({
+      latitude,
+      longitude,
+      partySize: dateSearch.partySize,
+      dateTime: dateSearch.dateTime,
+    });
+
+    if (latitude === null || longitude === null) {
+      const blocked = geoState.status === "denied" || geoState.status === "unsupported";
+
+      setDateResults({
+        status: geoState.status === "loading" ? "loading" : blocked ? "ready" : "idle",
+        mode: blocked ? "fallback" : "idle",
+        areaLabel: geoState.label,
+        note:
+          geoState.status === "denied"
+            ? "Location access is blocked. You can still open OpenTable directly or enable location to rank nearby spots."
+            : geoState.status === "unsupported"
+              ? "This browser does not expose location, so nearby ranking is unavailable here."
+              : geoState.status === "loading"
+                ? "Locating you now."
+                : "Use your location to load nearby OpenTable spots.",
+        sourceLabel: "Powered by OpenTable",
+        searchUrl,
+        spots: blocked ? buildFallbackDateSpots({ partySize: dateSearch.partySize, dateTime: dateSearch.dateTime }) : [],
+      });
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadNearbyDates() {
+      setDateResults((current) => ({
+        ...current,
+        status: "loading",
+        mode: current.mode,
+        areaLabel: geoState.label,
+        note: `Searching near you for ${dateSearch.partySize} ${dateSearch.partySize === 1 ? "person" : "people"} at ${formatDateTimeSummary(dateSearch.dateTime)}.`,
+        sourceLabel: "Powered by OpenTable",
+        searchUrl,
+      }));
+
+      try {
+        const requestUrl = new URL(dateSpotsApiPath, window.location.origin);
+        requestUrl.search = new URLSearchParams({
+          latitude: String(latitude),
+          longitude: String(longitude),
+          partySize: String(dateSearch.partySize),
+          dateTime: dateSearch.dateTime,
+        }).toString();
+        const response = await fetch(
+          requestUrl.toString()
+        );
+
+        if (!response.ok) {
+          throw new Error(`Request failed with ${response.status}`);
+        }
+
+        if (!response.headers.get("content-type")?.includes("application/json")) {
+          throw new Error("Date spots endpoint did not return JSON");
+        }
+
+        const payload = await response.json();
+
+        if (cancelled) {
+          return;
+        }
+
+        setDateResults({
+          status: "ready",
+          mode: payload.mode || "live",
+          areaLabel: payload.areaLabel || geoState.label,
+          note: payload.note || "Nearby results are ready.",
+          sourceLabel: payload.sourceLabel || "Powered by OpenTable",
+          searchUrl: payload.searchUrl || searchUrl,
+          spots: Array.isArray(payload.spots) ? payload.spots : [],
+        });
+      } catch (error) {
+        if (cancelled) {
+          return;
+        }
+
+        setDateResults({
+          status: "error",
+          mode: "fallback",
+          areaLabel: geoState.label,
+          note: "Nearby results could not be loaded. You can still open OpenTable directly or configure the partner endpoint.",
+          sourceLabel: "Powered by OpenTable",
+          searchUrl,
+          spots: buildFallbackDateSpots({
+            latitude,
+            longitude,
+            partySize: dateSearch.partySize,
+            dateTime: dateSearch.dateTime,
+          }),
+        });
+      }
+    }
+
+    loadNearbyDates();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [dateSearch.dateTime, dateSearch.partySize, geoState.coords, geoState.label, geoState.status]);
 
   function setSlide(index) {
     const nextIndex = Math.max(0, Math.min(slides.length - 1, index));
@@ -331,6 +456,13 @@ export default function App() {
     setBrief((current) => ({
       ...current,
       [key]: Number(value),
+    }));
+  }
+
+  function updateDateSearch(key, value) {
+    setDateSearch((current) => ({
+      ...current,
+      [key]: key === "partySize" ? Number(value) : value,
     }));
   }
 
@@ -389,11 +521,11 @@ export default function App() {
 
   function useMyArea() {
     if (typeof navigator === "undefined" || !navigator.geolocation) {
-      setGeoState({ status: "unsupported", label: "Preview area", coords: null });
+      setGeoState({ status: "unsupported", label: "Location unavailable", coords: null });
       return;
     }
 
-    setGeoState((current) => ({ ...current, status: "loading" }));
+    setGeoState((current) => ({ ...current, status: "loading", label: "Locating..." }));
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -407,7 +539,7 @@ export default function App() {
         });
       },
       () => {
-        setGeoState({ status: "denied", label: "Preview area", coords: null });
+        setGeoState({ status: "denied", label: "Location blocked", coords: null });
       },
       {
         enableHighAccuracy: false,
@@ -417,12 +549,17 @@ export default function App() {
     );
   }
 
-  function renderBentoCard(gift, index, options = {}) {
+  function AnimatedBentoCard({ gift, index, options, savedIds, toggleSaved, openPreview }) {
+    const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "0px 0px -50px 0px" });
     const isSaved = savedIds.includes(gift.id);
     const { eyebrow = gift.badge, deck = gift.hook } = options;
+    const delayClass = index % 3 === 1 ? 'delay-100' : index % 3 === 2 ? 'delay-200' : '';
 
     return (
-      <article key={`${gift.id}-bento-${index}`} className="gs-bento-card">
+      <article 
+        ref={ref} 
+        className={classNames("gs-bento-card", inView && "animate-fade-up", delayClass)}
+      >
         <div className="gs-bento-image-wrap">
           <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
         </div>
@@ -451,10 +588,10 @@ export default function App() {
                 >
                   {isSaved ? <BookmarkCheck /> : <Bookmark />}
                 </button>
-                <a 
-                  className="gs-icon-btn" 
-                  href={buildAffiliateLink(gift)} 
-                  target="_blank" 
+                <a
+                  className="gs-icon-btn"
+                  href={buildAffiliateLink(gift)}
+                  target="_blank"
                   rel="noreferrer"
                   aria-label="Buy"
                 >
@@ -467,8 +604,66 @@ export default function App() {
     );
   }
 
-  function renderGiftCard(gift, index, options = {}) {
-    const isSaved = savedIds.includes(gift.id);
+  function renderBentoCard(gift, index, options = {}) {
+    return <AnimatedBentoCard key={`${gift.id}-bento-${index}`} gift={gift} index={index} options={options} savedIds={savedIds} toggleSaved={toggleSaved} openPreview={openPreview} />;
+  }
+
+  function AnimatedHotCard({ item, index, openPreview }) {
+    const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "0px 0px -100px 0px" });
+    const gift = item.gift;
+    const delayClass = index % 3 === 1 ? "delay-100" : index % 3 === 2 ? "delay-200" : "";
+
+    return (
+      <article
+        ref={ref}
+        className={classNames(
+          "gs-hot-feed-card",
+          inView && "animate-fade-up",
+          delayClass
+        )}
+        style={{
+          "--story-accent-from": gift.accentFrom,
+          "--story-accent-to": gift.accentTo,
+        }}
+      >
+        <button
+          type="button"
+          className="gs-hot-feed-hit"
+          onClick={() => openPreview(gift)}
+          aria-label={`View ${gift.name}`}
+        >
+          <div className="gs-hot-feed-media">
+            <img
+              src={item.imageUrl || buildHotStoryImage(gift.id, item.id)}
+              alt={gift.name}
+              className="gs-hot-feed-image"
+              loading="lazy"
+            />
+          </div>
+          <div className="gs-hot-feed-body">
+            <div className="gs-hot-feed-chip-row">
+              <span className="gs-hot-feed-chip">{item.label}</span>
+              {item.heat && <span className="gs-hot-feed-chip is-heat">{item.heat}</span>}
+            </div>
+            <h3>{gift.name}</h3>
+            <p>{gift.why || gift.hook}</p>
+            <div className="gs-hot-feed-meta">
+              <div className="gs-hot-feed-source">
+                <span className="gs-hot-feed-source-mark">SF</span>
+                <span className="gs-hot-feed-source-label">ShopForHer</span>
+              </div>
+              <div className="gs-hot-feed-meta-tags">
+                <span>{gift.badge}</span>
+                <span>{gift.priceLabel}</span>
+              </div>
+            </div>
+          </div>
+        </button>
+      </article>
+    );
+  }
+
+  function renderGiftCard(gift, index, options = {}) {    const isSaved = savedIds.includes(gift.id);
     const {
       eyebrow = gift.badge,
       deck = gift.hook,
@@ -553,6 +748,9 @@ export default function App() {
           <p>Checkout happens on the merchant site. Apple Pay or similar fast checkout appears there when supported.</p>
           <p>Saved picks stay on this device. Updated weekly.</p>
           <div className="gs-footer-links">
+            <a href="/guides/">Guides</a>
+            <a href="/hot/">Hot</a>
+            <a href="/dates/">Dates</a>
             <a href="/privacy.html">Privacy</a>
             <a href="/terms.html">Terms</a>
             <a href="/affiliate-disclosure.html">Affiliate</a>
@@ -566,12 +764,25 @@ export default function App() {
   function renderTrustStrip() {
     return (
       <section className="gs-trust-strip" aria-label="Why ShopForHer works">
-        <span className="gs-trust-chip">Strong picks only</span>
         <span className="gs-trust-chip">Updated weekly</span>
         <span className="gs-trust-chip">Fast merchant checkout</span>
       </section>
     );
   }
+
+  const dateStatusLabel =
+    dateResults.status === "loading"
+      ? "Loading nearby spots"
+      : dateResults.mode === "live"
+        ? `${dateResults.spots.length} nearby ${dateResults.spots.length === 1 ? "spot" : "spots"}`
+        : dateResults.mode === "fallback"
+          ? "Fallback date lanes"
+          : "Location needed";
+
+  const datePoweredCopy =
+    dateResults.mode === "live"
+      ? "Links open on OpenTable and nearby ranking comes from the configured partner feed."
+      : "Configure OPENTABLE_DIRECTORY_API_URL and partner credentials to replace the fallback lanes with live nearby OpenTable results.";
 
   return (
     <div className="gs-slider-app">
@@ -615,22 +826,63 @@ export default function App() {
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">Popular</p>
-                  <h2>Gifts to buy right now.</h2>
-                  <p>Straight picks for girlfriends and wives.</p>
+                  <h2>Start with these.</h2>
+                  <p>Clean gift picks for her.</p>
                 </div>
 
                 <section className="gs-product-list">
                   <div className="gs-section-head">
-                    <p className="gs-overline">Popular now</p>
-                    <h3>Start here</h3>
+                    <p className="gs-overline">Top picks</p>
+                    <h3>Most bought</h3>
                   </div>
-                  <div className="gs-bento-grid">
+                  <div className="gs-bento-grid gs-popular-grid">
                     {topPicks.map((gift, index) =>
                       renderBentoCard(gift, index + 1, {
-                        eyebrow: index === 0 ? "Best overall" : gift.badge,
-                        deck: gift.bestFor || "",
+                        eyebrow: index === 0 ? "Best overall" : "",
+                        deck: "",
                       })
                     )}
+                  </div>
+                </section>
+                <section className="gs-seo-guide-section" aria-label="Browse product pages">
+                  <div className="gs-section-head">
+                    <p className="gs-overline">Products</p>
+                    <h3>Open a product page</h3>
+                  </div>
+                  <div className="gs-seo-guide-list">
+                    {linkedTopProducts.map((gift) => (
+                      <a key={gift.slug} href={`/gift/${gift.slug}/`} className="gs-seo-guide-link">
+                        <div>
+                          <span className="gs-seo-guide-eyebrow">{gift.badge}</span>
+                          <strong>{gift.name}</strong>
+                        </div>
+                        <ArrowUpRight size={16} />
+                      </a>
+                    ))}
+                  </div>
+                </section>
+                <section className="gs-seo-guide-section" aria-label="Browse more gift guides">
+                  <div className="gs-section-head">
+                    <p className="gs-overline">More ways to shop</p>
+                    <h3>Real gift guides</h3>
+                  </div>
+                  <div className="gs-seo-guide-list">
+                    {featuredSeoGuides.map((guide) => (
+                      <a key={guide.slug} href={`/${guide.slug}/`} className="gs-seo-guide-link">
+                        <div>
+                          <span className="gs-seo-guide-eyebrow">{guide.groupLabel}</span>
+                          <strong>{guide.label}</strong>
+                        </div>
+                        <ArrowUpRight size={16} />
+                      </a>
+                    ))}
+                    <a href="/guides/" className="gs-seo-guide-link is-all">
+                      <div>
+                        <span className="gs-seo-guide-eyebrow">Index</span>
+                        <strong>All guides</strong>
+                      </div>
+                      <ArrowUpRight size={16} />
+                    </a>
                   </div>
                 </section>
                 {renderTrustStrip()}
@@ -642,39 +894,42 @@ export default function App() {
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">Hot</p>
-                  <h2>What is moving right now.</h2>
-                  <p>See it. View it. Buy it.</p>
+                  <h2>Moving now.</h2>
+                  <p>Open it. Buy fast.</p>
                 </div>
 
-                <section className="gs-tiktok-grid">
-                  {videoStories.map((item, index) => {
-                    const gift = item.gift;
-                    const isTall = index % 3 === 0 || index % 5 === 0;
-
-                    return (
-                      <button
-                        key={`${gift.id}-tiktok-${index}`} 
-                        className={classNames("gs-tiktok-card", isTall && "is-tall")}
-                        type="button"
-                        onClick={() => openPreview(gift)}
-                      >
-                        <img src={item.imageUrl} alt={gift.name} className="gs-tiktok-video-thumb" loading="lazy" />
-                        <div className="gs-tiktok-overlay">
-                          <div className="gs-tiktok-badge">
-                            <Play size={12} fill="currentColor" strokeWidth={2} />
-                            <span>{item.views}</span>
-                          </div>
-                          <div className="gs-tiktok-info">
-                            <span className="gs-tiktok-category">{item.label}</span>
-                            <span className="gs-tiktok-heat">{item.heat}</span>
-                            <h3>{gift.name}</h3>
-                            <p>{gift.priceLabel}</p>
-                            <span className="gs-tiktok-cta">Tap to view</span>
-                          </div>
+                <Masonry
+                  breakpointCols={{ default: 2, 360: 1 }}
+                  className="gs-masonry-grid"
+                  columnClassName="gs-masonry-grid_column"
+                >
+                  {videoStories.map((item, index) => (
+                    <AnimatedHotCard key={`${item.gift.id}-hot-${index}`} item={item} index={index} openPreview={openPreview} />
+                  ))}
+                </Masonry>
+                <section className="gs-seo-guide-section" aria-label="Read full hot pages">
+                  <div className="gs-section-head">
+                    <p className="gs-overline">Stories</p>
+                    <h3>Read the full pages</h3>
+                  </div>
+                  <div className="gs-seo-guide-list">
+                    {seoHotStories.slice(0, 6).map((story) => (
+                      <a key={story.slug} href={`/hot/${story.slug}/`} className="gs-seo-guide-link">
+                        <div>
+                          <span className="gs-seo-guide-eyebrow">{story.trendLabel}</span>
+                          <strong>{story.h1}</strong>
                         </div>
-                      </button>
-                    );
-                  })}
+                        <ArrowUpRight size={16} />
+                      </a>
+                    ))}
+                    <a href="/hot/" className="gs-seo-guide-link is-all">
+                      <div>
+                        <span className="gs-seo-guide-eyebrow">Index</span>
+                        <strong>All hot pages</strong>
+                      </div>
+                      <ArrowUpRight size={16} />
+                    </a>
+                  </div>
                 </section>
                 {renderFooter()}
               </div>
@@ -692,11 +947,50 @@ export default function App() {
                   <div className="gs-date-toolbar">
                     <div className="gs-date-area">
                       <p className="gs-overline">Area</p>
-                      <strong>{geoState.label}</strong>
+                      <strong>{dateResults.areaLabel || geoState.label}</strong>
                     </div>
                     <button type="button" className="gs-date-locate" onClick={useMyArea}>
                       {geoState.status === "loading" ? "Locating..." : "Use my area"}
                     </button>
+                  </div>
+
+                  <div className="gs-date-search">
+                    <label className="gs-date-field">
+                      <span>Party</span>
+                      <select
+                        value={dateSearch.partySize}
+                        onChange={(event) => updateDateSearch("partySize", event.target.value)}
+                      >
+                        {datePartySizeOptions.map((partySize) => (
+                          <option key={partySize} value={partySize}>
+                            {partySize} {partySize === 1 ? "person" : "people"}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label className="gs-date-field is-wide">
+                      <span>When</span>
+                      <input
+                        type="datetime-local"
+                        value={dateSearch.dateTime}
+                        onChange={(event) => updateDateSearch("dateTime", event.target.value)}
+                      />
+                    </label>
+                  </div>
+
+                  <div className={classNames("gs-date-status", dateResults.status === "error" && "is-error")}>
+                    <div>
+                      <span>{dateStatusLabel}</span>
+                      <p>{dateResults.note}</p>
+                    </div>
+                    <a
+                      className="gs-date-status-link"
+                      href={dateResults.searchUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Open OpenTable
+                    </a>
                   </div>
 
                   {activeDateSpot ? (
@@ -706,67 +1000,124 @@ export default function App() {
                           <p className="gs-overline">{activeDateSpot.type}</p>
                           <h3>{activeDateSpot.name}</h3>
                         </div>
-                        <span className="gs-date-distance">{activeDateSpot.distance}</span>
+                        <span className="gs-date-distance">
+                          {activeDateSpot.distanceLabel || activeDateSpot.priceHint || activeDateSpot.sourceLabel}
+                        </span>
                       </div>
                       <p className="gs-date-copy">{activeDateSpot.description}</p>
                       <div className="gs-date-meta">
-                        <span>{activeDateSpot.neighborhood}</span>
-                        <span>{activeDateSpot.vibe}</span>
-                        <span>OpenTable</span>
+                        {[activeDateSpot.neighborhood, activeDateSpot.cuisine, activeDateSpot.vibe, activeDateSpot.ratingLabel]
+                          .filter(Boolean)
+                          .map((value) => (
+                            <span key={`${activeDateSpot.id}-${value}`}>{value}</span>
+                          ))}
                       </div>
-                      <div className="gs-date-times">
-                        {activeDateSpot.slots.map((slot) => (
+                      {activeDateSpot.nextSlots?.length ? (
+                        <div className="gs-date-times">
+                          {activeDateSpot.nextSlots.map((slot) => (
+                            <a
+                              key={`${activeDateSpot.id}-${slot}`}
+                              className="gs-date-time"
+                              href={activeDateSpot.bookingUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {slot}
+                            </a>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="gs-date-availability">{activeDateSpot.availabilityLabel}</p>
+                      )}
+                      <div className="gs-date-actions">
+                        <a
+                          className="gs-date-primary"
+                          href={activeDateSpot.bookingUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {activeDateSpot.actionLabel} on OpenTable
+                        </a>
+                        <a
+                          className="gs-date-secondary"
+                          href={dateResults.searchUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          Nearby search
+                        </a>
+                      </div>
+                    </article>
+                  ) : (
+                    <article className="gs-date-empty">
+                      <strong>Use your area to load nearby spots.</strong>
+                      <p>Once location is available, this lane can rank nearby places and hand off to OpenTable.</p>
+                    </article>
+                  )}
+
+                  {dateResults.spots.length > 0 ? (
+                    <section className="gs-date-list">
+                      {dateResults.spots.map((spot) => (
+                        <article key={spot.id} className={classNames("gs-date-row", activeDateSpot?.id === spot.id && "is-active")}>
+                          <button
+                            type="button"
+                            className="gs-date-row-main"
+                            onClick={() => setActiveDateSpotId(spot.id)}
+                          >
+                            <span className="gs-date-row-icon">
+                              <MapPin size={16} />
+                            </span>
+                            <span className="gs-date-row-copy">
+                              <span className="gs-date-row-top">
+                                <strong>{spot.name}</strong>
+                                <span>{spot.distanceLabel || spot.priceHint || spot.sourceLabel}</span>
+                              </span>
+                              <span className="gs-date-row-bottom">
+                                {[spot.type, spot.neighborhood, spot.availabilityLabel].filter(Boolean).join(" · ")}
+                              </span>
+                            </span>
+                          </button>
                           <a
-                            key={`${activeDateSpot.id}-${slot}`}
-                            className="gs-date-time"
-                            href={activeDateSpot.bookingUrl}
+                            className="gs-date-row-action"
+                            href={spot.bookingUrl}
                             target="_blank"
                             rel="noreferrer"
                           >
-                            {slot}
+                            {spot.actionLabel}
                           </a>
-                        ))}
-                      </div>
-                    </article>
+                        </article>
+                      ))}
+                    </section>
                   ) : null}
 
-                <section className="gs-date-list">
-                  {nearbyDateSpots.map((spot) => (
-                    <article key={spot.id} className={classNames("gs-date-row", activeDateSpot?.id === spot.id && "is-active")}>
-                      <button
-                        type="button"
-                        className="gs-date-row-main"
-                        onClick={() => setActiveDateSpotId(spot.id)}
-                      >
-                        <span className="gs-date-row-icon">
-                          <MapPin size={16} />
-                        </span>
-                        <span className="gs-date-row-copy">
-                          <span className="gs-date-row-top">
-                            <strong>{spot.name}</strong>
-                            <span>{spot.distance}</span>
-                          </span>
-                          <span className="gs-date-row-bottom">
-                            {spot.type} · {spot.neighborhood} · {spot.nextSlot}
-                          </span>
-                        </span>
-                      </button>
-                      <a
-                        className="gs-date-row-action"
-                        href={spot.bookingUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        Book
-                      </a>
-                    </article>
-                  ))}
-                </section>
-
                 <div className="gs-date-powered">
-                  <span>Powered by OpenTable path</span>
-                  <p>Reservations open on OpenTable. Live inventory can be connected through partner access.</p>
+                  <span>{dateResults.sourceLabel}</span>
+                  <p>{datePoweredCopy}</p>
                 </div>
+                <section className="gs-seo-guide-section" aria-label="Browse date city pages">
+                  <div className="gs-section-head">
+                    <p className="gs-overline">Cities</p>
+                    <h3>Open a city page</h3>
+                  </div>
+                  <div className="gs-seo-guide-list">
+                    {seoDateCities.map((city) => (
+                      <a key={city.slug} href={`/dates/${city.slug}/`} className="gs-seo-guide-link">
+                        <div>
+                          <span className="gs-seo-guide-eyebrow">Date spots</span>
+                          <strong>{city.city}</strong>
+                        </div>
+                        <ArrowUpRight size={16} />
+                      </a>
+                    ))}
+                    <a href="/dates/" className="gs-seo-guide-link is-all">
+                      <div>
+                        <span className="gs-seo-guide-eyebrow">Index</span>
+                        <strong>All date pages</strong>
+                      </div>
+                      <ArrowUpRight size={16} />
+                    </a>
+                  </div>
+                </section>
                 </section>
 
                 {renderFooter()}
