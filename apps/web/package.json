@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 4173",
     "build": "node ./scripts/generate-seo-pages.mjs && vite build",
+    "indexnow": "node ./scripts/submit-indexnow.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 4173"
   },
   "dependencies": {

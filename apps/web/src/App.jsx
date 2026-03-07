@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Play } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
-import { featuredSeoGuides, seoCatalog, seoDateCities, seoHotStories } from "./content/seo-guides.js";
+import { featuredSeoGuides, featuredSeoProducts, seoCatalog, seoDateCities, seoHotStories } from "./content/seo-guides.js";
 import {
   buildAffiliateLink,
   classNames,
@@ -194,6 +194,20 @@ export default function App() {
     () => topPicks.map((gift) => seoCatalogById.get(gift.id)).filter(Boolean).slice(0, 6),
     [topPicks]
   );
+  const featuredCatalogProducts = useMemo(
+    () =>
+      featuredSeoProducts
+        .map((featuredGift) => gifts.find((gift) => gift.id === featuredGift.id))
+        .filter(Boolean),
+    [gifts]
+  );
+  const libraryProducts = useMemo(() => {
+    const merged = [...featuredSeoProducts, ...linkedTopProducts].filter(
+      (gift, index, array) => array.findIndex((item) => item.id === gift.id) === index
+    );
+
+    return merged.slice(0, 10);
+  }, [linkedTopProducts]);
   const popularHeroProducts = linkedTopProducts.slice(0, 3);
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
   const datesSlideIndex = slides.findIndex((slide) => slide.id === "guides");
@@ -578,7 +592,7 @@ export default function App() {
   }
 
   function getGiftImageUrl(gift) {
-    return `https://picsum.photos/seed/${encodeURIComponent(gift.id)}/640/480`;
+    return gift.imageUrl || gift.image || `https://picsum.photos/seed/${encodeURIComponent(gift.id)}/640/480`;
   }
 
   function openPreview(gift) {
@@ -800,7 +814,7 @@ export default function App() {
   }
 
   function renderSavedRow(gift, index) {
-    const imageUrl = `https://picsum.photos/seed/${encodeURIComponent(gift.id)}/200/200`;
+    const imageUrl = getGiftImageUrl(gift);
 
     return (
       <article key={`${gift.id}-saved`} className="gs-saved-row">
@@ -842,6 +856,11 @@ export default function App() {
           <p>Checkout happens on the merchant site. Apple Pay or similar fast checkout appears there when supported.</p>
           <p>Saved picks stay on this device. Updated weekly.</p>
           <div className="gs-footer-links">
+            <a href="/about.html">About</a>
+            <a href="/editorial-policy.html">Editorial</a>
+            <a href="/contact.html">Contact</a>
+            <a href="/site-map.html">Site map</a>
+            <a href="/feed.xml">Feed</a>
             <a href="/guides/">Guides</a>
             <a href="/hot/">Hot</a>
             <a href="/dates/">Dates</a>
@@ -985,6 +1004,23 @@ export default function App() {
                     )}
                   </div>
                 </section>
+                <section className="gs-product-list">
+                  <div className="gs-section-head">
+                    <p className="gs-overline">Amazon</p>
+                    <h3>New exact-product picks</h3>
+                  </div>
+                  <p className="gs-popular-library-note">
+                    New Amazon product pages added directly into the catalog so people can open the exact item fast.
+                  </p>
+                  <div className="gs-bento-grid gs-popular-grid">
+                    {featuredCatalogProducts.map((gift, index) =>
+                      renderBentoCard(gift, topPicks.length + index + 1, {
+                        motion: "minimal",
+                        imageOnly: true,
+                      })
+                    )}
+                  </div>
+                </section>
                 <section className="gs-popular-library" aria-label="Popular page organization">
                   <div className="gs-section-head">
                     <p className="gs-overline">Continue</p>
@@ -1001,7 +1037,7 @@ export default function App() {
                         <p>Best when you want the exact item, price range, and merchant path fast.</p>
                       </div>
                       <div className="gs-popular-library-list">
-                        {linkedTopProducts.map((gift) => (
+                        {libraryProducts.map((gift) => (
                           <a key={gift.slug} href={`/gift/${gift.slug}/`} className="gs-popular-library-link">
                             <div>
                               <span className="gs-seo-guide-eyebrow">{gift.badge}</span>

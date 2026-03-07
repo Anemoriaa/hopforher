@@ -18,5 +18,9 @@ Allow: /
 
 # AI discovery
 # https://shopforher.org/llms.txt
+# HTML site map
+# https://shopforher.org/site-map.html
+# RSS feed
+# https://shopforher.org/feed.xml
 
 Sitemap: https://shopforher.org/sitemap.xml

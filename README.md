@@ -40,3 +40,39 @@ Copy `apps/web/.env.example` to `apps/web/.env.local` if the client should call 
 That lets local Vite dev talk to a deployed or separately-run proxy instead of assuming the same origin serves Pages Functions.
 
 The UI stays provider-agnostic: it ranks nearby spots from the server response, then opens Google Maps, the venue site, or OpenTable depending on which provider is active.
+
+## SEO / AI Discovery
+
+The site ships static guide, hot, date, product, and trust pages so crawlers and AI assistants can parse the content without running the app.
+
+### Trust pages
+
+These pages are generated or served as first-party trust surfaces:
+
+- `/about.html`
+- `/editorial-policy.html`
+- `/contact.html`
+
+They are linked in the sitemap, `llms.txt`, and discovery-page footers.
+
+### Crawl surfaces
+
+The build also emits two extra discovery surfaces:
+
+- `/site-map.html` for a readable HTML directory of the main pages
+- `/feed.xml` for a simple RSS feed of trust, guide, hot, and date pages
+
+### Referral attribution
+
+`/ai-attribution.js` captures first-visit campaign and AI-referral sources such as `utm_source=chatgpt.com` or known AI referrers, then posts a lightweight event to `/api/attribution`.
+
+The Pages Function logs those events so traffic sources can be reviewed in Cloudflare logs without exposing analytics keys in the client.
+
+### IndexNow
+
+If `INDEXNOW_KEY` is set in Cloudflare Pages env:
+
+- `/indexnow.txt` will serve the key from the Pages Function
+- `npm run indexnow -w @giftsher/web` will submit URLs from `public/sitemap.xml`
+
+The submit script uses `INDEXNOW_KEY` and posts the current sitemap URLs to the IndexNow endpoint.

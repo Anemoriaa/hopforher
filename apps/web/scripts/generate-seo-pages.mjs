@@ -6,10 +6,100 @@ const rootDir = process.cwd();
 const publicDir = path.join(rootDir, "public");
 const siteUrl = seoSite.url;
 const updatedAt = seoSite.updatedAt;
-const formattedDate = new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(new Date(updatedAt));
+const formattedDate = new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(`${updatedAt}T00:00:00Z`));
 const catalogById = new Map(seoCatalog.map((gift) => [gift.id, gift]));
 const guideBySlug = new Map(seoGuides.map((guide) => [guide.slug, guide]));
 const giftBySlug = new Map(seoCatalog.map((gift) => [gift.slug, gift]));
+const trustPages = [
+  {
+    filename: "about.html",
+    title: "About ShopForHer | ShopForHer",
+    description: "What ShopForHer is, who it helps, and how the site is structured.",
+    kicker: "About",
+    h1: "About ShopForHer",
+    intro: "ShopForHer is a gift-discovery brand built for men who want a cleaner answer fast when buying for her.",
+    schemaType: "AboutPage",
+    sections: [
+      {
+        title: "What the site does",
+        body: "The site focuses on gifts for girlfriends, wives, anniversaries, birthdays, budgets, and related date-night ideas. The goal is a short list of stronger options, not endless scrolling.",
+      },
+      {
+        title: "Who it is for",
+        body: "ShopForHer is primarily written for men buying for a girlfriend or wife who want faster confidence, clearer tradeoffs, and a more useful shortlist.",
+      },
+      {
+        title: "How the site is organized",
+        body: "The main surfaces are Popular, Hot, Guides, product pages, and date pages. Static landing pages exist so search engines and AI assistants can understand the site without needing client-side interaction.",
+      },
+    ],
+  },
+  {
+    filename: "editorial-policy.html",
+    title: "Editorial Policy | ShopForHer",
+    description: "How ShopForHer chooses products, writes guide pages, and handles affiliate links.",
+    kicker: "Editorial",
+    h1: "Editorial policy",
+    intro: "ShopForHer is designed to publish clearer gift recommendations, not generic catalog dumps.",
+    schemaType: "WebPage",
+    sections: [
+      {
+        title: "Selection method",
+        body: "Pages are curated around buyer intent first: relationship stage, budget, use case, and how safe the gift is to buy without extra context. Products are kept when they are easy to understand, present well, and match the promise of the page.",
+      },
+      {
+        title: "What we avoid",
+        body: "We try to avoid cluttered roundups, obvious filler picks, and recommendations that only look good in a search result but are weak when someone actually buys them.",
+      },
+      {
+        title: "Affiliate disclosure",
+        body: "Some outbound links are affiliate links. That does not change the stated reason a product appears on a page, and checkout happens on the merchant site.",
+      },
+      {
+        title: "Freshness",
+        body: "Guide pages, hot pages, and supporting discovery files are regenerated regularly so the site can stay crawlable and current for both traditional search and AI-assisted discovery.",
+      },
+    ],
+  },
+  {
+    filename: "contact.html",
+    title: "Contact ShopForHer | ShopForHer",
+    description: "How to contact ShopForHer about recommendations, corrections, or brand questions.",
+    kicker: "Contact",
+    h1: "Contact ShopForHer",
+    intro: "Use this page for corrections, brand questions, affiliate issues, or general contact.",
+    schemaType: "ContactPage",
+    sections: [
+      {
+        title: "Email",
+        body: "Reach the site at hello@shopforher.org.",
+      },
+      {
+        title: "Corrections and updates",
+        body: "If a guide is outdated, a link breaks, or a page is misleading, email the page URL and the issue so it can be reviewed.",
+      },
+      {
+        title: "Partnerships",
+        body: "For partnerships, media questions, or brand mentions, include context and the exact page or campaign you are asking about.",
+      },
+    ],
+  },
+];
+const siteOrganizationSchema = {
+  "@type": "Organization",
+  name: seoSite.name,
+  url: `${siteUrl}/`,
+  logo: `${siteUrl}/logo1.png`,
+  email: seoSite.contactEmail,
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: seoSite.contactEmail,
+      url: `${siteUrl}${seoSite.contactPath}`,
+    },
+  ],
+};
 
 function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
@@ -24,9 +114,25 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
-function affiliateUrl(query) {
+function withAffiliateTag(urlValue) {
+  const url = new URL(urlValue);
+  url.searchParams.set("tag", seoSite.affiliateTag);
+  return url.toString();
+}
+
+function affiliateUrl(gift) {
+  const asin = gift.amazonAsin || gift.asin;
+
+  if (gift.affiliateUrl) {
+    return withAffiliateTag(gift.affiliateUrl);
+  }
+
+  if (asin) {
+    return withAffiliateTag(`https://www.amazon.com/dp/${asin}`);
+  }
+
   const url = new URL(seoSite.affiliateBaseUrl);
-  url.searchParams.set("k", query);
+  url.searchParams.set("k", gift.query);
   url.searchParams.set("tag", seoSite.affiliateTag);
   return url.toString();
 }
@@ -47,12 +153,100 @@ function jsonLdScript(data) {
   return `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
 }
 
-function renderGuidePage(guide) {
-  const items = guideItems(guide);
-  const related = guide.related.map((slug) => guideBySlug.get(slug)).filter(Boolean);
-  const canonical = `${siteUrl}/${guide.slug}/`;
-  const pageTitle = guide.title;
-  const faqs = [
+function attributionScriptTag() {
+  return `<script defer src="/ai-attribution.js"></script>`;
+}
+
+function feedLinkTag() {
+  return `<link rel="alternate" type="application/rss+xml" title="${escapeHtml(seoSite.name)} feed" href="/feed.xml">`;
+}
+
+function renderFooterLinks({ includeLlms = true } = {}) {
+  const links = [
+    ["About", seoSite.aboutPath],
+    ["Editorial", seoSite.editorialPath],
+    ["Contact", seoSite.contactPath],
+    ["Site map", "/site-map.html"],
+    ["Feed", "/feed.xml"],
+    ["Privacy", "/privacy.html"],
+    ["Terms", "/terms.html"],
+    ["Affiliate", "/affiliate-disclosure.html"],
+  ];
+
+  if (includeLlms) {
+    links.push(["llms.txt", "/llms.txt"]);
+  }
+
+  return links
+    .map(([label, href]) => `<a href="${href}">${label}</a>`)
+    .join("\n        ");
+}
+
+function renderDiscoveryFooter({ notes = [], includeLlms = true } = {}) {
+  return `<footer class="discovery-footer">
+      <p>${escapeHtml(seoSite.description)}</p>
+      ${notes.map((note) => `<p>${escapeHtml(note)}</p>`).join("\n      ")}
+      <div class="discovery-footer-links">
+        ${renderFooterLinks({ includeLlms })}
+      </div>
+      <a href="mailto:${seoSite.contactEmail}">${seoSite.contactEmail}</a>
+    </footer>`;
+}
+
+function renderGuideMethodSection(guide) {
+  const cards = [
+    ["How we picked these", guide.selectionMethod || "This page is curated around fit, buying confidence, and how safely each gift matches the page promise."],
+    ["Use this page when", guide.bestUseCase || "Use this page when the page title closely matches the actual occasion, budget, or relationship stage you are buying for."],
+    ["Skip this page when", guide.avoidWhen || "Skip this page when a different page on the site matches your moment or budget more directly."],
+  ];
+
+  return `<section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Method</p>
+          <h2>How this page was built</h2>
+        </div>
+        <div class="discovery-faqs">
+          ${cards
+            .map(
+              ([title, body]) => `<article class="discovery-faq">
+            <h3>${escapeHtml(title)}</h3>
+            <p>${escapeHtml(body)}</p>
+          </article>`
+            )
+            .join("")}
+        </div>
+      </section>`;
+}
+
+function renderGuideSignalsSection(guide) {
+  if (!guide.buyerSignals?.length) {
+    return "";
+  }
+
+  return `<section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Buyer read</p>
+          <h2>What usually works here</h2>
+        </div>
+        <div class="discovery-faqs">
+          ${guide.buyerSignals
+            .map(
+              (signal) => `<article class="discovery-faq">
+            <h3>${escapeHtml(signal.title)}</h3>
+            <p>${escapeHtml(signal.body)}</p>
+          </article>`
+            )
+            .join("")}
+        </div>
+      </section>`;
+}
+
+function guideFaqs(guide, items) {
+  if (guide.faqs?.length) {
+    return guide.faqs;
+  }
+
+  return [
     {
       q: `What is the safest pick on this ${guide.label.toLowerCase()} page?`,
       a: items[0]
@@ -64,6 +258,14 @@ function renderGuidePage(guide) {
       a: "Use premium when the moment matters more. Use practical when daily use will make the gift feel stronger after the first day.",
     },
   ];
+}
+
+function renderGuidePage(guide) {
+  const items = guideItems(guide);
+  const related = guide.related.map((slug) => guideBySlug.get(slug)).filter(Boolean);
+  const canonical = `${siteUrl}/${guide.slug}/`;
+  const pageTitle = guide.title;
+  const faqs = guideFaqs(guide, items);
 
   const itemListSchema = {
     "@context": "https://schema.org",
@@ -123,6 +325,9 @@ function renderGuidePage(guide) {
     name: guide.h1,
     description: guide.description,
     url: canonical,
+    dateModified: updatedAt,
+    mainEntityOfPage: canonical,
+    publisher: siteOrganizationSchema,
     isPartOf: {
       "@type": "WebSite",
       name: seoSite.name,
@@ -149,12 +354,15 @@ function renderGuidePage(guide) {
   <meta property="og:description" content="${escapeHtml(guide.description)}">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${siteUrl}/logo1.png">
+  <meta property="article:modified_time" content="${updatedAt}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
   <meta name="twitter:description" content="${escapeHtml(guide.description)}">
   <meta name="twitter:image" content="${siteUrl}/logo1.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
+  ${feedLinkTag()}
+  ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(itemListSchema)}
   ${jsonLdScript(breadcrumbSchema)}
@@ -184,6 +392,9 @@ function renderGuidePage(guide) {
         </div>
       </section>
 
+      ${renderGuideMethodSection(guide)}
+      ${renderGuideSignalsSection(guide)}
+
       <section class="discovery-section">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Top picks</p>
@@ -204,7 +415,7 @@ function renderGuidePage(guide) {
             <p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}</p>
             <div class="discovery-actions">
               <a class="discovery-text-link" href="/gift/${gift.slug}/">View product</a>
-              <a class="discovery-btn" href="${affiliateUrl(gift.query)}" target="_blank" rel="noreferrer">Buy on Amazon</a>
+              <a class="discovery-btn" href="${affiliateUrl(gift)}" target="_blank" rel="noreferrer">Buy on Amazon</a>
             </div>
           </li>`
             )
@@ -246,17 +457,12 @@ function renderGuidePage(guide) {
         </div>
       </section>
     </main>
-    <footer class="discovery-footer">
-      <p>${escapeHtml(seoSite.description)}</p>
-      <p>Affiliate links. We may earn from qualifying purchases.</p>
-      <div class="discovery-footer-links">
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/affiliate-disclosure.html">Affiliate</a>
-        <a href="/llms.txt">llms.txt</a>
-      </div>
-      <a href="mailto:hello@shopforher.org">hello@shopforher.org</a>
-    </footer>
+    ${renderDiscoveryFooter({
+      notes: [
+        "Affiliate links may be present.",
+        "Pages are curated for fit, occasion, and buying confidence rather than exhaustive coverage.",
+      ],
+    })}
   </div>
 </body>
 </html>`;
@@ -282,7 +488,7 @@ function renderProductPage(gift) {
     },
     offers: {
       "@type": "Offer",
-      url: affiliateUrl(gift.query),
+      url: affiliateUrl(gift),
       priceCurrency: "USD",
       availability: "https://schema.org/InStock",
       seller: {
@@ -338,6 +544,8 @@ function renderProductPage(gift) {
   <meta name="twitter:image" content="${siteUrl}/logo1.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
+  ${feedLinkTag()}
+  ${attributionScriptTag()}
   ${jsonLdScript(productSchema)}
   ${jsonLdScript(breadcrumbSchema)}
 </head>
@@ -385,7 +593,7 @@ function renderProductPage(gift) {
           </article>
         </div>
         <div class="discovery-actions">
-          <a class="discovery-btn" href="${affiliateUrl(gift.query)}" target="_blank" rel="noreferrer">Buy on Amazon</a>
+          <a class="discovery-btn" href="${affiliateUrl(gift)}" target="_blank" rel="noreferrer">Buy on Amazon</a>
         </div>
       </section>
 
@@ -423,17 +631,12 @@ function renderProductPage(gift) {
         </div>
       </section>
     </main>
-    <footer class="discovery-footer">
-      <p>${escapeHtml(seoSite.description)}</p>
-      <p>Affiliate links. We may earn from qualifying purchases.</p>
-      <div class="discovery-footer-links">
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/affiliate-disclosure.html">Affiliate</a>
-        <a href="/llms.txt">llms.txt</a>
-      </div>
-      <a href="mailto:hello@shopforher.org">hello@shopforher.org</a>
-    </footer>
+    ${renderDiscoveryFooter({
+      notes: [
+        "Affiliate links may be present.",
+        "Checkout and final pricing happen on the merchant site.",
+      ],
+    })}
   </div>
 </body>
 </html>`;
@@ -453,6 +656,7 @@ function renderGuideIndex() {
     name: "Gift guides",
     description: "Crawlable gift guides for girlfriends, wives, budgets, and buying angles.",
     url: `${siteUrl}/guides/`,
+    publisher: siteOrganizationSchema,
     isPartOf: {
       "@type": "WebSite",
       name: seoSite.name,
@@ -471,6 +675,8 @@ function renderGuideIndex() {
   <link rel="canonical" href="${siteUrl}/guides/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
+  ${feedLinkTag()}
+  ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
 </head>
 <body>
@@ -517,15 +723,9 @@ function renderGuideIndex() {
         })
         .join("")}
     </main>
-    <footer class="discovery-footer">
-      <p>${escapeHtml(seoSite.description)}</p>
-      <div class="discovery-footer-links">
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/affiliate-disclosure.html">Affiliate</a>
-        <a href="/llms.txt">llms.txt</a>
-      </div>
-    </footer>
+    ${renderDiscoveryFooter({
+      notes: ["Guide pages are organized around relationship, budget, and buying angle."],
+    })}
   </div>
 </body>
 </html>`;
@@ -538,6 +738,7 @@ function renderDatesIndex() {
     name: "Date spots",
     description: "City date pages with simple booking paths.",
     url: `${siteUrl}/dates/`,
+    publisher: siteOrganizationSchema,
     isPartOf: {
       "@type": "WebSite",
       name: seoSite.name,
@@ -556,6 +757,8 @@ function renderDatesIndex() {
   <link rel="canonical" href="${siteUrl}/dates/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
+  ${feedLinkTag()}
+  ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
 </head>
 <body>
@@ -593,14 +796,9 @@ function renderDatesIndex() {
         </div>
       </section>
     </main>
-    <footer class="discovery-footer">
-      <p>${escapeHtml(seoSite.description)}</p>
-      <div class="discovery-footer-links">
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/affiliate-disclosure.html">Affiliate</a>
-      </div>
-    </footer>
+    ${renderDiscoveryFooter({
+      notes: ["Date pages summarize cleaner planning lanes and hand off to external booking or map destinations."],
+    })}
   </div>
 </body>
 </html>`;
@@ -614,6 +812,8 @@ function renderDateCityPage(city) {
     name: city.h1,
     description: city.description,
     url: canonical,
+    mainEntityOfPage: canonical,
+    publisher: siteOrganizationSchema,
     about: {
       "@type": "Place",
       name: city.city,
@@ -641,6 +841,8 @@ function renderDateCityPage(city) {
   <link rel="canonical" href="${canonical}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
+  ${feedLinkTag()}
+  ${attributionScriptTag()}
   ${jsonLdScript(localBusinessSchema)}
   ${jsonLdScript(breadcrumbSchema)}
 </head>
@@ -692,15 +894,9 @@ function renderDateCityPage(city) {
         </ol>
       </section>
     </main>
-    <footer class="discovery-footer">
-      <p>${escapeHtml(seoSite.description)}</p>
-      <p>Reservation availability and checkout happen on the booking partner site.</p>
-      <div class="discovery-footer-links">
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/affiliate-disclosure.html">Affiliate</a>
-      </div>
-    </footer>
+    ${renderDiscoveryFooter({
+      notes: ["Reservation availability and checkout happen on the destination booking or map partner site."],
+    })}
   </div>
 </body>
 </html>`;
@@ -713,6 +909,7 @@ function renderHotIndex() {
     name: "Hot gift trends",
     description: "Trending and viral gift pages for her.",
     url: `${siteUrl}/hot/`,
+    publisher: siteOrganizationSchema,
     isPartOf: {
       "@type": "WebSite",
       name: seoSite.name,
@@ -731,6 +928,8 @@ function renderHotIndex() {
   <link rel="canonical" href="${siteUrl}/hot/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
+  ${feedLinkTag()}
+  ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
 </head>
 <body>
@@ -768,15 +967,9 @@ function renderHotIndex() {
         </div>
       </section>
     </main>
-    <footer class="discovery-footer">
-      <p>${escapeHtml(seoSite.description)}</p>
-      <div class="discovery-footer-links">
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/affiliate-disclosure.html">Affiliate</a>
-        <a href="/llms.txt">llms.txt</a>
-      </div>
-    </footer>
+    ${renderDiscoveryFooter({
+      notes: ["Hot pages focus on faster-moving gift angles and trend-shaped buying behavior."],
+    })}
   </div>
 </body>
 </html>`;
@@ -797,8 +990,7 @@ function renderHotStoryPage(story) {
     uploadDate: updatedAt,
     url: canonical,
     publisher: {
-      "@type": "Organization",
-      name: seoSite.name,
+      ...siteOrganizationSchema,
       logo: {
         "@type": "ImageObject",
         url: `${siteUrl}/logo1.png`,
@@ -838,6 +1030,8 @@ function renderHotStoryPage(story) {
   <meta name="twitter:image" content="${hotThumbUrl(story)}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
+  ${feedLinkTag()}
+  ${attributionScriptTag()}
   ${jsonLdScript(videoSchema)}
   ${jsonLdScript(breadcrumbSchema)}
 </head>
@@ -892,7 +1086,7 @@ function renderHotStoryPage(story) {
             <p class="discovery-copy">${escapeHtml(gift.hook)} ${escapeHtml(gift.why)}</p>
             <div class="discovery-actions">
               <a class="discovery-text-link" href="/gift/${gift.slug}/">View product</a>
-              <a class="discovery-btn" href="${affiliateUrl(gift.query)}" target="_blank" rel="noreferrer">Buy on Amazon</a>
+              <a class="discovery-btn" href="${affiliateUrl(gift)}" target="_blank" rel="noreferrer">Buy on Amazon</a>
             </div>
           </li>`
             )
@@ -917,16 +1111,247 @@ function renderHotStoryPage(story) {
         </div>
       </section>
     </main>
-    <footer class="discovery-footer">
-      <p>${escapeHtml(seoSite.description)}</p>
-      <p>Affiliate links may be present. Product checkout happens on the merchant site.</p>
-      <div class="discovery-footer-links">
-        <a href="/privacy.html">Privacy</a>
-        <a href="/terms.html">Terms</a>
-        <a href="/affiliate-disclosure.html">Affiliate</a>
-        <a href="/llms.txt">llms.txt</a>
-      </div>
-    </footer>
+    ${renderDiscoveryFooter({
+      notes: [
+        "Affiliate links may be present.",
+        "Product checkout happens on the merchant site.",
+      ],
+    })}
+  </div>
+</body>
+</html>`;
+}
+
+function renderTrustPage(page) {
+  const canonical = `${siteUrl}/${page.filename}`;
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": page.schemaType,
+    name: page.h1,
+    description: page.description,
+    url: canonical,
+    isPartOf: {
+      "@type": "WebSite",
+      name: seoSite.name,
+      url: `${siteUrl}/`,
+    },
+    about: siteOrganizationSchema,
+  };
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escapeHtml(page.title)}</title>
+  <meta name="description" content="${escapeHtml(page.description)}">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <link rel="canonical" href="${canonical}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="${escapeHtml(seoSite.name)}">
+  <meta property="og:title" content="${escapeHtml(page.title)}">
+  <meta property="og:description" content="${escapeHtml(page.description)}">
+  <meta property="og:url" content="${canonical}">
+  <meta property="og:image" content="${siteUrl}/logo1.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeHtml(page.title)}">
+  <meta name="twitter:description" content="${escapeHtml(page.description)}">
+  <meta name="twitter:image" content="${siteUrl}/logo1.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/discovery.css">
+  ${feedLinkTag()}
+  ${attributionScriptTag()}
+  ${jsonLdScript(pageSchema)}
+</head>
+<body>
+  <div class="discovery-shell">
+    <header class="discovery-header">
+      <a class="discovery-brand" href="/">
+        <img src="/logo1.png" alt="ShopForHer">
+      </a>
+      <nav class="discovery-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/guides/">Guides</a>
+        <a href="/hot/">Hot</a>
+        <a href="/dates/">Dates</a>
+      </nav>
+    </header>
+    <main class="discovery-main">
+      <section class="discovery-hero">
+        <p class="discovery-kicker">${escapeHtml(page.kicker)}</p>
+        <h1>${escapeHtml(page.h1)}</h1>
+        <p class="discovery-intro">${escapeHtml(page.intro)}</p>
+        <div class="discovery-meta">
+          <span>Updated ${escapeHtml(formattedDate)}</span>
+          <span>${escapeHtml(seoSite.name)}</span>
+        </div>
+      </section>
+      <section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Details</p>
+          <h2>What to know</h2>
+        </div>
+        <div class="discovery-faqs">
+          ${page.sections
+            .map(
+              (section) => `<article class="discovery-faq">
+            <h3>${escapeHtml(section.title)}</h3>
+            <p>${escapeHtml(section.body)}</p>
+          </article>`
+            )
+            .join("")}
+        </div>
+      </section>
+    </main>
+    ${renderDiscoveryFooter({
+      notes: ["These pages exist so users, search engines, and AI assistants can understand the site and how it operates."],
+    })}
+  </div>
+</body>
+</html>`;
+}
+
+function renderSiteMapPage() {
+  const canonical = `${siteUrl}/site-map.html`;
+  const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Site map",
+    description: "Browse ShopForHer guides, hot pages, date pages, product pages, and trust pages in one crawlable index.",
+    url: canonical,
+    isPartOf: {
+      "@type": "WebSite",
+      name: seoSite.name,
+      url: `${siteUrl}/`,
+    },
+    about: siteOrganizationSchema,
+  };
+
+  const sections = [
+    {
+      kicker: "Trust",
+      title: "Trust pages",
+      links: trustPages.map((page) => ({
+        href: `/${page.filename}`,
+        label: page.h1,
+        meta: page.kicker,
+      })),
+    },
+    {
+      kicker: "Guides",
+      title: "Gift guides",
+      links: seoGuides.map((guide) => ({
+        href: `/${guide.slug}/`,
+        label: guide.h1,
+        meta: guide.groupLabel,
+      })),
+    },
+    {
+      kicker: "Hot",
+      title: "Trending pages",
+      links: seoHotStories.map((story) => ({
+        href: `/hot/${story.slug}/`,
+        label: story.h1,
+        meta: story.label,
+      })),
+    },
+    {
+      kicker: "Dates",
+      title: "Date pages",
+      links: [{ href: "/dates/", label: "Date spots", meta: "Index" }].concat(
+        seoDateCities.map((city) => ({
+          href: `/dates/${city.slug}/`,
+          label: city.h1,
+          meta: city.city,
+        }))
+      ),
+    },
+    {
+      kicker: "Products",
+      title: "Product pages",
+      links: seoCatalog.map((gift) => ({
+        href: `/gift/${gift.slug}/`,
+        label: gift.name,
+        meta: gift.badge,
+      })),
+    },
+  ];
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Site map | ShopForHer</title>
+  <meta name="description" content="Browse every ShopForHer guide, product page, date page, hot page, and trust page from one crawlable site map.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <link rel="canonical" href="${canonical}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="${escapeHtml(seoSite.name)}">
+  <meta property="og:title" content="Site map | ShopForHer">
+  <meta property="og:description" content="Browse every ShopForHer guide, product page, date page, hot page, and trust page from one crawlable site map.">
+  <meta property="og:url" content="${canonical}">
+  <meta property="og:image" content="${siteUrl}/logo1.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Site map | ShopForHer">
+  <meta name="twitter:description" content="Browse every ShopForHer guide, product page, date page, hot page, and trust page from one crawlable site map.">
+  <meta name="twitter:image" content="${siteUrl}/logo1.png">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/discovery.css">
+  ${feedLinkTag()}
+  ${attributionScriptTag()}
+  ${jsonLdScript(pageSchema)}
+</head>
+<body>
+  <div class="discovery-shell">
+    <header class="discovery-header">
+      <a class="discovery-brand" href="/">
+        <img src="/logo1.png" alt="ShopForHer">
+      </a>
+      <nav class="discovery-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/guides/">Guides</a>
+        <a href="/hot/">Hot</a>
+        <a href="/dates/">Dates</a>
+      </nav>
+    </header>
+    <main class="discovery-main">
+      <section class="discovery-hero">
+        <p class="discovery-kicker">Directory</p>
+        <h1>Site map</h1>
+        <p class="discovery-intro">A full HTML index of the main ShopForHer pages for users, search engines, and AI assistants.</p>
+        <div class="discovery-meta">
+          <span>Updated ${escapeHtml(formattedDate)}</span>
+          <span>${seoGuides.length + seoHotStories.length + seoDateCities.length + seoCatalog.length + trustPages.length + 1} pages linked</span>
+        </div>
+      </section>
+      ${sections
+        .map(
+          (section) => `<section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">${escapeHtml(section.kicker)}</p>
+          <h2>${escapeHtml(section.title)}</h2>
+        </div>
+        <div class="discovery-related">
+          ${section.links
+            .map(
+              (entry) => `<a class="discovery-related-link" href="${entry.href}">
+            <span>${escapeHtml(entry.meta)}</span>
+            <strong>${escapeHtml(entry.label)}</strong>
+          </a>`
+            )
+            .join("")}
+        </div>
+      </section>`
+        )
+        .join("")}
+    </main>
+    ${renderDiscoveryFooter({
+      notes: [
+        "Use this page when you want a readable directory instead of the XML sitemap.",
+        "The RSS feed is available at /feed.xml.",
+      ],
+    })}
   </div>
 </body>
 </html>`;
@@ -979,12 +1404,77 @@ function writeHotPages() {
   });
 }
 
+function writeTrustPages() {
+  trustPages.forEach((page) => {
+    fs.writeFileSync(path.join(publicDir, page.filename), renderTrustPage(page));
+  });
+}
+
+function writeSiteMapPage() {
+  fs.writeFileSync(path.join(publicDir, "site-map.html"), renderSiteMapPage());
+}
+
+function writeFeed() {
+  const pubDate = new Date(updatedAt).toUTCString();
+  const items = [
+    ...trustPages.map((page) => ({
+      title: page.h1,
+      url: `${siteUrl}/${page.filename}`,
+      description: page.description,
+    })),
+    ...seoGuides.map((guide) => ({
+      title: guide.h1,
+      url: `${siteUrl}/${guide.slug}/`,
+      description: guide.description,
+    })),
+    ...seoHotStories.map((story) => ({
+      title: story.h1,
+      url: `${siteUrl}/hot/${story.slug}/`,
+      description: story.description,
+    })),
+    ...seoDateCities.map((city) => ({
+      title: city.h1,
+      url: `${siteUrl}/dates/${city.slug}/`,
+      description: city.description,
+    })),
+  ];
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>${escapeHtml(seoSite.name)}</title>
+    <description>${escapeHtml(seoSite.description)}</description>
+    <link>${siteUrl}/</link>
+    <lastBuildDate>${pubDate}</lastBuildDate>
+    <language>en-us</language>
+${items
+  .map(
+    (item) => `    <item>
+      <title>${escapeHtml(item.title)}</title>
+      <link>${item.url}</link>
+      <guid isPermaLink="true">${item.url}</guid>
+      <pubDate>${pubDate}</pubDate>
+      <description>${escapeHtml(item.description)}</description>
+    </item>`
+  )
+  .join("\n")}
+  </channel>
+</rss>
+`;
+
+  fs.writeFileSync(path.join(publicDir, "feed.xml"), xml);
+}
+
 function writeSitemap() {
   const staticPages = [
     "/",
     "/guides/",
     "/hot/",
     "/dates/",
+    "/site-map.html",
+    seoSite.aboutPath,
+    seoSite.editorialPath,
+    seoSite.contactPath,
     "/privacy.html",
     "/terms.html",
     "/affiliate-disclosure.html",
@@ -1021,6 +1511,13 @@ function writeLlmsFiles() {
     "",
     "## Main guide index",
     `- ${siteUrl}/guides/`,
+    `- ${siteUrl}/site-map.html`,
+    `- ${siteUrl}/feed.xml`,
+    "",
+    "## Trust pages",
+    `- [About ShopForHer](${siteUrl}${seoSite.aboutPath})`,
+    `- [Editorial policy](${siteUrl}${seoSite.editorialPath})`,
+    `- [Contact ShopForHer](${siteUrl}${seoSite.contactPath})`,
     "",
     "## Top guides",
     ...seoGuides.map((guide) => `- [${guide.h1}](${siteUrl}/${guide.slug}/)`),
@@ -1037,10 +1534,11 @@ function writeLlmsFiles() {
     "## Notes",
     "- Affiliate links may be present.",
     "- Product checkout happens on the merchant site.",
+    "- Editorial policy is published on-site.",
     "- Updated weekly.",
     "",
     "## Contact",
-    "- hello@shopforher.org",
+    `- ${seoSite.contactEmail}`,
   ].join("\n");
 
   const full = [
@@ -1049,6 +1547,11 @@ function writeLlmsFiles() {
     `Base URL: ${siteUrl}/`,
     `Updated: ${updatedAt}`,
     "",
+    `- About: ${siteUrl}${seoSite.aboutPath}`,
+    `- Editorial policy: ${siteUrl}${seoSite.editorialPath}`,
+    `- Contact: ${siteUrl}${seoSite.contactPath}`,
+    `- Site map: ${siteUrl}/site-map.html`,
+    `- Feed: ${siteUrl}/feed.xml`,
     ...seoGuides.map((guide) => `- ${guide.h1}: ${siteUrl}/${guide.slug}/`),
     ...seoHotStories.map((story) => `- ${story.h1}: ${siteUrl}/hot/${story.slug}/`),
     ...seoDateCities.map((city) => `- ${city.h1}: ${siteUrl}/dates/${city.slug}/`),
@@ -1060,9 +1563,12 @@ function writeLlmsFiles() {
 }
 
 ensureDir(publicDir);
+writeTrustPages();
+writeSiteMapPage();
 writeGuidePages();
 writeHotPages();
 writeProductPages();
 writeDatePages();
+writeFeed();
 writeSitemap();
 writeLlmsFiles();

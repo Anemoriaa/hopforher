@@ -4,7 +4,7 @@ const catalog = window.GiftsherCatalog || {
   affiliateConfig: {
     baseUrl: "https://www.amazon.com/s",
     merchantName: "Amazon",
-    tag: "giftsher-20",
+    tag: "shopforher0b7-20",
   },
   tabs: [],
   gifts: [],

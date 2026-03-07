@@ -1,9 +1,13 @@
 export const seoSite = {
   name: "ShopForHer",
   url: "https://shopforher.org",
-  updatedAt: "2026-03-06",
+  updatedAt: "2026-03-07",
   description: "Fast gift picks for men buying for her.",
-  affiliateTag: "giftsher-20",
+  contactEmail: "hello@shopforher.org",
+  aboutPath: "/about.html",
+  editorialPath: "/editorial-policy.html",
+  contactPath: "/contact.html",
+  affiliateTag: "shopforher0b7-20",
   affiliateBaseUrl: "https://www.amazon.com/s",
 };
 
@@ -18,6 +22,7 @@ export const seoCatalog = [
     why: "Feels polished, feminine, and expensive without needing her exact size or taste.",
     bestFor: "girlfriend / wife / new relationship",
     query: "mulberry silk pillowcase set gift for her",
+    amazonAsin: "B09BFQG17F",
   },
   {
     id: "temperature-mug",
@@ -29,6 +34,7 @@ export const seoCatalog = [
     why: "A strong wife or girlfriend gift because it solves an annoying problem and feels upgraded immediately.",
     bestFor: "wife / girlfriend / coffee or tea",
     query: "temperature control mug gift for her",
+    amazonAsin: "B08D3XPCZR",
   },
   {
     id: "digital-frame",
@@ -40,6 +46,7 @@ export const seoCatalog = [
     why: "One of the cleanest meaningful gifts for wives because it feels emotional the second photos are loaded.",
     bestFor: "wife / anniversary / home",
     query: "digital picture frame gift for wife",
+    amazonAsin: "B0BG3F79LF",
   },
   {
     id: "mini-photo-printer",
@@ -51,6 +58,7 @@ export const seoCatalog = [
     why: "Easy girlfriend pick because it feels fun, personal, and shareable without being too serious.",
     bestFor: "girlfriend / anniversary / travel",
     query: "mini photo printer gift for girlfriend",
+    amazonAsin: "B0FM29Z95G",
   },
   {
     id: "sunrise-alarm",
@@ -62,6 +70,7 @@ export const seoCatalog = [
     why: "Feels wellness-forward and designed, which makes it a good choice when you want thoughtful without overdoing it.",
     bestFor: "girlfriend / wife / home routine",
     query: "sunrise alarm clock gift for her",
+    amazonAsin: "B0C67ZDQLX",
   },
   {
     id: "luxury-throw",
@@ -73,6 +82,7 @@ export const seoCatalog = [
     why: "Very safe because it feels expensive, feminine, and cozy without forcing a specific personal taste.",
     bestFor: "girlfriend / wife / apartment",
     query: "luxury throw blanket gift for her",
+    amazonAsin: "B08KTS4KDT",
   },
   {
     id: "walking-pad",
@@ -84,6 +94,7 @@ export const seoCatalog = [
     why: "The kind of wife gift that reads as useful, current, and more substantial than a small accessory.",
     bestFor: "wife / remote work / wellness",
     query: "compact walking pad gift for wife",
+    amazonAsin: "B0BVQMSVM1",
   },
   {
     id: "earbuds",
@@ -95,6 +106,7 @@ export const seoCatalog = [
     why: "One of the easiest gifts for a girlfriend or wife because the use case is immediate and obvious.",
     bestFor: "girlfriend / wife / commute",
     query: "noise canceling earbuds gift for her",
+    amazonAsin: "B0BZV4QFP8",
   },
   {
     id: "projector",
@@ -106,6 +118,7 @@ export const seoCatalog = [
     why: "Great when you want the gift to feel like an experience and a home upgrade at the same time.",
     bestFor: "wife / girlfriend / date nights",
     query: "portable projector gift for couples",
+    amazonAsin: "B0FDGLZKKM",
   },
   {
     id: "magsafe-stand",
@@ -117,6 +130,7 @@ export const seoCatalog = [
     why: "A professional-feeling option when she likes neat spaces, bedside setups, or a more polished desk.",
     bestFor: "girlfriend / wife / desk setup",
     query: "magsafe charging stand gift for her",
+    amazonAsin: "B0D8PYWHZR",
   },
   {
     id: "jewelry-case",
@@ -128,6 +142,7 @@ export const seoCatalog = [
     why: "A strong pick because it feels feminine, organized, and clearly chosen for her rather than bought at random.",
     bestFor: "girlfriend / wife / travel",
     query: "structured jewelry case gift for her",
+    amazonAsin: "B09TN9PWV2",
   },
   {
     id: "candle-warmer",
@@ -139,6 +154,7 @@ export const seoCatalog = [
     why: "Feels warm, aesthetic, and feminine, which makes it a low-risk cozy-home gift for a girlfriend or wife.",
     bestFor: "girlfriend / wife / apartment",
     query: "candle warmer lamp gift for her",
+    amazonAsin: "B0BWJRJYS7",
   },
   {
     id: "vanity-mirror",
@@ -150,6 +166,7 @@ export const seoCatalog = [
     why: "Useful, visual, and clearly premium, which makes it a stronger wife or long-term girlfriend option.",
     bestFor: "wife / girlfriend / beauty setup",
     query: "led vanity mirror gift for her",
+    amazonAsin: "B0DBKXV48B",
   },
   {
     id: "cashmere-robe",
@@ -161,6 +178,126 @@ export const seoCatalog = [
     why: "One of the better elevated home gifts because it feels personal, premium, and clearly for her comfort.",
     bestFor: "wife / anniversary / home",
     query: "luxury robe gift for wife",
+    amazonAsin: "B079B9CWRN",
+  },
+  {
+    id: "kindle-paperwhite",
+    slug: "kindle-paperwhite-signature-edition",
+    name: "Kindle Paperwhite Signature Edition",
+    priceLabel: "$159 - $209",
+    badge: "reader upgrade",
+    hook: "Quiet premium gift with real daily payoff.",
+    why: "Feels thoughtful and polished, especially when she reads at night, travels, or wants a cleaner way to unwind.",
+    bestFor: "girlfriend / wife / reader",
+    query: "Kindle Paperwhite Signature Edition gift for her",
+    amazonAsin: "B0DC85J75V",
+  },
+  {
+    id: "ninja-creami",
+    slug: "ninja-creami-deluxe",
+    name: "Ninja CREAMi Deluxe",
+    priceLabel: "$179 - $229",
+    badge: "viral",
+    hook: "The fun kitchen gift that actually keeps getting used.",
+    why: "Strong when she likes hosting, dessert, or wellness routines and you want a more current-feeling home gift.",
+    bestFor: "girlfriend / wife / kitchen",
+    query: "Ninja CREAMi Deluxe gift for her",
+    amazonAsin: "B0B9CZ6XBQ",
+  },
+  {
+    id: "nespresso-machine",
+    slug: "nespresso-vertuo-next",
+    name: "Nespresso Vertuo Next",
+    priceLabel: "$119 - $179",
+    badge: "morning flex",
+    hook: "A cleaner coffee upgrade than another random gadget.",
+    why: "Feels elevated right away and makes the everyday routine look more put together.",
+    bestFor: "wife / girlfriend / coffee",
+    query: "Nespresso Vertuo Next gift for her",
+    amazonAsin: "B084GY7284",
+  },
+  {
+    id: "owala-bottle",
+    slug: "owala-freesip-sway-bottle",
+    name: "Owala FreeSip Sway Bottle",
+    priceLabel: "$35 - $45",
+    badge: "viral",
+    hook: "Current, practical, and easy to justify.",
+    why: "Low-risk when she likes stylish everyday gear and you want something current without overspending.",
+    bestFor: "girlfriend / wife / gym bag",
+    query: "Owala FreeSip Sway bottle gift for her",
+    amazonAsin: "B0FJZDV6BH",
+  },
+  {
+    id: "theragun-relief",
+    slug: "theragun-relief",
+    name: "Therabody Theragun Relief",
+    priceLabel: "$129 - $159",
+    badge: "wellness",
+    hook: "Feels substantial and useful right away.",
+    why: "A better premium wellness gift when you want something more serious than a small accessory.",
+    bestFor: "wife / girlfriend / workouts",
+    query: "Theragun Relief gift for her",
+    amazonAsin: "B0CNS894RH",
+  },
+  {
+    id: "ugg-slippers",
+    slug: "koolaburra-ugg-burree-slipper",
+    name: "Koolaburra by UGG Burree Slipper",
+    priceLabel: "$55 - $80",
+    badge: "cozy",
+    hook: "Soft, branded, and easier than sizing a full shoe.",
+    why: "Reads more intentional than a generic home gift and lands fast if she likes comfort and warm routines.",
+    bestFor: "girlfriend / wife / home",
+    query: "UGG slippers gift for her",
+    amazonAsin: "B0CB978WSZ",
+  },
+  {
+    id: "stanley-quencher",
+    slug: "stanley-quencher-h2o-flowstate",
+    name: "Stanley Quencher H2.0 FlowState",
+    priceLabel: "$35 - $50",
+    badge: "viral",
+    hook: "Still a mainstream yes when she actually uses it.",
+    why: "Works because it is instantly recognizable, easy to carry every day, and giftable without much explanation.",
+    bestFor: "girlfriend / wife / daily carry",
+    query: "Stanley Quencher H2.0 gift for her",
+    amazonAsin: "B0FB7LKQXV",
+  },
+  {
+    id: "laneige-set",
+    slug: "laneige-midnight-minis-lip-set",
+    name: "LANEIGE Midnight Minis Lip Set",
+    priceLabel: "$20 - $28",
+    badge: "small luxury",
+    hook: "Tiny spend, high gift energy.",
+    why: "Good add-on or lower-budget pick when you want something beauty-adjacent that still feels current and polished.",
+    bestFor: "girlfriend / stocking / add-on",
+    query: "LANEIGE Midnight Minis Lip Set gift for her",
+    amazonAsin: "B0F24ZZN95",
+  },
+  {
+    id: "bose-speaker",
+    slug: "bose-soundlink-flex-2nd-gen",
+    name: "Bose SoundLink Flex (2nd Gen)",
+    priceLabel: "$129 - $159",
+    badge: "daily win",
+    hook: "Portable, premium, and easier to use than explain.",
+    why: "A clean option when she likes music, travel, or outdoor hangs and you want something with stronger brand recognition.",
+    bestFor: "girlfriend / wife / travel",
+    query: "Bose SoundLink Flex 2nd Gen gift for her",
+    amazonAsin: "B0D6W8X6L2",
+  },
+  {
+    id: "sol-de-janeiro",
+    slug: "sol-de-janeiro-bum-bum-jet-set",
+    name: "Sol de Janeiro Bum Bum Jet Set",
+    priceLabel: "$28 - $36",
+    badge: "viral",
+    hook: "Beauty-category gift that already feels popular.",
+    why: "Useful when you want a smaller beauty pick that still feels current, feminine, and clearly chosen for her.",
+    bestFor: "girlfriend / wife / beauty",
+    query: "Sol de Janeiro Bum Bum Jet Set gift for her",
   },
 ];
 
@@ -174,6 +311,37 @@ export const seoGuides = [
     h1: "Best gifts for girlfriends in 2026",
     description: "Low-risk, popular gifts for men buying for a girlfriend right now.",
     intro: "Start with clean picks that feel current, easy to receive, and fast to buy.",
+    selectionMethod: "This page favors low-risk girlfriend gifts that feel attractive immediately, do not require sizing, and still look chosen rather than generic.",
+    bestUseCase: "Use this when you want the safest mainstream answer for a girlfriend and do not want to overcomplicate the buy.",
+    avoidWhen: "Skip this page if you need a more premium wife-level gift or you are optimizing for a strict budget cap first.",
+    buyerSignals: [
+      {
+        title: "Go attractive, not complicated",
+        body: "Smaller polished gifts usually land better here than oversized gestures unless the relationship is already serious.",
+      },
+      {
+        title: "Current beats niche",
+        body: "A gift that already feels current and feminine is safer than something hyper-personal you are only half sure about.",
+      },
+      {
+        title: "Avoid fit-sensitive buys",
+        body: "Sizing, fragrance, and style-dependent gifts create more misses here than simple lifestyle upgrades.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest girlfriend gift if I do not know her exact taste?",
+        a: "Start with the silk pillowcase or jewelry case. Both feel chosen, feminine, and low-risk without needing size or style data.",
+      },
+      {
+        q: "Should a girlfriend gift be romantic or practical?",
+        a: "Lightly romantic usually works better than purely practical. The gift should still feel like it was picked for her, not just useful.",
+      },
+      {
+        q: "Is spending over $100 necessary for a girlfriend gift?",
+        a: "Not usually. Under-$100 gifts often perform better because they feel thoughtful without making the moment feel heavier than it is.",
+      },
+    ],
     itemIds: ["silk-pillowcase", "mini-photo-printer", "jewelry-case", "earbuds", "candle-warmer", "sunrise-alarm"],
     related: ["best-gifts-under-100", "viral-gifts-for-her", "new-relationship-gifts-for-her"],
   },
@@ -186,6 +354,37 @@ export const seoGuides = [
     h1: "Best gifts for wives in 2026",
     description: "Higher-confidence gift picks for wives, with stronger quality and daily-use upside.",
     intro: "These are the better answers when you want something polished, useful, and easy to stand behind.",
+    selectionMethod: "This page leans toward stronger quality, clearer everyday payoff, and gifts that feel substantial enough for a wife without getting random.",
+    bestUseCase: "Use this when you need the safest wife-facing shortlist and want to avoid novelty-heavy or too-light picks.",
+    avoidWhen: "Skip this page if you specifically need a birthday, anniversary, or low-budget angle first.",
+    buyerSignals: [
+      {
+        title: "Quality beats novelty",
+        body: "A wife gift usually performs better when the finish, brand trust, or daily-use payoff is obvious right away.",
+      },
+      {
+        title: "Useful is fine if it feels upgraded",
+        body: "Practical gifts work here as long as they feel premium enough to read as a real gift rather than a household errand.",
+      },
+      {
+        title: "Choose conviction over clutter",
+        body: "One stronger gift usually lands better than several small filler picks when you are buying for a wife.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest gift for a wife if I want to avoid missing?",
+        a: "The digital frame and temperature-control mug are the cleanest first answers because they combine daily-use logic with a clearly upgraded feel.",
+      },
+      {
+        q: "Are practical gifts too unromantic for a wife?",
+        a: "Not if the product feels premium. Daily-use upgrades often outperform novelty because the gift keeps paying off after the first day.",
+      },
+      {
+        q: "Should wife gifts skew more premium than girlfriend gifts?",
+        a: "Usually yes. The gift does not need to be flashy, but it should feel more deliberate, substantial, or better-finished.",
+      },
+    ],
     itemIds: ["digital-frame", "temperature-mug", "cashmere-robe", "vanity-mirror", "walking-pad", "projector"],
     related: ["anniversary-gifts-for-her", "luxury-gifts-for-her", "daily-use-gifts-for-her"],
   },
@@ -198,6 +397,37 @@ export const seoGuides = [
     h1: "Best anniversary gifts for her in 2026",
     description: "Sharper anniversary gifts that feel intentional without getting cheesy.",
     intro: "The cleanest anniversary picks usually feel personal, premium, or experience-driven.",
+    selectionMethod: "This page prioritizes gifts with emotional payoff, premium finish, or shared-experience upside so the anniversary gift feels deliberate.",
+    bestUseCase: "Use this when the occasion matters more than raw practicality and you want the gift to read more intentional than routine.",
+    avoidWhen: "Skip this page if the goal is simply the cheapest safe buy or a fast last-minute checkout.",
+    buyerSignals: [
+      {
+        title: "Emotional payoff matters",
+        body: "Anniversary gifts work best when the reveal feels personal, memorable, or clearly tied to the relationship.",
+      },
+      {
+        title: "Pairing beats isolation",
+        body: "These gifts get stronger when they connect to a date, a night in, or a shared plan instead of standing alone.",
+      },
+      {
+        title: "Avoid bargain-energy choices",
+        body: "This is not the lane for filler buys or generic budget gifts that only make sense because they are easy.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Do anniversary gifts need to be sentimental?",
+        a: "Not necessarily, but they should feel intentional. Experience-adjacent and premium home gifts often work better than purely practical ones.",
+      },
+      {
+        q: "Is a shared-experience gift better than a basic product?",
+        a: "Often yes. The projector, digital frame, and similar picks feel stronger because they create a moment instead of just adding another object.",
+      },
+      {
+        q: "Should I optimize for romance or usefulness on an anniversary?",
+        a: "Romance or emotional signal should lead. Usefulness helps, but it should not be the only reason the gift is there.",
+      },
+    ],
     itemIds: ["digital-frame", "projector", "cashmere-robe", "silk-pillowcase", "jewelry-case", "mini-photo-printer"],
     related: ["gifts-for-wife", "date-night-gifts-for-her", "luxury-gifts-for-her"],
   },
@@ -210,6 +440,37 @@ export const seoGuides = [
     h1: "Best birthday gifts for girlfriends in 2026",
     description: "Birthday gifts for girlfriends that feel current, giftable, and easy to buy fast.",
     intro: "Use this lane when you want a present that feels like a yes immediately, not something she has to work around.",
+    selectionMethod: "This page keeps the birthday lane lighter and more giftable, with picks that feel present-ready without feeling too serious too soon.",
+    bestUseCase: "Use this when you want a cleaner birthday answer for a girlfriend that still feels fun and current.",
+    avoidWhen: "Skip this page if the relationship is long-term enough that you really need a stronger wife-level or anniversary-style move.",
+    buyerSignals: [
+      {
+        title: "Fun beats heavy",
+        body: "Birthday gifts for a girlfriend usually land better when they feel giftable and current instead of overly serious.",
+      },
+      {
+        title: "Recognizable wins quickly",
+        body: "Products that already feel easy to understand or visually strong help the birthday reveal work faster.",
+      },
+      {
+        title: "Do not force meaning",
+        body: "A gift can feel thoughtful without carrying anniversary-level emotional weight.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the easiest birthday gift for a girlfriend to get right?",
+        a: "The mini photo printer and jewelry case are strong first picks because they feel current, easy to open, and clearly gift-like.",
+      },
+      {
+        q: "Should a girlfriend birthday gift be more fun than practical?",
+        a: "Usually yes. Practical is fine, but the present should still feel like a celebration instead of a routine buy.",
+      },
+      {
+        q: "When should I move from this page to a more premium lane?",
+        a: "If the relationship is long-term enough that a wife-level, anniversary, or luxury signal matters more than a lighter birthday feel.",
+      },
+    ],
     itemIds: ["mini-photo-printer", "jewelry-case", "silk-pillowcase", "earbuds", "candle-warmer", "magsafe-stand"],
     related: ["gifts-for-girlfriend", "viral-gifts-for-her", "best-gifts-under-100"],
   },
@@ -222,6 +483,37 @@ export const seoGuides = [
     h1: "Best birthday gifts for wives in 2026",
     description: "Birthday gifts for wives that feel more substantial, polished, and worth opening.",
     intro: "This page stays on stronger upgrades and safer premium picks.",
+    selectionMethod: "This page filters toward gifts with clearer upgrade value, stronger finish, and enough presence to feel birthday-worthy for a wife.",
+    bestUseCase: "Use this when you need a birthday gift for your wife that feels bigger than a routine buy but still easy to defend.",
+    avoidWhen: "Skip this page if your main constraint is speed, a low budget, or a softer cozy-home mood.",
+    buyerSignals: [
+      {
+        title: "Presence matters",
+        body: "A wife birthday gift should feel clearly bigger than a standard practical purchase, even when the item is still useful.",
+      },
+      {
+        title: "Upgrade a real routine",
+        body: "The strongest answers here improve something she already does every day instead of introducing a random hobby.",
+      },
+      {
+        title: "Premium finish beats novelty",
+        body: "Cleaner materials, brand trust, and visible quality usually outperform gimmicks in this lane.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest birthday gift for a wife on this page?",
+        a: "The digital frame and temperature-control mug are the easiest first answers because they feel upgraded immediately and fit real daily life.",
+      },
+      {
+        q: "Is it better to buy something personal or something useful for my wife's birthday?",
+        a: "The strongest gifts sit in the overlap. A useful item is fine if it still feels premium and obviously chosen for her.",
+      },
+      {
+        q: "When should I choose this page over anniversary or luxury gifts?",
+        a: "Use this page when the moment is her birthday first and you want a stronger reveal without necessarily going fully romantic or ultra-luxury.",
+      },
+    ],
     itemIds: ["temperature-mug", "digital-frame", "vanity-mirror", "cashmere-robe", "projector", "walking-pad"],
     related: ["gifts-for-wife", "anniversary-gifts-for-her", "luxury-gifts-for-her"],
   },
@@ -234,7 +526,38 @@ export const seoGuides = [
     h1: "Best gifts for her under $75 in 2026",
     description: "Budget gift picks that still look clean and intentional.",
     intro: "This is the low-risk lane when you want to spend less without making the gift feel cheap.",
-    itemIds: ["candle-warmer", "magsafe-stand", "luxury-throw", "jewelry-case", "silk-pillowcase"],
+    selectionMethod: "This page filters for lower-cost gifts that still present well, avoid obvious cheapness, and do not need too much explanation.",
+    bestUseCase: "Use this when the budget is firm and you need the cleanest look-per-dollar outcome.",
+    avoidWhen: "Skip this page if you have enough budget to buy for stronger daily-use or premium payoff under $100.",
+    buyerSignals: [
+      {
+        title: "Clean presentation matters more than category",
+        body: "At this price, the gift has to look easy to keep and easy to understand the moment she opens it.",
+      },
+      {
+        title: "Small luxuries win",
+        body: "Cozy, beauty, or branded everyday items often land better than ambitious cheap tech or novelty clutter.",
+      },
+      {
+        title: "Budget should not show",
+        body: "The goal is not just staying under $75. It is making the spend invisible through better taste and clearer fit.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Can a gift under $75 still feel premium?",
+        a: "Yes. The right under-$75 gift feels polished and specific, especially when it looks clean and fits an existing routine.",
+      },
+      {
+        q: "What under-$75 gifts are the safest here?",
+        a: "The candle warmer, silk pillowcase, and UGG slippers are strong because they look giftable immediately without needing much explanation.",
+      },
+      {
+        q: "What usually misses in this price range?",
+        a: "Overly gimmicky products, low-trust tech, and anything that looks like it was bought only because it was cheap.",
+      },
+    ],
+    itemIds: ["candle-warmer", "laneige-set", "stanley-quencher", "owala-bottle", "ugg-slippers", "silk-pillowcase"],
     related: ["best-gifts-under-100", "gifts-for-girlfriend", "last-minute-gifts-for-her"],
   },
   {
@@ -246,7 +569,38 @@ export const seoGuides = [
     h1: "Best gifts for her under $100 in 2026",
     description: "Strong gift picks for her under $100, built around easy wins and clean buys.",
     intro: "For most men, this is the best spending range. Enough room to look strong without turning the gift into a production.",
-    itemIds: ["silk-pillowcase", "mini-photo-printer", "luxury-throw", "earbuds", "jewelry-case", "candle-warmer", "sunrise-alarm"],
+    selectionMethod: "This page prioritizes the strongest balance of visual payoff, usefulness, and low buying risk inside the most forgiving gift budget range.",
+    bestUseCase: "Use this when you want the highest-confidence shortlist for her without drifting into premium spending.",
+    avoidWhen: "Skip this page if the gift has to feel clearly luxurious or if the spend must stay well under $75.",
+    buyerSignals: [
+      {
+        title: "This is the sweet spot",
+        body: "Under $100 is usually enough budget to buy something that looks strong, feels useful, and still avoids overthinking.",
+      },
+      {
+        title: "Pick one clear use case",
+        body: "The best results come from choosing one lane such as daily carry, beauty, cozy home, or fun tech instead of trying to cover everything.",
+      },
+      {
+        title: "Do not chase false luxury",
+        body: "At this spend, clean branded products and obvious utility usually outperform products pretending to be more premium than they are.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Is under $100 enough for a strong gift for her?",
+        a: "Yes. For most gift occasions, this is the easiest range to get right because it supports both visual payoff and everyday usefulness.",
+      },
+      {
+        q: "What is the safest gift under $100 on this page?",
+        a: "The mini photo printer, UGG slippers, and earbuds are the cleanest first answers because they feel like clear upgrades without premium-level pricing.",
+      },
+      {
+        q: "When should I drop to the under-$75 page instead?",
+        a: "Use the under-$75 page when the budget is fixed and you need the strongest low-spend answer without stretching for a more expensive category.",
+      },
+    ],
+    itemIds: ["ugg-slippers", "mini-photo-printer", "stanley-quencher", "owala-bottle", "earbuds", "laneige-set", "candle-warmer"],
     related: ["gifts-for-girlfriend", "best-gifts-under-75", "amazon-gifts-for-her"],
   },
   {
@@ -258,7 +612,38 @@ export const seoGuides = [
     h1: "Viral gifts for her in 2026",
     description: "Current, shareable, high-click gift ideas for her.",
     intro: "Use this page when you want something that already feels current online and easy to justify in real life.",
-    itemIds: ["temperature-mug", "mini-photo-printer", "earbuds", "vanity-mirror", "projector", "walking-pad"],
+    selectionMethod: "This page favors gifts that are already circulating online but still survive the reality check of being useful, presentable, and broadly giftable.",
+    bestUseCase: "Use this when you want the gift to feel current now, not merely safe or timeless.",
+    avoidWhen: "Skip this page if you are trying to avoid trend-sensitive picks or you need a more relationship-specific lane first.",
+    buyerSignals: [
+      {
+        title: "Trend is not enough by itself",
+        body: "A viral product still has to be easy to use, easy to recognize, and easy to justify after the first reaction.",
+      },
+      {
+        title: "Recognizable brands help",
+        body: "Mainstream branded products convert better here because she already understands the appeal without extra explanation.",
+      },
+      {
+        title: "Avoid empty hype",
+        body: "If the product only makes sense because it is currently online everywhere, it is weaker than it looks.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Are viral gifts actually a good idea for her?",
+        a: "They can be, as long as the gift is still useful or clearly giftable in real life. The strongest viral picks here pass that test.",
+      },
+      {
+        q: "What is the safest viral gift on this page?",
+        a: "The Stanley, Owala, and mini photo printer are easy first answers because they feel current and still have obvious everyday use or shareability.",
+      },
+      {
+        q: "When should I avoid the viral lane?",
+        a: "Skip it when you want something more timeless, more premium, or more tailored to the relationship instead of the trend cycle.",
+      },
+    ],
+    itemIds: ["ninja-creami", "stanley-quencher", "owala-bottle", "sol-de-janeiro", "laneige-set", "mini-photo-printer"],
     related: ["gifts-for-girlfriend", "tech-gifts-for-her", "amazon-gifts-for-her"],
   },
   {
@@ -270,7 +655,38 @@ export const seoGuides = [
     h1: "Luxury gifts for her in 2026",
     description: "Cleaner premium gifts for her that read expensive fast.",
     intro: "These picks lean more polished and elevated without turning flashy or random.",
-    itemIds: ["cashmere-robe", "digital-frame", "temperature-mug", "vanity-mirror", "walking-pad", "silk-pillowcase"],
+    selectionMethod: "This page favors premium-feeling gifts with high finish, stronger presentation, and enough everyday logic that the spend does not feel random.",
+    bestUseCase: "Use this when the gift has to read expensive quickly and you want a cleaner premium answer than a trend pick.",
+    avoidWhen: "Skip this page if the budget needs to stay tight or the main goal is just a fast safe buy.",
+    buyerSignals: [
+      {
+        title: "Polish matters more than flash",
+        body: "Luxury-leaning gifts land best when the quality feels calm, obvious, and easy to defend rather than loud or gimmicky.",
+      },
+      {
+        title: "Premium daily use is strong",
+        body: "Higher-end gifts that fit real routines usually outperform decorative splurges with no clear role in her life.",
+      },
+      {
+        title: "Brand trust helps justify the spend",
+        body: "Well-known premium brands or clearly elevated product categories make the price feel more coherent.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What makes a luxury gift actually feel expensive?",
+        a: "Finish, brand trust, and everyday relevance matter more than raw price. A premium product with clear quality usually reads stronger than a random expensive object.",
+      },
+      {
+        q: "What is the safest luxury gift on this page?",
+        a: "The Kindle, digital frame, and Nespresso machine are strong because they feel premium quickly and still make sense in daily life.",
+      },
+      {
+        q: "When should I choose luxury gifts over anniversary gifts?",
+        a: "Choose this page when the main goal is premium feel first. Choose anniversary when emotional signal or shared-moment value matters more.",
+      },
+    ],
+    itemIds: ["kindle-paperwhite", "digital-frame", "temperature-mug", "nespresso-machine", "theragun-relief", "bose-speaker"],
     related: ["gifts-for-wife", "anniversary-gifts-for-her", "looks-expensive-gifts-for-her"],
   },
   {
@@ -282,7 +698,7 @@ export const seoGuides = [
     h1: "Practical gifts for her in 2026",
     description: "Useful gifts for her that still feel like a gift, not an errand.",
     intro: "The right practical gift solves a real problem and still feels selected for her, not just purchased fast.",
-    itemIds: ["temperature-mug", "earbuds", "sunrise-alarm", "magsafe-stand", "walking-pad", "vanity-mirror"],
+    itemIds: ["temperature-mug", "kindle-paperwhite", "owala-bottle", "magsafe-stand", "theragun-relief", "bose-speaker"],
     related: ["daily-use-gifts-for-her", "best-gifts-under-100", "gifts-for-wife"],
   },
   {
@@ -294,7 +710,7 @@ export const seoGuides = [
     h1: "Cozy home gifts for her in 2026",
     description: "Soft, apartment-friendly gifts for her that feel warm and easy to keep.",
     intro: "This lane works when you want comfort, home use, and a gift that lands without much explanation.",
-    itemIds: ["luxury-throw", "candle-warmer", "cashmere-robe", "projector", "sunrise-alarm", "digital-frame"],
+    itemIds: ["luxury-throw", "ugg-slippers", "cashmere-robe", "candle-warmer", "sunrise-alarm", "nespresso-machine"],
     related: ["gifts-for-homebodies", "date-night-gifts-for-her", "best-gifts-under-100"],
   },
   {
@@ -306,7 +722,7 @@ export const seoGuides = [
     h1: "Tech gifts for her in 2026",
     description: "Cleaner tech gifts for her that feel current, useful, and safe to buy.",
     intro: "The best tech picks here are simple to understand and easy to use the same day.",
-    itemIds: ["temperature-mug", "digital-frame", "mini-photo-printer", "earbuds", "projector", "magsafe-stand"],
+    itemIds: ["kindle-paperwhite", "digital-frame", "mini-photo-printer", "earbuds", "bose-speaker", "magsafe-stand"],
     related: ["viral-gifts-for-her", "practical-gifts-for-her", "daily-use-gifts-for-her"],
   },
   {
@@ -318,6 +734,37 @@ export const seoGuides = [
     h1: "Best new relationship gifts for her in 2026",
     description: "Low-pressure gifts for new relationships that still feel sharp.",
     intro: "The move here is simple: thoughtful, attractive, and easy to say yes to.",
+    selectionMethod: "This page removes high-pressure signals and focuses on gifts that feel considerate, attractive, and safe for an earlier-stage relationship.",
+    bestUseCase: "Use this when you want a gift that feels clearly intentional without acting like the relationship is farther along than it is.",
+    avoidWhen: "Skip this page if you actually need a stronger wife, anniversary, or premium signal.",
+    buyerSignals: [
+      {
+        title: "Low pressure wins",
+        body: "A new-relationship gift should feel thoughtful without acting like the relationship has already skipped several stages.",
+      },
+      {
+        title: "Warm and attractive is enough",
+        body: "You do not need a huge emotional statement here. Polished gifts with an easy aesthetic usually land better.",
+      },
+      {
+        title: "Avoid intimate or permanent signals",
+        body: "Anything too sentimental, too expensive, or too tied to deep personal taste creates unnecessary pressure early.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest gift in a new relationship?",
+        a: "The silk pillowcase, mini photo printer, and candle warmer are strong because they feel thoughtful without making the moment too serious.",
+      },
+      {
+        q: "How much should I spend in a new relationship?",
+        a: "Usually less than you would for a wife or anniversary gift. The goal is confidence and taste, not intensity.",
+      },
+      {
+        q: "What should I avoid early in a relationship?",
+        a: "Avoid very personal, size-sensitive, or commitment-heavy gifts that can make a simple good gesture feel loaded.",
+      },
+    ],
     itemIds: ["silk-pillowcase", "mini-photo-printer", "sunrise-alarm", "luxury-throw", "magsafe-stand", "candle-warmer"],
     related: ["gifts-for-girlfriend", "best-gifts-under-75", "last-minute-gifts-for-her"],
   },
@@ -342,7 +789,38 @@ export const seoGuides = [
     h1: "Best last-minute gifts for her in 2026",
     description: "Fast, low-friction gifts for her when you need a strong answer quickly.",
     intro: "These are the picks that make sense when the main requirement is speed without looking careless.",
-    itemIds: ["magsafe-stand", "candle-warmer", "silk-pillowcase", "earbuds", "jewelry-case", "luxury-throw"],
+    selectionMethod: "This page filters toward gifts that are easy to understand, fast to buy, and still polished enough that the rush does not show.",
+    bestUseCase: "Use this when timing is the real constraint and you need the shortest path to a respectable gift.",
+    avoidWhen: "Skip this page if the occasion is bigger and you still have enough time to choose a more tailored or premium answer.",
+    buyerSignals: [
+      {
+        title: "Clarity beats originality",
+        body: "When you are short on time, the best gift is the one that reads correctly and cleanly on first impression.",
+      },
+      {
+        title: "Fast-recognition products help",
+        body: "Products with obvious use cases or familiar brand energy make last-minute shopping look more intentional.",
+      },
+      {
+        title: "Avoid explanation-heavy buys",
+        body: "If you need to narrate why the gift is good, it is weaker than a simpler product that sells itself immediately.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest last-minute gift for her?",
+        a: "The MagSafe stand, Stanley, and luxury throw are strong because they are easy to understand quickly and still feel giftable.",
+      },
+      {
+        q: "Can a last-minute gift still look thoughtful?",
+        a: "Yes, if the product is clean, familiar, and relevant. The miss usually comes from rushed novelty, not from moving fast itself.",
+      },
+      {
+        q: "When should I leave this page for a different guide?",
+        a: "Leave it when you still have enough time to optimize for the occasion or relationship stage instead of pure speed.",
+      },
+    ],
+    itemIds: ["magsafe-stand", "laneige-set", "stanley-quencher", "earbuds", "owala-bottle", "luxury-throw"],
     related: ["amazon-gifts-for-her", "best-gifts-under-75", "gifts-for-girlfriend"],
   },
   {
@@ -354,6 +832,37 @@ export const seoGuides = [
     h1: "Best date-night gifts for her in 2026",
     description: "Gift ideas that pair well with a date and feel more memorable than a basic object.",
     intro: "This page leans toward gifts that create a shared night, a softer mood, or a stronger reveal.",
+    selectionMethod: "This page prioritizes gifts that strengthen the night itself, either by creating a shared plan, a softer mood, or a better reveal moment.",
+    bestUseCase: "Use this when you want the gift to feel tied to the experience and not like a disconnected object.",
+    avoidWhen: "Skip this page if you need the most practical daily-use answer or the cheapest safe option.",
+    buyerSignals: [
+      {
+        title: "The night should get better",
+        body: "These gifts work best when they improve the date itself or create an easy second moment after the initial reveal.",
+      },
+      {
+        title: "Mood beats utility",
+        body: "A date-night gift can still be useful, but it should first feel experiential, soft, or memorable.",
+      },
+      {
+        title: "Pairing strengthens the gift",
+        body: "The projector, robe, candle warmer, and frame all work better when they connect to the plan rather than sitting alone.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What makes a good date-night gift instead of a regular gift?",
+        a: "The gift should support the experience, mood, or reveal of the night itself rather than feeling disconnected from the plan.",
+      },
+      {
+        q: "What is the safest date-night gift on this page?",
+        a: "The projector and mini photo printer are strong because they feel shareable and create an immediate experience together.",
+      },
+      {
+        q: "When should I choose anniversary gifts instead of date-night gifts?",
+        a: "Choose anniversary gifts when the emotional signal matters more than the shared-night feel. Choose date-night gifts when you want the experience to carry the moment.",
+      },
+    ],
     itemIds: ["projector", "mini-photo-printer", "cashmere-robe", "candle-warmer", "digital-frame", "luxury-throw"],
     related: ["anniversary-gifts-for-her", "cozy-home-gifts-for-her", "gifts-for-wife"],
   },
@@ -366,7 +875,7 @@ export const seoGuides = [
     h1: "Best Amazon gifts for her in 2026",
     description: "Fast Amazon gift picks for her, chosen for clean fit and faster checkout.",
     intro: "If the goal is speed, this is the shortest path from product page to checkout.",
-    itemIds: ["silk-pillowcase", "temperature-mug", "mini-photo-printer", "earbuds", "jewelry-case", "candle-warmer"],
+    itemIds: ["kindle-paperwhite", "ninja-creami", "mini-photo-printer", "owala-bottle", "ugg-slippers", "bose-speaker"],
     related: ["last-minute-gifts-for-her", "best-gifts-under-100", "viral-gifts-for-her"],
   },
   {
@@ -390,7 +899,7 @@ export const seoGuides = [
     h1: "Best daily-use gifts for her in 2026",
     description: "Gifts for her that earn their place because they get used all the time.",
     intro: "The cleanest daily-use gifts solve a small problem, look good, and start paying off right away.",
-    itemIds: ["temperature-mug", "earbuds", "magsafe-stand", "sunrise-alarm", "vanity-mirror", "walking-pad"],
+    itemIds: ["temperature-mug", "kindle-paperwhite", "owala-bottle", "sunrise-alarm", "nespresso-machine", "bose-speaker"],
     related: ["practical-gifts-for-her", "tech-gifts-for-her", "gifts-for-wife"],
   },
   {
@@ -402,7 +911,38 @@ export const seoGuides = [
     h1: "Gifts for her that look expensive in 2026",
     description: "Gifts for her that feel polished and premium without forcing a huge spend.",
     intro: "This lane is about visual payoff, clean presentation, and picks that read stronger than their price.",
-    itemIds: ["silk-pillowcase", "jewelry-case", "cashmere-robe", "vanity-mirror", "digital-frame", "luxury-throw"],
+    selectionMethod: "This page favors gifts with stronger visual payoff, cleaner materials or branding, and presentation that feels premium before price comes up.",
+    bestUseCase: "Use this when you want the gift to look elevated immediately even if the actual spend stays below true luxury territory.",
+    avoidWhen: "Skip this page if practicality, trend relevance, or daily-use logic matters more than first impression.",
+    buyerSignals: [
+      {
+        title: "Visual payoff leads here",
+        body: "If the gift looks polished fast, she will usually assume the spend and thought level were higher too.",
+      },
+      {
+        title: "Brand and finish matter",
+        body: "Recognizable premium brands, cleaner shapes, and better materials beat complicated products with weak presentation.",
+      },
+      {
+        title: "Do not fake luxury too hard",
+        body: "A gift that feels calm and well-made lands better than something trying too aggressively to signal expensive taste.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What makes a gift look expensive without costing luxury money?",
+        a: "Strong materials, recognizable brand cues, and clean presentation usually matter more than squeezing into a high price bracket.",
+      },
+      {
+        q: "What is the safest expensive-looking gift on this page?",
+        a: "The digital frame, cashmere-feel robe, and Nespresso machine are strong because they signal polish immediately and still make practical sense.",
+      },
+      {
+        q: "When should I use this page instead of the luxury page?",
+        a: "Use this page when the visual impression matters more than true premium spend. Use luxury when you want both higher finish and a higher actual budget.",
+      },
+    ],
+    itemIds: ["ugg-slippers", "kindle-paperwhite", "cashmere-robe", "digital-frame", "nespresso-machine", "bose-speaker"],
     related: ["luxury-gifts-for-her", "best-gifts-under-100", "gifts-for-girlfriend"],
   },
 ];
@@ -417,12 +957,16 @@ export const featuredSeoGuides = [
 ].map((slug) => seoGuides.find((guide) => guide.slug === slug)).filter(Boolean);
 
 export const featuredSeoProducts = [
-  "silk-pillowcase",
-  "temperature-mug",
-  "digital-frame",
-  "mini-photo-printer",
-  "earbuds",
-  "jewelry-case",
+  "kindle-paperwhite",
+  "ninja-creami",
+  "nespresso-machine",
+  "owala-bottle",
+  "theragun-relief",
+  "ugg-slippers",
+  "stanley-quencher",
+  "laneige-set",
+  "bose-speaker",
+  "sol-de-janeiro",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const seoDateCities = [

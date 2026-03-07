@@ -1,8 +1,11 @@
 # ShopForHer full index
 
 Base URL: https://shopforher.org/
-Updated: 2026-03-06
+Updated: 2026-03-07
 
+- About: https://shopforher.org/about.html
+- Editorial policy: https://shopforher.org/editorial-policy.html
+- Contact: https://shopforher.org/contact.html
 - Best gifts for girlfriends in 2026: https://shopforher.org/gifts-for-girlfriend/
 - Best gifts for wives in 2026: https://shopforher.org/gifts-for-wife/
 - Best anniversary gifts for her in 2026: https://shopforher.org/anniversary-gifts-for-her/
@@ -49,3 +52,13 @@ Updated: 2026-03-06
 - Candle Warmer Lamp: https://shopforher.org/gift/candle-warmer-lamp/
 - LED Vanity Mirror: https://shopforher.org/gift/led-vanity-mirror/
 - Cashmere-Feel Robe: https://shopforher.org/gift/cashmere-feel-robe/
+- Kindle Paperwhite Signature Edition: https://shopforher.org/gift/kindle-paperwhite-signature-edition/
+- Ninja CREAMi Deluxe: https://shopforher.org/gift/ninja-creami-deluxe/
+- Nespresso Vertuo Next: https://shopforher.org/gift/nespresso-vertuo-next/
+- Owala FreeSip Sway Bottle: https://shopforher.org/gift/owala-freesip-sway-bottle/
+- Therabody Theragun Relief: https://shopforher.org/gift/theragun-relief/
+- Koolaburra by UGG Burree Slipper: https://shopforher.org/gift/koolaburra-ugg-burree-slipper/
+- Stanley Quencher H2.0 FlowState: https://shopforher.org/gift/stanley-quencher-h2o-flowstate/
+- LANEIGE Midnight Minis Lip Set: https://shopforher.org/gift/laneige-midnight-minis-lip-set/
+- Bose SoundLink Flex (2nd Gen): https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/
+- Sol de Janeiro Bum Bum Jet Set: https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/

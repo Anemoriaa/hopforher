@@ -120,8 +120,24 @@ export function persistSaved(nextSaved) {
   }
 }
 
+function withAffiliateTag(urlValue, tag) {
+  const url = new URL(urlValue);
+  url.searchParams.set("tag", tag);
+  return url.toString();
+}
+
 export function buildAffiliateLink(gift) {
   const liveAffiliateConfig = readLiveCatalog().affiliateConfig || baseAffiliateConfig;
+  const asin = gift.amazonAsin || gift.asin;
+
+  if (gift.affiliateUrl) {
+    return withAffiliateTag(gift.affiliateUrl, liveAffiliateConfig.tag);
+  }
+
+  if (asin) {
+    return withAffiliateTag(`https://www.amazon.com/dp/${asin}`, liveAffiliateConfig.tag);
+  }
+
   const url = new URL(liveAffiliateConfig.baseUrl);
   url.searchParams.set("k", gift.query);
   url.searchParams.set("tag", liveAffiliateConfig.tag);
