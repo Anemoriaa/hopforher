@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play, ShoppingCart } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
 import { featuredSeoGuides, featuredSeoProducts, seoCatalog, seoDateCities, seoHotStories } from "./content/seo-guides.js";
@@ -84,6 +84,7 @@ const dateSpotsApiPath = import.meta.env.VITE_DATE_SPOTS_API_PATH || "/api/date-
 
 const hotStoryHeights = [520, 640, 760, 580, 700, 840, 620];
 const previewReelFrameDurationMs = 1500;
+const TIKTOK_PLAYER_ORIGIN = "https://www.tiktok.com";
 
 function getStableSeed(...parts) {
   return parts.join("-").split("").reduce((total, char) => total + char.charCodeAt(0), 0);
@@ -113,11 +114,70 @@ function getGiftImageList(gift) {
   return [...new Set([gift.imageUrl || gift.image || "", ...(gift.galleryImages || [])].filter(Boolean))];
 }
 
+function extractTikTokVideoId(value) {
+  if (typeof value !== "string" || !value.trim()) {
+    return "";
+  }
+
+  const normalized = value.trim();
+  const directIdMatch = normalized.match(/^\d{8,}$/);
+
+  if (directIdMatch) {
+    return directIdMatch[0];
+  }
+
+  const playerMatch = normalized.match(/\/player\/v1\/(\d+)/);
+
+  if (playerMatch) {
+    return playerMatch[1];
+  }
+
+  const videoMatch = normalized.match(/\/video\/(\d+)/);
+
+  if (videoMatch) {
+    return videoMatch[1];
+  }
+
+  return "";
+}
+
+function buildTikTokPlayerUrl(videoId, options = {}) {
+  if (!videoId) {
+    return "";
+  }
+
+  const url = new URL(`/player/v1/${videoId}`, TIKTOK_PLAYER_ORIGIN);
+
+  Object.entries(options).forEach(([key, value]) => {
+    if (value === undefined || value === null || value === "") {
+      return;
+    }
+
+    url.searchParams.set(key, String(value));
+  });
+
+  return url.toString();
+}
+
+function postTikTokPlayerMessage(frameWindow, type, value) {
+  if (!frameWindow || !type) {
+    return;
+  }
+
+  frameWindow.postMessage(
+    {
+      type,
+      value,
+      "x-tiktok-player": true,
+    },
+    TIKTOK_PLAYER_ORIGIN
+  );
+}
+
 function getGiftMotionPoster(gift, fallbackId = "story") {
   const videoPoster = (gift?.shortVideos || []).find((video) => video?.posterUrl)?.posterUrl;
-  const primaryImage = getGiftImageList(gift)[0];
 
-  return videoPoster || primaryImage || buildHotStoryImage(gift?.id || "gift", fallbackId);
+  return videoPoster || "";
 }
 
 function getPreviewMediaThumbnailUrl(media) {
@@ -163,20 +223,31 @@ function buildGiftPreviewMedia(gift) {
 
   const images = getGiftImageList(gift);
   const videos = Array.isArray(gift.shortVideos) ? gift.shortVideos : [];
-  const videoItems = videos.map((video, index) => ({
-    id: `${gift.id}-${video.id || `video-${index + 1}`}`,
-    kind: video.provider === "direct" ? "video" : "embed",
-    provider: video.provider,
-    title: video.title,
-    posterUrl: video.posterUrl || images[0] || "",
-    videoUrl: video.videoUrl || "",
-    embedUrl: video.embedUrl || "",
-    sourceUrl: video.sourceUrl || "",
-    creatorHandle: video.creatorHandle || "",
-    creatorName: video.creatorName || "",
-    durationSeconds: video.durationSeconds || 0,
-    sourceLabel: video.sourceLabel || (video.provider === "tiktok" ? "TikTok" : "Video"),
-  }));
+  const videoItems = videos.map((video, index) => {
+    const videoId =
+      video.provider === "tiktok"
+        ? extractTikTokVideoId(video.id || video.sourceUrl || video.embedUrl || "")
+        : "";
+
+    return {
+      id: `${gift.id}-${video.id || `video-${index + 1}`}`,
+      kind: video.provider === "direct" ? "video" : "embed",
+      provider: video.provider,
+      title: video.title,
+      posterUrl: video.posterUrl || images[0] || "",
+      videoUrl: video.videoUrl || "",
+      embedUrl:
+        video.provider === "tiktok"
+          ? buildTikTokPlayerUrl(videoId)
+          : video.embedUrl || "",
+      videoId,
+      sourceUrl: video.sourceUrl || "",
+      creatorHandle: video.creatorHandle || "",
+      creatorName: video.creatorName || "",
+      durationSeconds: video.durationSeconds || 0,
+      sourceLabel: video.sourceLabel || (video.provider === "tiktok" ? "TikTok" : "Video"),
+    };
+  });
   const imageItems = images.map((imageUrl, index) => ({
     id: `${gift.id}-image-${index + 1}`,
     kind: "image",
@@ -199,13 +270,17 @@ function buildGiftPreviewMedia(gift) {
         frames: images,
         durationSeconds: images.length * 2,
         creatorName: "ShopForHer",
-        sourceLabel: "Product reel",
+        sourceLabel: "Hot edit",
       },
       ...imageItems,
     ];
   }
 
   return imageItems;
+}
+
+function getPrimaryHotMotionMedia(gift) {
+  return buildGiftPreviewMedia(gift).find((media) => media.kind !== "image") || null;
 }
 
 function rankGiftMatches(gifts, filters) {
@@ -229,6 +304,7 @@ export default function App() {
   const tabRefs = useRef([]);
   const previewCloseRef = useRef(null);
   const previewVideoRef = useRef(null);
+  const previewEmbedRef = useRef(null);
   const initialDateTime = getDefaultDateTimeInput();
   const [catalog, setCatalog] = useState(() => readLiveCatalog());
   const [activeSlide, setActiveSlide] = useState(0);
@@ -267,6 +343,37 @@ export default function App() {
   const activePreviewPoster = activePreviewMedia
     ? getPreviewMediaThumbnailUrl(activePreviewMedia) || getGiftImageUrl(previewGift)
     : getGiftImageUrl(previewGift);
+  const activePreviewEmbedUrl = useMemo(() => {
+    if (activePreviewMedia?.kind !== "embed") {
+      return "";
+    }
+
+    if (activePreviewMedia.provider !== "tiktok") {
+      return activePreviewMedia.embedUrl || "";
+    }
+
+    return buildTikTokPlayerUrl(activePreviewMedia.videoId, {
+      autoplay: 1,
+      controls: 1,
+      progress_bar: 1,
+      play_button: 1,
+      volume_control: 1,
+      fullscreen_button: 1,
+      timestamp: 1,
+      loop: 1,
+      music_info: 0,
+      description: 0,
+      rel: 0,
+      native_context_menu: 1,
+      closed_caption: 1,
+    });
+  }, [
+    activePreviewMedia?.embedUrl,
+    activePreviewMedia?.id,
+    activePreviewMedia?.kind,
+    activePreviewMedia?.provider,
+    activePreviewMedia?.videoId,
+  ]);
   const activePreviewReelFrame = activePreviewMedia?.kind === "reel"
     ? activePreviewMedia.frames?.[previewReelFrameIndex] || activePreviewMedia.posterUrl || activePreviewPoster
     : "";
@@ -349,6 +456,59 @@ export default function App() {
       window.clearInterval(intervalId);
     };
   }, [activePreviewMedia, previewPlaybackActive]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
+    const onMessage = (event) => {
+      if (event.origin !== TIKTOK_PLAYER_ORIGIN) {
+        return;
+      }
+
+      if (event.source !== previewEmbedRef.current?.contentWindow) {
+        return;
+      }
+
+      const data = event.data;
+
+      if (!data || data["x-tiktok-player"] !== true || data.type !== "onStateChange") {
+        return;
+      }
+
+      if (data.value === 1) {
+        setPreviewPlaybackActive(true);
+        return;
+      }
+
+      if (data.value === 0 || data.value === 2 || data.value === -1) {
+        setPreviewPlaybackActive(false);
+      }
+    };
+
+    window.addEventListener("message", onMessage);
+
+    return () => {
+      window.removeEventListener("message", onMessage);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (activePreviewMedia?.kind !== "embed" || activePreviewMedia.provider !== "tiktok") {
+      return;
+    }
+
+    postTikTokPlayerMessage(
+      previewEmbedRef.current?.contentWindow,
+      previewPlaybackActive ? "play" : "pause"
+    );
+  }, [
+    activePreviewMedia?.id,
+    activePreviewMedia?.kind,
+    activePreviewMedia?.provider,
+    previewPlaybackActive,
+  ]);
 
   const activeRelationship = relationshipOptions[brief.relationship];
   const activeBudget = budgetOptions[brief.budget];
@@ -578,10 +738,11 @@ export default function App() {
           ...story,
           gift,
           posterUrl: getGiftMotionPoster(gift, story.id),
+          storyCoverUrl: buildHotStoryImage(gift.id, story.id),
           mediaKind: primaryVideo ? (primaryVideo.provider === "direct" ? "video" : "embed") : imageCount > 1 ? "reel" : "image",
-          mediaLabel: primaryVideo ? (primaryVideo.provider === "tiktok" ? "TikTok" : "Video") : imageCount > 1 ? "Product reel" : "Preview",
+          mediaLabel: primaryVideo ? (primaryVideo.provider === "tiktok" ? "TikTok" : "Video") : imageCount > 1 ? "Hot edit" : "Preview",
           sourceLabel:
-            primaryVideo?.creatorHandle || primaryVideo?.creatorName || primaryVideo?.sourceLabel || (imageCount > 1 ? "ShopForHer" : "ShopForHer"),
+            primaryVideo?.creatorHandle || primaryVideo?.creatorName || primaryVideo?.sourceLabel || (imageCount > 1 ? "ShopForHer edit" : "ShopForHer"),
           durationLabel: formatDurationLabel(durationSeconds),
         };
       })
@@ -884,7 +1045,11 @@ export default function App() {
   }
 
   function togglePreviewPlayback() {
-    if (!activePreviewMedia || activePreviewMedia.kind === "image" || activePreviewMedia.kind === "embed") {
+    if (!activePreviewMedia || activePreviewMedia.kind === "image") {
+      return;
+    }
+
+    if (activePreviewMedia.kind === "embed" && activePreviewMedia.provider !== "tiktok") {
       return;
     }
 
@@ -905,7 +1070,7 @@ export default function App() {
     }
 
     if (activePreviewMedia?.kind === "embed") {
-      return `${previewGift.hook} This source stays embedded here, while buying remains a separate Amazon step.`;
+      return `${previewGift.hook} Tap once to play or pause the TikTok here, then use Buy on ${affiliateConfig.merchantName} as the second click.`;
     }
 
     return previewGift.hook;
@@ -1027,10 +1192,150 @@ export default function App() {
     return <AnimatedBentoCard key={`${gift.id}-bento-${index}`} gift={gift} index={index} options={options} savedIds={savedIds} toggleSaved={toggleSaved} openPreview={openPreview} />;
   }
 
+  function HotFeedMedia({ item, gift, inView }) {
+    const media = useMemo(() => getPrimaryHotMotionMedia(gift), [gift]);
+    const videoRef = useRef(null);
+    const embedRef = useRef(null);
+    const [reelFrameIndex, setReelFrameIndex] = useState(0);
+    const coverUrl = item.posterUrl || item.storyCoverUrl || buildHotStoryImage(gift.id, item.id);
+    const feedEmbedUrl = useMemo(() => {
+      if (media?.kind !== "embed" || media.provider !== "tiktok") {
+        return media?.embedUrl || "";
+      }
+
+      return buildTikTokPlayerUrl(media.videoId, {
+        autoplay: 1,
+        controls: 0,
+        progress_bar: 0,
+        play_button: 0,
+        volume_control: 0,
+        fullscreen_button: 0,
+        timestamp: 0,
+        loop: 1,
+        music_info: 0,
+        description: 0,
+        rel: 0,
+        native_context_menu: 0,
+        closed_caption: 0,
+      });
+    }, [media?.embedUrl, media?.id, media?.kind, media?.provider, media?.videoId]);
+    const isPlayable = inView && (media?.kind === "video" || media?.kind === "reel" || media?.kind === "embed");
+
+    useEffect(() => {
+      setReelFrameIndex(0);
+    }, [media?.id]);
+
+    useEffect(() => {
+      const video = videoRef.current;
+
+      if (!video || media?.kind !== "video") {
+        return;
+      }
+
+      if (!inView) {
+        video.pause();
+        return;
+      }
+
+      const playPromise = video.play();
+      playPromise?.catch(() => {
+        video.pause();
+      });
+    }, [inView, media?.id, media?.kind]);
+
+    useEffect(() => {
+      if (!inView || media?.kind !== "reel" || !media.frames?.length) {
+        return undefined;
+      }
+
+      const intervalId = window.setInterval(() => {
+        setReelFrameIndex((current) => (current + 1) % media.frames.length);
+      }, previewReelFrameDurationMs);
+
+      return () => {
+        window.clearInterval(intervalId);
+      };
+    }, [inView, media]);
+
+    function handleEmbedLoad() {
+      if (media?.kind !== "embed" || media.provider !== "tiktok") {
+        return;
+      }
+
+      const frameWindow = embedRef.current?.contentWindow;
+
+      postTikTokPlayerMessage(frameWindow, "mute");
+      postTikTokPlayerMessage(frameWindow, "play");
+    }
+
+    return (
+      <div className="gs-hot-feed-media">
+        {media?.kind === "video" && inView ? (
+          <video
+            ref={videoRef}
+            src={media.videoUrl}
+            poster={media.posterUrl || coverUrl}
+            className="gs-hot-feed-video"
+            playsInline
+            muted
+            loop
+            preload="metadata"
+          />
+        ) : media?.kind === "embed" && inView && feedEmbedUrl ? (
+          <iframe
+            key={media.id}
+            ref={embedRef}
+            src={feedEmbedUrl}
+            title={media.title || `${gift.name} TikTok video`}
+            className="gs-hot-feed-embed"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            loading="lazy"
+            onLoad={handleEmbedLoad}
+          />
+        ) : media?.kind === "reel" && inView ? (
+          <img
+            src={media.frames?.[reelFrameIndex] || media.posterUrl || coverUrl}
+            alt={gift.name}
+            className="gs-hot-feed-image"
+            loading="lazy"
+          />
+        ) : (
+          <div className="gs-hot-feed-cover-art" aria-hidden="true">
+            <img src={coverUrl} alt="" className="gs-hot-feed-cover-image" loading="lazy" />
+          </div>
+        )}
+
+        <div className="gs-hot-feed-cover-card">
+          <span className="gs-hot-feed-cover-kicker">{item.label}</span>
+          <strong>{gift.name}</strong>
+          <p>{gift.hook}</p>
+        </div>
+
+        <div className="gs-hot-feed-media-overlay">
+          <div className="gs-hot-feed-play-pill">
+            <Play size={14} />
+            <span>{isPlayable ? "Playing" : media?.kind === "image" ? "View" : "Watch"}</span>
+          </div>
+          <div className="gs-hot-feed-media-pills">
+            <span>{item.mediaLabel}</span>
+            {item.durationLabel ? <span>{item.durationLabel}</span> : null}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   function AnimatedHotCard({ item, index, openPreview }) {
-    const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "0px 0px -100px 0px" });
+    const { ref, inView } = useInView({ triggerOnce: false, rootMargin: "0px 0px -100px 0px" });
+    const [hasEntered, setHasEntered] = useState(false);
     const gift = item.gift;
     const delayClass = index % 3 === 1 ? "delay-100" : index % 3 === 2 ? "delay-200" : "";
+
+    useEffect(() => {
+      if (inView) {
+        setHasEntered(true);
+      }
+    }, [inView]);
 
     return (
       <article
@@ -1038,7 +1343,7 @@ export default function App() {
         role="listitem"
         className={classNames(
           "gs-hot-feed-card",
-          inView && "animate-fade-up",
+          hasEntered && "animate-fade-up",
           delayClass
         )}
         style={{
@@ -1052,24 +1357,7 @@ export default function App() {
           onClick={() => openPreview(gift)}
           aria-label={`Preview ${gift.name} from the ${item.label} lane`}
         >
-          <div className="gs-hot-feed-media">
-            <img
-              src={item.posterUrl || getGiftMotionPoster(gift, item.id)}
-              alt={gift.name}
-              className="gs-hot-feed-image"
-              loading="lazy"
-            />
-            <div className="gs-hot-feed-media-overlay">
-              <div className="gs-hot-feed-play-pill">
-                <Play size={14} />
-                <span>{item.mediaKind === "image" ? "View" : "Watch"}</span>
-              </div>
-              <div className="gs-hot-feed-media-pills">
-                <span>{item.mediaLabel}</span>
-                {item.durationLabel ? <span>{item.durationLabel}</span> : null}
-              </div>
-            </div>
-          </div>
+          <HotFeedMedia item={item} gift={gift} inView={inView} />
           <div className="gs-hot-feed-body">
             <div className="gs-hot-feed-chip-row">
               <span className="gs-hot-feed-chip">{item.label}</span>
@@ -1079,7 +1367,7 @@ export default function App() {
             <p>{gift.why || gift.hook}</p>
             <div className="gs-hot-feed-meta">
               <div className="gs-hot-feed-source">
-                <span className="gs-hot-feed-source-mark">SF</span>
+                <span className="gs-hot-feed-source-mark">{item.mediaLabel === "TikTok" ? "TT" : "SF"}</span>
                 <span className="gs-hot-feed-source-label">{item.sourceLabel}</span>
               </div>
               <div className="gs-hot-feed-meta-tags">
@@ -1305,10 +1593,7 @@ export default function App() {
                   aria-controls="panel-saved"
                   tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
                 >
-                  <span className="gs-nav-save-label">
-                    <ShoppingCart aria-hidden="true" />
-                    <span>Saved/Cart</span>
-                  </span>
+                  Saved/Cart
                   <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
                     <span className="gs-visually-hidden">Saved cart picks count: </span>
                     {savedGifts.length}
@@ -1823,15 +2108,39 @@ export default function App() {
                         <span>{previewPlaybackActive ? "Pause" : "Play"}</span>
                       </button>
                     </div>
-                  ) : activePreviewMedia?.kind === "embed" && activePreviewMedia.embedUrl ? (
+                  ) : activePreviewMedia?.kind === "embed" && activePreviewEmbedUrl ? (
                     <div className="gs-preview-media-stage is-embed">
                       <iframe
-                        src={activePreviewMedia.embedUrl}
+                        key={activePreviewMedia.id}
+                        ref={previewEmbedRef}
+                        src={activePreviewEmbedUrl}
                         title={activePreviewMedia.title || `${previewGift.name} video`}
                         className="gs-preview-embed"
                         allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                         allowFullScreen
+                        onLoad={() => {
+                          if (activePreviewMedia.provider !== "tiktok") {
+                            return;
+                          }
+
+                          const frameWindow = previewEmbedRef.current?.contentWindow;
+
+                          postTikTokPlayerMessage(frameWindow, "mute");
+                          postTikTokPlayerMessage(frameWindow, previewPlaybackActive ? "play" : "pause");
+                        }}
                       />
+                      {activePreviewMedia.provider === "tiktok" ? (
+                        <button
+                          type="button"
+                          className="gs-preview-play-toggle is-embed-control"
+                          onClick={togglePreviewPlayback}
+                          aria-pressed={previewPlaybackActive}
+                          aria-label={`${previewPlaybackActive ? "Pause" : "Play"} the ${previewGift.name} TikTok`}
+                        >
+                          {previewPlaybackActive ? <Pause size={16} /> : <Play size={16} />}
+                          <span>{previewPlaybackActive ? "Pause" : "Play"}</span>
+                        </button>
+                      ) : null}
                     </div>
                   ) : activePreviewMedia?.kind === "embed" ? (
                     <div className="gs-preview-media-stage gs-preview-embed-fallback">

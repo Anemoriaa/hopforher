@@ -62,6 +62,20 @@ const trustPages = [
         body: "Some outbound links are paid affiliate links. As an Amazon Associate I earn from qualifying purchases, but that does not change the stated reason a product appears on a page, and checkout still happens on the merchant site.",
       },
       {
+        id: "editorial-team",
+        title: "Editorial team",
+        body: "ShopForHer Editorial Team writes the guide and product pages. The job of the page author is to make the shortlist clearer, lower-risk, and easier to scan for the intended buyer moment.",
+      },
+      {
+        id: "commerce-review",
+        title: "Commerce review",
+        body: "ShopForHer Commerce Review checks that the product lane, merchant path, price band, and disclosure notes are clear before a guide or product page is regenerated.",
+      },
+      {
+        title: "Evidence and pricing",
+        body: "Pages are built from product imagery, merchant details, price bands, buyer-intent fit, and clear off-site checkout paths. Price labels are estimates and final pricing always lives on the merchant site.",
+      },
+      {
         title: "Freshness",
         body: "Guide pages, hot pages, and supporting discovery files are regenerated regularly so the site can stay crawlable and current for both traditional search and AI-assisted discovery.",
       },
@@ -106,6 +120,27 @@ const siteOrganizationSchema = {
     },
   ],
 };
+const editorialAuthor = {
+  name: "ShopForHer Editorial Team",
+  title: "Gift recommendation editors",
+  url: `${siteUrl}${seoSite.editorialPath}#editorial-team`,
+};
+const editorialReviewer = {
+  name: "ShopForHer Commerce Review",
+  title: "Commerce review and quality checks",
+  url: `${siteUrl}${seoSite.editorialPath}#commerce-review`,
+};
+const editorialAuthorSchema = {
+  "@type": "Organization",
+  name: editorialAuthor.name,
+  url: editorialAuthor.url,
+};
+const editorialReviewerSchema = {
+  "@type": "Organization",
+  name: editorialReviewer.name,
+  url: editorialReviewer.url,
+};
+const priceEstimateNote = "Price labels reflect recent observed ranges and final pricing can change on the merchant site.";
 
 function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
@@ -126,6 +161,12 @@ function withAffiliateTag(urlValue) {
   return url.toString();
 }
 
+function withoutAffiliateTag(urlValue) {
+  const url = new URL(urlValue);
+  url.searchParams.delete("tag");
+  return url.toString();
+}
+
 function affiliateUrl(gift) {
   const asin = gift.amazonAsin || gift.asin;
 
@@ -141,6 +182,103 @@ function affiliateUrl(gift) {
   url.searchParams.set("k", gift.query);
   url.searchParams.set("tag", seoSite.affiliateTag);
   return url.toString();
+}
+
+function merchantProductUrl(gift) {
+  const asin = gift.amazonAsin || gift.asin;
+
+  if (gift.sourceProductUrl) {
+    return gift.sourceProductUrl;
+  }
+
+  if (gift.affiliateUrl) {
+    return withoutAffiliateTag(gift.affiliateUrl);
+  }
+
+  if (asin) {
+    return `https://www.amazon.com/dp/${asin}`;
+  }
+
+  return "";
+}
+
+function merchantName(gift) {
+  return gift.merchantName || "Amazon";
+}
+
+function usesAffiliateSearchFallback(gift) {
+  return !(gift.affiliateUrl || gift.amazonAsin || gift.asin);
+}
+
+function affiliateLabel(gift) {
+  return usesAffiliateSearchFallback(gift) ? "Find on Amazon" : "Buy on Amazon";
+}
+
+function paidLinkNote(gift) {
+  return usesAffiliateSearchFallback(gift) ? "Paid search link to Amazon" : AMAZON_PAID_LINK_NOTE;
+}
+
+function parsePriceNumbers(priceLabel) {
+  return [...String(priceLabel || "").matchAll(/\d+(?:\.\d+)?/g)]
+    .map((match) => Number.parseFloat(match[0]))
+    .filter((value) => Number.isFinite(value));
+}
+
+function priceRange(gift) {
+  const values = parsePriceNumbers(gift.priceLabel);
+
+  if (!values.length) {
+    return null;
+  }
+
+  const low = Math.min(...values);
+  const high = Math.max(...values);
+
+  return {
+    low,
+    high,
+    isRange: low !== high,
+  };
+}
+
+function schemaPrice(value) {
+  return value.toFixed(2);
+}
+
+function productOfferSchema(gift) {
+  const range = priceRange(gift);
+
+  if (!range) {
+    return null;
+  }
+
+  const offerUrl = merchantProductUrl(gift);
+  const sellerName = merchantName(gift);
+  const base = {
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+    itemCondition: "https://schema.org/NewCondition",
+    seller: {
+      "@type": "Organization",
+      name: sellerName,
+    },
+    ...(offerUrl ? { url: offerUrl } : {}),
+  };
+
+  if (range.isRange) {
+    return {
+      "@type": "AggregateOffer",
+      ...base,
+      lowPrice: schemaPrice(range.low),
+      highPrice: schemaPrice(range.high),
+    };
+  }
+
+  return {
+    "@type": "Offer",
+    ...base,
+    price: schemaPrice(range.low),
+  };
 }
 
 function guideItems(guide) {
@@ -189,6 +327,7 @@ function renderFooterLinks({ includeLlms = true } = {}) {
     ["Contact", seoSite.contactPath],
     ["Site map", "/site-map.html"],
     ["Feed", "/feed.xml"],
+    ["Catalog JSON", "/product-catalog.json"],
     ["Privacy", "/privacy.html"],
     ["Terms", "/terms.html"],
     ["Affiliate", "/affiliate-disclosure.html"],
@@ -210,14 +349,14 @@ function renderHtmlAttributes(attributes) {
     .join(" ");
 }
 
-function renderAffiliateAnchor(gift, placement, label = "Buy on Amazon") {
+function renderAffiliateAnchor(gift, placement, label = affiliateLabel(gift)) {
   const attrs = renderHtmlAttributes(buildAffiliateDataAttributes({ gift, placement }));
 
   return `<a class="discovery-btn" href="${affiliateUrl(gift)}" target="_blank" rel="${AMAZON_AFFILIATE_REL}" ${attrs}>${escapeHtml(label)}</a>`;
 }
 
-function renderPaidLinkNote() {
-  return `<span class="discovery-paid-note">${escapeHtml(AMAZON_PAID_LINK_NOTE)}</span>`;
+function renderPaidLinkNote(gift) {
+  return `<span class="discovery-paid-note">${escapeHtml(paidLinkNote(gift))}</span>`;
 }
 
 function renderDiscoveryFooter({ notes = [], includeLlms = true, includeAffiliateDisclosure = false } = {}) {
@@ -235,15 +374,53 @@ function renderDiscoveryFooter({ notes = [], includeLlms = true, includeAffiliat
 
 function renderGuideMethodSection(guide) {
   const cards = [
+    ["Written by", `${editorialAuthor.name} · ${editorialAuthor.title}`],
+    ["Reviewed by", `${editorialReviewer.name} · ${editorialReviewer.title}`],
     ["How we picked these", guide.selectionMethod || "This page is curated around fit, buying confidence, and how safely each gift matches the page promise."],
     ["Use this page when", guide.bestUseCase || "Use this page when the page title closely matches the actual occasion, budget, or relationship stage you are buying for."],
     ["Skip this page when", guide.avoidWhen || "Skip this page when a different page on the site matches your moment or budget more directly."],
+    ["Pricing note", priceEstimateNote],
   ];
 
   return `<section class="discovery-section">
         <div class="discovery-section-head">
-          <p class="discovery-kicker">Method</p>
-          <h2>How this page was built</h2>
+          <p class="discovery-kicker">Editorial</p>
+          <h2>Why you can trust this page</h2>
+        </div>
+        <div class="discovery-faqs">
+          ${cards
+            .map(
+              ([title, body]) => `<article class="discovery-faq">
+            <h3>${escapeHtml(title)}</h3>
+            <p>${escapeHtml(body)}</p>
+          </article>`
+            )
+            .join("")}
+        </div>
+      </section>`;
+}
+
+function renderProductEditorialSection(gift) {
+  const cards = [
+    ["Written by", `${editorialAuthor.name} · ${editorialAuthor.title}`],
+    ["Reviewed by", `${editorialReviewer.name} · ${editorialReviewer.title}`],
+    [
+      "How this pick is checked",
+      "A product stays live when the merchant path is clear, the price band fits the promise of the page, and the item feels differentiated enough to be a real gift rather than filler.",
+    ],
+    [
+      "Merchant path",
+      usesAffiliateSearchFallback(gift)
+        ? "This page currently uses an Amazon search path for checkout because a pinned direct merchant listing is not yet stored in the catalog."
+        : "This page links out to a direct merchant listing and all checkout still happens off-site.",
+    ],
+    ["Pricing note", priceEstimateNote],
+  ];
+
+  return `<section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Editorial</p>
+          <h2>How this pick was reviewed</h2>
         </div>
         <div class="discovery-faqs">
           ${cards
@@ -395,6 +572,7 @@ function renderGuidePage(guide) {
       "@type": "ListItem",
       position: index + 1,
       name: gift.name,
+      url: productUrl(gift),
       description: gift.why,
     })),
   };
@@ -445,6 +623,8 @@ function renderGuidePage(guide) {
     url: canonical,
     dateModified: updatedAt,
     mainEntityOfPage: canonical,
+    author: editorialAuthorSchema,
+    reviewedBy: editorialReviewerSchema,
     publisher: siteOrganizationSchema,
     isPartOf: {
       "@type": "WebSite",
@@ -506,7 +686,7 @@ function renderGuidePage(guide) {
         <div class="discovery-meta">
           <span>Updated ${escapeHtml(formattedDate)}</span>
           <span>${items.length} picks</span>
-          <span>Fast merchant checkout</span>
+          <span>Off-site merchant checkout</span>
         </div>
       </section>
 
@@ -537,7 +717,7 @@ function renderGuidePage(guide) {
             <div class="discovery-actions">
               <a class="discovery-text-link" href="/gift/${gift.slug}/">View product</a>
               ${renderAffiliateAnchor(gift, `guide-${guide.slug}-list`)}
-              ${renderPaidLinkNote()}
+              ${renderPaidLinkNote(gift)}
             </div>
           </li>`
             )
@@ -598,27 +778,58 @@ function renderProductPage(gift) {
   const description = `${gift.name} is a ${gift.badge} pick on ShopForHer. ${gift.why}`;
   const images = productImages(gift);
   const primaryImage = primaryImageUrl(gift);
+  const offerSchema = productOfferSchema(gift);
+  const productSchemaId = `${canonical}#product`;
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": productSchemaId,
     name: gift.name,
     description,
+    url: canonical,
+    mainEntityOfPage: canonical,
     category: "Gift for her",
     sku: gift.id,
     image: images,
-    brand: {
-      "@type": "Brand",
-      name: "ShopForHer Picks",
+    ...(gift.brand
+      ? {
+          brand: {
+            "@type": "Brand",
+            name: gift.brand,
+          },
+        }
+      : {}),
+    ...(gift.amazonAsin
+      ? {
+          productID: `ASIN:${gift.amazonAsin}`,
+          identifier: {
+            "@type": "PropertyValue",
+            propertyID: "ASIN",
+            value: gift.amazonAsin,
+          },
+        }
+      : {}),
+    ...(gift.sourceProductUrl ? { sameAs: gift.sourceProductUrl } : {}),
+    ...(offerSchema ? { offers: offerSchema } : {}),
+  };
+
+  const productPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: pageTitle,
+    description,
+    url: canonical,
+    dateModified: updatedAt,
+    author: editorialAuthorSchema,
+    reviewedBy: editorialReviewerSchema,
+    mainEntity: {
+      "@id": productSchemaId,
     },
-    offers: {
-      "@type": "Offer",
-      url: affiliateUrl(gift),
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      seller: {
-        "@type": "Organization",
-        name: "Amazon",
-      },
+    publisher: siteOrganizationSchema,
+    isPartOf: {
+      "@type": "WebSite",
+      name: seoSite.name,
+      url: `${siteUrl}/`,
     },
   };
 
@@ -671,6 +882,7 @@ function renderProductPage(gift) {
   ${feedLinkTag()}
   ${attributionScriptTag()}
   ${jsonLdScript(productSchema)}
+  ${jsonLdScript(productPageSchema)}
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
@@ -694,8 +906,11 @@ function renderProductPage(gift) {
           <span>${escapeHtml(gift.priceLabel)}</span>
           <span>${escapeHtml(gift.badge)}</span>
           <span>Updated ${escapeHtml(formattedDate)}</span>
+          <span>Off-site merchant checkout</span>
         </div>
       </section>
+
+      ${renderProductEditorialSection(gift)}
 
       <section class="discovery-product-media">
         <figure class="discovery-product-image">
@@ -733,12 +948,16 @@ function renderProductPage(gift) {
           </article>
           <article class="discovery-faq">
             <h3>Fast path</h3>
-            <p>View the product here, then finish checkout on the merchant site with the fastest payment option they support.</p>
+            <p>${
+              usesAffiliateSearchFallback(gift)
+                ? "Use the Amazon search link here to find the current listing, then finish checkout on the merchant site."
+                : "Open the merchant listing here, then finish checkout on the merchant site."
+            }</p>
           </article>
         </div>
         <div class="discovery-actions">
           ${renderAffiliateAnchor(gift, `product-${gift.slug}-primary`)}
-          ${renderPaidLinkNote()}
+          ${renderPaidLinkNote(gift)}
         </div>
       </section>
 
@@ -1234,7 +1453,7 @@ function renderHotStoryPage(story) {
             <div class="discovery-actions">
               <a class="discovery-text-link" href="/gift/${gift.slug}/">View product</a>
               ${renderAffiliateAnchor(gift, `hot-${story.slug}-list`)}
-              ${renderPaidLinkNote()}
+              ${renderPaidLinkNote(gift)}
             </div>
           </li>`
             )
@@ -1342,7 +1561,7 @@ function renderTrustPage(page) {
         <div class="discovery-faqs">
           ${page.sections
             .map(
-              (section) => `<article class="discovery-faq">
+              (section) => `<article class="discovery-faq"${section.id ? ` id="${escapeHtml(section.id)}"` : ""}>
             <h3>${escapeHtml(section.title)}</h3>
             <p>${escapeHtml(section.body)}</p>
           </article>`
@@ -1423,7 +1642,18 @@ function renderSiteMapPage() {
         meta: gift.badge,
       })),
     },
+    {
+      kicker: "Machine-readable",
+      title: "Discovery files",
+      links: [
+        { href: "/feed.xml", label: "RSS feed", meta: "RSS" },
+        { href: "/product-catalog.json", label: "Product catalog", meta: "JSON" },
+        { href: "/llms.txt", label: "llms.txt", meta: "LLMs" },
+        { href: "/llms-full.txt", label: "llms-full.txt", meta: "LLMs" },
+      ],
+    },
   ];
+  const linkedCount = sections.reduce((total, section) => total + section.links.length, 0);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -1470,7 +1700,7 @@ function renderSiteMapPage() {
         <p class="discovery-intro">A full HTML index of the main ShopForHer pages for users, search engines, and AI assistants.</p>
         <div class="discovery-meta">
           <span>Updated ${escapeHtml(formattedDate)}</span>
-          <span>${seoGuides.length + seoHotStories.length + seoDateCities.length + seoCatalog.length + trustPages.length + 1} pages linked</span>
+          <span>${linkedCount} links surfaced</span>
         </div>
       </section>
       ${sections
@@ -1498,6 +1728,7 @@ function renderSiteMapPage() {
       notes: [
         "Use this page when you want a readable directory instead of the XML sitemap.",
         "The RSS feed is available at /feed.xml.",
+        "A machine-readable product catalog is available at /product-catalog.json.",
       ],
     })}
   </div>
@@ -1585,6 +1816,11 @@ function writeFeed() {
       url: `${siteUrl}/dates/${city.slug}/`,
       description: city.description,
     })),
+    ...seoCatalog.map((gift) => ({
+      title: gift.name,
+      url: productUrl(gift),
+      description: `${gift.hook} ${gift.why}`,
+    })),
   ];
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -1613,6 +1849,55 @@ ${items
   fs.writeFileSync(path.join(publicDir, "feed.xml"), xml);
 }
 
+function buildProductCatalogEntries() {
+  return seoCatalog.map((gift) => {
+    const range = priceRange(gift);
+
+    return {
+      id: gift.id,
+      slug: gift.slug,
+      name: gift.name,
+      brand: gift.brand || null,
+      pageUrl: productUrl(gift),
+      affiliateUrl: affiliateUrl(gift),
+      merchantName: merchantName(gift),
+      merchantProductUrl: merchantProductUrl(gift) || null,
+      affiliatePathType: usesAffiliateSearchFallback(gift) ? "amazon-search" : "direct-product",
+      checkout: "offsite",
+      price: {
+        currency: "USD",
+        display: gift.priceLabel,
+        low: range ? range.low : null,
+        high: range ? range.high : null,
+      },
+      availability: "https://schema.org/InStock",
+      asin: gift.amazonAsin || null,
+      image: primaryImageUrl(gift),
+      additionalImages: productImages(gift).slice(1),
+      summary: gift.why,
+      bestFor: gift.bestFor,
+      updatedAt,
+    };
+  });
+}
+
+function writeProductCatalog() {
+  const payload = {
+    generatedAt: `${updatedAt}T00:00:00Z`,
+    site: {
+      name: seoSite.name,
+      url: `${siteUrl}/`,
+      productCatalogUrl: `${siteUrl}/product-catalog.json`,
+      editorialPolicyUrl: `${siteUrl}${seoSite.editorialPath}`,
+      affiliateDisclosure: AMAZON_ASSOCIATE_DISCLOSURE,
+      checkout: "offsite",
+    },
+    products: buildProductCatalogEntries(),
+  };
+
+  fs.writeFileSync(path.join(publicDir, "product-catalog.json"), `${JSON.stringify(payload, null, 2)}\n`);
+}
+
 function writeSitemap() {
   const staticPages = [
     "/",
@@ -1620,6 +1905,10 @@ function writeSitemap() {
     "/hot/",
     "/dates/",
     "/site-map.html",
+    "/feed.xml",
+    "/product-catalog.json",
+    "/llms.txt",
+    "/llms-full.txt",
     seoSite.aboutPath,
     seoSite.editorialPath,
     seoSite.contactPath,
@@ -1661,11 +1950,18 @@ function writeLlmsFiles() {
     `- ${siteUrl}/guides/`,
     `- ${siteUrl}/site-map.html`,
     `- ${siteUrl}/feed.xml`,
+    `- ${siteUrl}/product-catalog.json`,
     "",
     "## Trust pages",
     `- [About ShopForHer](${siteUrl}${seoSite.aboutPath})`,
     `- [Editorial policy](${siteUrl}${seoSite.editorialPath})`,
     `- [Contact ShopForHer](${siteUrl}${seoSite.contactPath})`,
+    "",
+    "## Discovery files",
+    `- [RSS feed](${siteUrl}/feed.xml)`,
+    `- [Product catalog JSON](${siteUrl}/product-catalog.json)`,
+    `- [llms.txt](${siteUrl}/llms.txt)`,
+    `- [llms-full.txt](${siteUrl}/llms-full.txt)`,
     "",
     "## Top guides",
     ...seoGuides.map((guide) => `- [${guide.h1}](${siteUrl}/${guide.slug}/)`),
@@ -1683,7 +1979,8 @@ function writeLlmsFiles() {
     "- Affiliate links may be present.",
     "- Product checkout happens on the merchant site.",
     "- Editorial policy is published on-site.",
-    "- Updated weekly.",
+    "- Product catalog JSON includes merchant-path and price-band metadata.",
+    "- Updated whenever the catalog is regenerated.",
     "",
     "## Contact",
     `- ${seoSite.contactEmail}`,
@@ -1700,6 +1997,9 @@ function writeLlmsFiles() {
     `- Contact: ${siteUrl}${seoSite.contactPath}`,
     `- Site map: ${siteUrl}/site-map.html`,
     `- Feed: ${siteUrl}/feed.xml`,
+    `- Product catalog: ${siteUrl}/product-catalog.json`,
+    `- llms.txt: ${siteUrl}/llms.txt`,
+    `- llms-full.txt: ${siteUrl}/llms-full.txt`,
     ...seoGuides.map((guide) => `- ${guide.h1}: ${siteUrl}/${guide.slug}/`),
     ...seoHotStories.map((story) => `- ${story.h1}: ${siteUrl}/hot/${story.slug}/`),
     ...seoDateCities.map((city) => `- ${city.h1}: ${siteUrl}/dates/${city.slug}/`),
@@ -1718,5 +2018,6 @@ writeHotPages();
 writeProductPages();
 writeDatePages();
 writeFeed();
+writeProductCatalog();
 writeSitemap();
 writeLlmsFiles();

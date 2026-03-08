@@ -22,5 +22,7 @@ Allow: /
 # https://shopforher.org/site-map.html
 # RSS feed
 # https://shopforher.org/feed.xml
+# Product catalog JSON
+# https://shopforher.org/product-catalog.json
 
 Sitemap: https://shopforher.org/sitemap.xml

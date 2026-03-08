@@ -57,10 +57,11 @@ They are linked in the sitemap, `llms.txt`, and discovery-page footers.
 
 ### Crawl surfaces
 
-The build also emits two extra discovery surfaces:
+The build also emits extra discovery surfaces:
 
 - `/site-map.html` for a readable HTML directory of the main pages
 - `/feed.xml` for a simple RSS feed of trust, guide, hot, and date pages
+- `/product-catalog.json` for a machine-readable product catalog with price bands, merchant paths, and product-page URLs
 
 ### Referral attribution
 
@@ -89,6 +90,12 @@ Those logs include:
 If `INDEXNOW_KEY` is set in Cloudflare Pages env:
 
 - `/indexnow.txt` will serve the key from the Pages Function
-- `npm run indexnow -w @giftsher/web` will submit URLs from `public/sitemap.xml`
+- `npm run build -w @giftsher/web` will auto-submit URLs from `public/sitemap.xml` after the build completes
+- `npm run indexnow -w @giftsher/web` still works as a manual retry path
 
 The submit script uses `INDEXNOW_KEY` and posts the current sitemap URLs to the IndexNow endpoint.
+
+Optional env:
+
+- `INDEXNOW_AUTOSUBMIT=0` disables the automatic post-build submit
+- `INDEXNOW_STRICT=1` fails the build if the submit step fails

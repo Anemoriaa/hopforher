@@ -1,13 +1,16 @@
 # ShopForHer full index
 
 Base URL: https://shopforher.org/
-Updated: 2026-03-07
+Updated: 2026-03-08
 
 - About: https://shopforher.org/about.html
 - Editorial policy: https://shopforher.org/editorial-policy.html
 - Contact: https://shopforher.org/contact.html
 - Site map: https://shopforher.org/site-map.html
 - Feed: https://shopforher.org/feed.xml
+- Product catalog: https://shopforher.org/product-catalog.json
+- llms.txt: https://shopforher.org/llms.txt
+- llms-full.txt: https://shopforher.org/llms-full.txt
 - Best gifts for girlfriends in 2026: https://shopforher.org/gifts-for-girlfriend/
 - Best gifts for wives in 2026: https://shopforher.org/gifts-for-wife/
 - Best anniversary gifts for her in 2026: https://shopforher.org/anniversary-gifts-for-her/

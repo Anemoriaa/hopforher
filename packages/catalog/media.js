@@ -27,6 +27,19 @@ function uniqueShortVideos(values) {
   });
 }
 
+function createTikTokVideo({ id, title, posterUrl, sourceUrl, creatorHandle, creatorName }) {
+  return {
+    id,
+    provider: "tiktok",
+    title,
+    posterUrl,
+    sourceUrl,
+    creatorHandle,
+    creatorName,
+    sourceLabel: "TikTok",
+  };
+}
+
 export const productMedia = {
   "silk-pillowcase": {
     imageUrl: "https://m.media-amazon.com/images/I/61aMeMjNdnL._AC_SL1500_.jpg",
@@ -91,6 +104,26 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/71e4lnDm-YL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71F2McfQF5L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71WxuNQi7OL._AC_SL1500_.jpg",
+    ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7436009902423772459",
+        title: "Budget walking pad review with a higher weight limit.",
+        posterUrl:
+          "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ocnISRygbB8EgAFReDLIN6cCgME9gTfsjDADEM~tplv-tiktokx-origin.image?dr=9636&x-expires=1773162000&x-signature=O9xK4%2FTSEVSVYvKOr6LVerETtpY%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+        sourceUrl: "https://www.tiktok.com/@jenna_bariatricbestie/video/7436009902423772459",
+        creatorHandle: "@jenna_bariatricbestie",
+        creatorName: "JENNA bariatric bestie",
+      }),
+      createTikTokVideo({
+        id: "7254580091810778411",
+        title: "Prime Day walking pad pitch for work-from-home desks.",
+        posterUrl:
+          "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/f9a211e19924417992d10ae145b71e21_1689088582~tplv-tiktokx-origin.image?dr=9636&x-expires=1773162000&x-signature=owYGT9Tgvp8bHK1jF3aq2VYX%2BXM%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+        sourceUrl: "https://www.tiktok.com/@hauskris/video/7254580091810778411",
+        creatorHandle: "@hauskris",
+        creatorName: "hauskris",
+      }),
     ],
   },
   earbuds: {
@@ -167,6 +200,26 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/71BaSAfN6ML._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71eFbBlKSpL._AC_SL1500_.jpg",
     ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7370065688934780203",
+        title: "Honest Ninja Creami review from first use.",
+        posterUrl:
+          "https://p16-common-sign.tiktokcdn-us.com/tos-useast5-p-0068-tx/ae4879b2dc1e46499b46394a274eb0c2_1715977150~tplv-tiktokx-origin.image?dr=9636&x-expires=1773162000&x-signature=DYgQ0AC9wImalOegp5lUDZZyhcM%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+        sourceUrl: "https://www.tiktok.com/@abbiekonnick/video/7370065688934780203",
+        creatorHandle: "@abbiekonnick",
+        creatorName: "Abbie",
+      }),
+      createTikTokVideo({
+        id: "7537148041770372382",
+        title: "Will it Creami episode one.",
+        posterUrl:
+          "https://p19-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/oQlIA1mEq1aVEMoM8FVLEFElZDeEfNA6RBBHOV~tplv-tiktokx-dmt-logom:tos-useast8-i-0068-tx2/oQiAIKCfKEJEsoCIhVT0sAiocANBkCAiAj7OZB.image?dr=9634&x-expires=1773162000&x-signature=qe4%2Fa3VWGiTU97aaZnFvrndZ8YQ%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+        sourceUrl: "https://www.tiktok.com/@bichael.discotango/video/7537148041770372382",
+        creatorHandle: "@bichael.discotango",
+        creatorName: "Bichael Discotango",
+      }),
+    ],
   },
   "nespresso-machine": {
     imageUrl: "https://m.media-amazon.com/images/I/51lzRJrfsAL._AC_SL1000_.jpg",
@@ -219,6 +272,17 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/61YrNkigMNL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/61LrfO9oTuL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71ITDYpJHnL._AC_SL1500_.jpg",
+    ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7512670847191010590",
+        title: "Stanley bouquet graduation gift reveal.",
+        posterUrl:
+          "https://p19-common-sign.tiktokcdn-us.com/tos-useast8-p-0068-tx2/ogNCRl9voIVRE4EvXBQFtp1EIeDE93AzhAfCmt~tplv-tiktokx-origin.image?dr=9636&x-expires=1773162000&x-signature=iBHMnebA3vhB6TeoUdiuReEbomk%3D&t=4d5b0474&ps=13740610&shp=81f88b70&shcp=43f4a2f9&idc=useast5",
+        sourceUrl: "https://www.tiktok.com/@brooklyn.balzer/video/7512670847191010590",
+        creatorHandle: "@brooklyn.balzer",
+        creatorName: "brooklyn",
+      }),
     ],
   },
   "laneige-set": {

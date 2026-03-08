@@ -6,11 +6,18 @@
 - https://shopforher.org/guides/
 - https://shopforher.org/site-map.html
 - https://shopforher.org/feed.xml
+- https://shopforher.org/product-catalog.json
 
 ## Trust pages
 - [About ShopForHer](https://shopforher.org/about.html)
 - [Editorial policy](https://shopforher.org/editorial-policy.html)
 - [Contact ShopForHer](https://shopforher.org/contact.html)
+
+## Discovery files
+- [RSS feed](https://shopforher.org/feed.xml)
+- [Product catalog JSON](https://shopforher.org/product-catalog.json)
+- [llms.txt](https://shopforher.org/llms.txt)
+- [llms-full.txt](https://shopforher.org/llms-full.txt)
 
 ## Top guides
 - [Best gifts for girlfriends in 2026](https://shopforher.org/gifts-for-girlfriend/)
@@ -80,7 +87,8 @@
 - Affiliate links may be present.
 - Product checkout happens on the merchant site.
 - Editorial policy is published on-site.
-- Updated weekly.
+- Product catalog JSON includes merchant-path and price-band metadata.
+- Updated whenever the catalog is regenerated.
 
 ## Contact
 - hello@shopforher.org
