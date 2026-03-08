@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Play } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play, ShoppingCart } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
 import { featuredSeoGuides, featuredSeoProducts, seoCatalog, seoDateCities, seoHotStories } from "./content/seo-guides.js";
@@ -15,6 +15,12 @@ import {
   stateLabels,
   subscribeToCatalogUpdates,
 } from "./lib/catalog.js";
+import {
+  AMAZON_AFFILIATE_REL,
+  AMAZON_ASSOCIATE_DISCLOSURE,
+  AMAZON_PAID_LINK_NOTE,
+  buildAffiliateDataAttributes,
+} from "./lib/affiliate.js";
 import {
   DATE_SPOTS_PROVIDER_OPENTABLE,
   DEFAULT_DATE_SPOTS_PROVIDER,
@@ -32,7 +38,7 @@ const slides = [
   { id: "popular", label: "Popular", number: "01" },
   { id: "hot", label: "Hot", number: "02" },
   { id: "guides", label: "Dates", number: "03" },
-  { id: "saved", label: "Saved", number: "04" },
+  { id: "saved", label: "Saved/Cart", number: "04" },
 ];
 
 const editorialSlides = slides.filter((slide) => slide.id !== "saved");
@@ -77,6 +83,7 @@ const datePartySizeOptions = Array.from({ length: 8 }, (_, index) => index + 1);
 const dateSpotsApiPath = import.meta.env.VITE_DATE_SPOTS_API_PATH || "/api/date-spots";
 
 const hotStoryHeights = [520, 640, 760, 580, 700, 840, 620];
+const previewReelFrameDurationMs = 1500;
 
 function getStableSeed(...parts) {
   return parts.join("-").split("").reduce((total, char) => total + char.charCodeAt(0), 0);
@@ -85,6 +92,120 @@ function getStableSeed(...parts) {
 function buildHotStoryImage(giftId, storyId) {
   const imageHeight = hotStoryHeights[getStableSeed(giftId, storyId) % hotStoryHeights.length];
   return `https://picsum.photos/seed/${encodeURIComponent(`${giftId}-${storyId}-story`)}/480/${imageHeight}`;
+}
+
+function formatDurationLabel(totalSeconds) {
+  if (!Number.isFinite(totalSeconds) || totalSeconds <= 0) {
+    return "";
+  }
+
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${String(seconds).padStart(2, "0")}`;
+}
+
+function getGiftImageList(gift) {
+  if (!gift) {
+    return [];
+  }
+
+  return [...new Set([gift.imageUrl || gift.image || "", ...(gift.galleryImages || [])].filter(Boolean))];
+}
+
+function getGiftMotionPoster(gift, fallbackId = "story") {
+  const videoPoster = (gift?.shortVideos || []).find((video) => video?.posterUrl)?.posterUrl;
+  const primaryImage = getGiftImageList(gift)[0];
+
+  return videoPoster || primaryImage || buildHotStoryImage(gift?.id || "gift", fallbackId);
+}
+
+function getPreviewMediaThumbnailUrl(media) {
+  if (!media) {
+    return "";
+  }
+
+  if (media.kind === "image") {
+    return media.imageUrl;
+  }
+
+  if (media.kind === "reel") {
+    return media.posterUrl || media.frames?.[0] || "";
+  }
+
+  return media.posterUrl || "";
+}
+
+function getPreviewMediaBadgeLabel(media) {
+  if (!media) {
+    return "Still";
+  }
+
+  if (media.kind === "video") {
+    return "Video";
+  }
+
+  if (media.kind === "embed") {
+    return media.provider === "tiktok" ? "TikTok" : "Embed";
+  }
+
+  if (media.kind === "reel") {
+    return "Reel";
+  }
+
+  return "Still";
+}
+
+function buildGiftPreviewMedia(gift) {
+  if (!gift) {
+    return [];
+  }
+
+  const images = getGiftImageList(gift);
+  const videos = Array.isArray(gift.shortVideos) ? gift.shortVideos : [];
+  const videoItems = videos.map((video, index) => ({
+    id: `${gift.id}-${video.id || `video-${index + 1}`}`,
+    kind: video.provider === "direct" ? "video" : "embed",
+    provider: video.provider,
+    title: video.title,
+    posterUrl: video.posterUrl || images[0] || "",
+    videoUrl: video.videoUrl || "",
+    embedUrl: video.embedUrl || "",
+    sourceUrl: video.sourceUrl || "",
+    creatorHandle: video.creatorHandle || "",
+    creatorName: video.creatorName || "",
+    durationSeconds: video.durationSeconds || 0,
+    sourceLabel: video.sourceLabel || (video.provider === "tiktok" ? "TikTok" : "Video"),
+  }));
+  const imageItems = images.map((imageUrl, index) => ({
+    id: `${gift.id}-image-${index + 1}`,
+    kind: "image",
+    imageUrl,
+    posterUrl: imageUrl,
+    title: `${gift.name} image ${index + 1}`,
+  }));
+
+  if (videoItems.length) {
+    return [...videoItems, ...imageItems];
+  }
+
+  if (images.length > 1) {
+    return [
+      {
+        id: `${gift.id}-reel`,
+        kind: "reel",
+        title: `${gift.name} reel`,
+        posterUrl: images[0],
+        frames: images,
+        durationSeconds: images.length * 2,
+        creatorName: "ShopForHer",
+        sourceLabel: "Product reel",
+      },
+      ...imageItems,
+    ];
+  }
+
+  return imageItems;
 }
 
 function rankGiftMatches(gifts, filters) {
@@ -107,12 +228,15 @@ export default function App() {
   const touchRef = useRef({ x: 0, y: 0 });
   const tabRefs = useRef([]);
   const previewCloseRef = useRef(null);
+  const previewVideoRef = useRef(null);
   const initialDateTime = getDefaultDateTimeInput();
   const [catalog, setCatalog] = useState(() => readLiveCatalog());
   const [activeSlide, setActiveSlide] = useState(0);
   const [savedIds, setSavedIds] = useState(() => loadSaved());
   const [previewGift, setPreviewGift] = useState(null);
-  const [previewImageIndex, setPreviewImageIndex] = useState(0);
+  const [previewMediaIndex, setPreviewMediaIndex] = useState(0);
+  const [previewPlaybackActive, setPreviewPlaybackActive] = useState(false);
+  const [previewReelFrameIndex, setPreviewReelFrameIndex] = useState(0);
   const [geoState, setGeoState] = useState({ status: "idle", label: "Preview area", coords: null });
   const [dateSearch, setDateSearch] = useState(() => ({
     partySize: DEFAULT_DATE_PARTY_SIZE,
@@ -138,6 +262,17 @@ export default function App() {
     signal: 0,
     intent: 0,
   });
+  const previewMediaItems = useMemo(() => buildGiftPreviewMedia(previewGift), [previewGift]);
+  const activePreviewMedia = previewMediaItems[previewMediaIndex] || previewMediaItems[0] || null;
+  const activePreviewPoster = activePreviewMedia
+    ? getPreviewMediaThumbnailUrl(activePreviewMedia) || getGiftImageUrl(previewGift)
+    : getGiftImageUrl(previewGift);
+  const activePreviewReelFrame = activePreviewMedia?.kind === "reel"
+    ? activePreviewMedia.frames?.[previewReelFrameIndex] || activePreviewMedia.posterUrl || activePreviewPoster
+    : "";
+  const activePreviewDurationLabel = formatDurationLabel(activePreviewMedia?.durationSeconds || 0);
+  const activePreviewSourceLabel =
+    activePreviewMedia?.creatorHandle || activePreviewMedia?.creatorName || activePreviewMedia?.sourceLabel || "ShopForHer";
 
   const { affiliateConfig, gifts } = catalog;
 
@@ -170,6 +305,50 @@ export default function App() {
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [previewGift]);
+
+  useEffect(() => {
+    if (!activePreviewMedia) {
+      setPreviewPlaybackActive(false);
+      setPreviewReelFrameIndex(0);
+      return;
+    }
+
+    setPreviewReelFrameIndex(0);
+    setPreviewPlaybackActive(activePreviewMedia.kind !== "image");
+  }, [activePreviewMedia?.id]);
+
+  useEffect(() => {
+    const video = previewVideoRef.current;
+
+    if (!video || activePreviewMedia?.kind !== "video") {
+      return;
+    }
+
+    if (!previewPlaybackActive) {
+      video.pause();
+      return;
+    }
+
+    const playPromise = video.play();
+    playPromise?.catch(() => {
+      setPreviewPlaybackActive(false);
+    });
+  }, [activePreviewMedia?.id, activePreviewMedia?.kind, previewPlaybackActive]);
+
+  useEffect(() => {
+    if (activePreviewMedia?.kind !== "reel" || !previewPlaybackActive || !activePreviewMedia.frames?.length) {
+      return undefined;
+    }
+
+    const frameCount = activePreviewMedia.frames.length;
+    const intervalId = window.setInterval(() => {
+      setPreviewReelFrameIndex((current) => (current + 1) % frameCount);
+    }, previewReelFrameDurationMs);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
+  }, [activePreviewMedia, previewPlaybackActive]);
 
   const activeRelationship = relationshipOptions[brief.relationship];
   const activeBudget = budgetOptions[brief.budget];
@@ -254,14 +433,6 @@ export default function App() {
   const previewIntentTags = previewGift
     ? (previewGift.intents || []).slice(0, 4).map((value) => stateLabels[value] || value)
     : [];
-  const previewImages = useMemo(() => {
-    if (!previewGift) {
-      return [];
-    }
-
-    return [...new Set([getGiftImageUrl(previewGift), ...(previewGift.galleryImages || [])].filter(Boolean))];
-  }, [previewGift]);
-  const activePreviewImage = previewImages[previewImageIndex] || previewImages[0] || "";
   const videoStories = useMemo(() => {
     const definitions = [
       {
@@ -399,10 +570,19 @@ export default function App() {
 
         usedIds.add(gift.id);
 
+        const imageCount = getGiftImageList(gift).length;
+        const primaryVideo = gift.shortVideos?.[0] || null;
+        const durationSeconds = primaryVideo?.durationSeconds || (imageCount > 1 ? imageCount * 2 : 0);
+
         return {
           ...story,
           gift,
-          imageUrl: buildHotStoryImage(gift.id, story.id),
+          posterUrl: getGiftMotionPoster(gift, story.id),
+          mediaKind: primaryVideo ? (primaryVideo.provider === "direct" ? "video" : "embed") : imageCount > 1 ? "reel" : "image",
+          mediaLabel: primaryVideo ? (primaryVideo.provider === "tiktok" ? "TikTok" : "Video") : imageCount > 1 ? "Product reel" : "Preview",
+          sourceLabel:
+            primaryVideo?.creatorHandle || primaryVideo?.creatorName || primaryVideo?.sourceLabel || (imageCount > 1 ? "ShopForHer" : "ShopForHer"),
+          durationLabel: formatDurationLabel(durationSeconds),
         };
       })
       .filter(Boolean);
@@ -651,7 +831,7 @@ export default function App() {
   }
 
   function getGiftHeroImageUrl(gift) {
-    return gift?.galleryImages?.[0] || getGiftImageUrl(gift);
+    return getGiftImageList(gift)[0] || getGiftImageUrl(gift);
   }
 
   function getGiftImageStyleVars(gift) {
@@ -673,14 +853,62 @@ export default function App() {
     };
   }
 
+  function getAffiliateAnchorData(gift, placement) {
+    const seoGift = seoCatalogById.get(gift.id);
+
+    return buildAffiliateDataAttributes({
+      gift,
+      placement,
+      merchant: affiliateConfig.merchantName,
+      slug: seoGift?.slug || "",
+    });
+  }
+
   function openPreview(gift) {
-    setPreviewImageIndex(0);
+    setPreviewMediaIndex(0);
+    setPreviewPlaybackActive(true);
+    setPreviewReelFrameIndex(0);
     setPreviewGift(gift);
   }
 
   function closePreview() {
-    setPreviewImageIndex(0);
+    setPreviewPlaybackActive(false);
+    setPreviewReelFrameIndex(0);
+    setPreviewMediaIndex(0);
     setPreviewGift(null);
+  }
+
+  function selectPreviewMedia(index) {
+    setPreviewReelFrameIndex(0);
+    setPreviewMediaIndex(index);
+  }
+
+  function togglePreviewPlayback() {
+    if (!activePreviewMedia || activePreviewMedia.kind === "image" || activePreviewMedia.kind === "embed") {
+      return;
+    }
+
+    setPreviewPlaybackActive((current) => !current);
+  }
+
+  function getPreviewLeadCopy() {
+    if (!previewGift) {
+      return "";
+    }
+
+    if (activePreviewMedia?.kind === "reel") {
+      return `${previewGift.hook} Tap once to play or pause the product reel, then use Buy on ${affiliateConfig.merchantName} as the second click.`;
+    }
+
+    if (activePreviewMedia?.kind === "video") {
+      return `${previewGift.hook} Watch the clip here first, then use Buy on ${affiliateConfig.merchantName} if the product still looks right.`;
+    }
+
+    if (activePreviewMedia?.kind === "embed") {
+      return `${previewGift.hook} This source stays embedded here, while buying remains a separate Amazon step.`;
+    }
+
+    return previewGift.hook;
   }
 
   function useMyArea() {
@@ -780,7 +1008,8 @@ export default function App() {
                       className="gs-icon-btn"
                       href={buildAffiliateLink(gift)}
                       target="_blank"
-                      rel="noreferrer"
+                      rel={AMAZON_AFFILIATE_REL}
+                      {...getAffiliateAnchorData(gift, "bento-card-icon")}
                       aria-label={`Buy ${gift.name} on ${affiliateConfig.merchantName}`}
                     >
                       <ArrowUpRight />
@@ -825,11 +1054,21 @@ export default function App() {
         >
           <div className="gs-hot-feed-media">
             <img
-              src={item.imageUrl || buildHotStoryImage(gift.id, item.id)}
+              src={item.posterUrl || getGiftMotionPoster(gift, item.id)}
               alt={gift.name}
               className="gs-hot-feed-image"
               loading="lazy"
             />
+            <div className="gs-hot-feed-media-overlay">
+              <div className="gs-hot-feed-play-pill">
+                <Play size={14} />
+                <span>{item.mediaKind === "image" ? "View" : "Watch"}</span>
+              </div>
+              <div className="gs-hot-feed-media-pills">
+                <span>{item.mediaLabel}</span>
+                {item.durationLabel ? <span>{item.durationLabel}</span> : null}
+              </div>
+            </div>
           </div>
           <div className="gs-hot-feed-body">
             <div className="gs-hot-feed-chip-row">
@@ -841,7 +1080,7 @@ export default function App() {
             <div className="gs-hot-feed-meta">
               <div className="gs-hot-feed-source">
                 <span className="gs-hot-feed-source-mark">SF</span>
-                <span className="gs-hot-feed-source-label">ShopForHer</span>
+                <span className="gs-hot-feed-source-label">{item.sourceLabel}</span>
               </div>
               <div className="gs-hot-feed-meta-tags">
                 <span>{gift.badge}</span>
@@ -887,7 +1126,8 @@ export default function App() {
             className="gs-primary-btn"
             href={buildAffiliateLink(gift)}
             target="_blank"
-            rel="noreferrer"
+            rel={AMAZON_AFFILIATE_REL}
+            {...getAffiliateAnchorData(gift, "product-card-primary")}
             aria-label={`Buy ${gift.name} on ${affiliateConfig.merchantName}`}
           >
             {primaryLabel}
@@ -920,7 +1160,13 @@ export default function App() {
             <p className="gs-saved-price">{gift.priceLabel}</p>
           </div>
           <div className="gs-saved-actions">
-            <a className="gs-primary-btn" href={buildAffiliateLink(gift)} target="_blank" rel="noreferrer">
+            <a
+              className="gs-primary-btn"
+              href={buildAffiliateLink(gift)}
+              target="_blank"
+              rel={AMAZON_AFFILIATE_REL}
+              {...getAffiliateAnchorData(gift, "saved-row-primary")}
+            >
               <span className="gs-visually-hidden">{`Buy ${gift.name} on ${affiliateConfig.merchantName}. `}</span>
               BUY NOW
             </a>
@@ -947,8 +1193,8 @@ export default function App() {
           <p>Fast gift picks for men buying for her.</p>
         </div>
         <div className="gs-footer-meta">
-          <p>Affiliate links. We may earn from qualifying purchases.</p>
-          <p>Checkout happens on the merchant site. Apple Pay or similar fast checkout appears there when supported.</p>
+          <p className="gs-footer-disclosure">{AMAZON_ASSOCIATE_DISCLOSURE}</p>
+          <p>Paid Amazon links may appear on gift pages. Checkout happens on the merchant site, where final pricing and fast-pay options are controlled.</p>
           <p>Saved picks stay on this device. Updated weekly.</p>
           <div className="gs-footer-links">
             <a href="/about.html">About</a>
@@ -973,6 +1219,7 @@ export default function App() {
     return (
       <section className="gs-trust-strip" aria-label="Why ShopForHer works">
         <span className="gs-trust-chip">Updated weekly</span>
+        <span className="gs-trust-chip">Amazon paid links disclosed</span>
         <span className="gs-trust-chip">Fast merchant checkout</span>
       </section>
     );
@@ -1058,9 +1305,12 @@ export default function App() {
                   aria-controls="panel-saved"
                   tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
                 >
-                  Saved
+                  <span className="gs-nav-save-label">
+                    <ShoppingCart aria-hidden="true" />
+                    <span>Saved/Cart</span>
+                  </span>
                   <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
-                    <span className="gs-visually-hidden">Saved picks count: </span>
+                    <span className="gs-visually-hidden">Saved cart picks count: </span>
                     {savedGifts.length}
                   </span>
                 </button>
@@ -1484,26 +1734,26 @@ export default function App() {
             >
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
-                  <p className="gs-overline">Saved</p>
-                  <h2>Keep only the picks you would actually buy.</h2>
-                  <p>Your shortlist.</p>
+                  <p className="gs-overline">Saved/Cart</p>
+                  <h2>Keep the gifts you are actually close to buying.</h2>
+                  <p>Your local shortlist with a cart-like feel.</p>
                 </div>
 
                 <section className="gs-stack">
                   {savedGifts.length ? (
                     <>
                       <section className="gs-saved-helper" role="status" aria-live="polite" aria-atomic="true">
-                        <strong>{savedGifts.length} saved right now</strong>
-                        <p>Keep the shortlist tight. If one still looks obvious, buy it.</p>
+                        <strong>{savedGifts.length} in your saved cart right now</strong>
+                        <p>Keep it tight. If one still feels obvious, open it and finish the buy.</p>
                       </section>
-                      <div className="gs-saved-list" role="list" aria-label="Saved gift picks">
+                      <div className="gs-saved-list" role="list" aria-label="Saved cart gift picks">
                         {savedGifts.map((gift, index) => renderSavedRow(gift, index))}
                       </div>
                     </>
                   ) : (
                     <div className="gs-saved-list" role="status" aria-live="polite" aria-atomic="true">
                       <article className="gs-empty-panel">
-                        <p>No saved picks yet. Save the cover pick or one of the hot stories and it will live here.</p>
+                        <p>No saved picks yet. Save the cover pick or one of the hot stories and it will collect here like a lightweight cart.</p>
                         <div className="gs-empty-actions">
                           <button type="button" className="gs-text-link-btn" onClick={() => setSlide(0)}>
                             Open Popular
@@ -1543,40 +1793,152 @@ export default function App() {
               }}
             >
               <div className="gs-preview-media">
-                <div {...getGiftImageFrameProps(previewGift, "gs-preview-media-frame")}>
-                  <img src={activePreviewImage || getGiftImageUrl(previewGift)} alt={previewGift.name} className="gs-preview-image" />
-                </div>
-                {previewImages.length > 1 ? (
-                  <div className="gs-preview-gallery" aria-label={`${previewGift.name} images`}>
-                    {previewImages.map((imageUrl, index) => (
+                <div
+                  {...getGiftImageFrameProps(
+                    previewGift,
+                    classNames("gs-preview-media-frame", activePreviewMedia?.kind !== "image" && "is-motion-frame")
+                  )}
+                >
+                  {activePreviewMedia?.kind === "video" ? (
+                    <div className="gs-preview-media-stage is-video">
+                      <video
+                        key={activePreviewMedia.id}
+                        ref={previewVideoRef}
+                        src={activePreviewMedia.videoUrl}
+                        poster={activePreviewPoster}
+                        className="gs-preview-video"
+                        playsInline
+                        muted
+                        loop
+                        preload="metadata"
+                      />
                       <button
-                        key={`${previewGift.id}-image-${index}`}
                         type="button"
-                        className={classNames("gs-preview-thumb", previewGift.imageLayout === "product" && "is-product-shot", index === previewImageIndex && "is-active")}
-                        style={getGiftImageStyleVars(previewGift)}
-                        onClick={() => setPreviewImageIndex(index)}
-                        aria-pressed={index === previewImageIndex}
-                        aria-label={`View image ${index + 1} of ${previewImages.length} for ${previewGift.name}`}
+                        className="gs-preview-play-toggle"
+                        onClick={togglePreviewPlayback}
+                        aria-pressed={previewPlaybackActive}
+                        aria-label={`${previewPlaybackActive ? "Pause" : "Play"} the ${previewGift.name} video`}
                       >
-                        <img src={imageUrl} alt="" className="gs-preview-thumb-image" />
+                        {previewPlaybackActive ? <Pause size={16} /> : <Play size={16} />}
+                        <span>{previewPlaybackActive ? "Pause" : "Play"}</span>
+                      </button>
+                    </div>
+                  ) : activePreviewMedia?.kind === "embed" && activePreviewMedia.embedUrl ? (
+                    <div className="gs-preview-media-stage is-embed">
+                      <iframe
+                        src={activePreviewMedia.embedUrl}
+                        title={activePreviewMedia.title || `${previewGift.name} video`}
+                        className="gs-preview-embed"
+                        allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                      />
+                    </div>
+                  ) : activePreviewMedia?.kind === "embed" ? (
+                    <div className="gs-preview-media-stage gs-preview-embed-fallback">
+                      <p>Open the source clip in a new tab.</p>
+                      {activePreviewMedia.sourceUrl ? (
+                        <a
+                          className="gs-primary-btn gs-preview-source-btn"
+                          href={activePreviewMedia.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Open source clip
+                        </a>
+                      ) : null}
+                    </div>
+                  ) : activePreviewMedia?.kind === "reel" ? (
+                    <button
+                      type="button"
+                      className="gs-preview-media-stage gs-preview-reel-stage"
+                      onClick={togglePreviewPlayback}
+                      aria-pressed={previewPlaybackActive}
+                      aria-label={`${previewPlaybackActive ? "Pause" : "Play"} the ${previewGift.name} reel`}
+                    >
+                      <img
+                        src={activePreviewReelFrame || activePreviewPoster || getGiftImageUrl(previewGift)}
+                        alt={previewGift.name}
+                        className="gs-preview-image"
+                      />
+                      <span className="gs-preview-reel-scrim" aria-hidden="true" />
+                      <span className="gs-preview-reel-chip">{activePreviewMedia.sourceLabel}</span>
+                      {activePreviewMedia.frames?.length > 1 ? (
+                        <span className="gs-preview-reel-progress" aria-hidden="true">
+                          {activePreviewMedia.frames.map((frame, index) => (
+                            <span
+                              key={`${activePreviewMedia.id}-${frame}`}
+                              className={classNames("gs-preview-reel-dot", index === previewReelFrameIndex && "is-active")}
+                            />
+                          ))}
+                        </span>
+                      ) : null}
+                      <span className="gs-preview-play-toggle is-inline">
+                        {previewPlaybackActive ? <Pause size={16} /> : <Play size={16} />}
+                        <span>{previewPlaybackActive ? "Pause" : "Play"}</span>
+                      </span>
+                    </button>
+                  ) : (
+                    <img
+                      src={activePreviewPoster || getGiftImageUrl(previewGift)}
+                      alt={previewGift.name}
+                      className="gs-preview-image"
+                    />
+                  )}
+                </div>
+                {previewMediaItems.length > 1 ? (
+                  <div className="gs-preview-gallery" aria-label={`${previewGift.name} media`}>
+                    {previewMediaItems.map((media, index) => (
+                      <button
+                        key={media.id}
+                        type="button"
+                        className={classNames(
+                          "gs-preview-thumb",
+                          previewGift.imageLayout === "product" && "is-product-shot",
+                          index === previewMediaIndex && "is-active",
+                          media.kind !== "image" && "is-motion-thumb"
+                        )}
+                        style={getGiftImageStyleVars(previewGift)}
+                        onClick={() => selectPreviewMedia(index)}
+                        aria-pressed={index === previewMediaIndex}
+                        aria-label={`View ${getPreviewMediaBadgeLabel(media).toLowerCase()} ${index + 1} of ${previewMediaItems.length} for ${previewGift.name}`}
+                      >
+                        <img
+                          src={getPreviewMediaThumbnailUrl(media) || getGiftImageUrl(previewGift)}
+                          alt=""
+                          className="gs-preview-thumb-image"
+                        />
+                        <span className="gs-preview-thumb-label">{getPreviewMediaBadgeLabel(media)}</span>
                       </button>
                     ))}
                   </div>
                 ) : null}
                 <div className="gs-preview-media-bar">
-                  <span>{previewGift.badge}</span>
-                  <span>{previewGift.priceLabel}</span>
-                  <span>{previewBudgetReadout}</span>
+                  {[getPreviewMediaBadgeLabel(activePreviewMedia), activePreviewSourceLabel, activePreviewDurationLabel || previewGift.priceLabel, previewBudgetReadout]
+                    .filter(Boolean)
+                    .map((value) => (
+                      <span key={`${previewGift.id}-${value}`}>{value}</span>
+                    ))}
                 </div>
               </div>
               <div className="gs-preview-body">
                 <div className="gs-preview-head">
                   <div className="gs-preview-head-copy">
-                    <p className="gs-overline">Quick buy</p>
+                    <p className="gs-overline">{activePreviewMedia?.kind === "image" ? "Quick buy" : "Watch first"}</p>
                     <h3 id={`preview-title-${previewGift.id}`}>{previewGift.name}</h3>
-                    <p className="gs-preview-copy" id={`preview-description-${previewGift.id}`}>{previewGift.hook}</p>
+                    <p className="gs-preview-copy" id={`preview-description-${previewGift.id}`}>{getPreviewLeadCopy()}</p>
                   </div>
                   <div className="gs-preview-head-actions">
+                    {activePreviewMedia?.sourceUrl ? (
+                      <a
+                        className="gs-preview-inline-link"
+                        href={activePreviewMedia.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Open the source clip for ${previewGift.name}`}
+                      >
+                        Open source
+                      </a>
+                    ) : null}
                     {previewSeoGift ? (
                       <a
                         className="gs-preview-inline-link"
@@ -1645,7 +2007,8 @@ export default function App() {
                     className="gs-primary-btn gs-preview-primary"
                     href={buildAffiliateLink(previewGift)}
                     target="_blank"
-                    rel="noreferrer"
+                    rel={AMAZON_AFFILIATE_REL}
+                    {...getAffiliateAnchorData(previewGift, "preview-primary")}
                     aria-label={`Buy ${previewGift.name} on ${affiliateConfig.merchantName}`}
                   >
                     Buy on {affiliateConfig.merchantName}
@@ -1677,7 +2040,10 @@ export default function App() {
                 </div>
 
                 <p className="gs-preview-note">
-                  Checkout continues on {affiliateConfig.merchantName}. Click outside or press Esc any time to go straight back to the list.
+                  {activePreviewMedia?.kind === "image"
+                    ? "This preview is still image-led."
+                    : "The first click keeps you in the preview so you can watch first. Buying stays as a separate second click."}{" "}
+                  {AMAZON_PAID_LINK_NOTE}. {AMAZON_ASSOCIATE_DISCLOSURE} Checkout continues on {affiliateConfig.merchantName}. Click outside or press Esc any time to go straight back to the list.
                 </p>
               </div>
             </section>

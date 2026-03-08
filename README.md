@@ -68,6 +68,22 @@ The build also emits two extra discovery surfaces:
 
 The Pages Function logs those events so traffic sources can be reviewed in Cloudflare logs without exposing analytics keys in the client.
 
+Each event now includes:
+
+- `pageType` such as `guide`, `product`, `hot-story`, `date-city`, or `trust`
+- `pageSlug` for the specific page when available
+
+### Affiliate click logging
+
+`/affiliate-clicks.js` captures outbound paid-link clicks on Amazon CTAs, then posts a lightweight event to `/api/affiliate-click`.
+
+Those logs include:
+
+- `pageType` and `pageSlug`
+- link placement such as product-page, guide-list, or preview CTA
+- product id, slug, and ASIN when available
+- current source / campaign context from the first-session attribution capture
+
 ### IndexNow
 
 If `INDEXNOW_KEY` is set in Cloudflare Pages env:

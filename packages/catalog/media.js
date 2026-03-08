@@ -2,6 +2,31 @@ function uniqueUrls(values) {
   return [...new Set((values || []).filter((value) => typeof value === "string" && value.trim()))];
 }
 
+function uniqueShortVideos(values) {
+  const videos = Array.isArray(values) ? values.filter((value) => value && typeof value === "object") : [];
+  const seen = new Set();
+
+  return videos.filter((video) => {
+    const key = [
+      video.id,
+      video.provider,
+      video.videoUrl,
+      video.embedUrl || video.embedLink,
+      video.sourceUrl || video.shareUrl,
+      video.posterUrl || video.coverImageUrl,
+    ]
+      .filter(Boolean)
+      .join("|");
+
+    if (!key || seen.has(key)) {
+      return false;
+    }
+
+    seen.add(key);
+    return true;
+  });
+}
+
 export const productMedia = {
   "silk-pillowcase": {
     imageUrl: "https://m.media-amazon.com/images/I/61aMeMjNdnL._AC_SL1500_.jpg",
@@ -234,11 +259,13 @@ export function applyProductMedia(gift = {}) {
   const galleryImages = uniqueUrls([...(gift.galleryImages || []), ...(media.galleryImages || [])]).filter(
     (value) => value !== imageUrl
   );
+  const shortVideos = uniqueShortVideos([...(gift.shortVideos || []), ...(media.shortVideos || [])]);
 
   return {
     ...gift,
     ...media,
     imageUrl,
     galleryImages,
+    shortVideos,
   };
 }

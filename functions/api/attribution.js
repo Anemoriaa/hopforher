@@ -1,29 +1,4 @@
-function empty(status = 204) {
-  return new Response(null, {
-    status,
-    headers: {
-      "cache-control": "no-store",
-    },
-  });
-}
-
-function sanitize(value, maxLength) {
-  return String(value || "")
-    .trim()
-    .slice(0, maxLength);
-}
-
-function safeHost(value) {
-  if (!value) {
-    return "";
-  }
-
-  try {
-    return new URL(value).hostname.replace(/^www\./, "").toLowerCase();
-  } catch (_error) {
-    return "";
-  }
-}
+import { classifyPath, empty, safeHost, sanitize } from "./_analytics.js";
 
 export async function onRequestPost(context) {
   try {
@@ -38,12 +13,16 @@ export async function onRequestPost(context) {
       return empty();
     }
 
+    const pathMeta = classifyPath(path);
+
     const event = {
       event: "ai_referral",
       source,
       medium,
       campaign,
       path,
+      pageType: pathMeta.pageType,
+      pageSlug: sanitize(pathMeta.pageSlug, 160),
       referrerHost: safeHost(referrer),
       userAgent: sanitize(context.request.headers.get("user-agent"), 256),
       country: sanitize(context.request.headers.get("cf-ipcountry"), 8),

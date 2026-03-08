@@ -35,6 +35,55 @@ function normalizeUrlList(values, fallback = []) {
   return normalized.length ? [...new Set(normalized)] : fallback;
 }
 
+function normalizeOptionalNumber(value) {
+  return Number.isFinite(value) && value > 0 ? value : null;
+}
+
+function normalizeShortVideo(video, index = 0) {
+  if (!video || typeof video !== "object") {
+    return null;
+  }
+
+  const provider = normalizeText(video.provider, "direct").toLowerCase();
+  const videoUrl = normalizeText(video.videoUrl);
+  const embedUrl = normalizeText(video.embedUrl || video.embedLink);
+  const sourceUrl = normalizeText(video.sourceUrl || video.shareUrl);
+  const posterUrl = normalizeText(video.posterUrl || video.coverImageUrl || video.imageUrl);
+  const normalizedProvider = provider === "tiktok" ? "tiktok" : "direct";
+
+  if (normalizedProvider === "direct" && !videoUrl) {
+    return null;
+  }
+
+  if (normalizedProvider === "tiktok" && !embedUrl && !sourceUrl) {
+    return null;
+  }
+
+  return {
+    id: normalizeText(video.id, `video-${index + 1}`),
+    provider: normalizedProvider,
+    title: normalizeText(video.title, normalizedProvider === "tiktok" ? "TikTok video" : "Product video"),
+    posterUrl,
+    videoUrl,
+    embedUrl,
+    sourceUrl,
+    creatorHandle: normalizeText(video.creatorHandle),
+    creatorName: normalizeText(video.creatorName),
+    durationSeconds: normalizeOptionalNumber(video.durationSeconds),
+    sourceLabel: normalizeText(video.sourceLabel, normalizedProvider === "tiktok" ? "TikTok" : "Video"),
+  };
+}
+
+function normalizeShortVideoList(values) {
+  if (!Array.isArray(values)) {
+    return [];
+  }
+
+  return values
+    .map((video, index) => normalizeShortVideo(video, index))
+    .filter(Boolean);
+}
+
 function extractPriceValue(priceLabel, fallback = 0) {
   const match = String(priceLabel || "").match(/\d+(?:\.\d+)?/);
   return match ? Number.parseFloat(match[0]) : fallback;
@@ -54,6 +103,7 @@ export function normalizeGift(gift, index = 0) {
   const imageUrl = normalizeText(gift.imageUrl || gift.image);
   const galleryImages = normalizeUrlList(gift.galleryImages).filter((value) => value !== imageUrl);
   const priceValue = normalizeNumber(gift.priceValue, extractPriceValue(gift.priceLabel, 0));
+  const shortVideos = normalizeShortVideoList(gift.shortVideos);
 
   return {
     ...gift,
@@ -78,6 +128,7 @@ export function normalizeGift(gift, index = 0) {
     imageUrl,
     image: imageUrl,
     galleryImages,
+    shortVideos,
     imageLayout,
     imageFit:
       gift.imageFit === "contain" || gift.imageFit === "cover"
@@ -123,6 +174,7 @@ export function normalizeSeoCatalog(gifts) {
       affiliateUrl: normalizeText(gift.affiliateUrl),
       imageUrl: normalized.imageUrl,
       galleryImages: normalized.galleryImages,
+      shortVideos: normalized.shortVideos,
       imageLayout: normalized.imageLayout,
       imageFit: normalized.imageFit,
       imagePosition: normalized.imagePosition,

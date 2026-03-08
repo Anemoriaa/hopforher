@@ -38,11 +38,22 @@
     campaign: campaign,
     path: window.location.pathname,
     referrer: referrer,
+    referrerHost: referrerHost,
     capturedAt: new Date().toISOString()
   };
   var sessionKey = "shopforher-attribution:" + payload.source + ":" + payload.path + ":" + (payload.campaign || "");
+  var latestAttributionKey = "shopforher-last-attribution";
 
   try {
+    window.sessionStorage.setItem(latestAttributionKey, JSON.stringify({
+      source: payload.source,
+      medium: payload.medium,
+      campaign: payload.campaign,
+      referrerHost: payload.referrerHost,
+      path: payload.path,
+      capturedAt: payload.capturedAt
+    }));
+
     if (window.sessionStorage.getItem(sessionKey)) {
       return;
     }

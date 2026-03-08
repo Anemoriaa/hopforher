@@ -1,6 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import { seoCatalog, seoDateCities, seoGuides, seoHotStories, seoSite } from "../src/content/seo-guides.js";
+import {
+  AMAZON_AFFILIATE_REL,
+  AMAZON_ASSOCIATE_DISCLOSURE,
+  AMAZON_PAID_LINK_NOTE,
+  buildAffiliateDataAttributes,
+} from "../src/lib/affiliate.js";
 
 const rootDir = process.cwd();
 const publicDir = path.join(rootDir, "public");
@@ -53,7 +59,7 @@ const trustPages = [
       },
       {
         title: "Affiliate disclosure",
-        body: "Some outbound links are affiliate links. That does not change the stated reason a product appears on a page, and checkout happens on the merchant site.",
+        body: "Some outbound links are paid affiliate links. As an Amazon Associate I earn from qualifying purchases, but that does not change the stated reason a product appears on a page, and checkout still happens on the merchant site.",
       },
       {
         title: "Freshness",
@@ -168,7 +174,8 @@ function jsonLdScript(data) {
 }
 
 function attributionScriptTag() {
-  return `<script defer src="/ai-attribution.js"></script>`;
+  return `<script defer src="/ai-attribution.js"></script>
+  <script defer src="/affiliate-clicks.js"></script>`;
 }
 
 function feedLinkTag() {
@@ -196,10 +203,29 @@ function renderFooterLinks({ includeLlms = true } = {}) {
     .join("\n        ");
 }
 
-function renderDiscoveryFooter({ notes = [], includeLlms = true } = {}) {
+function renderHtmlAttributes(attributes) {
+  return Object.entries(attributes)
+    .filter(([, value]) => value)
+    .map(([key, value]) => `${key}="${escapeHtml(value)}"`)
+    .join(" ");
+}
+
+function renderAffiliateAnchor(gift, placement, label = "Buy on Amazon") {
+  const attrs = renderHtmlAttributes(buildAffiliateDataAttributes({ gift, placement }));
+
+  return `<a class="discovery-btn" href="${affiliateUrl(gift)}" target="_blank" rel="${AMAZON_AFFILIATE_REL}" ${attrs}>${escapeHtml(label)}</a>`;
+}
+
+function renderPaidLinkNote() {
+  return `<span class="discovery-paid-note">${escapeHtml(AMAZON_PAID_LINK_NOTE)}</span>`;
+}
+
+function renderDiscoveryFooter({ notes = [], includeLlms = true, includeAffiliateDisclosure = false } = {}) {
+  const footerNotes = includeAffiliateDisclosure ? [AMAZON_ASSOCIATE_DISCLOSURE, ...notes] : notes;
+
   return `<footer class="discovery-footer">
       <p>${escapeHtml(seoSite.description)}</p>
-      ${notes.map((note) => `<p>${escapeHtml(note)}</p>`).join("\n      ")}
+      ${footerNotes.map((note) => `<p>${escapeHtml(note)}</p>`).join("\n      ")}
       <div class="discovery-footer-links">
         ${renderFooterLinks({ includeLlms })}
       </div>
@@ -510,7 +536,8 @@ function renderGuidePage(guide) {
             <p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}</p>
             <div class="discovery-actions">
               <a class="discovery-text-link" href="/gift/${gift.slug}/">View product</a>
-              <a class="discovery-btn" href="${affiliateUrl(gift)}" target="_blank" rel="noreferrer">Buy on Amazon</a>
+              ${renderAffiliateAnchor(gift, `guide-${guide.slug}-list`)}
+              ${renderPaidLinkNote()}
             </div>
           </li>`
             )
@@ -554,9 +581,9 @@ function renderGuidePage(guide) {
     </main>
     ${renderDiscoveryFooter({
       notes: [
-        "Affiliate links may be present.",
         "Pages are curated for fit, occasion, and buying confidence rather than exhaustive coverage.",
       ],
+      includeAffiliateDisclosure: true,
     })}
   </div>
 </body>
@@ -710,7 +737,8 @@ function renderProductPage(gift) {
           </article>
         </div>
         <div class="discovery-actions">
-          <a class="discovery-btn" href="${affiliateUrl(gift)}" target="_blank" rel="noreferrer">Buy on Amazon</a>
+          ${renderAffiliateAnchor(gift, `product-${gift.slug}-primary`)}
+          ${renderPaidLinkNote()}
         </div>
       </section>
 
@@ -750,9 +778,9 @@ function renderProductPage(gift) {
     </main>
     ${renderDiscoveryFooter({
       notes: [
-        "Affiliate links may be present.",
         "Checkout and final pricing happen on the merchant site.",
       ],
+      includeAffiliateDisclosure: true,
     })}
   </div>
 </body>
@@ -915,6 +943,7 @@ function renderDatesIndex() {
     </main>
     ${renderDiscoveryFooter({
       notes: ["Date pages summarize cleaner planning lanes and hand off to external booking or map destinations."],
+      includeAffiliateDisclosure: false,
     })}
   </div>
 </body>
@@ -1013,6 +1042,7 @@ function renderDateCityPage(city) {
     </main>
     ${renderDiscoveryFooter({
       notes: ["Reservation availability and checkout happen on the destination booking or map partner site."],
+      includeAffiliateDisclosure: false,
     })}
   </div>
 </body>
@@ -1203,7 +1233,8 @@ function renderHotStoryPage(story) {
             <p class="discovery-copy">${escapeHtml(gift.hook)} ${escapeHtml(gift.why)}</p>
             <div class="discovery-actions">
               <a class="discovery-text-link" href="/gift/${gift.slug}/">View product</a>
-              <a class="discovery-btn" href="${affiliateUrl(gift)}" target="_blank" rel="noreferrer">Buy on Amazon</a>
+              ${renderAffiliateAnchor(gift, `hot-${story.slug}-list`)}
+              ${renderPaidLinkNote()}
             </div>
           </li>`
             )
@@ -1230,9 +1261,9 @@ function renderHotStoryPage(story) {
     </main>
     ${renderDiscoveryFooter({
       notes: [
-        "Affiliate links may be present.",
         "Product checkout happens on the merchant site.",
       ],
+      includeAffiliateDisclosure: true,
     })}
   </div>
 </body>
