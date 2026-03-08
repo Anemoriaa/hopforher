@@ -90,8 +90,12 @@ function getStableSeed(...parts) {
   return parts.join("-").split("").reduce((total, char) => total + char.charCodeAt(0), 0);
 }
 
+function getHotStoryHeight(giftId, storyId) {
+  return hotStoryHeights[getStableSeed(giftId, storyId) % hotStoryHeights.length];
+}
+
 function buildHotStoryImage(giftId, storyId) {
-  const imageHeight = hotStoryHeights[getStableSeed(giftId, storyId) % hotStoryHeights.length];
+  const imageHeight = getHotStoryHeight(giftId, storyId);
   return `https://picsum.photos/seed/${encodeURIComponent(`${giftId}-${storyId}-story`)}/480/${imageHeight}`;
 }
 
@@ -739,6 +743,7 @@ export default function App() {
           gift,
           posterUrl: getGiftMotionPoster(gift, story.id),
           storyCoverUrl: buildHotStoryImage(gift.id, story.id),
+          storyHeight: getHotStoryHeight(gift.id, story.id),
           mediaKind: primaryVideo ? (primaryVideo.provider === "direct" ? "video" : "embed") : imageCount > 1 ? "reel" : "image",
           mediaLabel: primaryVideo ? (primaryVideo.provider === "tiktok" ? "TikTok" : "Video") : imageCount > 1 ? "Hot edit" : "Preview",
           sourceLabel:
@@ -1198,6 +1203,7 @@ export default function App() {
     const embedRef = useRef(null);
     const [reelFrameIndex, setReelFrameIndex] = useState(0);
     const coverUrl = item.posterUrl || item.storyCoverUrl || buildHotStoryImage(gift.id, item.id);
+    const storyHeight = item.storyHeight || getHotStoryHeight(gift.id, item.id);
     const feedEmbedUrl = useMemo(() => {
       if (media?.kind !== "embed" || media.provider !== "tiktok") {
         return media?.embedUrl || "";
@@ -1269,7 +1275,13 @@ export default function App() {
     }
 
     return (
-      <div className="gs-hot-feed-media">
+      <div className="gs-hot-feed-media" style={{ aspectRatio: `480 / ${storyHeight}` }}>
+        <img
+          src={coverUrl}
+          alt={gift.name}
+          className="gs-hot-feed-image"
+          loading="lazy"
+        />
         {media?.kind === "video" && inView ? (
           <video
             ref={videoRef}
@@ -1296,31 +1308,21 @@ export default function App() {
           <img
             src={media.frames?.[reelFrameIndex] || media.posterUrl || coverUrl}
             alt={gift.name}
-            className="gs-hot-feed-image"
+            className="gs-hot-feed-motion-image"
             loading="lazy"
           />
-        ) : (
-          <div className="gs-hot-feed-cover-art" aria-hidden="true">
-            <img src={coverUrl} alt="" className="gs-hot-feed-cover-image" loading="lazy" />
-          </div>
-        )}
+        ) : null}
 
-        <div className="gs-hot-feed-cover-card">
-          <span className="gs-hot-feed-cover-kicker">{item.label}</span>
-          <strong>{gift.name}</strong>
-          <p>{gift.hook}</p>
-        </div>
-
-        <div className="gs-hot-feed-media-overlay">
-          <div className="gs-hot-feed-play-pill">
-            <Play size={14} />
-            <span>{isPlayable ? "Playing" : media?.kind === "image" ? "View" : "Watch"}</span>
+        {(item.mediaLabel || item.durationLabel || isPlayable) ? (
+          <div className="gs-hot-feed-media-badges" aria-hidden="true">
+            <span className="gs-hot-feed-floating-chip">
+              <Play size={12} />
+              <span>{isPlayable ? "Playing" : media?.kind === "image" ? "View" : "Watch"}</span>
+            </span>
+            {item.mediaLabel ? <span className="gs-hot-feed-floating-chip">{item.mediaLabel}</span> : null}
+            {item.durationLabel ? <span className="gs-hot-feed-floating-chip">{item.durationLabel}</span> : null}
           </div>
-          <div className="gs-hot-feed-media-pills">
-            <span>{item.mediaLabel}</span>
-            {item.durationLabel ? <span>{item.durationLabel}</span> : null}
-          </div>
-        </div>
+        ) : null}
       </div>
     );
   }
@@ -1355,7 +1357,7 @@ export default function App() {
           type="button"
           className="gs-hot-feed-hit"
           onClick={() => openPreview(gift)}
-          aria-label={`Preview ${gift.name} from the ${item.label} lane`}
+          aria-label={`View ${gift.name}`}
         >
           <HotFeedMedia item={item} gift={gift} inView={inView} />
           <div className="gs-hot-feed-body">
@@ -1593,7 +1595,7 @@ export default function App() {
                   aria-controls="panel-saved"
                   tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
                 >
-                  Saved/Cart
+                  Saved
                   <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
                     <span className="gs-visually-hidden">Saved cart picks count: </span>
                     {savedGifts.length}
