@@ -886,7 +886,7 @@ function renderProductPage(gift) {
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
-  <div class="discovery-shell">
+  <div class="discovery-shell discovery-shell-product">
     <header class="discovery-header">
       <a class="discovery-brand" href="/">
         <img src="/logo1.png" alt="ShopForHer">
@@ -897,7 +897,7 @@ function renderProductPage(gift) {
         <a href="/affiliate-disclosure.html">Affiliate</a>
       </nav>
     </header>
-    <main class="discovery-main">
+    <main class="discovery-main discovery-main-product">
       <section class="discovery-hero">
         <p class="discovery-kicker">Product</p>
         <h1>${escapeHtml(gift.name)}</h1>
@@ -912,53 +912,58 @@ function renderProductPage(gift) {
 
       ${renderProductEditorialSection(gift)}
 
-      <section class="discovery-product-media">
-        <figure class="discovery-product-image">
-          <img src="${escapeHtml(primaryImage)}" alt="${escapeHtml(gift.name)}">
-        </figure>
-        ${
-          images.length > 1
-            ? `<div class="discovery-product-gallery">
-          ${images
-            .slice(1, 7)
-            .map(
-              (imageUrl, index) => `<figure class="discovery-product-thumb">
-            <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(`${gift.name} image ${index + 2}`)}">
-          </figure>`
-            )
-            .join("")}
-        </div>`
-            : ""
-        }
-      </section>
-
-      <section class="discovery-section">
-        <div class="discovery-section-head">
-          <p class="discovery-kicker">Why it works</p>
-          <h2>Quick read</h2>
+      <section class="discovery-product-spotlight">
+        <div class="discovery-product-media">
+          <figure class="discovery-product-image">
+            <img src="${escapeHtml(primaryImage)}" alt="${escapeHtml(gift.name)}">
+          </figure>
+          ${
+            images.length > 1
+              ? `<div class="discovery-product-gallery">
+            ${images
+              .slice(1, 7)
+              .map(
+                (imageUrl, index) => `<figure class="discovery-product-thumb">
+              <img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(`${gift.name} image ${index + 2}`)}">
+            </figure>`
+              )
+              .join("")}
+          </div>`
+              : ""
+          }
         </div>
-        <div class="discovery-faqs">
-          <article class="discovery-faq">
-            <h3>Best for</h3>
-            <p>${escapeHtml(gift.bestFor)}</p>
-          </article>
-          <article class="discovery-faq">
-            <h3>Why this is here</h3>
-            <p>${escapeHtml(gift.why)}</p>
-          </article>
-          <article class="discovery-faq">
-            <h3>Fast path</h3>
-            <p>${
-              usesAffiliateSearchFallback(gift)
-                ? "Use the Amazon search link here to find the current listing, then finish checkout on the merchant site."
-                : "Open the merchant listing here, then finish checkout on the merchant site."
-            }</p>
-          </article>
-        </div>
-        <div class="discovery-actions">
-          ${renderAffiliateAnchor(gift, `product-${gift.slug}-primary`)}
-          ${renderPaidLinkNote(gift)}
-        </div>
+        <aside class="discovery-product-panel">
+          <div class="discovery-product-badge-row">
+            <span>${escapeHtml(gift.priceLabel)}</span>
+            <span>${escapeHtml(gift.badge)}</span>
+            <span>${escapeHtml(merchantName(gift))} checkout</span>
+          </div>
+          <div class="discovery-product-points">
+            <article class="discovery-product-point">
+              <span>Best for</span>
+              <strong>${escapeHtml(gift.bestFor)}</strong>
+            </article>
+            <article class="discovery-product-point">
+              <span>Feels like</span>
+              <strong>${escapeHtml(gift.vibe)}</strong>
+              <p>${escapeHtml(gift.why)}</p>
+            </article>
+            <article class="discovery-product-point">
+              <span>Fast path</span>
+              <strong>${escapeHtml(merchantName(gift))}</strong>
+              <p>${
+                usesAffiliateSearchFallback(gift)
+                  ? "Use the Amazon search link here to find the current listing, then finish checkout on the merchant site."
+                  : "Open the merchant listing here, then finish checkout on the merchant site."
+              }</p>
+            </article>
+          </div>
+          <div class="discovery-actions">
+            ${renderAffiliateAnchor(gift, `product-${gift.slug}-primary`)}
+            ${renderPaidLinkNote(gift)}
+          </div>
+          <p class="discovery-product-note">${escapeHtml(priceEstimateNote)} Checkout and final pricing happen on the merchant site.</p>
+        </aside>
       </section>
 
       <section class="discovery-section">

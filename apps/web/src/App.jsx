@@ -2271,31 +2271,31 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="gs-preview-summary-grid">
-                  <article className="gs-preview-summary-card">
-                    <span className="gs-preview-label">Price range</span>
+                <div className="gs-preview-stat-row">
+                  <article className="gs-preview-stat">
+                    <span className="gs-preview-label">Price</span>
                     <strong>{previewGift.priceLabel}</strong>
-                    <p>{previewBudgetReadout} for the lane you have selected.</p>
                   </article>
-                  <article className="gs-preview-summary-card">
+                  <article className="gs-preview-stat">
                     <span className="gs-preview-label">Best for</span>
                     <strong>{previewGift.bestFor}</strong>
-                    <p>Use this when you want the safest fit without overexplaining the gift.</p>
                   </article>
-                  <article className="gs-preview-summary-card">
-                    <span className="gs-preview-label">Feels like</span>
+                  <article className="gs-preview-stat">
+                    <span className="gs-preview-label">Mood</span>
                     <strong>{previewGift.vibe}</strong>
-                    <p>{previewGift.badge} energy with a clean, easy-to-understand reason to buy.</p>
                   </article>
                 </div>
 
-                <section className="gs-preview-detail-block">
+                <section className="gs-preview-panel is-primary">
                   <span className="gs-preview-label">Why it works</span>
                   <p className="gs-preview-detail-copy">{previewGift.why}</p>
+                  {previewBudgetReadout ? (
+                    <p className="gs-preview-panel-note">{previewBudgetReadout} for the lane you have selected.</p>
+                  ) : null}
                 </section>
 
-                <div className="gs-preview-tag-grid">
-                  <section className="gs-preview-detail-block">
+                <div className="gs-preview-panel-grid">
+                  <section className="gs-preview-panel">
                     <span className="gs-preview-label">Works for</span>
                     <div className="gs-preview-meta">
                       {previewRelationshipTags.map((tag) => (
@@ -2303,7 +2303,7 @@ export default function App() {
                       ))}
                     </div>
                   </section>
-                  <section className="gs-preview-detail-block">
+                  <section className="gs-preview-panel">
                     <span className="gs-preview-label">Gift angle</span>
                     <div className="gs-preview-meta">
                       {previewIntentTags.map((tag) => (
@@ -2352,9 +2352,9 @@ export default function App() {
 
                 <p className="gs-preview-note">
                   {activePreviewMedia?.kind === "image"
-                    ? "This preview is still image-led."
-                    : "The first click keeps you in the preview so you can watch first. Buying stays as a separate second click."}{" "}
-                  {AMAZON_PAID_LINK_NOTE}. {AMAZON_ASSOCIATE_DISCLOSURE} Checkout continues on {affiliateConfig.merchantName}. Click outside or press Esc any time to go straight back to the list.
+                    ? "This preview is image-led."
+                    : "The first click stays in the preview so you can watch first."}{" "}
+                  Buying stays a separate second click on {affiliateConfig.merchantName}. {AMAZON_PAID_LINK_NOTE}. {AMAZON_ASSOCIATE_DISCLOSURE}
                 </p>
               </div>
             </section>
