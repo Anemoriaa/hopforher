@@ -1,10 +1,11 @@
 import { applyProductMedia } from "../../../../packages/catalog/media.js";
+import { importedCatalogItems } from "../../../../packages/catalog/imported-items.js";
 import { normalizeSeoCatalog } from "../../../../packages/catalog/schema.js";
 
 export const seoSite = {
   name: "ShopForHer",
   url: "https://shopforher.org",
-  updatedAt: "2026-03-08",
+  updatedAt: "2026-03-09",
   description: "Fast gift picks for men buying for her.",
   contactEmail: "hello@shopforher.org",
   aboutPath: "/about.html",
@@ -314,6 +315,7 @@ const rawSeoCatalog = [
     query: "Sol de Janeiro Bum Bum Jet Set gift for her",
     sourceProductUrl: "https://soldejaneiro.com/products/bum-bum-jet-set",
   },
+  ...importedCatalogItems,
 ];
 
 export const seoCatalog = normalizeSeoCatalog(rawSeoCatalog.map((gift) => applyProductMedia(gift)));

@@ -311,6 +311,97 @@ export const productMedia = {
     imageUrl: "https://static.thcdn.com/productimg/original/12545102-1214895116732476.jpg",
     galleryImages: ["https://static.thcdn.com/productimg/original/12545102-1864895116865487.jpg"],
   },
+  "saodimallsu-crochet-coverup-set": {
+    imageUrl: "https://assets.giftpals.com/assets/uc/Gift/qnrLiaUtHuCk/5/thumbnail_default_5.webp?xkXF48Y6GGGS",
+    galleryImages: [
+      "https://assets.giftpals.com/assets/uc/Gift/qnrLiaUtHuCk/4/thumbnail_default_4.webp?RDIj4vIF6iLT",
+      "https://assets.giftpals.com/assets/uc/Gift/qnrLiaUtHuCk/3/thumbnail_default_3.webp?U4ZfgXV9IYoZ",
+      "https://assets.giftpals.com/assets/uc/Gift/qnrLiaUtHuCk/2/thumbnail_default_2.webp?KRW9oIoSgj7X",
+      "https://assets.giftpals.com/assets/uc/Gift/qnrLiaUtHuCk/1/thumbnail_default_1.webp?U6C8p8015xjp",
+    ],
+  },
+  "saodimallsu-crochet-cardigan-dress": {
+    imageUrl: "https://assets.giftpals.com/assets/uc/Gift/w9ACRnDeNpM4/4/thumbnail_default_4.webp?OXzYYuN1Zsp2",
+    galleryImages: [
+      "https://assets.giftpals.com/assets/uc/Gift/w9ACRnDeNpM4/3/thumbnail_default_3.webp?RAgnvyFWnXI7",
+      "https://assets.giftpals.com/assets/uc/Gift/w9ACRnDeNpM4/2/thumbnail_default_2.webp?KyFTfBSw2drr",
+      "https://assets.giftpals.com/assets/uc/Gift/w9ACRnDeNpM4/1/thumbnail_default_1.webp?0owamSN6wHW1",
+    ],
+  },
+  "sheer-crochet-poncho-top": {
+    imageUrl: "https://m.media-amazon.com/images/I/712kufG2sNL._AC_SL400_.jpg",
+    galleryImages: [
+      "https://m.media-amazon.com/images/I/41ScGPgZTvL._AC_US40_.jpg",
+      "https://m.media-amazon.com/images/I/41bTOEf6dYL._AC_US40_.jpg",
+      "https://m.media-amazon.com/images/I/41LUm5fIp2L._AC_US40_.jpg",
+      "https://m.media-amazon.com/images/I/41TUz8+2d1L._AC_US40_.jpg",
+      "https://m.media-amazon.com/images/I/41lBjIiTIiL._AC_US40_.jpg",
+      "https://m.media-amazon.com/images/I/415OrKFgu0L._AC_US40_.jpg",
+    ],
+  },
+  "panluca-statement-necklace": {
+    imageUrl: "https://m.media-amazon.com/images/I/31sRImanA+L._AC_SR480,480_.jpg",
+    galleryImages: [
+      "https://us.ftbpic.com/product-amz/panluca-miniature-semi-precious-stone-oversized-multi-color-resin-bead/31sRImanA+L._AC_SR480,480_.jpg",
+      "https://us.ftbpic.com/product-amz/resin-pendant-necklaces/31sRImanA+L.__CR0,0,600,450.jpg",
+    ],
+  },
+  "posadina-phone-charm": {
+    imageUrl: "https://www.posadina.com/wp-content/uploads/2025/06/phone-charm-1.jpg",
+    galleryImages: [
+      "https://www.posadina.com/wp-content/uploads/2025/06/phone-wrist-strap.jpg",
+      "https://www.posadina.com/wp-content/uploads/2025/06/phone-strap.jpg",
+      "https://www.posadina.com/wp-content/uploads/2025/06/phone-charm-wrist-strap.jpg",
+      "https://www.posadina.com/wp-content/uploads/2025/06/phone-chain.jpg",
+      "https://www.posadina.com/wp-content/uploads/2025/06/phone-charm-strap.jpg",
+      "https://www.posadina.com/wp-content/uploads/2025/06/phone-charm-3.jpg",
+    ],
+  },
+  "boxwood-bunny-topiary": {
+    imageUrl: "https://m.media-amazon.com/images/I/51e1DnYJpAL._AC_SR480,480_.jpg",
+    galleryImages: ["https://us.ftbpic.com/product-amz/easter-decorations-3-ft-boxwood-bunny-topiary-with-bow-artificial/51e1DnYJpAL._AC_SR480,480_.jpg"],
+  },
+  "lenox-bunny-candy-dish": {
+    imageUrl: "https://www.lenox.com/cdn/shop/files/897157-LNP-24-PDP-1.jpg?v=1760106224",
+    galleryImages: [
+      "https://www.lenox.com/cdn/shop/files/897157-LNP-25-FEA-1.jpg?v=1760106224",
+      "https://www.lenox.com/cdn/shop/files/897157-LNP-24-FEA-1.jpg?v=1760106225",
+      "https://www.lenox.com/cdn/shop/files/897157-LNP-24-PDP-2.jpg?v=1760106226",
+    ],
+  },
+  "oneida-bunny-hop-plates": {
+    imageUrl: "https://www.lenox.com/cdn/shop/files/898192-ON-24-SILO.jpg?v=1760106115",
+    galleryImages: [
+      "https://www.lenox.com/cdn/shop/files/898192-ON-24-PKG.jpg?v=1760106117",
+      "https://www.lenox.com/cdn/shop/files/898192-898189-898190-ON-25-FEA-1.jpg?v=1760106118",
+      "https://www.lenox.com/cdn/shop/files/898192-898189-898190-898197-898196-898193-898202-898199-898198-ON-25-FEA-2.jpg?v=1760106119",
+    ],
+  },
+  "hugo-boss-bottled-beyond": {
+    imageUrl:
+      "https://n.nordstrommedia.com/it/95ca6bc0-84be-4de0-bfd5-ffde85055da7.jpeg?h=365&w=240&dpr=2",
+    galleryImages: [
+      "https://n.nordstrommedia.com/it/4e1cce56-6bdf-4b74-9d47-c47a8e38ed11.jpeg?h=365&w=240&dpr=2",
+      "https://n.nordstrommedia.com/it/7492fcb4-9862-4b86-a445-eb0758fd2439.jpeg?h=365&w=240&dpr=2",
+      "https://n.nordstrommedia.com/it/33d70f31-1f5b-4c7d-b7e8-e2d1ef5d38d9.jpeg?h=365&w=240&dpr=2",
+      "https://n.nordstrommedia.com/it/954311d3-0d20-4e73-b147-daf4dbc4196f.jpeg?h=365&w=240&dpr=2",
+    ],
+  },
+  "marc-jacobs-perfect-absolute": {
+    imageUrl: "https://cdn.media.amplience.net/i/Marc_Jacobs/MJI_3616305869326_000_F8F8F8_4-5_MAIN",
+    galleryImages: [
+      "https://cdn.media.amplience.net/i/Marc_Jacobs/MJI_3616305869326_000_F8F8F8_4-5_ALT1",
+      "https://cdn.media.amplience.net/i/Marc_Jacobs/MJI_3616305869326_000_F8F8F8_4-5_ALT2",
+    ],
+  },
+  "gucci-flora-gorgeous-magnolia": {
+    imageUrl:
+      "https://media.gucci.com/style/DarkGray_Center_0_0_490x490/1688578224/757363_99999_0099_001_100_0000_Light-gucci-flora-gorgeous-magnolia-100ml-eau-de-parfum.jpg",
+    galleryImages: [
+      "https://media.gucci.com/style/DarkGray_Center_0_0_490x490/1688578225/757363_99999_0099_002_100_0000_Light-gucci-flora-gorgeous-magnolia-100ml-eau-de-parfum.jpg",
+      "https://media.gucci.com/style/DarkGray_Center_0_0_490x490/1688578226/757363_99999_0099_003_100_0000_Light-gucci-flora-gorgeous-magnolia-100ml-eau-de-parfum.jpg",
+    ],
+  },
 };
 
 export function getProductMedia(id) {

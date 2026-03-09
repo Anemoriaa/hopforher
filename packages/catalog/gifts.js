@@ -1,3 +1,5 @@
+import { importedCatalogItems } from "./imported-items.js";
+
 (function () {
   const affiliateConfig = {
     merchantName: "Amazon",
@@ -492,7 +494,8 @@
       baseScore: 84,
       accentFrom: "#d4e5ff",
       accentTo: "#5b83ad"
-    }
+    },
+    ...importedCatalogItems
   ];
 
   window.GiftsherCatalog = {
