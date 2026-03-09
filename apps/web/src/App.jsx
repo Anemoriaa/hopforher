@@ -1631,8 +1631,8 @@ export default function App() {
                 <section className="gs-popular-hero">
                   <div className="gs-popular-hero-copy">
                     <p className="gs-overline">Popular</p>
-                    <h2>Higher-ticket gifts with stronger brand pull.</h2>
-                    <p>Premium-leaning hero picks that feel cleaner, bigger, and easier to justify as a real upgrade.</p>
+                    <h2>Gifts to buy right now.</h2>
+                    <p>Clean picks in {activeBudget.label.toLowerCase()} and {activeSignal.label.toLowerCase()}.</p>
                     <button
                       type="button"
                       className="gs-popular-next-indicator"
