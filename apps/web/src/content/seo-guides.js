@@ -1457,6 +1457,12 @@ export const featuredSeoGuides = [
   "date-night-gifts-for-her",
 ].map((slug) => seoGuides.find((guide) => guide.slug === slug)).filter(Boolean);
 
+export const heroSeoProducts = [
+  "kindle-paperwhite",
+  "bose-speaker",
+  "theragun-relief",
+].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
+
 export const featuredSeoProducts = [
   "kindle-paperwhite",
   "ninja-creami",

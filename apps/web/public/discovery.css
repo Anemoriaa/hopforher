@@ -61,9 +61,9 @@ a {
 
 .discovery-brand img {
   display: block;
-  height: clamp(16px, 2.7vw, 20px);
+  height: clamp(22px, 3.9vw, 28px);
   width: auto;
-  max-width: min(132px, 24vw);
+  max-width: min(180px, 32vw);
 }
 
 .discovery-nav {
@@ -119,8 +119,8 @@ a {
   }
 
   .discovery-brand img {
-    height: clamp(16px, 4.8vw, 19px);
-    max-width: min(108px, 24vw);
+    height: clamp(20px, 6vw, 24px);
+    max-width: min(144px, 32vw);
   }
 
   .discovery-nav {

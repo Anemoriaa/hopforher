@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
-import { featuredSeoGuides, featuredSeoProducts, seoCatalog, seoDateCities, seoHotStories } from "./content/seo-guides.js";
+import { featuredSeoGuides, featuredSeoProducts, heroSeoProducts, seoCatalog, seoDateCities, seoHotStories } from "./content/seo-guides.js";
 import {
   buildAffiliateLink,
   classNames,
@@ -557,6 +557,13 @@ export default function App() {
         .filter(Boolean),
     [gifts]
   );
+  const heroCatalogProducts = useMemo(
+    () =>
+      heroSeoProducts
+        .map((heroGift) => gifts.find((gift) => gift.id === heroGift.id))
+        .filter(Boolean),
+    [gifts]
+  );
   const libraryProducts = useMemo(() => {
     const merged = [...featuredSeoProducts, ...linkedTopProducts].filter(
       (gift, index, array) => array.findIndex((item) => item.id === gift.id) === index
@@ -564,7 +571,7 @@ export default function App() {
 
     return merged.slice(0, 10);
   }, [linkedTopProducts]);
-  const popularHeroProducts = linkedTopProducts.slice(0, 3);
+  const popularHeroProducts = heroCatalogProducts.length ? heroCatalogProducts : linkedTopProducts.slice(0, 3);
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
   const datesSlideIndex = slides.findIndex((slide) => slide.id === "guides");
   const savedGifts = useMemo(
@@ -1624,8 +1631,8 @@ export default function App() {
                 <section className="gs-popular-hero">
                   <div className="gs-popular-hero-copy">
                     <p className="gs-overline">Popular</p>
-                    <h2>Gifts to buy right now.</h2>
-                    <p>Clean picks in {activeBudget.label.toLowerCase()} and {activeSignal.label.toLowerCase()}.</p>
+                    <h2>Higher-ticket gifts with stronger brand pull.</h2>
+                    <p>Premium-leaning hero picks that feel cleaner, bigger, and easier to justify as a real upgrade.</p>
                     <button
                       type="button"
                       className="gs-popular-next-indicator"
@@ -1641,7 +1648,11 @@ export default function App() {
                       {popularHeroProducts.map((gift, index) => (
                         <a
                           key={gift.slug}
-                          href={`/gift/${gift.slug}/`}
+                          href={buildAffiliateLink(gift)}
+                          target="_blank"
+                          rel={AMAZON_AFFILIATE_REL}
+                          {...getAffiliateAnchorData(gift, `popular-hero-card-${index + 1}`)}
+                          aria-label={`Buy ${gift.name} on ${affiliateConfig.merchantName}`}
                           {...getGiftImageFrameProps(gift, `gs-popular-hero-card is-layer-${index + 1}`)}
                         >
                           <img src={getGiftHeroImageUrl(gift)} alt={gift.name} loading="lazy" />
