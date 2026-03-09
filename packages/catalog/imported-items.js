@@ -90,8 +90,7 @@ export const importedCatalogItems = [
     intents: ["looks-expensive", "thoughtful"],
     tabs: ["under-100", "looks-expensive"],
     amazonAsin: "B0FGPM7DPD",
-    sourceProductUrl:
-      "https://www.ubuy.tg/en/product/QIY8FFPK6-women-sheer-poncho-top-lightweight-knit-crochet-shrug-bolero-mesh-batwing-sleeve-sweater-cover-up-beachwear",
+    sourceProductUrl: "https://www.amazon.com/dp/B0FGPM7DPD",
     query:
       "Women Sheer Poncho Top Lightweight Knit Crochet Shrug Bolero Mesh Batwing Sleeve Sweater Cover Up Beachwear",
     baseScore: 72,
@@ -112,7 +111,7 @@ export const importedCatalogItems = [
     intents: ["looks-expensive", "thoughtful", "viral"],
     tabs: ["best-overall", "looks-expensive", "under-100"],
     amazonAsin: "B0FLXQJV9Z",
-    sourceProductUrl: "https://www.findthisbest.com/best-pendant-necklaces/resin",
+    sourceProductUrl: "https://www.amazon.com/dp/B0FLXQJV9Z",
     query:
       "PanLuca Miniature Semi-Precious Stone & Oversized Multi-Color Resin Bead Statement Necklace 17+3 Extender Chain Chunky Eye-Catching Beads Bold Fashion Jewelry Gift for Women",
     baseScore: 77,
@@ -132,8 +131,8 @@ export const importedCatalogItems = [
     vibe: "beaded everyday detail",
     intents: ["everyday", "thoughtful", "viral"],
     tabs: ["under-100", "daily-use", "best-overall"],
-    sourceProductUrl:
-      "https://www.posadina.com/product/posadina-natural-stone-phone-charm-beaded-healing-phone-wrist-strap-handmade-cellphone-chain-lanyard-with-tether-tab/",
+    amazonAsin: "B0F7XNGFSJ",
+    sourceProductUrl: "https://www.amazon.com/dp/B0F7XNGFSJ",
     query:
       "Posadina Natural Stone Phone Charm, Beaded Healing Phone Wrist Strap, Handmade Cellphone Chain Lanyard with Tether Tab",
     baseScore: 78,
@@ -173,7 +172,7 @@ export const importedCatalogItems = [
     intents: ["cozy", "thoughtful", "looks-expensive"],
     tabs: ["cozy-home", "looks-expensive", "under-100"],
     amazonAsin: "B0G4BZL9L7",
-    sourceProductUrl: "https://www.findthisbest.com/best-artificial-trees/boxwood",
+    sourceProductUrl: "https://www.amazon.com/dp/B0G4BZL9L7",
     query:
       "Easter Decorations 3 Ft Boxwood Bunny Topiary with Bow Artificial Bunny Shaped Tree with Planter Pot for Indoor Outdoor Decor Spring Decoration for Home Yard Front Door Porch Mantle Party",
     baseScore: 73,
@@ -194,7 +193,8 @@ export const importedCatalogItems = [
     relationships: ["wife", "anniversary", "anyone"],
     intents: ["cozy", "thoughtful", "looks-expensive"],
     tabs: ["cozy-home", "under-100", "best-overall"],
-    sourceProductUrl: "https://www.lenox.com/products/wicker-creek-bunny-candy-dish",
+    amazonAsin: "B0DTVR2YWZ",
+    sourceProductUrl: "https://www.amazon.com/dp/B0DTVR2YWZ",
     query: "Lenox 897157 Wicker Creek Bunny Candy Dish, Easter Serveware",
     baseScore: 75,
   }),
@@ -251,6 +251,8 @@ export const importedCatalogItems = [
     relationships: ["anyone"],
     intents: ["thoughtful", "cozy"],
     tabs: ["under-100", "cozy-home"],
+    amazonAsin: "B0D4VB6R4H",
+    sourceProductUrl: "https://www.amazon.com/dp/B0D4VB6R4H",
     query:
       "Easter Gift Basket Empty with Gift Bags and Ribbons, Easter Bunny Basket, Baby Gift Basket, Small Woven Rope Baskets for Organizing, Basket for Gifting, Storage Basket Bins",
     baseScore: 67,
@@ -271,7 +273,8 @@ export const importedCatalogItems = [
     relationships: ["wife", "anniversary", "anyone"],
     intents: ["cozy", "thoughtful"],
     tabs: ["cozy-home", "under-100"],
-    sourceProductUrl: "https://www.lenox.com/collections/plates/products/oneida-bunny-hop-dinner-plates-set-of-4",
+    amazonAsin: "B0DYG84MC3",
+    sourceProductUrl: "https://www.amazon.com/dp/B0DYG84MC3",
     query: "Oneida 898192 Bunny Hop Dinner Plates, Set Of 4",
     baseScore: 72,
   }),
@@ -289,6 +292,8 @@ export const importedCatalogItems = [
     vibe: "sleek event dress",
     intents: ["looks-expensive", "viral", "thoughtful"],
     tabs: ["looks-expensive", "best-overall", "under-100"],
+    amazonAsin: "B0CQFRYHMR",
+    sourceProductUrl: "https://www.amazon.com/dp/B0CQFRYHMR",
     query:
       "Summer Satin Halter Backless Maxi Dresses for Women 2025 Silk Sleeveless Formal Wedding Guest Long Dress",
     baseScore: 79,
@@ -308,6 +313,8 @@ export const importedCatalogItems = [
     vibe: "ruffled occasion dress",
     intents: ["looks-expensive", "thoughtful"],
     tabs: ["looks-expensive", "best-overall", "under-100"],
+    amazonAsin: "B0FJFFMGDK",
+    sourceProductUrl: "https://www.amazon.com/dp/B0FJFFMGDK",
     query:
       "SOLY HUX Women's Sundresses Ruffle Layered Halter Flowy Maxi Dress Elegant Wedding Guest Dresses",
     baseScore: 78,
@@ -327,6 +334,8 @@ export const importedCatalogItems = [
     vibe: "easy formal flow",
     intents: ["thoughtful", "looks-expensive"],
     tabs: ["best-overall", "looks-expensive", "under-100"],
+    amazonAsin: "B0D5QWV49N",
+    sourceProductUrl: "https://www.amazon.com/dp/B0D5QWV49N",
     query:
       "KIRUNDO Wedding Guest Dresses for Women 2026 Spring Summer Short Sleeve Pleated Long Flowy A Line Formal Maxi Dress Pockets",
     baseScore: 80,
@@ -346,6 +355,8 @@ export const importedCatalogItems = [
     vibe: "sleek night-out dress",
     intents: ["looks-expensive", "viral"],
     tabs: ["looks-expensive", "under-100"],
+    amazonAsin: "B0BYHLBFVD",
+    sourceProductUrl: "https://www.amazon.com/dp/B0BYHLBFVD",
     query:
       "PRETTYGARDEN Women's 2026 Wedding Guest Cocktail Dresses One Off The Shoulder Ruched Bodycon Formal Maxi Party Summer Outfits",
     baseScore: 77,
@@ -366,6 +377,8 @@ export const importedCatalogItems = [
     relationships: ["wife", "anniversary", "anyone"],
     intents: ["cozy", "looks-expensive", "thoughtful"],
     tabs: ["cozy-home", "looks-expensive", "under-100"],
+    amazonAsin: "B0FPCBWSMR",
+    sourceProductUrl: "https://www.amazon.com/dp/B0FPCBWSMR",
     query:
       "MIYUKI Rustic Vase for Home Decor, Decorative Pottery Terracotta Vase for Living Room, Table, Shelf, Handcraft Vintage Ceramic Vase 6.7in H x 8.2in W",
     baseScore: 76,
@@ -403,6 +416,8 @@ export const importedCatalogItems = [
     relationships: ["wife", "anniversary", "anyone"],
     intents: ["cozy", "thoughtful", "looks-expensive"],
     tabs: ["cozy-home", "under-100", "looks-expensive"],
+    amazonAsin: "B0BYSFGVLC",
+    sourceProductUrl: "https://www.amazon.com/dp/B0BYSFGVLC",
     query:
       "Ceramic Vase Set of 3, Rustic Vases Home Decor Neutral Farmhouse Decor Vase for Bouquet Pampas Grass Dried Fresh Flowers, Living Room, Kitchen, Bedroom, Bathroom",
     baseScore: 75,
@@ -443,7 +458,8 @@ export const importedCatalogItems = [
     relationships: ["wife", "anniversary", "anyone"],
     intents: ["looks-expensive", "thoughtful"],
     tabs: ["looks-expensive", "best-overall", "daily-use"],
-    sourceProductUrl: "https://www.nordstrom.com/s/boss-bottled-beyond-eau-de-parfum/8554214",
+    amazonAsin: "B0F1C2P82S",
+    sourceProductUrl: "https://www.amazon.com/dp/B0F1C2P82S",
     query:
       "Hugo Boss Bottled Beyond Eau de Parfum Woody Men's Cologne With Notes of Ginger & Leather Long Lasting Fragrance",
     baseScore: 77,
@@ -463,7 +479,8 @@ export const importedCatalogItems = [
     vibe: "designer scent upgrade",
     intents: ["looks-expensive", "thoughtful"],
     tabs: ["looks-expensive", "best-overall"],
-    sourceProductUrl: "https://www.marcjacobs.com/default/perfect-absolute-eau-de-parfum/2S4P010000.html",
+    amazonAsin: "B0FDCW4288",
+    sourceProductUrl: "https://www.amazon.com/dp/B0FDCW4288",
     query:
       "Marc Jacobs Perfect Absolute Eau de Parfum Ambery Women's Perfume With Notes Caramelized Fig Accord, Jasmine Absolu & Rich Amber Accord",
     baseScore: 81,
@@ -483,8 +500,8 @@ export const importedCatalogItems = [
     vibe: "luxury fragrance flex",
     intents: ["looks-expensive", "thoughtful", "viral"],
     tabs: ["looks-expensive", "best-overall", "under-100"],
-    sourceProductUrl:
-      "https://www.gucci.com/us/en/pr/beauty/beauty-makeup/gucci-flora-gorgeous-magnolia-100ml-eau-de-parfum-p-757363999990099",
+    amazonAsin: "B0CG51HPWW",
+    sourceProductUrl: "https://www.amazon.com/dp/B0CG51HPWW",
     query: "Gucci Flora Gorgeous Magnolia by Gucci for Women 1.0 oz Eau de Parfum Spray",
     baseScore: 82,
   }),
@@ -521,6 +538,8 @@ export const importedCatalogItems = [
     relationships: ["wife", "anniversary", "anyone"],
     intents: ["cozy", "looks-expensive", "thoughtful"],
     tabs: ["cozy-home", "looks-expensive", "under-100"],
+    amazonAsin: "B0DM1Y2FP4",
+    sourceProductUrl: "https://www.amazon.com/dp/B0DM1Y2FP4",
     query:
       "Olive Trees Artificial Indoor, Tall Faux Olive Tree with Moss and Planter, Artificial Plants Indoor with Natural Wood Trunk and Lifelike Fruits, Fake Tree for Home Office Living Room Decor",
     baseScore: 76,
@@ -540,6 +559,8 @@ export const importedCatalogItems = [
     relationships: ["wife", "anniversary", "anyone"],
     intents: ["cozy", "thoughtful"],
     tabs: ["cozy-home", "under-100"],
+    amazonAsin: "B0DDC4YKTR",
+    sourceProductUrl: "https://www.amazon.com/dp/B0DDC4YKTR",
     query:
       "Artificial Black Olive Trees, Fake Floor Silk Plants with Real Wood Trunk, Lifelike Foliage Ideal for Home & Office & Apartment Decor",
     baseScore: 73,

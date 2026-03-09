@@ -402,6 +402,76 @@ export const productMedia = {
       "https://media.gucci.com/style/DarkGray_Center_0_0_490x490/1688578226/757363_99999_0099_003_100_0000_Light-gucci-flora-gorgeous-magnolia-100ml-eau-de-parfum.jpg",
     ],
   },
+  "roseseek-crochet-lace-pants": {
+    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/61A6yF6SQDL.jpg",
+    galleryImages: ["https://images-na.ssl-images-amazon.com/images/I/61etUUKj8UL.jpg"],
+  },
+  "mchic-beaded-choker": {
+    imageUrl: "https://i.etsystatic.com/22377976/r/il/a8e1c4/6209021670/il_600x600.6209021670_h8ps.jpg",
+    galleryImages: ["https://i.etsystatic.com/8244729/r/il/09918a/1739947724/il_fullxfull.1739947724_3mux.jpg"],
+  },
+  "easter-bunny-porch-decor": {
+    imageUrl:
+      "https://i5.walmartimages.com/seo/Easter-Decorations-Easter-Bunny-Decor-Large-Bunnies-Statue-Outdoor-Porch-Decorations-Carrot-Easter-Standing-Rabbit-Indoor-Garden-Farmhouse-Front-Door_a2b9704d-275c-45ef-ad6d-47ae1c561a82.3760ea1286c6f1bc6f2bbafb4cd7c7fa.jpeg",
+    galleryImages: [
+      "https://i5.walmartimages.com/seo/LMTODLFG-Easter-Bunny-Decor-Bunnies-Statue-Outdoor-Porch-Decorations-Carrot-Sisal-Tall-Bunny-Topiary-Easter-Standing-Straw-Rabbit-Indoor-Garden-Farmh_3a7e548c-8e19-4197-8858-83e99fb7c34a.7d7b1b3fec633d03334063feba852f77.jpeg",
+    ],
+  },
+  "oliker-speckled-eggs": {
+    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/81NonhO9FuL.jpg",
+    galleryImages: [
+      "https://i5.walmartimages.com/seo/16-Pcs-Easter-Speckled-Eggs-2-4-Plastic-Speckled-Eggs-Bowl-Vase-Filler-DIY-Spring-Displays-Easter-Decorations-Blue-Light-Blue-Green-Cream-White_aba920ba-8d9a-40ab-b556-844e42bde7be.166abe0a02d7f37d9ac840d4782ab010.jpeg",
+    ],
+  },
+  "easter-gift-basket": {
+    imageUrl: "https://m.media-amazon.com/images/I/611N9JLAYOL._SL1500_.jpg",
+    galleryImages: [
+      "https://i5.walmartimages.com/seo/Pgyong-Easter-Gift-Basket-Empty-Gift-Bags-Ribbons-Easter-Bunny-Basket-Small-Woven-Rope-Baskets-Organizing-Basket-gifting-Storage-Basket-Bins-Blue_7f9168dc-82d7-40fd-803c-81ef346bbfa9.f3531ff63907160adc37e5bfc9a83467.jpeg",
+    ],
+  },
+  "satin-halter-maxi-dress": {
+    imageUrl: "https://m.media-amazon.com/images/I/51FBNX7ACwL._AC_SL1300_.jpg",
+    galleryImages: ["https://m.media-amazon.com/images/I/610rGCYeNRL.jpg"],
+  },
+  "soly-hux-ruffle-maxi-dress": {
+    imageUrl: "https://m.media-amazon.com/images/I/61jCBuTFX9L.__AC_SX342_SY445_QL70_ML2_.jpg",
+  },
+  "kirundo-pleated-maxi-dress": {
+    imageUrl: "https://m.media-amazon.com/images/I/71cg8MWSDvL._AC_SL1500_.jpg",
+    galleryImages: ["https://m.media-amazon.com/images/I/61Qfr7kgbuL._AC_SX679_.jpg"],
+  },
+  "prettygarden-one-shoulder-maxi": {
+    imageUrl: "https://m.media-amazon.com/images/I/71KMxguNp5L.jpg",
+    galleryImages: ["https://m.media-amazon.com/images/I/71lfdIX5btL._AC_SL1500_.jpg"],
+  },
+  "miyuki-rustic-vase": {
+    imageUrl: "https://m.media-amazon.com/images/I/81tSNEh1UmL._AC_SY300_SX300_QL70_ML2_.jpg",
+    galleryImages: ["https://m.media-amazon.com/images/I/71RQA739yLL.jpg"],
+  },
+  "ceramic-floor-vase": {
+    imageUrl: "https://m.media-amazon.com/images/I/716WcMcrEwL.jpg",
+    galleryImages: ["https://m.media-amazon.com/images/I/71w9+V5J+hL.jpg"],
+  },
+  "rustic-vase-set": {
+    imageUrl: "https://m.media-amazon.com/images/I/81QWW7QHJPL._AC_.jpg",
+    galleryImages: ["https://m.media-amazon.com/images/I/71tP-+b0ieL._AC_SL1500_.jpg"],
+  },
+  "ninehaoou-scroll-vase": {
+    imageUrl: "https://images-na.ssl-images-amazon.com/images/I/71JJ+vDVY6L.jpg",
+    galleryImages: ["https://m.media-amazon.com/images/I/71QwsEkr5pL._AC_SL1500_.jpg"],
+  },
+  "artificial-olive-tree-1026": {
+    imageUrl: "https://m.media-amazon.com/images/I/71+Yf+KXC6L.jpg",
+    galleryImages: ["https://images-na.ssl-images-amazon.com/images/I/71qg1efHOYL.jpg"],
+  },
+  "faux-olive-tree-planter": {
+    imageUrl: "https://m.media-amazon.com/images/I/71OMxknM9oL._AC_SL1500_.jpg",
+    galleryImages: ["https://m.media-amazon.com/images/I/71rxsQ+zeiL._AC_SL1500_.jpg"],
+  },
+  "black-olive-tree": {
+    imageUrl: "https://m.media-amazon.com/images/I/81vIHHOuxIL.jpg",
+    galleryImages: ["https://m.media-amazon.com/images/I/81ppIpbzoIL.jpg"],
+  },
 };
 
 export function getProductMedia(id) {
