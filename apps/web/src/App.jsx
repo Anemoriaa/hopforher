@@ -37,8 +37,8 @@ import {
 const slides = [
   { id: "popular", label: "Popular", number: "01" },
   { id: "hot", label: "Hot", number: "02" },
-  { id: "guides", label: "Dates", number: "03" },
-  { id: "saved", label: "Saved/Cart", number: "04" },
+  { id: "guides", label: "Plans", number: "03" },
+  { id: "saved", label: "Saved", number: "04" },
 ];
 
 const editorialSlides = slides.filter((slide) => slide.id !== "saved");
@@ -82,7 +82,11 @@ const sliderFields = [
 const datePartySizeOptions = Array.from({ length: 8 }, (_, index) => index + 1);
 const dateSpotsApiPath = import.meta.env.VITE_DATE_SPOTS_API_PATH || "/api/date-spots";
 
-const hotStoryHeights = [520, 640, 760, 580, 700, 840, 620];
+const hotStoryHeights = [320, 360, 400, 340, 380, 430, 360, 410];
+const HOT_FEED_TARGET_COUNT = 10;
+const HOT_FEED_INITIAL_BATCH_COUNT = 2;
+const HOT_FEED_MAX_BATCH_COUNT = 5;
+const HOT_FEED_ROTATION_STEP = 3;
 const previewReelFrameDurationMs = 1500;
 const TIKTOK_PLAYER_ORIGIN = "https://www.tiktok.com";
 
@@ -92,6 +96,24 @@ function getStableSeed(...parts) {
 
 function getHotStoryHeight(giftId, storyId) {
   return hotStoryHeights[getStableSeed(giftId, storyId) % hotStoryHeights.length];
+}
+
+function buildLoopedHotStories(stories, cycleIndex) {
+  if (!stories.length) {
+    return [];
+  }
+
+  const rotation = (cycleIndex * HOT_FEED_ROTATION_STEP) % stories.length;
+
+  return stories.map((_, index) => {
+    const story = stories[(index + rotation) % stories.length];
+
+    return {
+      ...story,
+      cycleIndex,
+      instanceId: `${story.id}-${story.gift.id}-cycle-${cycleIndex}-slot-${index}`,
+    };
+  });
 }
 
 function buildHotStoryImage(giftId, storyId) {
@@ -274,7 +296,7 @@ function buildGiftPreviewMedia(gift) {
         frames: images,
         durationSeconds: images.length * 2,
         creatorName: "ShopForHer",
-        sourceLabel: "Hot edit",
+        sourceLabel: "ShopForHer",
       },
       ...imageItems,
     ];
@@ -283,8 +305,64 @@ function buildGiftPreviewMedia(gift) {
   return imageItems;
 }
 
-function getPrimaryHotMotionMedia(gift) {
-  return buildGiftPreviewMedia(gift).find((media) => media.kind !== "image") || null;
+function isTikTokPreviewMedia(media) {
+  return media?.kind === "embed" && media.provider === "tiktok" && Boolean(media.videoId || media.embedUrl);
+}
+
+function getPrimaryHotVideoMedia(gift) {
+  return buildGiftPreviewMedia(gift).find((media) => isTikTokPreviewMedia(media)) || null;
+}
+
+function getHotFallbackLabel(gift) {
+  if (gift.relationships?.includes("wife")) {
+    return "For wives";
+  }
+
+  if (gift.relationships?.includes("girlfriend")) {
+    return "For girlfriends";
+  }
+
+  if (gift.tabs?.includes("looks-expensive")) {
+    return "Polished";
+  }
+
+  if (gift.tabs?.includes("daily-use")) {
+    return "Actually useful";
+  }
+
+  if (gift.tabs?.includes("cozy-home")) {
+    return "Cozy home";
+  }
+
+  return "Trending";
+}
+
+function getHotFallbackHeat(gift) {
+  if (gift.priceValue <= 50) {
+    return "Quick buy";
+  }
+
+  if (gift.tabs?.includes("looks-expensive")) {
+    return "Looks strong";
+  }
+
+  if (gift.tabs?.includes("daily-use")) {
+    return "Repeat use";
+  }
+
+  if (gift.tabs?.includes("cozy-home")) {
+    return "Soft lane";
+  }
+
+  return "Rising";
+}
+
+function getProductPageHref(slug) {
+  if (!slug) {
+    return "/";
+  }
+
+  return `/gift/${slug}/index.html`;
 }
 
 function rankGiftMatches(gifts, filters) {
@@ -306,6 +384,9 @@ function rankGiftMatches(gifts, filters) {
 export default function App() {
   const touchRef = useRef({ x: 0, y: 0 });
   const tabRefs = useRef([]);
+  const hotScrollRef = useRef(null);
+  const hotFeedBatchRefs = useRef(new Map());
+  const hotFeedCanAppendRef = useRef(true);
   const previewCloseRef = useRef(null);
   const previewVideoRef = useRef(null);
   const previewEmbedRef = useRef(null);
@@ -314,6 +395,7 @@ export default function App() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [savedIds, setSavedIds] = useState(() => loadSaved());
   const [previewGift, setPreviewGift] = useState(null);
+  const [previewMode, setPreviewMode] = useState("default");
   const [previewMediaIndex, setPreviewMediaIndex] = useState(0);
   const [previewPlaybackActive, setPreviewPlaybackActive] = useState(false);
   const [previewReelFrameIndex, setPreviewReelFrameIndex] = useState(0);
@@ -327,7 +409,7 @@ export default function App() {
     status: "idle",
     mode: "idle",
     areaLabel: "Preview area",
-    note: "Use your location to load nearby date spots.",
+    note: "Use your location to load nearby plans.",
     sourceLabel: getDateSpotPoweredLabel(DEFAULT_DATE_SPOTS_PROVIDER),
     searchUrl: buildDateSpotSearchUrl({
       partySize: DEFAULT_DATE_PARTY_SIZE,
@@ -342,7 +424,16 @@ export default function App() {
     signal: 0,
     intent: 0,
   });
-  const previewMediaItems = useMemo(() => buildGiftPreviewMedia(previewGift), [previewGift]);
+  const [hotFeedCycles, setHotFeedCycles] = useState([]);
+  const { ref: hotFeedSentinelRef, inView: hotFeedSentinelInView } = useInView({
+    triggerOnce: false,
+    rootMargin: "900px 0px 1200px 0px",
+  });
+  const rawPreviewMediaItems = useMemo(() => buildGiftPreviewMedia(previewGift), [previewGift]);
+  const previewMediaItems = useMemo(
+    () => (previewMode === "hot" ? rawPreviewMediaItems.filter((media) => isTikTokPreviewMedia(media)) : rawPreviewMediaItems),
+    [previewMode, rawPreviewMediaItems]
+  );
   const activePreviewMedia = previewMediaItems[previewMediaIndex] || previewMediaItems[0] || null;
   const activePreviewPoster = activePreviewMedia
     ? getPreviewMediaThumbnailUrl(activePreviewMedia) || getGiftImageUrl(previewGift)
@@ -356,27 +447,47 @@ export default function App() {
       return activePreviewMedia.embedUrl || "";
     }
 
-    return buildTikTokPlayerUrl(activePreviewMedia.videoId, {
-      autoplay: 1,
-      controls: 1,
-      progress_bar: 1,
-      play_button: 1,
-      volume_control: 1,
-      fullscreen_button: 1,
-      timestamp: 1,
-      loop: 1,
-      music_info: 0,
-      description: 0,
-      rel: 0,
-      native_context_menu: 1,
-      closed_caption: 1,
-    });
+    return buildTikTokPlayerUrl(
+      activePreviewMedia.videoId,
+      previewMode === "hot"
+        ? {
+            autoplay: 1,
+            controls: 0,
+            progress_bar: 0,
+            play_button: 0,
+            volume_control: 0,
+            fullscreen_button: 0,
+            timestamp: 0,
+            loop: 1,
+            music_info: 0,
+            description: 0,
+            rel: 0,
+            native_context_menu: 0,
+            closed_caption: 0,
+          }
+        : {
+            autoplay: 1,
+            controls: 1,
+            progress_bar: 1,
+            play_button: 1,
+            volume_control: 1,
+            fullscreen_button: 1,
+            timestamp: 1,
+            loop: 1,
+            music_info: 0,
+            description: 0,
+            rel: 0,
+            native_context_menu: 1,
+            closed_caption: 1,
+          }
+    );
   }, [
     activePreviewMedia?.embedUrl,
     activePreviewMedia?.id,
     activePreviewMedia?.kind,
     activePreviewMedia?.provider,
     activePreviewMedia?.videoId,
+    previewMode,
   ]);
   const activePreviewReelFrame = activePreviewMedia?.kind === "reel"
     ? activePreviewMedia.frames?.[previewReelFrameIndex] || activePreviewMedia.posterUrl || activePreviewPoster
@@ -604,6 +715,9 @@ export default function App() {
   const previewIntentTags = previewGift
     ? (previewGift.intents || []).slice(0, 4).map((value) => stateLabels[value] || value)
     : [];
+  const previewHeadlineTags = previewGift
+    ? [previewGift.priceLabel, previewGift.badge, activePreviewSourceLabel].filter(Boolean)
+    : [];
   const videoStories = useMemo(() => {
     const definitions = [
       {
@@ -728,44 +842,169 @@ export default function App() {
       },
     ];
 
-    const usedIds = new Set();
+    const eligibleTikTokGifts = gifts.filter((gift) => getPrimaryHotVideoMedia(gift));
+    const rankedTikTokGifts = [...eligibleTikTokGifts].sort((left, right) => {
+      const scoreDelta = scoreGift(right, activeFilters) - scoreGift(left, activeFilters);
 
-    return definitions
-      .map((story, index) => {
-        const picks = rankGiftMatches(gifts, { ...activeFilters, ...story.filters });
-        const gift = picks.find((candidate) => !usedIds.has(candidate.id)) || picks[0] || gifts[index % gifts.length] || null;
+      if (scoreDelta !== 0) {
+        return scoreDelta;
+      }
+
+      return (right.baseScore || 0) - (left.baseScore || 0);
+    });
+    const usedGiftIds = new Set();
+    const usedVideoIds = new Set();
+
+    const seededStories = definitions
+      .map((story) => {
+        const picks = rankGiftMatches(rankedTikTokGifts, { ...activeFilters, ...story.filters });
+        const gift = picks.find((candidate) => {
+          if (usedGiftIds.has(candidate.id)) {
+            return false;
+          }
+
+          const primaryVideo = getPrimaryHotVideoMedia(candidate);
+
+          if (!primaryVideo) {
+            return false;
+          }
+
+          const videoKey = primaryVideo.videoId || primaryVideo.embedUrl || primaryVideo.id;
+
+          return !usedVideoIds.has(videoKey);
+        }) || null;
 
         if (!gift) {
           return null;
         }
 
-        usedIds.add(gift.id);
+        const primaryVideo = getPrimaryHotVideoMedia(gift);
 
-        const imageCount = getGiftImageList(gift).length;
-        const primaryVideo = gift.shortVideos?.[0] || null;
-        const durationSeconds = primaryVideo?.durationSeconds || (imageCount > 1 ? imageCount * 2 : 0);
+        if (!primaryVideo) {
+          return null;
+        }
+
+        usedGiftIds.add(gift.id);
+        usedVideoIds.add(primaryVideo.videoId || primaryVideo.embedUrl || primaryVideo.id);
 
         return {
           ...story,
           gift,
-          posterUrl: getGiftMotionPoster(gift, story.id),
-          storyCoverUrl: buildHotStoryImage(gift.id, story.id),
-          storyHeight: getHotStoryHeight(gift.id, story.id),
-          mediaKind: primaryVideo ? (primaryVideo.provider === "direct" ? "video" : "embed") : imageCount > 1 ? "reel" : "image",
-          mediaLabel: primaryVideo ? (primaryVideo.provider === "tiktok" ? "TikTok" : "Video") : imageCount > 1 ? "Hot edit" : "Preview",
+          mediaId: primaryVideo.id,
+          mediaKind: "embed",
+          mediaLabel: "TikTok",
           sourceLabel:
-            primaryVideo?.creatorHandle || primaryVideo?.creatorName || primaryVideo?.sourceLabel || (imageCount > 1 ? "ShopForHer edit" : "ShopForHer"),
-          durationLabel: formatDurationLabel(durationSeconds),
+            primaryVideo.creatorHandle || primaryVideo.creatorName || primaryVideo.sourceLabel || "TikTok",
+          durationLabel: formatDurationLabel(primaryVideo.durationSeconds || 0),
         };
       })
       .filter(Boolean);
+
+    const fallbackStories = rankedTikTokGifts
+      .map((gift) => {
+        if (usedGiftIds.has(gift.id)) {
+          return null;
+        }
+
+        const primaryVideo = getPrimaryHotVideoMedia(gift);
+
+        if (!primaryVideo) {
+          return null;
+        }
+
+        const videoKey = primaryVideo.videoId || primaryVideo.embedUrl || primaryVideo.id;
+
+        if (usedVideoIds.has(videoKey)) {
+          return null;
+        }
+
+        usedGiftIds.add(gift.id);
+        usedVideoIds.add(videoKey);
+
+        return {
+          id: `fallback-${gift.id}`,
+          label: getHotFallbackLabel(gift),
+          heat: getHotFallbackHeat(gift),
+          gift,
+          mediaId: primaryVideo.id,
+          mediaKind: "embed",
+          mediaLabel: "TikTok",
+          sourceLabel:
+            primaryVideo.creatorHandle || primaryVideo.creatorName || primaryVideo.sourceLabel || "TikTok",
+          durationLabel: formatDurationLabel(primaryVideo.durationSeconds || 0),
+        };
+      })
+      .filter(Boolean);
+
+    return [...seededStories, ...fallbackStories].slice(0, HOT_FEED_TARGET_COUNT);
   }, [gifts, activeFilters]);
+  const leadingHotFeedCycle = hotFeedCycles[0] ?? null;
+  const trailingHotFeedCycles = hotFeedCycles.slice(1);
 
   useEffect(() => {
     if (activeSlide === datesSlideIndex && geoState.status === "idle") {
       useMyArea();
     }
   }, [activeSlide, datesSlideIndex, geoState.status]);
+
+  useEffect(() => {
+    hotFeedCanAppendRef.current = true;
+
+    if (!videoStories.length) {
+      setHotFeedCycles([]);
+      return;
+    }
+
+    setHotFeedCycles(
+      Array.from({ length: HOT_FEED_INITIAL_BATCH_COUNT }, (_, index) => index)
+    );
+  }, [videoStories]);
+
+  useEffect(() => {
+    if (activeSlide !== 1 || !videoStories.length) {
+      return;
+    }
+
+    if (!hotFeedSentinelInView) {
+      hotFeedCanAppendRef.current = true;
+      return;
+    }
+
+    if (!hotFeedCanAppendRef.current) {
+      return;
+    }
+
+    hotFeedCanAppendRef.current = false;
+
+    setHotFeedCycles((current) => {
+      if (!current.length) {
+        return [0];
+      }
+
+      let next = [...current, current[current.length - 1] + 1];
+
+      if (next.length > HOT_FEED_MAX_BATCH_COUNT) {
+        const removedCycle = next[0];
+        const removedHeight = hotFeedBatchRefs.current.get(removedCycle)?.offsetHeight || 0;
+        next = next.slice(1);
+
+        if (removedHeight && hotScrollRef.current) {
+          requestAnimationFrame(() => {
+            if (!hotScrollRef.current) {
+              return;
+            }
+
+            hotScrollRef.current.scrollTop = Math.max(
+              0,
+              hotScrollRef.current.scrollTop - removedHeight
+            );
+          });
+        }
+      }
+
+      return next;
+    });
+  }, [activeSlide, hotFeedSentinelInView, videoStories.length]);
 
   useEffect(() => {
     if (!dateResults.spots.length) {
@@ -801,12 +1040,12 @@ export default function App() {
         areaLabel: geoState.label,
         note:
           geoState.status === "denied"
-            ? "Location access is blocked. You can still open nearby places in Maps or enable location to rank spots."
+            ? "Location access is blocked. You can still open nearby places in Maps or enable location to rank options."
             : geoState.status === "unsupported"
               ? "This browser does not expose location, so nearby ranking is unavailable here."
               : geoState.status === "loading"
                 ? "Locating you now."
-                : "Use your location to load nearby date spots.",
+                : "Use your location to load nearby plans.",
         sourceLabel: getDateSpotPoweredLabel(provider),
         searchUrl,
         spots: blocked
@@ -1037,14 +1276,36 @@ export default function App() {
     });
   }
 
-  function openPreview(gift) {
-    setPreviewMediaIndex(0);
+  function openPreview(gift, options = {}) {
+    const nextMode = options.mode || "default";
+    const availableMedia = buildGiftPreviewMedia(gift);
+    const scopedMedia = nextMode === "hot" ? availableMedia.filter((media) => isTikTokPreviewMedia(media)) : availableMedia;
+    const preferredMediaIndex = options.preferredMediaId
+      ? scopedMedia.findIndex((media) => media.id === options.preferredMediaId)
+      : -1;
+
+    setPreviewMode(nextMode);
+    setPreviewMediaIndex(preferredMediaIndex >= 0 ? preferredMediaIndex : 0);
     setPreviewPlaybackActive(true);
     setPreviewReelFrameIndex(0);
     setPreviewGift(gift);
   }
 
+  function openHotPreview(item) {
+    const media = getPrimaryHotVideoMedia(item.gift);
+
+    if (!media) {
+      return;
+    }
+
+    openPreview(item.gift, {
+      mode: "hot",
+      preferredMediaId: media.id,
+    });
+  }
+
   function closePreview() {
+    setPreviewMode("default");
     setPreviewPlaybackActive(false);
     setPreviewReelFrameIndex(0);
     setPreviewMediaIndex(0);
@@ -1204,127 +1465,23 @@ export default function App() {
     return <AnimatedBentoCard key={`${gift.id}-bento-${index}`} gift={gift} index={index} options={options} savedIds={savedIds} toggleSaved={toggleSaved} openPreview={openPreview} />;
   }
 
-  function HotFeedMedia({ item, gift, inView }) {
-    const media = useMemo(() => getPrimaryHotMotionMedia(gift), [gift]);
-    const videoRef = useRef(null);
-    const embedRef = useRef(null);
-    const [reelFrameIndex, setReelFrameIndex] = useState(0);
-    const coverUrl = item.posterUrl || item.storyCoverUrl || buildHotStoryImage(gift.id, item.id);
-    const storyHeight = item.storyHeight || getHotStoryHeight(gift.id, item.id);
-    const feedEmbedUrl = useMemo(() => {
-      if (media?.kind !== "embed" || media.provider !== "tiktok") {
-        return media?.embedUrl || "";
-      }
-
-      return buildTikTokPlayerUrl(media.videoId, {
-        autoplay: 1,
-        controls: 0,
-        progress_bar: 0,
-        play_button: 0,
-        volume_control: 0,
-        fullscreen_button: 0,
-        timestamp: 0,
-        loop: 1,
-        music_info: 0,
-        description: 0,
-        rel: 0,
-        native_context_menu: 0,
-        closed_caption: 0,
-      });
-    }, [media?.embedUrl, media?.id, media?.kind, media?.provider, media?.videoId]);
-    const isPlayable = inView && (media?.kind === "video" || media?.kind === "reel" || media?.kind === "embed");
-
-    useEffect(() => {
-      setReelFrameIndex(0);
-    }, [media?.id]);
-
-    useEffect(() => {
-      const video = videoRef.current;
-
-      if (!video || media?.kind !== "video") {
-        return;
-      }
-
-      if (!inView) {
-        video.pause();
-        return;
-      }
-
-      const playPromise = video.play();
-      playPromise?.catch(() => {
-        video.pause();
-      });
-    }, [inView, media?.id, media?.kind]);
-
-    useEffect(() => {
-      if (!inView || media?.kind !== "reel" || !media.frames?.length) {
-        return undefined;
-      }
-
-      const intervalId = window.setInterval(() => {
-        setReelFrameIndex((current) => (current + 1) % media.frames.length);
-      }, previewReelFrameDurationMs);
-
-      return () => {
-        window.clearInterval(intervalId);
-      };
-    }, [inView, media]);
-
-    function handleEmbedLoad() {
-      if (media?.kind !== "embed" || media.provider !== "tiktok") {
-        return;
-      }
-
-      const frameWindow = embedRef.current?.contentWindow;
-
-      postTikTokPlayerMessage(frameWindow, "mute");
-      postTikTokPlayerMessage(frameWindow, "play");
-    }
+  function HotFeedMedia({ item, gift }) {
+    const media = useMemo(() => getPrimaryHotVideoMedia(gift), [gift]);
+    const posterUrl = media?.posterUrl || getGiftImageUrl(gift);
 
     return (
-      <div className="gs-hot-feed-media" style={{ aspectRatio: `480 / ${storyHeight}` }}>
-        <img
-          src={coverUrl}
-          alt={gift.name}
-          className="gs-hot-feed-image"
-          loading="lazy"
-        />
-        {media?.kind === "video" && inView ? (
-          <video
-            ref={videoRef}
-            src={media.videoUrl}
-            poster={media.posterUrl || coverUrl}
-            className="gs-hot-feed-video"
-            playsInline
-            muted
-            loop
-            preload="metadata"
-          />
-        ) : media?.kind === "embed" && inView && feedEmbedUrl ? (
-          <iframe
-            key={media.id}
-            ref={embedRef}
-            src={feedEmbedUrl}
-            title={media.title || `${gift.name} TikTok video`}
-            className="gs-hot-feed-embed"
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            loading="lazy"
-            onLoad={handleEmbedLoad}
-          />
-        ) : media?.kind === "reel" && inView ? (
-          <img
-            src={media.frames?.[reelFrameIndex] || media.posterUrl || coverUrl}
-            alt={gift.name}
-            className="gs-hot-feed-motion-image"
-            loading="lazy"
-          />
-        ) : null}
+      <div className="gs-hot-feed-media">
+        <div className="gs-hot-feed-video-placeholder">
+          {posterUrl ? <img src={posterUrl} alt="" className="gs-hot-feed-poster" loading="lazy" /> : null}
+          <span className="gs-hot-feed-video-placeholder-scrim" aria-hidden="true" />
+          <span>Open video</span>
+        </div>
 
-        {(item.mediaLabel || item.durationLabel || isPlayable) ? (
+        {(item.mediaLabel || item.durationLabel) ? (
           <div className="gs-hot-feed-media-badges" aria-hidden="true">
             <span className="gs-hot-feed-floating-chip">
               <Play size={12} />
-              <span>{isPlayable ? "Playing" : media?.kind === "image" ? "View" : "Watch"}</span>
+              <span>Watch</span>
             </span>
             {item.mediaLabel ? <span className="gs-hot-feed-floating-chip">{item.mediaLabel}</span> : null}
             {item.durationLabel ? <span className="gs-hot-feed-floating-chip">{item.durationLabel}</span> : null}
@@ -1335,10 +1492,11 @@ export default function App() {
   }
 
   function AnimatedHotCard({ item, index, openPreview }) {
-    const { ref, inView } = useInView({ triggerOnce: false, rootMargin: "0px 0px -100px 0px" });
+    const { ref, inView } = useInView({ triggerOnce: false, rootMargin: "180px 0px 180px 0px" });
     const [hasEntered, setHasEntered] = useState(false);
     const gift = item.gift;
     const delayClass = index % 3 === 1 ? "delay-100" : index % 3 === 2 ? "delay-200" : "";
+    const storyHeight = getHotStoryHeight(gift.id, item.id);
 
     useEffect(() => {
       if (inView) {
@@ -1358,15 +1516,16 @@ export default function App() {
         style={{
           "--story-accent-from": gift.accentFrom,
           "--story-accent-to": gift.accentTo,
+          "--hot-story-height": `${storyHeight}px`,
         }}
       >
         <button
           type="button"
           className="gs-hot-feed-hit"
-          onClick={() => openPreview(gift)}
-          aria-label={`View ${gift.name}`}
+          onClick={() => openHotPreview(item)}
+          aria-label={`Open ${gift.name} video full screen`}
         >
-          <HotFeedMedia item={item} gift={gift} inView={inView} />
+          <HotFeedMedia item={item} gift={gift} />
           <div className="gs-hot-feed-body">
             <div className="gs-hot-feed-chip-row">
               <span className="gs-hot-feed-chip">{item.label}</span>
@@ -1376,7 +1535,7 @@ export default function App() {
             <p>{gift.why || gift.hook}</p>
             <div className="gs-hot-feed-meta">
               <div className="gs-hot-feed-source">
-                <span className="gs-hot-feed-source-mark">{item.mediaLabel === "TikTok" ? "TT" : "SF"}</span>
+                <span className="gs-hot-feed-source-mark">TT</span>
                 <span className="gs-hot-feed-source-label">{item.sourceLabel}</span>
               </div>
               <div className="gs-hot-feed-meta-tags">
@@ -1487,12 +1646,12 @@ export default function App() {
       <footer className="gs-footer">
         <div className="gs-footer-brand">
           <img src="/logo1.png" alt="ShopForHer" className="gs-footer-img" />
-          <p>Fast gift picks for men buying for her.</p>
+          <p>Sharper gift picks for men buying for her.</p>
         </div>
         <div className="gs-footer-meta">
           <p className="gs-footer-disclosure">{AMAZON_ASSOCIATE_DISCLOSURE}</p>
-          <p>Paid Amazon links may appear on gift pages. Checkout happens on the merchant site, where final pricing and fast-pay options are controlled.</p>
-          <p>Saved picks stay on this device. Updated weekly.</p>
+          <p>Paid Amazon links may appear on gift pages. Final pricing and checkout stay on the merchant site.</p>
+          <p>Saved picks stay on this device. Shortlists refresh weekly.</p>
           <div className="gs-footer-links">
             <a href="/about.html">About</a>
             <a href="/editorial-policy.html">Editorial</a>
@@ -1501,7 +1660,7 @@ export default function App() {
             <a href="/feed.xml">Feed</a>
             <a href="/guides/">Guides</a>
             <a href="/hot/">Hot</a>
-            <a href="/dates/">Dates</a>
+            <a href="/dates/">Plans</a>
             <a href="/privacy.html">Privacy</a>
             <a href="/terms.html">Terms</a>
             <a href="/affiliate-disclosure.html">Affiliate</a>
@@ -1515,43 +1674,42 @@ export default function App() {
   function renderTrustStrip() {
     return (
       <section className="gs-trust-strip" aria-label="Why ShopForHer works">
-        <span className="gs-trust-chip">Updated weekly</span>
-        <span className="gs-trust-chip">Amazon paid links disclosed</span>
-        <span className="gs-trust-chip">Fast merchant checkout</span>
+        <span className="gs-trust-chip">Curated weekly</span>
+        <span className="gs-trust-chip">Paid links disclosed</span>
+        <span className="gs-trust-chip">Direct merchant checkout</span>
       </section>
     );
   }
 
   const dateStatusLabel =
     dateResults.status === "loading"
-      ? "Loading nearby spots"
+      ? "Finding nearby spots"
       : dateResults.mode === "live"
-        ? `${dateResults.spots.length} nearby ${dateResults.spots.length === 1 ? "spot" : "spots"}`
-        : dateResults.mode === "unconfigured"
-          ? "Provider not configured"
-        : dateResults.mode === "fallback"
-          ? "Fallback date lanes"
-          : "Location needed";
+        ? `${dateResults.spots.length} nearby ${dateResults.spots.length === 1 ? "option" : "options"}`
+        : dateResults.mode === "unconfigured" || dateResults.mode === "fallback"
+          ? "Curated fallback plans"
+        : "Location needed";
 
   const datePoweredCopy =
     dateResults.mode === "live"
       ? activeDateProvider === DATE_SPOTS_PROVIDER_OPENTABLE
-        ? "Links open on OpenTable and nearby ranking comes from the configured partner feed."
-        : "Nearby ranking comes from Google Places. Actions open the venue site when available, otherwise Google Maps."
-      : activeDateProvider === DATE_SPOTS_PROVIDER_OPENTABLE
-        ? dateResults.mode === "unconfigured"
-          ? "Configure OPENTABLE_DIRECTORY_API_URL and partner credentials in Cloudflare Pages, then redeploy."
-          : dateResults.mode === "fallback" || dateResults.status === "error"
-            ? "OpenTable did not return live nearby results. Retry, redeploy after env changes, or check the Pages function logs."
-            : "Enable location to rank nearby OpenTable spots instead of showing the fallback lane."
-        : dateResults.mode === "unconfigured"
-          ? "GOOGLE_PLACES_API_KEY is not available to the Pages function. Add it in Cloudflare Pages and redeploy."
-          : dateResults.mode === "fallback" || dateResults.status === "error"
-            ? "Google Places did not return live nearby results. Retry, redeploy after env changes, or check the Pages function logs."
-            : "Enable location to rank nearby Google Places spots instead of showing the fallback lane.";
+        ? "Nearby ranking is live. Links open on OpenTable."
+        : "Nearby ranking is live. Actions open the venue site when possible, otherwise Maps."
+      : dateResults.mode === "unconfigured" || dateResults.mode === "fallback" || dateResults.status === "error"
+        ? "Showing a cleaner fallback list while live nearby results are unavailable."
+        : "Use your area to turn these into nearby options.";
 
   function getDateSpotSummaryLabel(spot) {
     return [spot.distanceLabel, spot.priceHint].filter(Boolean).join(" · ") || spot.sourceLabel;
+  }
+
+  function setHotFeedBatchRef(cycleIndex, node) {
+    if (node) {
+      hotFeedBatchRefs.current.set(cycleIndex, node);
+      return;
+    }
+
+    hotFeedBatchRefs.current.delete(cycleIndex);
   }
 
   function getDateRowSummary(spot) {
@@ -1604,7 +1762,7 @@ export default function App() {
                 >
                   Saved
                   <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
-                    <span className="gs-visually-hidden">Saved cart picks count: </span>
+                    <span className="gs-visually-hidden">Saved picks count: </span>
                     {savedGifts.length}
                   </span>
                 </button>
@@ -1644,7 +1802,7 @@ export default function App() {
                     </button>
                   </div>
                   <div className="gs-popular-hero-visual">
-                    <div className="gs-popular-hero-stack" aria-hidden="true">
+                    <div className="gs-popular-hero-stack">
                       {popularHeroProducts.map((gift, index) => (
                         <a
                           key={gift.slug}
@@ -1656,6 +1814,11 @@ export default function App() {
                           {...getGiftImageFrameProps(gift, `gs-popular-hero-card is-layer-${index + 1}`)}
                         >
                           <img src={getGiftHeroImageUrl(gift)} alt={gift.name} loading="lazy" />
+                          <span className="gs-popular-hero-card-copy">
+                            <span className="gs-popular-hero-card-badge">{gift.badge}</span>
+                            <strong>{gift.name}</strong>
+                            <span>{gift.priceLabel}</span>
+                          </span>
                         </a>
                       ))}
                     </div>
@@ -1679,10 +1842,10 @@ export default function App() {
                 <section className="gs-product-list">
                   <div className="gs-section-head">
                     <p className="gs-overline">Amazon</p>
-                    <h3>New exact-product picks</h3>
+                    <h3>Featured product pages</h3>
                   </div>
                   <p className="gs-popular-library-note">
-                    New Amazon product pages added directly into the catalog so people can open the exact item fast.
+                    Tighter product pages with the exact item, price band, and buy path already mapped.
                   </p>
                   <div className="gs-bento-grid gs-popular-grid" role="list" aria-label="New exact product picks">
                     {featuredCatalogProducts.map((gift, index) =>
@@ -1696,21 +1859,21 @@ export default function App() {
                 <section className="gs-popular-library" aria-label="Popular page organization">
                   <div className="gs-section-head">
                     <p className="gs-overline">Continue</p>
-                    <h3>Browse cleanly from here</h3>
+                    <h3>Keep the shortlist tight</h3>
                   </div>
                   <p className="gs-popular-library-note">
-                    Open a product page when one pick already looks right. Use a guide when you still need the cleanest lane.
+                    Open a product page when one pick already looks right. Open a guide when you want the shortlist organized first.
                   </p>
                   <div className="gs-popular-library-grid">
                     <article className="gs-popular-library-panel">
                       <div className="gs-popular-library-head">
                         <span className="gs-overline">Products</span>
-                        <strong>Direct product pages</strong>
+                        <strong>Product pages</strong>
                         <p>Best when you want the exact item, price range, and merchant path fast.</p>
                       </div>
                       <div className="gs-popular-library-list">
                         {libraryProducts.map((gift) => (
-                          <a key={gift.slug} href={`/gift/${gift.slug}/`} className="gs-popular-library-link">
+                          <a key={gift.slug} href={getProductPageHref(gift.slug)} className="gs-popular-library-link">
                             <div>
                               <span className="gs-seo-guide-eyebrow">{gift.badge}</span>
                               <strong>{gift.name}</strong>
@@ -1723,7 +1886,7 @@ export default function App() {
                     <article className="gs-popular-library-panel">
                       <div className="gs-popular-library-head">
                         <span className="gs-overline">Guides</span>
-                        <strong>Organized gift lanes</strong>
+                        <strong>Gift lanes</strong>
                         <p>Best when you want a tighter shortlist by relationship, budget, or mood before buying.</p>
                       </div>
                       <div className="gs-popular-library-list">
@@ -1760,24 +1923,30 @@ export default function App() {
               aria-hidden={activeSlide !== 1}
               tabIndex={activeSlide === 1 ? 0 : -1}
             >
-              <div className="gs-slide-scroll">
+              <div className="gs-slide-scroll" ref={hotScrollRef}>
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">Hot</p>
-                  <h2>Moving now.</h2>
-                  <p>Open it. Buy fast.</p>
+                  <h2>Watch what is moving now.</h2>
+                  <p>See the clip first. Decide fast.</p>
                 </div>
-
-                <Masonry
-                  breakpointCols={{ default: 2, 360: 1 }}
-                  className="gs-masonry-grid"
-                  columnClassName="gs-masonry-grid_column"
-                  role="list"
-                  aria-label="Hot gift stories"
-                >
-                  {videoStories.map((item, index) => (
-                    <AnimatedHotCard key={`${item.gift.id}-hot-${index}`} item={item} index={index} openPreview={openPreview} />
-                  ))}
-                </Masonry>
+                {leadingHotFeedCycle !== null ? (
+                  <section
+                    className="gs-hot-feed-batch"
+                    ref={(node) => setHotFeedBatchRef(leadingHotFeedCycle, node)}
+                  >
+                    <Masonry
+                      breakpointCols={{ default: 2, 360: 1 }}
+                      className="gs-masonry-grid"
+                      columnClassName="gs-masonry-grid_column"
+                      role="list"
+                      aria-label="Hot gift stories"
+                    >
+                      {buildLoopedHotStories(videoStories, leadingHotFeedCycle).map((item, index) => (
+                        <AnimatedHotCard key={item.instanceId} item={item} index={index} openPreview={openPreview} />
+                      ))}
+                    </Masonry>
+                  </section>
+                ) : null}
                 <section className="gs-seo-guide-section" aria-label="Read full hot pages">
                   <div className="gs-section-head">
                     <p className="gs-overline">Stories</p>
@@ -1802,6 +1971,26 @@ export default function App() {
                     </a>
                   </div>
                 </section>
+                {trailingHotFeedCycles.map((cycleIndex) => (
+                  <section
+                    key={`hot-feed-batch-${cycleIndex}`}
+                    className="gs-hot-feed-batch"
+                    ref={(node) => setHotFeedBatchRef(cycleIndex, node)}
+                  >
+                    <Masonry
+                      breakpointCols={{ default: 2, 360: 1 }}
+                      className="gs-masonry-grid"
+                      columnClassName="gs-masonry-grid_column"
+                      role="list"
+                      aria-label={`More hot gift stories batch ${cycleIndex + 1}`}
+                    >
+                      {buildLoopedHotStories(videoStories, cycleIndex).map((item, index) => (
+                        <AnimatedHotCard key={item.instanceId} item={item} index={index} openPreview={openPreview} />
+                      ))}
+                    </Masonry>
+                  </section>
+                ))}
+                <div ref={hotFeedSentinelRef} className="gs-hot-feed-sentinel" aria-hidden="true" />
                 {renderFooter()}
               </div>
             </section>
@@ -1816,9 +2005,9 @@ export default function App() {
             >
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
-                  <p className="gs-overline">Dates</p>
-                  <h2>Find a place fast.</h2>
-                  <p>Nearby dinner and drinks spots that open in Maps or on the venue site.</p>
+                  <p className="gs-overline">Plans</p>
+                  <h2>Plan the second move fast.</h2>
+                  <p>Nearby dinner and drinks spots when the gift turns into an actual night out.</p>
                 </div>
 
                 <section className="gs-date-shell">
@@ -1831,7 +2020,7 @@ export default function App() {
                       type="button"
                       className="gs-date-locate"
                       onClick={useMyArea}
-                      aria-label="Use my current location to rank nearby date spots"
+                      aria-label="Use my current location to rank nearby plans"
                     >
                       {geoState.status === "loading" ? "Locating..." : "Use my area"}
                     </button>
@@ -1947,7 +2136,7 @@ export default function App() {
                   )}
 
                   {dateResults.spots.length > 0 ? (
-                    <section className="gs-date-list" role="list" aria-label="Nearby date spots">
+                    <section className="gs-date-list" role="list" aria-label="Nearby plans">
                       {dateResults.spots.map((spot) => (
                         <article
                           key={spot.id}
@@ -2001,7 +2190,7 @@ export default function App() {
                     {seoDateCities.map((city) => (
                       <a key={city.slug} href={`/dates/${city.slug}/`} className="gs-seo-guide-link">
                         <div>
-                          <span className="gs-seo-guide-eyebrow">Date spots</span>
+                          <span className="gs-seo-guide-eyebrow">Plans</span>
                           <strong>{city.city}</strong>
                         </div>
                         <ArrowUpRight size={16} />
@@ -2032,26 +2221,26 @@ export default function App() {
             >
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
-                  <p className="gs-overline">Saved/Cart</p>
+                  <p className="gs-overline">Saved</p>
                   <h2>Keep the gifts you are actually close to buying.</h2>
-                  <p>Your local shortlist with a cart-like feel.</p>
+                  <p>Your local shortlist for the gifts still in play.</p>
                 </div>
 
                 <section className="gs-stack">
                   {savedGifts.length ? (
                     <>
                       <section className="gs-saved-helper" role="status" aria-live="polite" aria-atomic="true">
-                        <strong>{savedGifts.length} in your saved cart right now</strong>
+                        <strong>{savedGifts.length} saved right now</strong>
                         <p>Keep it tight. If one still feels obvious, open it and finish the buy.</p>
                       </section>
-                      <div className="gs-saved-list" role="list" aria-label="Saved cart gift picks">
+                      <div className="gs-saved-list" role="list" aria-label="Saved gift picks">
                         {savedGifts.map((gift, index) => renderSavedRow(gift, index))}
                       </div>
                     </>
                   ) : (
                     <div className="gs-saved-list" role="status" aria-live="polite" aria-atomic="true">
                       <article className="gs-empty-panel">
-                        <p>No saved picks yet. Save the cover pick or one of the hot stories and it will collect here like a lightweight cart.</p>
+                        <p>No saved picks yet. Save the cover pick or one of the hot stories and it will collect here like a lightweight shortlist.</p>
                         <div className="gs-empty-actions">
                           <button type="button" className="gs-text-link-btn" onClick={() => setSlide(0)}>
                             Open Popular
@@ -2060,7 +2249,7 @@ export default function App() {
                             Open Hot
                           </button>
                           <button type="button" className="gs-text-link-btn" onClick={() => setSlide(2)}>
-                            Open Dates
+                            Open Plans
                           </button>
                         </div>
                       </article>
@@ -2074,7 +2263,90 @@ export default function App() {
         </section>
         </main>
 
-        {previewGift ? (
+        {previewGift && previewMode === "hot" ? (
+          <div
+            className="gs-hot-preview-shell"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`preview-title-${previewGift.id}`}
+            aria-describedby={`preview-description-${previewGift.id}`}
+          >
+            <section className="gs-hot-preview-sheet">
+              <div className="gs-hot-preview-stage">
+                {activePreviewMedia?.kind === "embed" && activePreviewEmbedUrl ? (
+                  <iframe
+                    key={activePreviewMedia.id}
+                    ref={previewEmbedRef}
+                    src={activePreviewEmbedUrl}
+                    title={activePreviewMedia.title || `${previewGift.name} TikTok video`}
+                    className="gs-hot-preview-embed"
+                    allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                    allowFullScreen
+                    onLoad={() => {
+                      if (activePreviewMedia.provider !== "tiktok") {
+                        return;
+                      }
+
+                      const frameWindow = previewEmbedRef.current?.contentWindow;
+
+                      postTikTokPlayerMessage(frameWindow, "mute");
+                      postTikTokPlayerMessage(frameWindow, "play");
+                    }}
+                  />
+                ) : (
+                  <div className="gs-hot-preview-fallback">
+                    <p>Open the product page for the full story.</p>
+                  </div>
+                )}
+                <div className="gs-hot-preview-topbar">
+                  <button
+                    ref={previewCloseRef}
+                    type="button"
+                    className="gs-hot-preview-close"
+                    onClick={closePreview}
+                    aria-label={`Close hot preview for ${previewGift.name}`}
+                  >
+                    Close
+                  </button>
+                </div>
+                <div className="gs-hot-preview-scrim" aria-hidden="true" />
+                <div className="gs-hot-preview-rail">
+                  <p className="gs-hot-preview-kicker">Hot · TikTok</p>
+                  <h3 id={`preview-title-${previewGift.id}`}>{previewGift.name}</h3>
+                  <p id={`preview-description-${previewGift.id}`}>{previewGift.hook || previewGift.why}</p>
+                  <div className="gs-hot-preview-meta">
+                    {[activePreviewSourceLabel, activePreviewDurationLabel || previewGift.priceLabel, previewGift.badge]
+                      .filter(Boolean)
+                      .map((value) => (
+                        <span key={`${previewGift.id}-hot-${value}`}>{value}</span>
+                      ))}
+                  </div>
+                  <div className="gs-hot-preview-actions">
+                    {previewSeoGift ? (
+                      <a
+                        className="gs-primary-btn"
+                        href={getProductPageHref(previewSeoGift.slug)}
+                        aria-label={`Open the product page for ${previewGift.name}`}
+                      >
+                        Open product page
+                      </a>
+                    ) : null}
+                    <a
+                      className="gs-secondary-btn gs-hot-preview-buy"
+                      href={buildAffiliateLink(previewGift)}
+                      target="_blank"
+                      rel={AMAZON_AFFILIATE_REL}
+                      {...getAffiliateAnchorData(previewGift, "hot-preview-buy")}
+                      aria-label={`Buy ${previewGift.name} on ${affiliateConfig.merchantName}`}
+                    >
+                      Buy on {affiliateConfig.merchantName}
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        ) : previewGift ? (
           <div
             className="gs-preview-shell"
             role="dialog"
@@ -2157,7 +2429,7 @@ export default function App() {
                     </div>
                   ) : activePreviewMedia?.kind === "embed" ? (
                     <div className="gs-preview-media-stage gs-preview-embed-fallback">
-                      <p>Open the source clip in a new tab.</p>
+                      <p>Watch the original clip in a new tab.</p>
                       {activePreviewMedia.sourceUrl ? (
                         <a
                           className="gs-primary-btn gs-preview-source-btn"
@@ -2165,7 +2437,7 @@ export default function App() {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Open source clip
+                          Watch original clip
                         </a>
                       ) : null}
                     </div>
@@ -2250,26 +2522,6 @@ export default function App() {
                     <p className="gs-preview-copy" id={`preview-description-${previewGift.id}`}>{getPreviewLeadCopy()}</p>
                   </div>
                   <div className="gs-preview-head-actions">
-                    {activePreviewMedia?.sourceUrl ? (
-                      <a
-                        className="gs-preview-inline-link"
-                        href={activePreviewMedia.sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Open the source clip for ${previewGift.name}`}
-                      >
-                        Open source
-                      </a>
-                    ) : null}
-                    {previewSeoGift ? (
-                      <a
-                        className="gs-preview-inline-link"
-                        href={`/gift/${previewSeoGift.slug}/`}
-                        aria-label={`Open the full page for ${previewGift.name}`}
-                      >
-                        Open full page
-                      </a>
-                    ) : null}
                     <button
                       ref={previewCloseRef}
                       type="button"
@@ -2281,6 +2533,14 @@ export default function App() {
                     </button>
                   </div>
                 </div>
+
+                {previewHeadlineTags.length ? (
+                  <div className="gs-preview-badge-row">
+                    {previewHeadlineTags.map((value) => (
+                      <span key={`${previewGift.id}-headline-${value}`}>{value}</span>
+                    ))}
+                  </div>
+                ) : null}
 
                 <div className="gs-preview-stat-row">
                   <article className="gs-preview-stat">
@@ -2352,10 +2612,10 @@ export default function App() {
                     {previewSeoGift ? (
                       <a
                         className="gs-secondary-btn gs-preview-secondary"
-                        href={`/gift/${previewSeoGift.slug}/`}
+                        href={getProductPageHref(previewSeoGift.slug)}
                         aria-label={`Open more details for ${previewGift.name}`}
                       >
-                        Details
+                        Open full page
                       </a>
                     ) : null}
                   </div>

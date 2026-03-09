@@ -6,7 +6,7 @@ export const seoSite = {
   name: "ShopForHer",
   url: "https://shopforher.org",
   updatedAt: "2026-03-09",
-  description: "Fast gift picks for men buying for her.",
+  description: "Sharper gift picks for men buying for her.",
   contactEmail: "hello@shopforher.org",
   aboutPath: "/about.html",
   editorialPath: "/editorial-policy.html",

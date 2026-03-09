@@ -44,6 +44,8 @@ function normalizeShortVideo(video, index = 0) {
     return null;
   }
 
+  const videoId = normalizeText(video.id);
+  const normalizedId = videoId || `video-${index + 1}`;
   const provider = normalizeText(video.provider, "direct").toLowerCase();
   const videoUrl = normalizeText(video.videoUrl);
   const embedUrl = normalizeText(video.embedUrl || video.embedLink);
@@ -55,12 +57,12 @@ function normalizeShortVideo(video, index = 0) {
     return null;
   }
 
-  if (normalizedProvider === "tiktok" && !embedUrl && !sourceUrl) {
+  if (normalizedProvider === "tiktok" && !videoId && !embedUrl && !sourceUrl) {
     return null;
   }
 
   return {
-    id: normalizeText(video.id, `video-${index + 1}`),
+    id: normalizedId,
     provider: normalizedProvider,
     title: normalizeText(video.title, normalizedProvider === "tiktok" ? "TikTok video" : "Product video"),
     posterUrl,

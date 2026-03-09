@@ -50,6 +50,12 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/71r1aBZg80L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71D4uurXTUL._AC_SL1500_.jpg",
     ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7603266746702744840",
+        title: "Silk pillowcase TikTok clip.",
+      }),
+    ],
   },
   "temperature-mug": {
     imageUrl: "https://m.media-amazon.com/images/I/51pcI-tu5+L._AC_SL1500_.jpg",
@@ -72,9 +78,21 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/71umUvpXuBL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71V03aYKC2L._AC_SL1500_.jpg",
     ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7407282766406077739",
+        title: "Digital frame TikTok clip.",
+      }),
+    ],
   },
   "mini-photo-printer": {
     imageUrl: "https://m.media-amazon.com/images/I/81sCLWe7g7L._AC_SL1500_.jpg",
+    shortVideos: [
+      createTikTokVideo({
+        id: "7305105883518799109",
+        title: "Mini photo printer TikTok clip.",
+      }),
+    ],
   },
   "sunrise-alarm": {
     imageUrl: "https://m.media-amazon.com/images/I/91rrv5C9kkL._AC_SL1500_.jpg",
@@ -136,6 +154,12 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/61kWYqBOm4L._AC_SL1200_.jpg",
       "https://m.media-amazon.com/images/I/61lx+1+VHTL._AC_SL1500_.jpg",
     ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7299478126248168712",
+        title: "Wireless earbuds TikTok clip.",
+      }),
+    ],
   },
   projector: {
     imageUrl: "https://m.media-amazon.com/images/I/71edbbOhUHL._AC_SL1500_.jpg",
@@ -171,6 +195,12 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/81TX5wZl6uL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71bZykqL7dL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81syQvlCc7L._AC_SL1500_.jpg",
+    ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7486734104369646853",
+        title: "Candle warmer TikTok clip.",
+      }),
     ],
   },
   "vanity-mirror": {
@@ -231,6 +261,12 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/61u5aTVjyIL._AC_SL1000_.jpg",
       "https://m.media-amazon.com/images/I/61DDUvzWfBL._AC_SL1000_.jpg",
     ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7535104299752262930",
+        title: "Nespresso TikTok clip.",
+      }),
+    ],
   },
   "owala-bottle": {
     imageUrl: "https://m.media-amazon.com/images/I/61ezSdimm-L._AC_SL1500_.jpg",
@@ -241,6 +277,12 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/71+dm76qdQL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71juNj4G2eL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/81z-eXxY0LL._AC_SL1500_.jpg",
+    ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7563349917486386452",
+        title: "Water bottle TikTok clip.",
+      }),
     ],
   },
   "theragun-relief": {
@@ -253,6 +295,12 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/815R4dUQvGL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71e9ePUTz+L._AC_SL1500_.jpg",
     ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7512725122705411349",
+        title: "Massage gun TikTok clip.",
+      }),
+    ],
   },
   "ugg-slippers": {
     imageUrl: "https://m.media-amazon.com/images/I/71wlb5ErSzL._AC_SL1500_.jpg",
@@ -262,6 +310,12 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/71TUVzMQP+L._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/712CfJe82GL._AC_SL1500_.jpg",
       "https://m.media-amazon.com/images/I/814IvAQWhdL._AC_SL1500_.jpg",
+    ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7360657964492983558",
+        title: "Cozy slippers TikTok clip.",
+      }),
     ],
   },
   "stanley-quencher": {
@@ -295,6 +349,12 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/81PKEzIuSEL._SL1500_.jpg",
       "https://m.media-amazon.com/images/I/71CGIzOm-EL._SL1500_.jpg",
     ],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7314819381375143170",
+        title: "Lip mask TikTok clip.",
+      }),
+    ],
   },
   "bose-speaker": {
     imageUrl: "https://m.media-amazon.com/images/I/71uv8YRxwuL._AC_SL1500_.jpg",
@@ -310,6 +370,12 @@ export const productMedia = {
   "sol-de-janeiro": {
     imageUrl: "https://static.thcdn.com/productimg/original/12545102-1214895116732476.jpg",
     galleryImages: ["https://static.thcdn.com/productimg/original/12545102-1864895116865487.jpg"],
+    shortVideos: [
+      createTikTokVideo({
+        id: "7379682537569783058",
+        title: "Sol de Janeiro TikTok clip.",
+      }),
+    ],
   },
   "saodimallsu-crochet-coverup-set": {
     imageUrl: "https://assets.giftpals.com/assets/uc/Gift/qnrLiaUtHuCk/5/thumbnail_default_5.webp?xkXF48Y6GGGS",

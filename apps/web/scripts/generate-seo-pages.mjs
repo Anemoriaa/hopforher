@@ -938,25 +938,32 @@ function renderProductPage(gift) {
             <span>${escapeHtml(gift.badge)}</span>
             <span>${escapeHtml(merchantName(gift))} checkout</span>
           </div>
-          <div class="discovery-product-points">
+          <div class="discovery-product-summary">
+            <span class="discovery-product-eyebrow">Why this one works</span>
+            <p>${escapeHtml(gift.why)}</p>
+          </div>
+          <div class="discovery-product-facts">
+            <article class="discovery-product-point">
+              <span>Price</span>
+              <strong>${escapeHtml(gift.priceLabel)}</strong>
+            </article>
             <article class="discovery-product-point">
               <span>Best for</span>
               <strong>${escapeHtml(gift.bestFor)}</strong>
             </article>
             <article class="discovery-product-point">
-              <span>Feels like</span>
+              <span>Mood</span>
               <strong>${escapeHtml(gift.vibe)}</strong>
-              <p>${escapeHtml(gift.why)}</p>
             </article>
-            <article class="discovery-product-point">
-              <span>Fast path</span>
-              <strong>${escapeHtml(merchantName(gift))}</strong>
-              <p>${
-                usesAffiliateSearchFallback(gift)
-                  ? "Use the Amazon search link here to find the current listing, then finish checkout on the merchant site."
-                  : "Open the merchant listing here, then finish checkout on the merchant site."
-              }</p>
-            </article>
+          </div>
+          <div class="discovery-product-route">
+            <span>Merchant path</span>
+            <strong>${escapeHtml(merchantName(gift))}</strong>
+            <p>${
+              usesAffiliateSearchFallback(gift)
+                ? "Use the Amazon search link here to find the current listing, then finish checkout on the merchant site."
+                : "Open the merchant listing here, then finish checkout on the merchant site."
+            }</p>
           </div>
           <div class="discovery-actions">
             ${renderAffiliateAnchor(gift, `product-${gift.slug}-primary`)}
@@ -1139,14 +1146,14 @@ function renderDatesIndex() {
       <nav class="discovery-nav" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/guides/">Guides</a>
-        <a href="/dates/">Dates</a>
+        <a href="/dates/">Plans</a>
       </nav>
     </header>
     <main class="discovery-main">
       <section class="discovery-hero">
-        <p class="discovery-kicker">Dates</p>
+        <p class="discovery-kicker">Plans</p>
         <h1>Date spots</h1>
-        <p class="discovery-intro">Simple city pages for dinner, drinks, and easier booking paths.</p>
+        <p class="discovery-intro">City pages for dinner, drinks, and easier date-night booking paths.</p>
       </section>
       <section class="discovery-section">
         <div class="discovery-section-head">
@@ -1166,7 +1173,7 @@ function renderDatesIndex() {
       </section>
     </main>
     ${renderDiscoveryFooter({
-      notes: ["Date pages summarize cleaner planning lanes and hand off to external booking or map destinations."],
+      notes: ["Plan pages summarize cleaner date-night lanes and hand off to external booking or map destinations."],
       includeAffiliateDisclosure: false,
     })}
   </div>
@@ -1225,16 +1232,16 @@ function renderDateCityPage(city) {
       <nav class="discovery-nav" aria-label="Primary">
         <a href="/">Home</a>
         <a href="/guides/">Guides</a>
-        <a href="/dates/">Dates</a>
+        <a href="/dates/">Plans</a>
       </nav>
     </header>
     <main class="discovery-main">
       <section class="discovery-hero">
-        <p class="discovery-kicker">Date spots</p>
+        <p class="discovery-kicker">Plans</p>
         <h1>${escapeHtml(city.h1)}</h1>
         <p class="discovery-intro">${escapeHtml(city.intro)}</p>
         <div class="discovery-meta">
-          <span>OpenTable path</span>
+          <span>Booking path</span>
           <span>Updated ${escapeHtml(formattedDate)}</span>
         </div>
       </section>
@@ -1545,7 +1552,7 @@ function renderTrustPage(page) {
         <a href="/">Home</a>
         <a href="/guides/">Guides</a>
         <a href="/hot/">Hot</a>
-        <a href="/dates/">Dates</a>
+        <a href="/dates/">Plans</a>
       </nav>
     </header>
     <main class="discovery-main">
@@ -1628,9 +1635,9 @@ function renderSiteMapPage() {
       })),
     },
     {
-      kicker: "Dates",
-      title: "Date pages",
-      links: [{ href: "/dates/", label: "Date spots", meta: "Index" }].concat(
+      kicker: "Plans",
+      title: "Date plans",
+      links: [{ href: "/dates/", label: "Plans index", meta: "Index" }].concat(
         seoDateCities.map((city) => ({
           href: `/dates/${city.slug}/`,
           label: city.h1,
@@ -1695,7 +1702,7 @@ function renderSiteMapPage() {
         <a href="/">Home</a>
         <a href="/guides/">Guides</a>
         <a href="/hot/">Hot</a>
-        <a href="/dates/">Dates</a>
+        <a href="/dates/">Plans</a>
       </nav>
     </header>
     <main class="discovery-main">
@@ -1949,7 +1956,7 @@ function writeLlmsFiles() {
   const lines = [
     "# ShopForHer",
     "",
-    "> Fast gift picks for men buying for her.",
+    `> ${seoSite.description}`,
     "",
     "## Main guide index",
     `- ${siteUrl}/guides/`,
@@ -1977,7 +1984,7 @@ function writeLlmsFiles() {
     "## Product pages",
     ...seoCatalog.map((gift) => `- [${gift.name}](${productUrl(gift)})`),
     "",
-    "## Date pages",
+    "## Plans",
     ...seoDateCities.map((city) => `- [${city.h1}](${siteUrl}/dates/${city.slug}/)`),
     "",
     "## Notes",
