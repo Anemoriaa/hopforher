@@ -142,6 +142,24 @@ body {
   width: 100%;
 }
 
+.gs-header-tabs {
+  margin-top: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.gs-header-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.gs-header-tabs-inner {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: max-content;
+  padding-bottom: 2px;
+}
+
 .gs-site-link {
   display: flex;
   align-items: center;
@@ -161,6 +179,7 @@ body {
   padding: 4px 0 8px;
   cursor: pointer;
   white-space: nowrap;
+  text-decoration: none;
   transition:
     border-color 0.2s ease,
     color 0.2s ease,
@@ -291,6 +310,10 @@ body {
   }
 
   .gs-site-nav {
+    gap: 12px;
+  }
+
+  .gs-header-tabs-inner {
     gap: 12px;
   }
 

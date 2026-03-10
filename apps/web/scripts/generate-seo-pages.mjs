@@ -574,20 +574,6 @@ function feedLinkTag() {
   return `<link rel="alternate" type="application/rss+xml" title="${escapeHtml(seoSite.name)} feed" href="/feed.xml">`;
 }
 
-function catalogLinkTags({ includeGuide = false, includeProduct = false } = {}) {
-  const links = [];
-
-  if (includeGuide) {
-    links.push('<link rel="alternate" type="application/json" title="Guide catalog" href="/guide-catalog.json">');
-  }
-
-  if (includeProduct) {
-    links.push('<link rel="alternate" type="application/json" title="Product catalog" href="/product-catalog.json">');
-  }
-
-  return links.join("\n  ");
-}
-
 function socialImageMetaTags(imageUrl, altText) {
   return `<meta property="og:image" content="${escapeHtml(imageUrl)}">
   <meta property="og:image:alt" content="${escapeHtml(altText)}">
@@ -595,15 +581,15 @@ function socialImageMetaTags(imageUrl, altText) {
   <meta name="twitter:image:alt" content="${escapeHtml(altText)}">`;
 }
 
-function renderFooterLinks({ includeLlms = true } = {}) {
+function renderFooterLinks({ includeLlms = false } = {}) {
   const links = [
     ["About", seoSite.aboutPath],
     ["Editorial", seoSite.editorialPath],
     ["Contact", seoSite.contactPath],
+    ["Guides", "/guides/"],
+    ["Hot", "/hot/"],
+    ["Plans", "/dates/"],
     ["Site map", "/site-map.html"],
-    ["Feed", "/feed.xml"],
-    ["Guide JSON", "/guide-catalog.json"],
-    ["Catalog JSON", "/product-catalog.json"],
     ["Privacy", "/privacy.html"],
     ["Terms", "/terms.html"],
     ["Affiliate", "/affiliate-disclosure.html"],
@@ -715,7 +701,7 @@ function renderPageRail(cards = []) {
   return `<aside class="discovery-page-rail">${markup}</aside>`;
 }
 
-function renderDiscoveryFooter({ notes = [], includeLlms = true, includeAffiliateDisclosure = false } = {}) {
+function renderDiscoveryFooter({ notes = [], includeLlms = false, includeAffiliateDisclosure = false } = {}) {
   const footerNotes = includeAffiliateDisclosure ? [AMAZON_ASSOCIATE_DISCLOSURE, ...notes] : notes;
 
   return `<footer class="discovery-footer">
@@ -1319,7 +1305,6 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${feedLinkTag()}
-  ${catalogLinkTags({ includeGuide: true, includeProduct: true })}
   ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(itemListSchema)}
@@ -1643,7 +1628,6 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${feedLinkTag()}
-  ${catalogLinkTags({ includeGuide: true, includeProduct: true })}
   ${attributionScriptTag()}
   ${jsonLdScript(productSchema)}
   ${jsonLdScript(productPageSchema)}
@@ -2299,7 +2283,6 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${feedLinkTag()}
-  ${catalogLinkTags({ includeGuide: true, includeProduct: true })}
   ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(articleSchema)}
@@ -2559,17 +2542,6 @@ function renderSiteMapPage(freshness = lastmodPlaceholder) {
         meta: gift.badge,
       })),
     },
-    {
-      kicker: "Machine-readable",
-      title: "Discovery files",
-      links: [
-        { href: "/feed.xml", label: "RSS feed", meta: "RSS" },
-        { href: "/guide-catalog.json", label: "Guide catalog", meta: "JSON" },
-        { href: "/product-catalog.json", label: "Product catalog", meta: "JSON" },
-        { href: "/llms.txt", label: "llms.txt", meta: "LLMs" },
-        { href: "/llms-full.txt", label: "llms-full.txt", meta: "LLMs" },
-      ],
-    },
   ];
   const linkedCount = sections.reduce((total, section) => total + section.links.length, 0);
 
@@ -2635,9 +2607,6 @@ function renderSiteMapPage(freshness = lastmodPlaceholder) {
     ${renderDiscoveryFooter({
       notes: [
         "Use this page when you want a readable directory instead of the XML sitemap.",
-        "The RSS feed is available at /feed.xml.",
-        "A machine-readable guide catalog is available at /guide-catalog.json.",
-        "A machine-readable product catalog is available at /product-catalog.json.",
       ],
     })}
   </div>
@@ -2956,11 +2925,6 @@ function writeSitemap() {
     "/hot/",
     "/dates/",
     "/site-map.html",
-    "/feed.xml",
-    "/guide-catalog.json",
-    "/product-catalog.json",
-    "/llms.txt",
-    "/llms-full.txt",
     seoSite.aboutPath,
     seoSite.editorialPath,
     seoSite.contactPath,

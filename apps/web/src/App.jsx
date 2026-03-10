@@ -462,7 +462,7 @@ function getProductPageHref(slug) {
     return "/";
   }
 
-  return `/gift/${slug}/index.html`;
+  return `/gift/${slug}/`;
 }
 
 function rankGiftMatches(gifts, filters) {
@@ -1913,7 +1913,6 @@ export default function App() {
             <a href="/editorial-policy.html">{t("footer.editorial")}</a>
             <a href="/contact.html">{t("footer.contact")}</a>
             <a href="/site-map.html">{t("footer.siteMap")}</a>
-            <a href="/feed.xml">{t("footer.feed")}</a>
             <a href="/guides/">{t("footer.guides")}</a>
             <a href="/hot/">{t("footer.hot")}</a>
             <a href="/dates/">{t("footer.plans")}</a>
@@ -1947,6 +1946,12 @@ export default function App() {
       : dateResults.mode === "unconfigured" || dateResults.mode === "fallback" || dateResults.status === "error"
         ? t("plans.poweredFallback")
         : t("plans.poweredIdle");
+  const siteNavLinks = [
+    { href: "/guides/", label: t("footer.guides") },
+    { href: "/hot/", label: t("footer.hot") },
+    { href: "/dates/", label: t("footer.plans") },
+    { href: "/affiliate-disclosure.html", label: t("footer.affiliate") },
+  ];
 
   function getDateSpotSummaryLabel(spot) {
     return [spot.distanceLabel, spot.priceHint].filter(Boolean).join(" · ") || spot.sourceLabel;
@@ -1979,58 +1984,67 @@ export default function App() {
               <img src="/logo1.png" alt="ShopForHer" className="gs-logo" />
             </a>
             <nav className="gs-site-nav-wrap" aria-label={t("nav.primaryAria")}>
-              <div className="gs-site-nav" role="tablist" aria-label={t("nav.giftPagesAria")}>
-                {editorialSlides.map((slide, index) => (
-                  <button
-                    key={slide.id}
-                    ref={(node) => setTabRef(index, node)}
-                    id={`tab-${slide.id}`}
-                    role="tab"
-                    type="button"
-                    className={classNames(
-                      "gs-site-link",
-                      slide.id === "popular" && "has-locale-badge",
-                      activeSlide === index && "is-active"
-                    )}
-                    onClick={() => setSlide(index)}
-                    onKeyDown={(event) => onTabKeyDown(event, index)}
-                    aria-selected={activeSlide === index}
-                    aria-controls={`panel-${slide.id}`}
-                    tabIndex={activeSlide === index ? 0 : -1}
-                    title={slide.id === "popular" ? popularLocaleBadge.title : undefined}
-                  >
-                    {slide.id === "popular" ? (
-                      <>
-                        <span className="gs-site-link-badge" aria-hidden="true">
-                          {popularLocaleBadge.emoji}
-                        </span>
-                        <span className="gs-visually-hidden">{popularLocaleBadge.screenReaderLabel}</span>
-                      </>
-                    ) : null}
-                    <span className="gs-site-link-label">{getSlideLabel(slide.id)}</span>
-                  </button>
+              <div className="gs-site-nav">
+                {siteNavLinks.map((link) => (
+                  <a key={link.href} href={link.href} className="gs-site-link">
+                    <span className="gs-site-link-label">{link.label}</span>
+                  </a>
                 ))}
-                <button
-                  ref={(node) => setTabRef(savedSlideIndex, node)}
-                  id="tab-saved"
-                  role="tab"
-                  type="button"
-                  className={classNames("gs-nav-save", activeSlide === savedSlideIndex && "is-active")}
-                  onClick={() => setSlide(savedSlideIndex)}
-                  onKeyDown={(event) => onTabKeyDown(event, savedSlideIndex)}
-                  aria-selected={activeSlide === savedSlideIndex}
-                  aria-controls="panel-saved"
-                  tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
-                >
-                  {t("nav.saved")}
-                  <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
-                    <span className="gs-visually-hidden">{`${t("nav.savedCountSr")} `}</span>
-                    {savedGifts.length}
-                  </span>
-                </button>
               </div>
             </nav>
           </div>
+          <nav className="gs-header-tabs" aria-label={t("nav.giftPagesAria")}>
+            <div className="gs-header-tabs-inner" role="tablist" aria-label={t("nav.giftPagesAria")}>
+              {editorialSlides.map((slide, index) => (
+                <button
+                  key={slide.id}
+                  ref={(node) => setTabRef(index, node)}
+                  id={`tab-${slide.id}`}
+                  role="tab"
+                  type="button"
+                  className={classNames(
+                    "gs-site-link",
+                    slide.id === "popular" && "has-locale-badge",
+                    activeSlide === index && "is-active"
+                  )}
+                  onClick={() => setSlide(index)}
+                  onKeyDown={(event) => onTabKeyDown(event, index)}
+                  aria-selected={activeSlide === index}
+                  aria-controls={`panel-${slide.id}`}
+                  tabIndex={activeSlide === index ? 0 : -1}
+                  title={slide.id === "popular" ? popularLocaleBadge.title : undefined}
+                >
+                  {slide.id === "popular" ? (
+                    <>
+                      <span className="gs-site-link-badge" aria-hidden="true">
+                        {popularLocaleBadge.emoji}
+                      </span>
+                      <span className="gs-visually-hidden">{popularLocaleBadge.screenReaderLabel}</span>
+                    </>
+                  ) : null}
+                  <span className="gs-site-link-label">{getSlideLabel(slide.id)}</span>
+                </button>
+              ))}
+              <button
+                ref={(node) => setTabRef(savedSlideIndex, node)}
+                id="tab-saved"
+                role="tab"
+                type="button"
+                className={classNames("gs-nav-save", activeSlide === savedSlideIndex && "is-active")}
+                onClick={() => setSlide(savedSlideIndex)}
+                onKeyDown={(event) => onTabKeyDown(event, savedSlideIndex)}
+                aria-selected={activeSlide === savedSlideIndex}
+                aria-controls="panel-saved"
+                tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
+              >
+                {t("nav.saved")}
+                    <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
+                      <span className="gs-visually-hidden">{`${t("nav.savedCountSr")} `}</span>
+                      {savedGifts.length}
+                    </span>
+              </button>
+            </div>
+          </nav>
         </header>
 
         <main className="gs-main" id="gs-main-content">

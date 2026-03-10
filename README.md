@@ -53,7 +53,7 @@ These pages are generated or served as first-party trust surfaces:
 - `/editorial-policy.html`
 - `/contact.html`
 
-They are linked in the sitemap, `llms.txt`, and discovery-page footers.
+They are linked from the main site navigation and the HTML site map.
 
 ### Crawl surfaces
 
@@ -62,6 +62,8 @@ The build also emits extra discovery surfaces:
 - `/site-map.html` for a readable HTML directory of the main pages
 - `/feed.xml` for a simple RSS feed of trust, guide, hot, and date pages
 - `/product-catalog.json` for a machine-readable product catalog with price bands, merchant paths, and product-page URLs
+
+These utility files stay available for feeds and agents, but they are not included in the XML sitemap as primary search landing pages.
 
 ### Referral attribution
 
