@@ -574,6 +574,27 @@ function feedLinkTag() {
   return `<link rel="alternate" type="application/rss+xml" title="${escapeHtml(seoSite.name)} feed" href="/feed.xml">`;
 }
 
+function catalogLinkTags({ includeGuide = false, includeProduct = false } = {}) {
+  const links = [];
+
+  if (includeGuide) {
+    links.push('<link rel="alternate" type="application/json" title="Guide catalog" href="/guide-catalog.json">');
+  }
+
+  if (includeProduct) {
+    links.push('<link rel="alternate" type="application/json" title="Product catalog" href="/product-catalog.json">');
+  }
+
+  return links.join("\n  ");
+}
+
+function socialImageMetaTags(imageUrl, altText) {
+  return `<meta property="og:image" content="${escapeHtml(imageUrl)}">
+  <meta property="og:image:alt" content="${escapeHtml(altText)}">
+  <meta name="twitter:image" content="${escapeHtml(imageUrl)}">
+  <meta name="twitter:image:alt" content="${escapeHtml(altText)}">`;
+}
+
 function renderFooterLinks({ includeLlms = true } = {}) {
   const links = [
     ["About", seoSite.aboutPath],
@@ -1064,6 +1085,77 @@ function guideFaqs(guide, items) {
   ];
 }
 
+function productFaqs(gift, matchingGuides) {
+  const leadGuide = matchingGuides[0] || null;
+  const buyNote = usesAffiliateSearchFallback(gift)
+    ? "This page currently uses an Amazon search link so you can find the latest listing, then finish checkout on the merchant site."
+    : `This page links out to the ${merchantName(gift)} listing and checkout still happens on the merchant site.`;
+
+  return [
+    {
+      q: `What kind of gift is ${gift.name}?`,
+      a: `${gift.name} is a ${gift.badge} pick that works best for ${gift.bestFor}. ${gift.why}`,
+    },
+    {
+      q: `When should I choose ${gift.name}?`,
+      a: leadGuide
+        ? `${gift.hook} It is strongest when the buyer moment matches ${gift.bestFor} and you want the kind of answer that already fits on ${leadGuide.label.toLowerCase()}.`
+        : `${gift.hook} Use it when the buyer moment matches ${gift.bestFor} and you want a cleaner product-level answer fast.`,
+    },
+    {
+      q: `Where do I buy ${gift.name}?`,
+      a: `${buyNote} ${priceEstimateNote}`,
+    },
+  ];
+}
+
+function hotStoryFaqs(story, items, relatedGuides) {
+  const leadGift = items[0] || null;
+  const leadGuide = relatedGuides[0] || null;
+
+  return [
+    {
+      q: "What is the safest first click in this story?",
+      a: leadGift
+        ? `${leadGift.name} is the cleanest first click here. ${leadGift.why}`
+        : "Start with the first ranked product in the story list.",
+    },
+    {
+      q: "Who is this story really for?",
+      a: `${story.intro} This page is best when you want a current-feeling answer quickly instead of starting with the broadest evergreen guide.`,
+    },
+    {
+      q: "Should I use this story or a guide first?",
+      a: leadGuide
+        ? `Use this story first when speed and current attention matter more than full coverage. Use ${leadGuide.label.toLowerCase()} first when you want the broader evergreen shortlist before buying.`
+        : "Use this story first when speed and current attention matter more than full evergreen coverage.",
+    },
+  ];
+}
+
+function renderFaqSection(sectionId, title, faqs) {
+  if (!faqs?.length) {
+    return "";
+  }
+
+  return `<section class="discovery-section" id="${escapeHtml(sectionId)}">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">FAQ</p>
+          <h2>${escapeHtml(title)}</h2>
+        </div>
+        <div class="discovery-faqs">
+          ${faqs
+            .map(
+              (faq) => `<article class="discovery-faq">
+            <h3>${escapeHtml(faq.q)}</h3>
+            <p>${escapeHtml(faq.a)}</p>
+          </article>`
+            )
+            .join("")}
+        </div>
+      </section>`;
+}
+
 function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   const items = guideItems(guide);
   const featuredGift = items[0] || null;
@@ -1073,6 +1165,7 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   const pageTitle = guide.title;
   const faqs = guideFaqs(guide, items);
   const pageImage = guideImageUrl(guide);
+  const pageImageAlt = featuredGift ? `${guide.h1} featuring ${featuredGift.name}` : guide.h1;
   const comparisonSection = renderGuideComparisonSection(guide, items);
   const guideSectionLinks = [
     { href: "#guide-overview", label: "How to use this page", meta: "Start here" },
@@ -1179,6 +1272,7 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
     name: guide.h1,
     description: guide.description,
     url: canonical,
+    inLanguage: "en-US",
     dateModified: freshness.isoDate,
     mainEntityOfPage: canonical,
     author: editorialAuthorSchema,
@@ -1193,6 +1287,12 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
       "@type": "Thing",
       name: guide.label,
     },
+    mentions: items.slice(0, 6).map((gift) => ({
+      "@type": "Product",
+      name: gift.name,
+      url: productUrl(gift),
+    })),
+    keywords: [guide.label, guide.groupLabel, "gifts for her", "gift guide"].join(", "),
   };
 
   return `<!DOCTYPE html>
@@ -1209,15 +1309,17 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   <meta property="og:title" content="${escapeHtml(pageTitle)}">
   <meta property="og:description" content="${escapeHtml(guide.description)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${escapeHtml(pageImage)}">
+  ${socialImageMetaTags(pageImage, pageImageAlt)}
+  <meta property="article:section" content="${escapeHtml(guide.groupLabel)}">
+  <meta property="article:tag" content="${escapeHtml(guide.label)}">
   <meta property="article:modified_time" content="${escapeHtml(freshness.dateTime)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
   <meta name="twitter:description" content="${escapeHtml(guide.description)}">
-  <meta name="twitter:image" content="${escapeHtml(pageImage)}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${feedLinkTag()}
+  ${catalogLinkTags({ includeGuide: true, includeProduct: true })}
   ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(itemListSchema)}
@@ -1379,13 +1481,16 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
   const description = `${gift.name} is a ${gift.badge} pick on ShopForHer. ${gift.why}`;
   const images = productImages(gift);
   const primaryImage = primaryImageUrl(gift);
+  const pageImageAlt = `${gift.name} product image`;
   const offerSchema = productOfferSchema(gift);
   const productSchemaId = `${canonical}#product`;
+  const faqs = productFaqs(gift, matchingGuides);
   const productSectionLinks = [
     { href: "#product-spotlight", label: "Product spotlight", meta: "Images and notes" },
     { href: "#product-context", label: "Where it fits", meta: "Buyer context" },
     ...(matchingGuides.length ? [{ href: "#product-guides", label: "Guides using this pick", meta: `${matchingGuides.length} guide${matchingGuides.length === 1 ? "" : "s"}` }] : []),
     { href: "#product-related", label: "Related products", meta: `${relatedProducts.length} more picks` },
+    { href: "#product-faq", label: "Quick answers", meta: `${faqs.length} FAQ${faqs.length === 1 ? "" : "s"}` },
     { href: "#product-editorial", label: "Editorial notes", meta: "How it was reviewed" },
   ];
   const productRail = renderPageRail([
@@ -1471,6 +1576,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
     name: pageTitle,
     description,
     url: canonical,
+    inLanguage: "en-US",
     dateModified: freshness.isoDate,
     author: editorialAuthorSchema,
     reviewedBy: editorialReviewerSchema,
@@ -1483,6 +1589,18 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
       name: seoSite.name,
       url: `${siteUrl}/`,
     },
+  };
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
   };
 
   const breadcrumbSchema = {
@@ -1518,17 +1636,18 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
   <meta property="og:title" content="${escapeHtml(pageTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${escapeHtml(primaryImage)}">
+  ${socialImageMetaTags(primaryImage, pageImageAlt)}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
-  <meta name="twitter:image" content="${escapeHtml(primaryImage)}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${feedLinkTag()}
+  ${catalogLinkTags({ includeGuide: true, includeProduct: true })}
   ${attributionScriptTag()}
   ${jsonLdScript(productSchema)}
   ${jsonLdScript(productPageSchema)}
+  ${jsonLdScript(faqSchema)}
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
@@ -1671,6 +1790,8 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
             .join("")}
         </div>
           </section>
+
+          ${renderFaqSection("product-faq", "Quick answers", faqs)}
 
           ${renderProductEditorialSection(gift)}
         </div>
@@ -2016,12 +2137,16 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
   const canonical = `${siteUrl}/hot/${story.slug}/`;
   const pageTitle = story.title;
   const description = story.description;
+  const pageImage = hotThumbUrl(story);
+  const pageImageAlt = `${story.h1} story image`;
   const leadGift = items[0] || null;
+  const faqs = hotStoryFaqs(story, items, relatedGuides);
   const storySectionLinks = [
     { href: "#story-poster", label: "Story poster", meta: "Trend snapshot" },
     { href: "#story-angle", label: "Why this is moving", meta: "Read the lane" },
     { href: "#story-picks", label: "Products in this story", meta: `${items.length} picks` },
     ...(relatedGuides.length ? [{ href: "#story-related", label: "Related guides", meta: `${relatedGuides.length} more pages` }] : []),
+    { href: "#story-faq", label: "Quick answers", meta: `${faqs.length} FAQ${faqs.length === 1 ? "" : "s"}` },
     { href: "#story-editorial", label: "Editorial notes", meta: "How this page was built" },
   ];
   const storyRail = renderPageRail([
@@ -2081,6 +2206,7 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
     name: story.h1,
     description,
     url: canonical,
+    inLanguage: "en-US",
     dateModified: freshness.isoDate,
     mainEntityOfPage: canonical,
     author: editorialAuthorSchema,
@@ -2095,7 +2221,48 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
       "@type": "Thing",
       name: story.label,
     },
+    mentions: items.slice(0, 6).map((gift) => ({
+      "@type": "Product",
+      name: gift.name,
+      url: productUrl(gift),
+    })),
     keywords: [story.label, "gifts for her", "viral gifts", "trending gifts"].join(", "),
+  };
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: story.h1,
+    description,
+    url: canonical,
+    inLanguage: "en-US",
+    mainEntityOfPage: canonical,
+    dateModified: freshness.isoDate,
+    image: [pageImage],
+    author: editorialAuthorSchema,
+    publisher: siteOrganizationSchema,
+    articleSection: "Hot",
+    keywords: [story.label, story.trendLabel, "gifts for her", "viral gifts"].join(", "),
+    about: {
+      "@type": "Thing",
+      name: story.label,
+    },
+    mentions: items.slice(0, 6).map((gift) => ({
+      "@type": "Product",
+      name: gift.name,
+      url: productUrl(gift),
+    })),
+  };
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
   };
 
   const breadcrumbSchema = {
@@ -2122,18 +2289,22 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
   <meta property="og:title" content="${escapeHtml(pageTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${escapeHtml(hotThumbUrl(story))}">
+  ${socialImageMetaTags(pageImage, pageImageAlt)}
+  <meta property="article:section" content="Hot">
+  <meta property="article:tag" content="${escapeHtml(story.label)}">
   <meta property="article:modified_time" content="${escapeHtml(freshness.dateTime)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
-  <meta name="twitter:image" content="${escapeHtml(hotThumbUrl(story))}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${feedLinkTag()}
+  ${catalogLinkTags({ includeGuide: true, includeProduct: true })}
   ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
+  ${jsonLdScript(articleSchema)}
   ${jsonLdScript(itemListSchema)}
+  ${jsonLdScript(faqSchema)}
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
@@ -2159,7 +2330,7 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
       <div class="discovery-page-main">
         <div class="discovery-page-stack">
           <section class="discovery-poster" id="story-poster">
-        <img src="${escapeHtml(hotThumbUrl(story))}" alt="${escapeHtml(story.h1)} TikTok thumbnail" loading="lazy">
+        <img src="${escapeHtml(pageImage)}" alt="${escapeHtml(story.h1)} TikTok thumbnail" loading="lazy">
         <div class="discovery-poster-copy">
           <span>${escapeHtml(story.label)}</span>
           <strong>${escapeHtml(story.trendLabel)}</strong>
@@ -2224,6 +2395,8 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
             .join("")}
         </div>
           </section>
+
+          ${renderFaqSection("story-faq", "Quick answers", faqs)}
 
           ${renderHotStoryEditorialSection(story, relatedGuides)}
         </div>

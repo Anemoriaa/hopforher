@@ -492,7 +492,7 @@ export const seoGuides = [
         body: "Choose this when you want the wife gift to feel more substantial and clearly above the routine-gift line.",
       },
     ],
-    itemIds: ["digital-frame", "temperature-mug", "cashmere-robe", "vanity-mirror", "walking-pad", "projector"],
+    itemIds: ["digital-frame", "walking-pad", "ceramic-floor-vase", "temperature-mug", "theragun-relief", "nespresso-machine"],
     related: ["anniversary-gifts-for-her", "luxury-gifts-for-her", "daily-use-gifts-for-her"],
   },
   {
@@ -622,7 +622,51 @@ export const seoGuides = [
         a: "If the relationship is long-term enough that a wife-level, anniversary, or luxury signal matters more than a lighter birthday feel.",
       },
     ],
-    itemIds: ["mini-photo-printer", "jewelry-case", "silk-pillowcase", "earbuds", "candle-warmer", "magsafe-stand"],
+    bestFits: [
+      {
+        title: "A playful gift that still feels obviously birthday-ready",
+        giftId: "mini-photo-printer",
+        body: "Best when you want the present to feel current, visual, and easy to enjoy right away.",
+      },
+      {
+        title: "A cleaner beauty or fragrance lane with more polish",
+        giftId: "gucci-flora-gorgeous-magnolia",
+        body: "Use this when she likes branded beauty gifts and you want something that feels more elevated than a random add-on.",
+      },
+      {
+        title: "A polished smaller gift with easy presentation",
+        giftId: "jewelry-case",
+        body: "This is the safer answer when you want the birthday gift to feel organized, feminine, and clearly chosen for her.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid turning a girlfriend birthday into an anniversary moment",
+        body: "The best gifts here feel celebratory and attractive without carrying too much emotional weight or pressure.",
+      },
+      {
+        title: "Avoid filler that only works because it is cheap or fast",
+        body: "A smaller birthday gift is fine, but it should still feel like an intentional pick instead of a backup plan.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best fun pick",
+        giftId: "mini-photo-printer",
+        body: "The easiest answer when you want the gift to feel lively, current, and obviously birthday-friendly.",
+      },
+      {
+        title: "Best polished pick",
+        giftId: "jewelry-case",
+        body: "Use this when you want a more put-together present that still feels easy to buy and easy to like.",
+      },
+      {
+        title: "Best beauty-brand pick",
+        giftId: "gucci-flora-gorgeous-magnolia",
+        body: "The cleaner answer when recognizable branding and a stronger reveal matter more than utility.",
+      },
+    ],
+    itemIds: ["mini-photo-printer", "jewelry-case", "gucci-flora-gorgeous-magnolia", "earbuds", "candle-warmer", "mchic-beaded-choker"],
     related: ["gifts-for-girlfriend", "viral-gifts-for-her", "best-gifts-under-100"],
   },
   {
@@ -665,7 +709,51 @@ export const seoGuides = [
         a: "Use this page when the moment is her birthday first and you want a stronger reveal without necessarily going fully romantic or ultra-luxury.",
       },
     ],
-    itemIds: ["temperature-mug", "digital-frame", "vanity-mirror", "cashmere-robe", "projector", "walking-pad"],
+    bestFits: [
+      {
+        title: "A meaningful gift with stronger birthday presence",
+        giftId: "digital-frame",
+        body: "Best when you want the gift to feel personal enough for a birthday while still being easy to defend.",
+      },
+      {
+        title: "A bigger upgrade that feels clearly above routine",
+        giftId: "walking-pad",
+        body: "Use this when the birthday gift should feel more substantial than a smaller accessory or comfort item.",
+      },
+      {
+        title: "A polished setup upgrade with obvious payoff",
+        giftId: "vanity-mirror",
+        body: "This is the cleaner answer when she will notice the finish and use the gift often enough for the spend to make sense.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid gifts that feel too routine for a birthday",
+        body: "A wife birthday gift should still create a moment, even when the product itself is useful or practical.",
+      },
+      {
+        title: "Avoid trying to split the difference with mediocre filler",
+        body: "One more convincing upgrade usually lands better than a group of smaller products with weaker presence.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best daily-use pick",
+        giftId: "temperature-mug",
+        body: "The safest move when you want a premium-feeling routine upgrade that still looks gift-worthy.",
+      },
+      {
+        title: "Best polished reveal",
+        giftId: "vanity-mirror",
+        body: "Use this when the gift should feel visually stronger right away without relying on novelty.",
+      },
+      {
+        title: "Best bigger move",
+        giftId: "walking-pad",
+        body: "The stronger answer when you want the birthday gift to feel more substantial than a typical home accessory.",
+      },
+    ],
+    itemIds: ["digital-frame", "walking-pad", "faux-olive-tree-planter", "temperature-mug", "vanity-mirror", "cashmere-robe"],
     related: ["gifts-for-wife", "anniversary-gifts-for-her", "luxury-gifts-for-her"],
   },
   {
@@ -875,7 +963,7 @@ export const seoGuides = [
       },
       {
         q: "What is the safest viral gift on this page?",
-        a: "The Stanley, Owala, and mini photo printer are easy first answers because they feel current and still have obvious everyday use or shareability.",
+        a: "The Stanley, Sol de Janeiro set, and mini photo printer are easy first answers because they feel current and still have obvious everyday use or shareability.",
       },
       {
         q: "When should I avoid the viral lane?",
@@ -926,7 +1014,7 @@ export const seoGuides = [
         body: "The strongest answer when the gift should feel more substantial while still carrying current online momentum.",
       },
     ],
-    itemIds: ["ninja-creami", "stanley-quencher", "owala-bottle", "sol-de-janeiro", "laneige-set", "mini-photo-printer"],
+    itemIds: ["ninja-creami", "sol-de-janeiro", "mchic-beaded-choker", "stanley-quencher", "laneige-set", "mini-photo-printer"],
     related: ["gifts-for-girlfriend", "tech-gifts-for-her", "amazon-gifts-for-her"],
   },
   {
@@ -962,7 +1050,7 @@ export const seoGuides = [
       },
       {
         q: "What is the safest luxury gift on this page?",
-        a: "The Kindle, digital frame, and Nespresso machine are strong because they feel premium quickly and still make sense in daily life.",
+        a: "The Kindle, Nespresso machine, and Theragun are strong because they feel premium quickly and still make sense in daily life.",
       },
       {
         q: "When should I choose luxury gifts over anniversary gifts?",
@@ -1013,7 +1101,7 @@ export const seoGuides = [
         body: "The stronger answer when you want the luxury gift to feel more substantial and obviously above a small upgrade.",
       },
     ],
-    itemIds: ["kindle-paperwhite", "digital-frame", "temperature-mug", "nespresso-machine", "theragun-relief", "bose-speaker"],
+    itemIds: ["marc-jacobs-perfect-absolute", "artificial-olive-tree-1026", "theragun-relief", "kindle-paperwhite", "gucci-flora-gorgeous-magnolia", "nespresso-machine"],
     related: ["gifts-for-wife", "anniversary-gifts-for-her", "looks-expensive-gifts-for-her"],
   },
   {
@@ -1025,7 +1113,82 @@ export const seoGuides = [
     h1: "Practical gifts for her in 2026",
     description: "Useful gifts for her that still feel like a gift, not an errand.",
     intro: "The right practical gift solves a real problem and still feels selected for her, not just purchased fast.",
-    itemIds: ["temperature-mug", "kindle-paperwhite", "owala-bottle", "magsafe-stand", "theragun-relief", "bose-speaker"],
+    selectionMethod: "This page favors gifts that remove friction from a real routine, look cleaner than basic errand buys, and do not need a long story to justify them.",
+    bestUseCase: "Use this when usefulness is the priority but you still need the gift to look intentional and worth wrapping.",
+    avoidWhen: "Skip this page if the main goal is romance, trend relevance, or a softer decorative home angle.",
+    buyerSignals: [
+      {
+        title: "Practical is strongest when the upgrade is visible",
+        body: "A gift that makes a routine easier and looks clearly better than what she already has usually lands well here.",
+      },
+      {
+        title: "Problem-solving beats novelty",
+        body: "The strongest practical picks reduce friction in the day instead of introducing another object with no real role.",
+      },
+      {
+        title: "Avoid household-errand energy",
+        body: "If the gift feels like you bought it for the room instead of for her life, it will read weaker than a more personal upgrade.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What makes a practical gift still feel like a gift?",
+        a: "The best practical gifts solve a real problem while still looking premium or clearly upgraded instead of purely functional.",
+      },
+      {
+        q: "What is the safest practical gift on this page?",
+        a: "The temperature-control mug and MagSafe stand are strong first picks because the payoff is immediate and easy to understand.",
+      },
+      {
+        q: "When should I leave this page for daily-use gifts instead?",
+        a: "Leave for daily-use gifts when repetition matters more than utility. Stay here when you want a more obvious problem-solving upgrade.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "An easy routine upgrade with instant payoff",
+        giftId: "temperature-mug",
+        body: "Best when you want the usefulness to be obvious on day one and still feel more elevated than a random appliance.",
+      },
+      {
+        title: "A clean desk or nightstand fix with almost no risk",
+        giftId: "magsafe-stand",
+        body: "Use this when she likes tidy spaces and the gift should make sense the second she sees it.",
+      },
+      {
+        title: "A more substantial wellness-focused upgrade",
+        giftId: "theragun-relief",
+        body: "This is the stronger answer when the practical gift should feel bigger and more premium than a small accessory.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid gifts that feel like they belong to the household instead of to her",
+        body: "The strongest practical gifts still feel personal because they improve something she actually touches or uses often.",
+      },
+      {
+        title: "Avoid overexplaining the purchase",
+        body: "If the practical benefit is not obvious quickly, a simpler upgrade usually reads better and converts faster.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Small clean upgrade",
+        giftId: "magsafe-stand",
+        body: "The easiest answer when you want practical value in a smaller, cleaner package.",
+      },
+      {
+        title: "Best daily-use practical pick",
+        giftId: "temperature-mug",
+        body: "Use this when you want the most obvious everyday payoff with the least explanation.",
+      },
+      {
+        title: "Best bigger upgrade",
+        giftId: "walking-pad",
+        body: "The better move when the practical gift should feel more substantial and clearly above the minor-upgrade tier.",
+      },
+    ],
+    itemIds: ["walking-pad", "theragun-relief", "magsafe-stand", "temperature-mug", "kindle-paperwhite", "bose-speaker"],
     related: ["daily-use-gifts-for-her", "best-gifts-under-100", "gifts-for-wife"],
   },
   {
@@ -1037,7 +1200,82 @@ export const seoGuides = [
     h1: "Cozy home gifts for her in 2026",
     description: "Soft, apartment-friendly gifts for her that feel warm and easy to keep.",
     intro: "This lane works when you want comfort, home use, and a gift that lands without much explanation.",
-    itemIds: ["luxury-throw", "ugg-slippers", "cashmere-robe", "candle-warmer", "sunrise-alarm", "nespresso-machine"],
+    selectionMethod: "This page prioritizes warm home gifts that soften a room or a routine quickly, with products that feel decorative or comforting without getting cluttered.",
+    bestUseCase: "Use this when she genuinely likes home comfort, slower evenings, and gifts that make her space feel better immediately.",
+    avoidWhen: "Skip this page if she would rather get a tech device, beauty upgrade, or a gift with more outside-the-house energy.",
+    buyerSignals: [
+      {
+        title: "Warmth and room feel matter here",
+        body: "The best cozy-home gifts either change the atmosphere of the space or make a calmer part of the day feel better.",
+      },
+      {
+        title: "Decor works if it looks finished",
+        body: "Home gifts read strongest when they look intentional and substantial enough to feel like a real present instead of shelf filler.",
+      },
+      {
+        title: "Avoid clutter in the name of coziness",
+        body: "The page works better with fewer stronger pieces than with lots of tiny decor that has no obvious place to live.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest cozy home gift on this page?",
+        a: "The luxury throw and candle warmer are strong because they improve comfort quickly and are easy to understand on sight.",
+      },
+      {
+        q: "Do decor gifts actually work well here?",
+        a: "Yes, as long as they look finished and make the room feel more styled rather than simply adding more stuff.",
+      },
+      {
+        q: "When should I use this instead of homebody gifts?",
+        a: "Use cozy-home when you want softness and atmosphere first. Use homebody gifts when the routine itself matters more than the decor mood.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "The safest comfort-first gift",
+        giftId: "luxury-throw",
+        body: "Best when you want the coziest answer with almost no learning curve and almost no risk.",
+      },
+      {
+        title: "A bigger room-finish gift with stronger visual payoff",
+        giftId: "faux-olive-tree-planter",
+        body: "Use this when the home gift should change the space quickly and feel more substantial than a tabletop accent.",
+      },
+      {
+        title: "A home ritual upgrade with obvious daily benefit",
+        giftId: "nespresso-machine",
+        body: "This is the cleaner answer when the cozy-home gift should live inside a real routine, not only in the decor.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid clutter-heavy decor with no real place to go",
+        body: "A few stronger pieces beat a collection of accents that only make the room feel busier.",
+      },
+      {
+        title: "Avoid shifting into pure utility if softness is the point",
+        body: "A highly functional product can still work here, but the page performs best when the gift also improves the mood of the space.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best comfort pick",
+        giftId: "luxury-throw",
+        body: "The easiest answer when warmth and low buying risk matter more than making a bold decor move.",
+      },
+      {
+        title: "Best room refresh",
+        giftId: "faux-olive-tree-planter",
+        body: "Use this when the gift should make her place feel more finished with one stronger piece.",
+      },
+      {
+        title: "Best ritual upgrade",
+        giftId: "nespresso-machine",
+        body: "The better answer when you want cozy-home energy with a routine she will actually keep using.",
+      },
+    ],
+    itemIds: ["luxury-throw", "faux-olive-tree-planter", "ninehaoou-scroll-vase", "candle-warmer", "nespresso-machine", "miyuki-rustic-vase"],
     related: ["gifts-for-homebodies", "date-night-gifts-for-her", "best-gifts-under-100"],
   },
   {
@@ -1049,7 +1287,82 @@ export const seoGuides = [
     h1: "Tech gifts for her in 2026",
     description: "Cleaner tech gifts for her that feel current, useful, and safe to buy.",
     intro: "The best tech picks here are simple to understand and easy to use the same day.",
-    itemIds: ["kindle-paperwhite", "digital-frame", "mini-photo-printer", "earbuds", "bose-speaker", "magsafe-stand"],
+    selectionMethod: "This page favors easy-to-understand devices and setup upgrades that feel current now without requiring hobby-level interest or complicated setup.",
+    bestUseCase: "Use this when you want a tech gift that feels modern and useful, not like a gadget bought just because it exists.",
+    avoidWhen: "Skip this page if you really need a softer home-decor answer or a simpler beauty or fragrance lane.",
+    buyerSignals: [
+      {
+        title: "Simple tech wins more often",
+        body: "The strongest tech gifts have a use case she understands immediately and can start using the same day.",
+      },
+      {
+        title: "Setup friction is the enemy",
+        body: "A cleaner device with obvious payoff beats a more ambitious product that needs too much explanation or adjustment.",
+      },
+      {
+        title: "Think upgrade, not experiment",
+        body: "The best gifts here improve a part of her routine or space she already cares about instead of inventing a new one.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest tech gift on this page?",
+        a: "The earbuds and MagSafe stand are strong because they are easy to understand, easy to use, and hard to regret.",
+      },
+      {
+        q: "Can wellness gear count as a tech gift?",
+        a: "Yes, if the device has clear daily logic and feels like an upgrade rather than a random trend toy.",
+      },
+      {
+        q: "When should I leave this page for practical gifts instead?",
+        a: "Leave for practical gifts when solving a problem matters more than the device feel. Stay here when the product should still read current and gadget-forward.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "A low-risk setup upgrade with obvious use",
+        giftId: "magsafe-stand",
+        body: "Best when you want the tech gift to feel neat, helpful, and immediately understandable.",
+      },
+      {
+        title: "A reliable everyday device she will actually use",
+        giftId: "earbuds",
+        body: "Use this when the safest path is strong day-to-day utility with very little learning curve.",
+      },
+      {
+        title: "A more memorable device with shared payoff",
+        giftId: "projector",
+        body: "This is the stronger answer when the tech gift should feel more interesting than a smaller accessory while still being easy to grasp.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid gimmick-tech with weak repeat use",
+        body: "If the product only feels exciting at unboxing, it is weaker than a simpler device that keeps earning its place.",
+      },
+      {
+        title: "Avoid products with unclear setup or maintenance",
+        body: "A tech gift should reduce friction, not create a new project she has to manage to enjoy it.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Small clean device",
+        giftId: "magsafe-stand",
+        body: "The easiest answer when you want a lower-spend tech gift with immediate usefulness.",
+      },
+      {
+        title: "Best everyday tech pick",
+        giftId: "earbuds",
+        body: "Use this when the gift should fit quickly into commuting, work, travel, or daily downtime.",
+      },
+      {
+        title: "Best bigger device",
+        giftId: "projector",
+        body: "The better move when the tech gift should feel more memorable and more like an experience-backed upgrade.",
+      },
+    ],
+    itemIds: ["projector", "walking-pad", "vanity-mirror", "theragun-relief", "magsafe-stand", "earbuds"],
     related: ["viral-gifts-for-her", "practical-gifts-for-her", "daily-use-gifts-for-her"],
   },
   {
@@ -1148,7 +1461,82 @@ export const seoGuides = [
     h1: "Best gifts for her who has everything in 2026",
     description: "Gift picks that feel less obvious and more chosen.",
     intro: "When she already buys what she wants, the better move is something useful, polished, or experience-adjacent.",
-    itemIds: ["digital-frame", "mini-photo-printer", "projector", "jewelry-case", "vanity-mirror", "temperature-mug"],
+    selectionMethod: "This page filters for gifts that feel less obvious, more room-changing, or more intentionally selected than the mainstream first-page answers she has probably already seen.",
+    bestUseCase: "Use this when she already buys herself the easy mainstream products and you need something that feels more chosen.",
+    avoidWhen: "Skip this page if the priority is just the safest generic gift rather than a more distinct answer.",
+    buyerSignals: [
+      {
+        title: "Distinctiveness matters more than trend familiarity",
+        body: "The best gifts here look like you edited out the obvious answers and chose something with more personality or home impact.",
+      },
+      {
+        title: "Room-changing gifts can work better than tiny accessories",
+        body: "A larger decor move or a more specific polished object usually stands out more for someone who already owns plenty.",
+      },
+      {
+        title: "Avoid default-best-seller energy",
+        body: "If the gift looks like the first thing anyone would buy, it loses some of the page promise immediately.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What kind of gift works for someone who already has everything?",
+        a: "The strongest picks feel more chosen than obvious, either by improving a room, creating a new experience, or landing in a category she would not automatically buy herself.",
+      },
+      {
+        q: "What is the safest gift on this page?",
+        a: "The ceramic floor vase and jewelry case are strong because they feel polished and intentional without being too complicated.",
+      },
+      {
+        q: "When should I leave this page for luxury gifts instead?",
+        a: "Use luxury gifts when price and premium finish are the main signals. Stay here when distinctiveness matters more than pure spend.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "A stronger decor answer with real room impact",
+        giftId: "ceramic-floor-vase",
+        body: "Best when you want the gift to feel more considered and less like another mainstream gadget.",
+      },
+      {
+        title: "An experience-shaped pick that still feels easy to understand",
+        giftId: "projector",
+        body: "Use this when the gift should create a new use case instead of repeating an everyday item she already owns.",
+      },
+      {
+        title: "A polished smaller gift with obvious taste",
+        giftId: "jewelry-case",
+        body: "This is the safer answer when you want something elegant and chosen without jumping to a larger decor piece.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid the first generic bestseller that comes to mind",
+        body: "This page works best when the gift shows a little editing discipline and does not look like a default purchase.",
+      },
+      {
+        title: "Avoid products that feel too similar to what she likely owns already",
+        body: "If the gift duplicates a category without improving the finish or use case, it loses the point of the page.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best lower-spend pick",
+        giftId: "rustic-vase-set",
+        body: "The easiest answer when you want the gift to feel more chosen than obvious without pushing the spend too far.",
+      },
+      {
+        title: "Best home-impact gift",
+        giftId: "faux-olive-tree-planter",
+        body: "Use this when the stronger answer is a piece that changes the room more than a small accessory can.",
+      },
+      {
+        title: "Best polished smaller gift",
+        giftId: "jewelry-case",
+        body: "The cleaner answer when you want taste and gift energy without moving into a bigger object category.",
+      },
+    ],
+    itemIds: ["ceramic-floor-vase", "rustic-vase-set", "faux-olive-tree-planter", "projector", "jewelry-case", "vanity-mirror"],
     related: ["luxury-gifts-for-her", "anniversary-gifts-for-her", "tech-gifts-for-her"],
   },
   {
@@ -1334,7 +1722,82 @@ export const seoGuides = [
     h1: "Best Amazon gifts for her in 2026",
     description: "Fast Amazon gift picks for her, chosen for clean fit and faster checkout.",
     intro: "If the goal is speed, this is the shortest path from product page to checkout.",
-    itemIds: ["kindle-paperwhite", "ninja-creami", "mini-photo-printer", "owala-bottle", "ugg-slippers", "bose-speaker"],
+    selectionMethod: "This page leans toward Amazon-friendly gifts with faster decision-making, recognizable brands, and cleaner presentation than generic marketplace filler.",
+    bestUseCase: "Use this when Amazon checkout speed matters but you still want the gift to look like a deliberate choice.",
+    avoidWhen: "Skip this page if you have time to optimize for a narrower relationship or occasion guide instead of pure buying convenience.",
+    buyerSignals: [
+      {
+        title: "Fast checkout does not have to look lazy",
+        body: "The best Amazon gifts still have clear brand recognition, gift energy, or enough home impact to feel chosen.",
+      },
+      {
+        title: "Recognizable products convert faster here",
+        body: "Cleaner categories with visible use cases or clear brand cues make Amazon shopping feel more intentional and less random.",
+      },
+      {
+        title: "Avoid generic marketplace clutter",
+        body: "A smaller list of stronger Amazon products beats endless cheap options with no real reason to exist.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest Amazon gift on this page?",
+        a: "The Gucci Flora fragrance and Bose speaker are strong because they feel recognizable, polished, and easy to justify quickly.",
+      },
+      {
+        q: "Are Amazon gifts automatically less thoughtful?",
+        a: "No. They only feel weaker when the product is generic. Brand recognition, cleaner fit, and stronger presentation still matter most.",
+      },
+      {
+        q: "When should I leave this page for last-minute gifts instead?",
+        a: "Use last-minute gifts when timing is the real issue. Use this page when Amazon is the buying path but you still want more editorial filtering.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "A branded beauty gift with obvious presentation",
+        giftId: "gucci-flora-gorgeous-magnolia",
+        body: "Best when you want the Amazon gift to feel more polished than a generic beauty set or filler product.",
+      },
+      {
+        title: "A mainstream device with easier everyday logic",
+        giftId: "bose-speaker",
+        body: "Use this when the gift should look recognizable and premium enough that the fast checkout does not show.",
+      },
+      {
+        title: "A bigger Amazon gift with more presence",
+        giftId: "ninja-creami",
+        body: "This is the better answer when you want more box-size impact and a product category she will notice immediately.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid buying from Amazon just because there are more options",
+        body: "A tighter, more defensible product with cleaner fit usually beats browsing too long and ending up with a weaker generic item.",
+      },
+      {
+        title: "Avoid ultra-cheap fillers if presentation matters",
+        body: "The strongest Amazon gifts still need a reason to look giftable quickly once they arrive.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best lower-spend Amazon pick",
+        giftId: "panluca-statement-necklace",
+        body: "The easiest answer when you want fast Amazon checkout without drifting into generic small-gift territory.",
+      },
+      {
+        title: "Best branded pick",
+        giftId: "gucci-flora-gorgeous-magnolia",
+        body: "Use this when immediate brand recognition is the fastest path to a more polished Amazon gift.",
+      },
+      {
+        title: "Best bigger-box pick",
+        giftId: "ninja-creami",
+        body: "The stronger answer when you want the Amazon order to feel more substantial the second it arrives.",
+      },
+    ],
+    itemIds: ["gucci-flora-gorgeous-magnolia", "panluca-statement-necklace", "ninja-creami", "bose-speaker", "black-olive-tree", "faux-olive-tree-planter"],
     related: ["last-minute-gifts-for-her", "best-gifts-under-100", "viral-gifts-for-her"],
   },
   {
@@ -1346,7 +1809,82 @@ export const seoGuides = [
     h1: "Best gifts for homebodies in 2026",
     description: "At-home gifts that feel soft, useful, and easy to keep around.",
     intro: "These picks work when she likes her apartment, routines, and comfort more than big gestures.",
-    itemIds: ["luxury-throw", "candle-warmer", "cashmere-robe", "sunrise-alarm", "digital-frame", "projector"],
+    selectionMethod: "This page focuses on gifts that improve the feel of staying in, whether that means better comfort, calmer routines, or a space that feels more put together.",
+    bestUseCase: "Use this when she genuinely prefers home nights, apartment comfort, and slower routines over going out for the sake of it.",
+    avoidWhen: "Skip this page if she would rather get a trendier social gift, a tech device, or something that lives outside the house.",
+    buyerSignals: [
+      {
+        title: "A homebody gift should reward staying in",
+        body: "The best picks make the apartment, living room, or nightly routine feel better enough that she notices quickly.",
+      },
+      {
+        title: "Comfort and atmosphere work together",
+        body: "Softness matters, but so does the room itself. The strongest gifts here improve both mood and habit.",
+      },
+      {
+        title: "Avoid gifts that still feel outward-facing",
+        body: "If the product is mainly for travel, commuting, or social visibility, it belongs in a different guide.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest gift for a homebody on this page?",
+        a: "The luxury throw and candle warmer are strong because they improve comfort quickly and fit almost any home routine.",
+      },
+      {
+        q: "Do decor gifts work for homebodies?",
+        a: "Yes, especially when the piece helps the room feel calmer or more finished instead of simply adding more clutter.",
+      },
+      {
+        q: "When should I use this instead of cozy-home gifts?",
+        a: "Use homebody gifts when the routine of staying in matters most. Use cozy-home gifts when the softer decor mood itself is the main goal.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "The safest comfort-first answer",
+        giftId: "luxury-throw",
+        body: "Best when you want a low-risk homebody gift with immediate payoff and almost no explanation.",
+      },
+      {
+        title: "A decor piece with stronger room presence",
+        giftId: "black-olive-tree",
+        body: "Use this when the gift should make the space feel more finished instead of only adding another comfort object.",
+      },
+      {
+        title: "A routine upgrade that changes the feel of mornings",
+        giftId: "sunrise-alarm",
+        body: "This is the cleaner answer when the homebody gift should improve a habit she repeats every day.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid buying for the fantasy version of her routine",
+        body: "The page works best when the gift matches how she already spends time at home instead of trying to redirect it.",
+      },
+      {
+        title: "Avoid clutter that only takes up space",
+        body: "A homebody gift should make the home feel better, not just fuller.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best low-risk pick",
+        giftId: "candle-warmer",
+        body: "The easiest answer when you want the homebody gift to feel warm and immediately understandable.",
+      },
+      {
+        title: "Best decor move",
+        giftId: "rustic-vase-set",
+        body: "Use this when the stronger answer is a cleaner styling upgrade instead of another purely comfort-based product.",
+      },
+      {
+        title: "Best routine upgrade",
+        giftId: "sunrise-alarm",
+        body: "The better answer when the homebody gift should keep paying off long after the first night at home.",
+      },
+    ],
+    itemIds: ["luxury-throw", "rustic-vase-set", "miyuki-rustic-vase", "black-olive-tree", "candle-warmer", "sunrise-alarm"],
     related: ["cozy-home-gifts-for-her", "date-night-gifts-for-her", "gifts-for-wife"],
   },
   {
@@ -1358,7 +1896,82 @@ export const seoGuides = [
     h1: "Best daily-use gifts for her in 2026",
     description: "Gifts for her that earn their place because they get used all the time.",
     intro: "The cleanest daily-use gifts solve a small problem, look good, and start paying off right away.",
-    itemIds: ["temperature-mug", "kindle-paperwhite", "owala-bottle", "sunrise-alarm", "nespresso-machine", "bose-speaker"],
+    selectionMethod: "This page favors gifts that are easy to reach for repeatedly, fit existing habits, and keep reminding her that the buy was worth it.",
+    bestUseCase: "Use this when repeat use matters more than novelty and you want the gift to keep showing up in ordinary life.",
+    avoidWhen: "Skip this page if the moment needs more romance, more trend energy, or a bigger one-time reveal.",
+    buyerSignals: [
+      {
+        title: "Frequency matters more than spectacle",
+        body: "The strongest daily-use gifts stay visible in the week because they solve a small recurring problem or improve a habit she already has.",
+      },
+      {
+        title: "A little polish goes a long way",
+        body: "A product can be used every day and still feel like a gift if the finish, design, or brand is clearly better than the default version.",
+      },
+      {
+        title: "Avoid one-hit-wonder products",
+        body: "If the product only feels exciting on the first day, it belongs on a different page than this one.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest daily-use gift on this page?",
+        a: "The temperature-control mug and Stanley are strong because the repeat-use logic is obvious immediately and stays obvious over time.",
+      },
+      {
+        q: "Can a beauty product count as daily use?",
+        a: "Yes, if it already fits something she actually reaches for often instead of only feeling giftable at the moment of unboxing.",
+      },
+      {
+        q: "When should I use this instead of practical gifts?",
+        a: "Use daily-use gifts when repetition is the main win. Use practical gifts when the bigger value is solving a more specific friction point.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "The clearest routine upgrade with immediate payoff",
+        giftId: "temperature-mug",
+        body: "Best when you want the daily-use logic to be obvious on the first morning she uses it.",
+      },
+      {
+        title: "A calmer habit-focused gift with repeat value",
+        giftId: "kindle-paperwhite",
+        body: "Use this when she already reads, unwinds at night, or likes gifts that keep paying off quietly over time.",
+      },
+      {
+        title: "A smaller always-around gift that still feels intentional",
+        giftId: "posadina-phone-charm",
+        body: "This is the cleaner answer when you want something lower-spend that still stays in her hand or in her routine regularly.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid products that look good once but disappear after that",
+        body: "A daily-use gift should stay present in the routine instead of becoming a shelf item after the first week.",
+      },
+      {
+        title: "Avoid overcomplicating the category",
+        body: "The strongest answers here are easy to reach for and easy to understand, not feature-heavy or high-maintenance.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best lower-spend pick",
+        giftId: "posadina-phone-charm",
+        body: "The easiest answer when you want something smaller that still shows up in her day constantly.",
+      },
+      {
+        title: "Best routine upgrade",
+        giftId: "temperature-mug",
+        body: "Use this when you want the daily-use value to be obvious, repeatable, and easy to defend.",
+      },
+      {
+        title: "Best on-the-go pick",
+        giftId: "stanley-quencher",
+        body: "The cleaner answer when you want a product that lives with her in errands, workdays, or daily carry.",
+      },
+    ],
+    itemIds: ["temperature-mug", "posadina-phone-charm", "sunrise-alarm", "sol-de-janeiro", "kindle-paperwhite", "stanley-quencher"],
     related: ["practical-gifts-for-her", "tech-gifts-for-her", "gifts-for-wife"],
   },
   {
@@ -1394,7 +2007,7 @@ export const seoGuides = [
       },
       {
         q: "What is the safest expensive-looking gift on this page?",
-        a: "The digital frame, cashmere-feel robe, and Nespresso machine are strong because they signal polish immediately and still make practical sense.",
+        a: "The digital frame, Gucci Flora fragrance, and Nespresso machine are strong because they signal polish immediately and still make practical sense.",
       },
       {
         q: "When should I use this page instead of the luxury page?",
@@ -1431,8 +2044,8 @@ export const seoGuides = [
     pickLanes: [
       {
         title: "Lower spend",
-        giftId: "ugg-slippers",
-        body: "The easiest answer when you want recognizable brand energy and a premium-looking result without a major budget jump.",
+        giftId: "gucci-flora-gorgeous-magnolia",
+        body: "The easiest answer when you want visible brand polish and a stronger luxury signal without moving into a very high spend.",
       },
       {
         title: "Best visual impact",
@@ -1445,7 +2058,7 @@ export const seoGuides = [
         body: "The cleaner answer when the expensive-looking signal should come from a better everyday ritual rather than pure decoration.",
       },
     ],
-    itemIds: ["ugg-slippers", "kindle-paperwhite", "cashmere-robe", "digital-frame", "nespresso-machine", "bose-speaker"],
+    itemIds: ["cashmere-robe", "ceramic-floor-vase", "artificial-olive-tree-1026", "digital-frame", "nespresso-machine", "gucci-flora-gorgeous-magnolia"],
     related: ["luxury-gifts-for-her", "best-gifts-under-100", "gifts-for-girlfriend"],
   },
 ];
