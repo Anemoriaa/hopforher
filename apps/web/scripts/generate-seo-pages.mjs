@@ -1234,6 +1234,75 @@ function productComparisonLabel(source, candidate) {
   return "Switch for a different fit";
 }
 
+function comparisonReasonText(source, candidate) {
+  const sourcePrice = priceMidpoint(source);
+  const candidatePrice = priceMidpoint(candidate);
+
+  if (Number.isFinite(sourcePrice) && Number.isFinite(candidatePrice)) {
+    if (candidatePrice <= sourcePrice - 25) {
+      return `${candidate.name} is the better move when you want a similar lane with less spend and do not need the broadest safest answer first.`;
+    }
+
+    if (candidatePrice >= sourcePrice + 25) {
+      return `${candidate.name} is the better move when you are willing to spend more for a narrower upgrade than ${source.name}.`;
+    }
+  }
+
+  if (source.badge && candidate.badge && source.badge !== candidate.badge) {
+    return `${candidate.name} is the better move when the ${candidate.badge.toLowerCase()} read matters more than the broadest safe answer on the page.`;
+  }
+
+  if (source.vibe && candidate.vibe && source.vibe !== candidate.vibe) {
+    return `${candidate.name} is the better move when you want a ${candidate.vibe.toLowerCase()} mood instead of ${source.vibe.toLowerCase()}.`;
+  }
+
+  if (source.bestFor && candidate.bestFor && source.bestFor !== candidate.bestFor) {
+    return `${candidate.name} is the better move when ${candidate.bestFor} is a closer buyer moment than ${source.bestFor}.`;
+  }
+
+  return `${candidate.name} is the better move when its fit is closer to the buyer moment than the broadest first answer.`;
+}
+
+function guideChoiceLabel(source, candidate, index) {
+  if (index === 0) {
+    return "Safest first answer";
+  }
+
+  return productComparisonLabel(source, candidate).replace(/^Switch/, "Choose this");
+}
+
+function renderGuideTopChoicesSection(guide, items = guideItems(guide)) {
+  const comparisonItems = items.slice(0, 3);
+  const leadGift = comparisonItems[0] || null;
+
+  if (!leadGift || comparisonItems.length < 2) {
+    return "";
+  }
+
+  return `<section class="discovery-section" id="guide-top-compare">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Decision</p>
+          <h2>How to choose between the top picks</h2>
+        </div>
+        <p class="discovery-section-note">${escapeHtml(`Use this fast compare when ${guide.label.toLowerCase()} is the right page but you still need to decide between the strongest options.`)}</p>
+        <div class="discovery-decision-grid">
+          ${comparisonItems
+            .map((gift, index) => {
+              const usageCount = guideUsageCount(gift.id);
+              const summary = index === 0 ? gift.why : comparisonReasonText(leadGift, gift);
+
+              return `<article class="discovery-decision-card">
+            <span class="discovery-decision-label">${escapeHtml(guideChoiceLabel(leadGift, gift, index))}</span>
+            <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
+            <p>${escapeHtml(summary)}</p>
+            <p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}. ${escapeHtml(gift.priceLabel)}. Used on ${usageCount} guide${usageCount === 1 ? "" : "s"}.</p>
+          </article>`;
+            })
+            .join("")}
+        </div>
+      </section>`;
+}
+
 function renderProductComparisonSection(gift, relatedProducts = []) {
   const comparisonProducts = relatedProducts.slice(0, 3);
 
@@ -1270,7 +1339,7 @@ function renderProductComparisonSection(gift, relatedProducts = []) {
               return `<article class="discovery-decision-card">
             <span class="discovery-decision-label">${escapeHtml(productComparisonLabel(gift, entry))}</span>
             <h3><a class="discovery-title-link" href="/gift/${entry.slug}/">${escapeHtml(entry.name)}</a></h3>
-            <p>${escapeHtml(entry.why)}</p>
+            <p>${escapeHtml(comparisonReasonText(gift, entry))}</p>
             <p class="discovery-best-for">Best for: ${escapeHtml(entry.bestFor)}. ${escapeHtml(entry.priceLabel)}. ${escapeHtml(guideNote)}</p>
           </article>`;
             })
@@ -1521,16 +1590,28 @@ function guideFaqs(guide, items) {
     return guide.faqs;
   }
 
+  const leadGift = items[0] || null;
+  const alternateGift = items[1] || null;
+  const relatedGuide = guide.related.map((slug) => guideBySlug.get(slug)).filter(Boolean).filter(isIndexableGuidePage)[0] || null;
+
   return [
     {
       q: `What is the safest pick on this ${guide.label.toLowerCase()} page?`,
-      a: items[0]
-        ? `${items[0].name} is the cleanest first answer here. ${items[0].why}`
+      a: leadGift
+        ? `${leadGift.name} is the cleanest first answer here. ${leadGift.why}`
         : "Start with the first ranked pick.",
     },
     {
-      q: "How should I choose between a premium pick and a practical pick?",
-      a: "Use premium when the moment matters more. Use practical when daily use will make the gift feel stronger after the first day.",
+      q: "How do I choose between the top picks on this page?",
+      a: leadGift && alternateGift
+        ? `${leadGift.name} is the safest overall answer. ${comparisonReasonText(leadGift, alternateGift)} If that still feels close rather than exact, compare the rest of the shortlist before buying.`
+        : "Start with the first ranked pick, then compare the shortlist if you want a narrower fit or lower-risk alternative.",
+    },
+    {
+      q: "Should I use this page or another guide first?",
+      a: relatedGuide
+        ? `${guide.bestUseCase || "Stay on this page when the title matches the exact moment you are buying for."} Use ${relatedGuide.label.toLowerCase()} first when that page describes the buyer moment more directly than this one.`
+        : `${guide.bestUseCase || "Stay on this page when the title matches the exact moment you are buying for."} Move to another guide only when the budget, relationship stage, or occasion changes.`,
     },
   ];
 }
@@ -1620,9 +1701,11 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   const faqs = guideFaqs(guide, items);
   const pageImage = guideImageUrl(guide);
   const pageImageAlt = featuredGift ? `${guide.h1} featuring ${featuredGift.name}` : guide.h1;
+  const topChoicesSection = renderGuideTopChoicesSection(guide, items);
   const comparisonSection = renderGuideComparisonSection(guide, items);
   const guideSectionLinks = [
     { href: "#guide-overview", label: "How to use this page", meta: "Start here" },
+    ...(topChoicesSection ? [{ href: "#guide-top-compare", label: "Compare top picks", meta: "Fast decision" }] : []),
     ...(shortlist.length ? [{ href: "#guide-shortlist", label: "Shortlist", meta: `${shortlist.length} more picks` }] : []),
     ...(comparisonSection ? [{ href: "#guide-differentiation", label: "How this page differs", meta: "Comparison read" }] : []),
     ...(expansionProducts.length ? [{ href: "#guide-expansion", label: "Less-repeated fits", meta: `${expansionProducts.length} more picks` }] : []),
@@ -1846,6 +1929,7 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
       <div class="discovery-page-main">
         <div class="discovery-page-stack">
           ${renderGuideOverviewSection(guide, items)}
+          ${topChoicesSection}
           ${
             shortlist.length
               ? `<section class="discovery-section" id="guide-shortlist">
