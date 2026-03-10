@@ -1673,40 +1673,14 @@ export default function App() {
   function HotFeedMedia({ item, gift }) {
     const media = useMemo(() => getPrimaryHotVideoMedia(gift), [gift]);
     const posterUrl = media?.posterUrl || getGiftImageUrl(gift);
-    const embedUrl =
-      media?.provider === "tiktok"
-        ? buildTikTokPlayerUrl(media.videoId, {
-            autoplay: 0,
-            controls: 0,
-            description: 0,
-            music_info: 0,
-            rel: 0,
-          }) || media?.embedUrl || ""
-        : media?.embedUrl || "";
-    const [embedLoaded, setEmbedLoaded] = useState(false);
-
-    useEffect(() => {
-      setEmbedLoaded(false);
-    }, [embedUrl]);
 
     return (
       <div className="gs-hot-feed-media">
-        <div className="gs-hot-feed-video-placeholder" aria-hidden={embedUrl && embedLoaded ? "true" : undefined}>
+        <div className="gs-hot-feed-video-placeholder">
           {posterUrl ? <img src={posterUrl} alt="" className="gs-hot-feed-poster" loading="lazy" /> : null}
           <span className="gs-hot-feed-video-placeholder-scrim" aria-hidden="true" />
           <span>Open video</span>
         </div>
-
-        {embedUrl ? (
-          <iframe
-            src={embedUrl}
-            title={media?.title || `${gift.name} TikTok video`}
-            className="gs-hot-feed-embed"
-            loading="lazy"
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            onLoad={() => setEmbedLoaded(true)}
-          />
-        ) : null}
 
         {(item.mediaLabel || item.durationLabel) ? (
           <div className="gs-hot-feed-media-badges" aria-hidden="true">
