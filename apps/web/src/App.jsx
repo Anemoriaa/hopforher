@@ -29,10 +29,11 @@ import {
   DEFAULT_DATE_PARTY_SIZE,
   formatDateTimeSummary,
   getDateSpotPoweredLabel,
-  getDateSpotSearchLinkLabel,
   getDefaultDateTimeInput,
   resolveDateSpotProvider,
 } from "./lib/date-spots.js";
+import { createI18n } from "./lib/i18n.js";
+import { applyDocumentLocale, buildLocaleBadge, formatDateForLocales, getLocaleProfile } from "./lib/locale.js";
 
 const slides = [
   { id: "popular", label: "Popular", number: "01" },
@@ -210,24 +211,6 @@ function formatDurationLabel(totalSeconds) {
   const seconds = totalSeconds % 60;
 
   return `${minutes}:${String(seconds).padStart(2, "0")}`;
-}
-
-function formatIsoDateLabel(value) {
-  if (!value) {
-    return "";
-  }
-
-  const parsed = new Date(`${value}T00:00:00`);
-
-  if (Number.isNaN(parsed.getTime())) {
-    return value;
-  }
-
-  return parsed.toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
 }
 
 function getOptionIndexById(options, id, fallback = 0) {
@@ -610,6 +593,10 @@ export default function App() {
   const activePreviewDurationLabel = formatDurationLabel(activePreviewMedia?.durationSeconds || 0);
   const activePreviewSourceLabel =
     activePreviewMedia?.creatorHandle || activePreviewMedia?.creatorName || activePreviewMedia?.sourceLabel || "ShopForHer";
+  const localeProfile = useMemo(() => getLocaleProfile(), []);
+  const i18n = useMemo(() => createI18n(localeProfile), [localeProfile]);
+  const t = i18n.t;
+  const popularLocaleBadge = useMemo(() => buildLocaleBadge(localeProfile), [localeProfile]);
 
   const { affiliateConfig, gifts } = catalog;
 
@@ -618,6 +605,46 @@ export default function App() {
       setCatalog(readLiveCatalog());
     });
   }, []);
+
+  useEffect(() => {
+    applyDocumentLocale(localeProfile);
+  }, [localeProfile]);
+
+  useEffect(() => {
+    setGeoState((current) => {
+      const nextLabel =
+        current.status === "unsupported"
+          ? t("plans.locationUnavailable")
+          : current.status === "loading"
+            ? t("plans.locating")
+            : current.status === "ready"
+              ? t("plans.nearYou")
+              : current.status === "denied"
+                ? t("plans.locationBlocked")
+                : t("plans.previewArea");
+
+      return current.label === nextLabel ? current : { ...current, label: nextLabel };
+    });
+
+    setDateResults((current) => {
+      if (current.status !== "idle" || current.mode !== "idle") {
+        return current;
+      }
+
+      const nextAreaLabel = t("plans.previewArea");
+      const nextNote = t("plans.useLocationNote");
+
+      if (current.areaLabel === nextAreaLabel && current.note === nextNote) {
+        return current;
+      }
+
+      return {
+        ...current,
+        areaLabel: nextAreaLabel,
+        note: nextNote,
+      };
+    });
+  }, [t]);
 
   useEffect(() => {
     if (!previewGift || typeof document === "undefined") {
@@ -744,7 +771,22 @@ export default function App() {
   const activeBudget = budgetOptions[brief.budget];
   const activeSignal = signalOptions[brief.signal];
   const activeIntent = intentOptions[brief.intent];
-  const homeUpdatedLabel = formatIsoDateLabel(seoSite.updatedAt);
+  const relationshipLabel = t(`relationship.${activeRelationship.id}`);
+  const budgetLabel = t(`budget.${activeBudget.id}`);
+  const signalLabel = t(`signal.${activeSignal.id}`);
+  const intentLabel = t(`intent.${activeIntent.id}`);
+  const homeUpdatedLabel = formatDateForLocales(`${seoSite.updatedAt}T00:00:00`, localeProfile.locales, {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+  const getSlideLabel = (slideId) => t(`nav.${slideId === "guides" ? "plans" : slideId}`);
+  const getRelationshipLabel = (relationshipId) => t(`relationship.${relationshipId}`);
+  const getBudgetLabel = (budgetId) => t(`budget.${budgetId}`);
+  const getSignalLabel = (signalId) => t(`signal.${signalId}`);
+  const getIntentLabel = (intentId) => t(`intent.${intentId}`);
+  const getLaneText = (laneId, field) => t(`lane.${laneId}.${field}`);
+  const getGuideText = (relationshipId, field) => t(`guide.${relationshipId}.${field}`);
 
   const activeFilters = useMemo(
     () => ({
@@ -801,7 +843,7 @@ export default function App() {
   const popularHeroProducts = heroCatalogProducts.length ? heroCatalogProducts : linkedTopProducts.slice(0, 3);
   const leadRecommendation = topPicks[0] || popularHeroProducts[0] || null;
   const activeGuide = guideByRelationship[activeRelationship.id] || guideByRelationship.girlfriend;
-  const activeGuideChipLabel = activeGuide.chipLabel || activeGuide.label;
+  const activeGuideChipLabel = getGuideText(activeRelationship.id, "chip");
   const pickerResultStep = pickerSlides.length - 1;
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
   const datesSlideIndex = slides.findIndex((slide) => slide.id === "guides");
@@ -817,7 +859,7 @@ export default function App() {
       ? activeDateSpot.mapUrl
       : dateResults.searchUrl;
   const activeDateSecondaryLabel =
-    activeDateSpot?.mapUrl && activeDateSpot.mapUrl !== activeDateSpot.bookingUrl ? "Open in Maps" : "Nearby search";
+    activeDateSpot?.mapUrl && activeDateSpot.mapUrl !== activeDateSpot.bookingUrl ? t("plans.openMaps") : t("plans.nearbySearch");
   const activeDateMeta = activeDateSpot
     ? [
         activeDateSpot.priceHint,
@@ -830,10 +872,10 @@ export default function App() {
   const previewSeoGift = previewGift ? seoCatalogById.get(previewGift.id) || null : null;
   const previewBudgetReadout = previewGift ? getBudgetReadout(previewGift, activeBudget.id) : "";
   const previewRelationshipTags = previewGift
-    ? (previewGift.relationships || []).slice(0, 4).map((value) => stateLabels[value] || value)
+    ? (previewGift.relationships || []).slice(0, 4).map((value) => t(`relationship.${value}`) || stateLabels[value] || value)
     : [];
   const previewIntentTags = previewGift
-    ? (previewGift.intents || []).slice(0, 4).map((value) => stateLabels[value] || value)
+    ? (previewGift.intents || []).slice(0, 4).map((value) => t(`intent.${value}`) || stateLabels[value] || value)
     : [];
   const previewHeadlineTags = previewGift
     ? [previewGift.priceLabel, previewGift.badge, activePreviewSourceLabel].filter(Boolean)
@@ -1160,12 +1202,12 @@ export default function App() {
         areaLabel: geoState.label,
         note:
           geoState.status === "denied"
-            ? "Location access is blocked. You can still open nearby places in Maps or enable location to rank options."
+            ? t("plans.locationBlockedNote")
             : geoState.status === "unsupported"
-              ? "This browser does not expose location, so nearby ranking is unavailable here."
+              ? t("plans.locationUnsupportedNote")
               : geoState.status === "loading"
-                ? "Locating you now."
-                : "Use your location to load nearby plans.",
+                ? t("plans.locatingNote")
+                : t("plans.useLocationNote"),
         sourceLabel: getDateSpotPoweredLabel(provider),
         searchUrl,
         spots: blocked
@@ -1181,15 +1223,19 @@ export default function App() {
     let cancelled = false;
 
     async function loadNearbyDates() {
-      setDateResults((current) => ({
-        ...current,
-        status: "loading",
-        mode: current.mode,
-        areaLabel: geoState.label,
-        note: `Searching near you for ${dateSearch.partySize} ${dateSearch.partySize === 1 ? "person" : "people"} at ${formatDateTimeSummary(dateSearch.dateTime)}.`,
-        sourceLabel: getDateSpotPoweredLabel(provider),
-        searchUrl,
-      }));
+        setDateResults((current) => ({
+          ...current,
+          status: "loading",
+          mode: current.mode,
+          areaLabel: geoState.label,
+          note: t("plans.searchingNearYou", {
+            count: dateSearch.partySize,
+            partyLabel: dateSearch.partySize === 1 ? t("date.person") : t("date.people"),
+            when: formatDateTimeSummary(dateSearch.dateTime, localeProfile.locales),
+          }),
+          sourceLabel: getDateSpotPoweredLabel(provider),
+          searchUrl,
+        }));
 
       try {
         const requestUrl = new URL(dateSpotsApiPath, window.location.origin);
@@ -1224,7 +1270,7 @@ export default function App() {
           provider: nextProvider,
           mode: payload.mode || "live",
           areaLabel: payload.areaLabel || geoState.label,
-          note: payload.note || "Nearby results are ready.",
+          note: payload.note || t("plans.nearbyReady"),
           sourceLabel: payload.sourceLabel || getDateSpotPoweredLabel(nextProvider),
           searchUrl: payload.searchUrl || buildDateSpotSearchUrl({
             latitude,
@@ -1244,7 +1290,7 @@ export default function App() {
           provider,
           mode: "fallback",
           areaLabel: geoState.label,
-          note: "Nearby spots are unavailable right now. Open Maps or use the backup list.",
+          note: t("plans.nearbyUnavailable"),
           sourceLabel: getDateSpotPoweredLabel(provider),
           searchUrl,
           spots: buildFallbackDateSpots({
@@ -1262,7 +1308,7 @@ export default function App() {
     return () => {
       cancelled = true;
     };
-  }, [dateSearch.dateTime, dateSearch.partySize, geoState.coords, geoState.label, geoState.status]);
+  }, [dateSearch.dateTime, dateSearch.partySize, geoState.coords, geoState.label, geoState.status, localeProfile.locales]);
 
   function setSlide(index) {
     const nextIndex = Math.max(0, Math.min(slides.length - 1, index));
@@ -1510,17 +1556,17 @@ export default function App() {
 
   function useMyArea() {
     if (typeof navigator === "undefined" || !navigator.geolocation) {
-      setGeoState({ status: "unsupported", label: "Location unavailable", coords: null });
+      setGeoState({ status: "unsupported", label: t("plans.locationUnavailable"), coords: null });
       return;
     }
 
-    setGeoState((current) => ({ ...current, status: "loading", label: "Locating..." }));
+    setGeoState((current) => ({ ...current, status: "loading", label: t("plans.locating") }));
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
         setGeoState({
           status: "ready",
-          label: "Near you",
+          label: t("plans.nearYou"),
           coords: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -1528,7 +1574,7 @@ export default function App() {
         });
       },
       () => {
-        setGeoState({ status: "denied", label: "Location blocked", coords: null });
+        setGeoState({ status: "denied", label: t("plans.locationBlocked"), coords: null });
       },
       {
         enableHighAccuracy: false,
@@ -1627,14 +1673,40 @@ export default function App() {
   function HotFeedMedia({ item, gift }) {
     const media = useMemo(() => getPrimaryHotVideoMedia(gift), [gift]);
     const posterUrl = media?.posterUrl || getGiftImageUrl(gift);
+    const embedUrl =
+      media?.provider === "tiktok"
+        ? buildTikTokPlayerUrl(media.videoId, {
+            autoplay: 0,
+            controls: 0,
+            description: 0,
+            music_info: 0,
+            rel: 0,
+          }) || media?.embedUrl || ""
+        : media?.embedUrl || "";
+    const [embedLoaded, setEmbedLoaded] = useState(false);
+
+    useEffect(() => {
+      setEmbedLoaded(false);
+    }, [embedUrl]);
 
     return (
       <div className="gs-hot-feed-media">
-        <div className="gs-hot-feed-video-placeholder">
+        <div className="gs-hot-feed-video-placeholder" aria-hidden={embedUrl && embedLoaded ? "true" : undefined}>
           {posterUrl ? <img src={posterUrl} alt="" className="gs-hot-feed-poster" loading="lazy" /> : null}
           <span className="gs-hot-feed-video-placeholder-scrim" aria-hidden="true" />
           <span>Open video</span>
         </div>
+
+        {embedUrl ? (
+          <iframe
+            src={embedUrl}
+            title={media?.title || `${gift.name} TikTok video`}
+            className="gs-hot-feed-embed"
+            loading="lazy"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            onLoad={() => setEmbedLoaded(true)}
+          />
+        ) : null}
 
         {(item.mediaLabel || item.durationLabel) ? (
           <div className="gs-hot-feed-media-badges" aria-hidden="true">
@@ -1805,24 +1877,24 @@ export default function App() {
       <footer className="gs-footer">
         <div className="gs-footer-brand">
           <img src="/logo1.png" alt="ShopForHer" className="gs-footer-img" />
-          <p>Sharper gift picks for men buying for her.</p>
+          <p>{t("footer.tagline")}</p>
         </div>
         <div className="gs-footer-meta">
           <p className="gs-footer-disclosure">{AMAZON_ASSOCIATE_DISCLOSURE}</p>
-          <p>Paid Amazon links may appear on gift pages. Final pricing and checkout stay on the merchant site.</p>
-          <p>Saved picks stay on this device. Shortlists refresh weekly.</p>
+          <p>{t("footer.paidLinks")}</p>
+          <p>{t("footer.savedPicks")}</p>
           <div className="gs-footer-links">
-            <a href="/about.html">About</a>
-            <a href="/editorial-policy.html">Editorial</a>
-            <a href="/contact.html">Contact</a>
-            <a href="/site-map.html">Site map</a>
-            <a href="/feed.xml">Feed</a>
-            <a href="/guides/">Guides</a>
-            <a href="/hot/">Hot</a>
-            <a href="/dates/">Plans</a>
-            <a href="/privacy.html">Privacy</a>
-            <a href="/terms.html">Terms</a>
-            <a href="/affiliate-disclosure.html">Affiliate</a>
+            <a href="/about.html">{t("footer.about")}</a>
+            <a href="/editorial-policy.html">{t("footer.editorial")}</a>
+            <a href="/contact.html">{t("footer.contact")}</a>
+            <a href="/site-map.html">{t("footer.siteMap")}</a>
+            <a href="/feed.xml">{t("footer.feed")}</a>
+            <a href="/guides/">{t("footer.guides")}</a>
+            <a href="/hot/">{t("footer.hot")}</a>
+            <a href="/dates/">{t("footer.plans")}</a>
+            <a href="/privacy.html">{t("footer.privacy")}</a>
+            <a href="/terms.html">{t("footer.terms")}</a>
+            <a href="/affiliate-disclosure.html">{t("footer.affiliate")}</a>
           </div>
           <a href="mailto:hello@shopforher.org">hello@shopforher.org</a>
         </div>
@@ -1832,21 +1904,24 @@ export default function App() {
 
   const dateStatusLabel =
     dateResults.status === "loading"
-      ? "Finding nearby spots"
+      ? t("plans.statusFinding")
       : dateResults.mode === "live"
-        ? `${dateResults.spots.length} nearby ${dateResults.spots.length === 1 ? "option" : "options"}`
+        ? t("plans.statusNearby", {
+          count: dateResults.spots.length,
+          optionLabel: dateResults.spots.length === 1 ? t("date.option") : t("date.options"),
+        })
         : dateResults.mode === "unconfigured" || dateResults.mode === "fallback"
-          ? "Backup date ideas"
-        : "Location needed";
+          ? t("plans.statusBackup")
+        : t("plans.statusLocationNeeded");
 
   const datePoweredCopy =
     dateResults.mode === "live"
       ? activeDateProvider === DATE_SPOTS_PROVIDER_OPENTABLE
-        ? "Nearby ranking is live. Links open on OpenTable."
-        : "Nearby ranking is live. Actions open the venue site when possible, otherwise Maps."
+        ? t("plans.poweredLiveOpenTable")
+        : t("plans.poweredLiveGoogle")
       : dateResults.mode === "unconfigured" || dateResults.mode === "fallback" || dateResults.status === "error"
-        ? "Showing backup date ideas while nearby spots are unavailable."
-        : "Use your area to turn these into nearby options.";
+        ? t("plans.poweredFallback")
+        : t("plans.poweredIdle");
 
   function getDateSpotSummaryLabel(spot) {
     return [spot.distanceLabel, spot.priceHint].filter(Boolean).join(" · ") || spot.sourceLabel;
@@ -1875,11 +1950,11 @@ export default function App() {
       <div className="gs-phone-frame">
         <header className="gs-header">
           <div className="gs-navbar">
-            <a href="/" className="gs-brand" aria-label="ShopForHer home">
+            <a href="/" className="gs-brand" aria-label={t("brand.homeAria")}>
               <img src="/logo1.png" alt="ShopForHer" className="gs-logo" />
             </a>
-            <nav className="gs-site-nav-wrap" aria-label="Primary">
-              <div className="gs-site-nav" role="tablist" aria-label="Gift pages">
+            <nav className="gs-site-nav-wrap" aria-label={t("nav.primaryAria")}>
+              <div className="gs-site-nav" role="tablist" aria-label={t("nav.giftPagesAria")}>
                 {editorialSlides.map((slide, index) => (
                   <button
                     key={slide.id}
@@ -1887,14 +1962,27 @@ export default function App() {
                     id={`tab-${slide.id}`}
                     role="tab"
                     type="button"
-                    className={classNames("gs-site-link", activeSlide === index && "is-active")}
+                    className={classNames(
+                      "gs-site-link",
+                      slide.id === "popular" && "has-locale-badge",
+                      activeSlide === index && "is-active"
+                    )}
                     onClick={() => setSlide(index)}
                     onKeyDown={(event) => onTabKeyDown(event, index)}
                     aria-selected={activeSlide === index}
                     aria-controls={`panel-${slide.id}`}
                     tabIndex={activeSlide === index ? 0 : -1}
+                    title={slide.id === "popular" ? popularLocaleBadge.title : undefined}
                   >
-                    {slide.label}
+                    {slide.id === "popular" ? (
+                      <>
+                        <span className="gs-site-link-badge" aria-hidden="true">
+                          {popularLocaleBadge.emoji}
+                        </span>
+                        <span className="gs-visually-hidden">{popularLocaleBadge.screenReaderLabel}</span>
+                      </>
+                    ) : null}
+                    <span className="gs-site-link-label">{getSlideLabel(slide.id)}</span>
                   </button>
                 ))}
                 <button
@@ -1909,9 +1997,9 @@ export default function App() {
                   aria-controls="panel-saved"
                   tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
                 >
-                  Saved
+                  {t("nav.saved")}
                   <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
-                    <span className="gs-visually-hidden">Saved picks count: </span>
+                    <span className="gs-visually-hidden">{`${t("nav.savedCountSr")} `}</span>
                     {savedGifts.length}
                   </span>
                 </button>
@@ -1938,11 +2026,9 @@ export default function App() {
                 <section className="gs-popular-hero gs-home-hero">
                   <div className="gs-popular-hero-copy gs-home-hero-copy">
                     <div className="gs-home-hero-head">
-                      <p className="gs-overline">Fast, low-risk gift decisions</p>
-                      <h1>Pick the right gift in 2 minutes.</h1>
-                      <p className="gs-home-hero-lede">
-                        Built for men buying for her who want one strong answer fast, not another endless gift list.
-                      </p>
+                      <p className="gs-overline">{t("home.overline")}</p>
+                      <h1>{t("home.title")}</h1>
+                      <p className="gs-home-hero-lede">{t("home.lede")}</p>
                     </div>
                     <div className="gs-home-hero-actions">
                       <button
@@ -1950,26 +2036,26 @@ export default function App() {
                         className="gs-primary-btn"
                         onClick={() => scrollToSection(decisionPanelRef)}
                       >
-                        Start the 3-step picker
+                        {t("home.startPicker")}
                       </button>
                       <button
                         type="button"
                         className="gs-secondary-btn"
                         onClick={() => scrollToSection(topPicksRef)}
                       >
-                        See most bought
+                        {t("home.seeMostBought")}
                       </button>
                     </div>
                     <p className="gs-home-hero-summary">
-                      Relationship, budget, vibe. Low-risk picks updated {homeUpdatedLabel}.
+                      {t("home.summary", { updated: homeUpdatedLabel })}
                     </p>
                     <button
                       type="button"
                       className="gs-popular-next-indicator"
                       onClick={() => setSlide(1)}
-                      aria-label="Open the Hot page"
+                      aria-label={t("home.openHotAria")}
                     >
-                      <span>Need trend proof? Open Hot</span>
+                      <span>{t("home.openHotLabel")}</span>
                       <ArrowRight size={14} />
                     </button>
                   </div>
@@ -2004,17 +2090,17 @@ export default function App() {
                 >
                   <div className="gs-home-module-head">
                     <div className="gs-home-module-copy">
-                      <p className="gs-overline">Gift picker</p>
-                      <h3 id="gs-home-decision-title">Relationship, budget, vibe. Get the gift.</h3>
-                      <p className="gs-home-section-note">Quick mode or manual.</p>
+                      <p className="gs-overline">{t("home.moduleOverline")}</p>
+                      <h3 id="gs-home-decision-title">{t("home.moduleTitle")}</h3>
+                      <p className="gs-home-section-note">{t("home.moduleNote")}</p>
                     </div>
-                    <div className="gs-home-module-meta" aria-label="Gift picker summary">
-                      <span className="gs-trust-chip">Low-risk picks</span>
-                      <span className="gs-trust-chip">Paid links disclosed</span>
-                      <span className="gs-trust-chip">Updated {homeUpdatedLabel}</span>
+                    <div className="gs-home-module-meta" aria-label={t("home.moduleOverline")}>
+                      <span className="gs-trust-chip">{t("home.trust.lowRisk")}</span>
+                      <span className="gs-trust-chip">{t("home.trust.disclosed")}</span>
+                      <span className="gs-trust-chip">{t("home.trust.updated", { updated: homeUpdatedLabel })}</span>
                     </div>
                   </div>
-                  <div className="gs-home-picker-progress" aria-label="Gift picker progress">
+                  <div className="gs-home-picker-progress" aria-label={t("home.moduleTitle")}>
                     {pickerSlides.map((slide, index) => (
                       <button
                         key={slide.id}
@@ -2023,7 +2109,7 @@ export default function App() {
                         onClick={() => goToPickerStep(index)}
                         aria-current={pickerStep === index ? "step" : undefined}
                       >
-                        {slide.label}
+                        {t(`picker.${slide.id}`)}
                       </button>
                     ))}
                   </div>
@@ -2039,17 +2125,17 @@ export default function App() {
                       >
                         <div className="gs-home-picker-panel is-intro">
                           <div className="gs-home-picker-copy">
-                            <span className="gs-seo-guide-eyebrow">Start here</span>
-                            <h4>Quick mode or manual build.</h4>
-                            <p>Pick a lane or answer three fast taps.</p>
+                            <span className="gs-seo-guide-eyebrow">{t("picker.startEyebrow")}</span>
+                            <h4>{t("picker.startTitle")}</h4>
+                            <p>{t("picker.startBody")}</p>
                           </div>
                           <div className="gs-home-quick-start-row" aria-label="Audience quick starts">
                             {quickStartLanes.map((lane) => (
                               <article key={lane.id} className="gs-home-quick-start-card is-condensed">
                                 <div className="gs-home-quick-start-copy">
-                                  <span className="gs-seo-guide-eyebrow">{lane.eyebrow}</span>
-                                  <h4>{lane.title}</h4>
-                                  <p>{lane.description}</p>
+                                  <span className="gs-seo-guide-eyebrow">{getLaneText(lane.id, "eyebrow")}</span>
+                                  <h4>{getLaneText(lane.id, "title")}</h4>
+                                  <p>{getLaneText(lane.id, "description")}</p>
                                 </div>
                                 <div className="gs-home-quick-start-actions is-inline">
                                   <button
@@ -2057,10 +2143,10 @@ export default function App() {
                                     className="gs-secondary-btn"
                                     onClick={() => applyBriefSelection(lane.selection)}
                                   >
-                                    {lane.ctaLabel}
+                                    {getLaneText(lane.id, "cta")}
                                   </button>
                                   <a href={lane.guideHref} className="gs-home-inline-link">
-                                    {lane.guideLabel}
+                                    {getLaneText(lane.id, "guide")}
                                   </a>
                                 </div>
                               </article>
@@ -2072,10 +2158,10 @@ export default function App() {
                               className="gs-primary-btn"
                               onClick={() => goToPickerStep(1)}
                             >
-                              Build manually
+                              {t("picker.buildManually")}
                             </button>
                             <a href="/last-minute-gifts-for-her/" className="gs-home-inline-link">
-                              Need speed? Last-minute guide
+                              {t("picker.needSpeed")}
                             </a>
                           </div>
                         </div>
@@ -2090,8 +2176,8 @@ export default function App() {
                           <div className="gs-home-picker-step-copy">
                             <span className="gs-home-step-number">01</span>
                             <div>
-                              <h4>Relationship stage</h4>
-                              <p>Set the pressure level first.</p>
+                              <h4>{t("picker.relationshipTitle")}</h4>
+                              <p>{t("picker.relationshipBody")}</p>
                             </div>
                           </div>
                           <div className="gs-home-choice-grid">
@@ -2103,7 +2189,7 @@ export default function App() {
                                 onClick={() => updateBriefAndAdvance("relationship", index, 2)}
                                 aria-pressed={brief.relationship === index}
                               >
-                                <strong>{option.label}</strong>
+                                <strong>{getRelationshipLabel(option.id)}</strong>
                                 <span>{option.note}</span>
                               </button>
                             ))}
@@ -2114,7 +2200,7 @@ export default function App() {
                               className="gs-secondary-btn"
                               onClick={() => goToPickerStep(0)}
                             >
-                              Back
+                              {t("generic.back")}
                             </button>
                           </div>
                         </div>
@@ -2129,8 +2215,8 @@ export default function App() {
                           <div className="gs-home-picker-step-copy">
                             <span className="gs-home-step-number">02</span>
                             <div>
-                              <h4>Budget</h4>
-                              <p>Set the spend ceiling.</p>
+                              <h4>{t("picker.budgetTitle")}</h4>
+                              <p>{t("picker.budgetBody")}</p>
                             </div>
                           </div>
                           <div className="gs-home-choice-grid">
@@ -2142,7 +2228,7 @@ export default function App() {
                                 onClick={() => updateBriefAndAdvance("budget", index, 3)}
                                 aria-pressed={brief.budget === index}
                               >
-                                <strong>{option.label}</strong>
+                                <strong>{getBudgetLabel(option.id)}</strong>
                                 <span>{option.note}</span>
                               </button>
                             ))}
@@ -2153,7 +2239,7 @@ export default function App() {
                               className="gs-secondary-btn"
                               onClick={() => goToPickerStep(1)}
                             >
-                              Back
+                              {t("generic.back")}
                             </button>
                           </div>
                         </div>
@@ -2168,8 +2254,8 @@ export default function App() {
                           <div className="gs-home-picker-step-copy">
                             <span className="gs-home-step-number">03</span>
                             <div>
-                              <h4>Vibe or use case</h4>
-                              <p>Pick the feel first.</p>
+                              <h4>{t("picker.intentTitle")}</h4>
+                              <p>{t("picker.intentBody")}</p>
                             </div>
                           </div>
                           <div className="gs-home-choice-grid">
@@ -2181,7 +2267,7 @@ export default function App() {
                                 onClick={() => updateBriefAndAdvance("intent", index, 4)}
                                 aria-pressed={brief.intent === index}
                               >
-                                <strong>{option.label}</strong>
+                                <strong>{getIntentLabel(option.id)}</strong>
                                 <span>{option.note}</span>
                               </button>
                             ))}
@@ -2192,7 +2278,7 @@ export default function App() {
                               className="gs-secondary-btn"
                               onClick={() => goToPickerStep(2)}
                             >
-                              Back
+                              {t("generic.back")}
                             </button>
                           </div>
                         </div>
@@ -2207,8 +2293,8 @@ export default function App() {
                           <div className="gs-home-picker-step-copy">
                             <span className="gs-home-step-number">+</span>
                             <div>
-                              <h4>Tighten the lane</h4>
-                              <p>Optional. Add one last filter or skip.</p>
+                              <h4>{t("picker.signalTitle")}</h4>
+                              <p>{t("picker.signalBody")}</p>
                             </div>
                           </div>
                           <div className="gs-home-compact-choice-grid">
@@ -2220,7 +2306,7 @@ export default function App() {
                                 onClick={() => updateSignalAndAdvance(option.id)}
                                 aria-pressed={activeSignal.id === option.id}
                               >
-                                <strong>{option.label}</strong>
+                                <strong>{getSignalLabel(option.id)}</strong>
                               </button>
                             ))}
                           </div>
@@ -2230,14 +2316,14 @@ export default function App() {
                               className="gs-secondary-btn"
                               onClick={() => goToPickerStep(3)}
                             >
-                              Back
+                              {t("generic.back")}
                             </button>
                             <button
                               type="button"
                               className="gs-secondary-btn"
                               onClick={() => goToPickerStep(pickerResultStep)}
                             >
-                              Skip to gift
+                              {t("generic.skipToGift")}
                             </button>
                           </div>
                         </div>
@@ -2250,7 +2336,7 @@ export default function App() {
                       >
                         <div className="gs-home-picker-panel gs-home-picker-panel-result">
                           <aside className="gs-home-result-card" aria-live="polite" aria-atomic="true">
-                            <p className="gs-overline">Current recommendation</p>
+                            <p className="gs-overline">{t("home.currentRecommendation")}</p>
                             {leadRecommendation ? (
                               <>
                                 <div className="gs-home-result-head">
@@ -2258,15 +2344,15 @@ export default function App() {
                                   <p>{leadRecommendation.hook}</p>
                                 </div>
                                 <div className="gs-home-result-tags">
-                                  <span>{activeRelationship.label}</span>
-                                  <span>{activeBudget.label}</span>
-                                  <span>{activeIntent.label}</span>
-                                  <span>{activeSignal.label}</span>
+                                  <span>{relationshipLabel}</span>
+                                  <span>{budgetLabel}</span>
+                                  <span>{intentLabel}</span>
+                                  <span>{signalLabel}</span>
                                 </div>
                                 <div className="gs-home-result-points is-condensed">
                                   <p>{leadRecommendation.why}</p>
                                   <div className="gs-home-result-mini-meta">
-                                    <span>Best for {leadRecommendation.bestFor}</span>
+                                    <span>{t("home.bestFor", { value: leadRecommendation.bestFor })}</span>
                                     <span>{activeGuideChipLabel}</span>
                                   </div>
                                 </div>
@@ -2279,18 +2365,18 @@ export default function App() {
                                     {...getAffiliateAnchorData(leadRecommendation, "home-decision-primary")}
                                     aria-label={`Buy ${leadRecommendation.name} on ${affiliateConfig.merchantName}`}
                                   >
-                                    Buy now
+                                    {t("generic.buyNow")}
                                   </a>
                                   <a className="gs-secondary-btn" href={activeGuide.href}>
-                                    Open guide
+                                    {t("generic.openGuide")}
                                   </a>
                                 </div>
                                 <p className="gs-home-result-helper">
-                                  Need speed instead? <a href="/last-minute-gifts-for-her/">Open the last-minute guide</a>.
+                                  {t("home.needSpeedInstead")}
                                 </p>
                               </>
                             ) : (
-                              <p className="gs-home-result-empty">No recommendation available yet.</p>
+                              <p className="gs-home-result-empty">{t("home.noRecommendation")}</p>
                             )}
                           </aside>
                           <div className="gs-home-picker-nav is-result">
@@ -2299,14 +2385,14 @@ export default function App() {
                               className="gs-secondary-btn"
                               onClick={() => goToPickerStep(1)}
                             >
-                              Edit answers
+                              {t("generic.editAnswers")}
                             </button>
                             <button
                               type="button"
                               className="gs-secondary-btn"
                               onClick={() => goToPickerStep(0)}
                             >
-                              Quick start
+                              {t("picker.start")}
                             </button>
                           </div>
                         </div>
@@ -2317,13 +2403,17 @@ export default function App() {
 
                 <section ref={topPicksRef} className="gs-product-list">
                   <div className="gs-section-head">
-                    <p className="gs-overline">Top picks</p>
-                    <h3>Most bought this week</h3>
+                    <p className="gs-overline">{t("home.topPicksOverline")}</p>
+                    <h3>{t("home.topPicksTitle")}</h3>
                   </div>
                   <p className="gs-popular-library-note">
-                    The cleanest current answers for {activeRelationship.label.toLowerCase()} gifts in {activeBudget.label.toLowerCase()} with a {activeIntent.label.toLowerCase()} feel.
+                    {t("home.topPicksNote", {
+                      relationship: relationshipLabel.toLowerCase(),
+                      budget: budgetLabel.toLowerCase(),
+                      intent: intentLabel.toLowerCase(),
+                    })}
                   </p>
-                  <div className="gs-bento-grid gs-popular-grid" role="list" aria-label="Most bought gifts this week">
+                  <div className="gs-bento-grid gs-popular-grid" role="list" aria-label={t("home.topPicksTitle")}>
                     {topPicks.slice(0, 6).map((gift, index) =>
                       renderBentoCard(gift, index + 1, {
                         motion: "minimal",
@@ -2334,11 +2424,11 @@ export default function App() {
                 </section>
                 <section className="gs-product-list">
                   <div className="gs-section-head">
-                    <p className="gs-overline">Amazon</p>
-                    <h3>Featured product pages</h3>
+                    <p className="gs-overline">{t("home.featuredOverline")}</p>
+                    <h3>{t("home.featuredTitle")}</h3>
                   </div>
                   <p className="gs-popular-library-note">
-                    Tighter product pages with the exact item, price band, and buy path already mapped.
+                    {t("home.featuredNote")}
                   </p>
                   <div className="gs-bento-grid gs-popular-grid" role="list" aria-label="New exact product picks">
                     {featuredCatalogProducts.map((gift, index) =>
@@ -2351,18 +2441,18 @@ export default function App() {
                 </section>
                 <section className="gs-popular-library" aria-label="Popular page organization">
                   <div className="gs-section-head">
-                    <p className="gs-overline">Continue</p>
-                    <h3>Keep the shortlist tight</h3>
+                    <p className="gs-overline">{t("home.continueOverline")}</p>
+                    <h3>{t("home.continueTitle")}</h3>
                   </div>
                   <p className="gs-popular-library-note">
-                    Open a product page when one pick already looks right. Open a guide when you want the shortlist organized first.
+                    {t("home.continueNote")}
                   </p>
                   <div className="gs-popular-library-grid">
                     <article className="gs-popular-library-panel">
                       <div className="gs-popular-library-head">
-                        <span className="gs-overline">Products</span>
-                        <strong>Product pages</strong>
-                        <p>Best when you want the exact item, price range, and merchant path fast.</p>
+                        <span className="gs-overline">{t("home.productsOverline")}</span>
+                        <strong>{t("home.productsTitle")}</strong>
+                        <p>{t("home.productsBody")}</p>
                       </div>
                       <div className="gs-popular-library-list">
                         {libraryProducts.map((gift) => (
@@ -2378,9 +2468,9 @@ export default function App() {
                     </article>
                     <article className="gs-popular-library-panel">
                       <div className="gs-popular-library-head">
-                        <span className="gs-overline">Guides</span>
-                        <strong>Gift lanes</strong>
-                        <p>Best when you want a tighter shortlist by relationship, budget, or mood before buying.</p>
+                        <span className="gs-overline">{t("home.guidesOverline")}</span>
+                        <strong>{t("home.guidesTitle")}</strong>
+                        <p>{t("home.guidesBody")}</p>
                       </div>
                       <div className="gs-popular-library-list">
                         {featuredSeoGuides.map((guide) => (
@@ -2394,8 +2484,8 @@ export default function App() {
                         ))}
                         <a href="/guides/" className="gs-popular-library-link is-all">
                           <div>
-                            <span className="gs-seo-guide-eyebrow">Index</span>
-                            <strong>All guides</strong>
+                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                            <strong>{t("home.allGuides")}</strong>
                           </div>
                           <ArrowUpRight size={16} />
                         </a>
@@ -2417,9 +2507,9 @@ export default function App() {
             >
               <div className="gs-slide-scroll" ref={hotScrollRef}>
                 <div className="gs-parallax-copy">
-                  <p className="gs-overline">Hot</p>
-                  <h2>Watch what is moving now.</h2>
-                  <p>See the clip first. Decide fast.</p>
+                  <p className="gs-overline">{t("hot.overline")}</p>
+                  <h2>{t("hot.title")}</h2>
+                  <p>{t("hot.body")}</p>
                 </div>
                 {leadingHotFeedCycle !== null ? (
                   <section
@@ -2441,8 +2531,8 @@ export default function App() {
                 ) : null}
                 <section className="gs-seo-guide-section" aria-label="Read full hot pages">
                   <div className="gs-section-head">
-                    <p className="gs-overline">Stories</p>
-                    <h3>Read the full pages</h3>
+                    <p className="gs-overline">{t("hot.storiesOverline")}</p>
+                    <h3>{t("hot.storiesTitle")}</h3>
                   </div>
                   <div className="gs-seo-guide-list">
                     {seoHotStories.slice(0, 6).map((story) => (
@@ -2456,8 +2546,8 @@ export default function App() {
                     ))}
                     <a href="/hot/" className="gs-seo-guide-link is-all">
                       <div>
-                        <span className="gs-seo-guide-eyebrow">Index</span>
-                        <strong>All hot pages</strong>
+                        <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                        <strong>{t("hot.allPages")}</strong>
                       </div>
                       <ArrowUpRight size={16} />
                     </a>
@@ -2497,43 +2587,43 @@ export default function App() {
             >
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
-                  <p className="gs-overline">Plans</p>
-                  <h2>Plan the second move fast.</h2>
-                  <p>Nearby dinner and drinks spots when the gift turns into an actual night out.</p>
+                  <p className="gs-overline">{t("plans.overline")}</p>
+                  <h2>{t("plans.title")}</h2>
+                  <p>{t("plans.body")}</p>
                 </div>
 
                 <section className="gs-date-shell">
                   <div className="gs-date-toolbar">
                     <div className="gs-date-area">
-                      <p className="gs-overline">Area</p>
+                      <p className="gs-overline">{t("plans.areaOverline")}</p>
                       <strong>{dateResults.areaLabel || geoState.label}</strong>
                     </div>
                     <button
                       type="button"
                       className="gs-date-locate"
                       onClick={useMyArea}
-                      aria-label="Use my current location to rank nearby plans"
+                      aria-label={t("plans.useMyAreaAria")}
                     >
-                      {geoState.status === "loading" ? "Locating..." : "Use my area"}
+                      {geoState.status === "loading" ? t("plans.locating") : t("plans.useMyArea")}
                     </button>
                   </div>
 
                   <div className="gs-date-search">
                     <label className="gs-date-field">
-                      <span>Party</span>
+                      <span>{t("plans.party")}</span>
                       <select
                         value={dateSearch.partySize}
                         onChange={(event) => updateDateSearch("partySize", event.target.value)}
                       >
                         {datePartySizeOptions.map((partySize) => (
                           <option key={partySize} value={partySize}>
-                            {partySize} {partySize === 1 ? "person" : "people"}
+                            {partySize} {partySize === 1 ? t("date.person") : t("date.people")}
                           </option>
                         ))}
                       </select>
                     </label>
                     <label className="gs-date-field is-wide">
-                      <span>When</span>
+                      <span>{t("plans.when")}</span>
                       <input
                         type="datetime-local"
                         value={dateSearch.dateTime}
@@ -2557,9 +2647,9 @@ export default function App() {
                       href={dateResults.searchUrl}
                       target="_blank"
                       rel="noreferrer"
-                      aria-label={`${getDateSpotSearchLinkLabel(activeDateProvider)} for ${dateResults.areaLabel || "your area"}`}
+                      aria-label={`${activeDateSecondaryLabel} for ${dateResults.areaLabel || t("plans.yourArea")}`}
                     >
-                      {getDateSpotSearchLinkLabel(activeDateProvider)}
+                      {activeDateSecondaryLabel}
                     </a>
                   </div>
 
@@ -2622,8 +2712,8 @@ export default function App() {
                     </article>
                   ) : (
                     <article className="gs-date-empty">
-                      <strong>Use your area to load nearby spots.</strong>
-                      <p>Once location is available, this lane can rank nearby places and hand off to Maps or the venue site.</p>
+                      <strong>{t("plans.emptyTitle")}</strong>
+                      <p>{t("plans.emptyBody")}</p>
                     </article>
                   )}
 
@@ -2675,14 +2765,14 @@ export default function App() {
                 </div>
                 <section className="gs-seo-guide-section" aria-label="Browse date city pages">
                   <div className="gs-section-head">
-                    <p className="gs-overline">Cities</p>
-                    <h3>Open a city page</h3>
+                    <p className="gs-overline">{t("plans.citiesOverline")}</p>
+                    <h3>{t("plans.citiesTitle")}</h3>
                   </div>
                   <div className="gs-seo-guide-list">
                     {seoDateCities.map((city) => (
                       <a key={city.slug} href={`/dates/${city.slug}/`} className="gs-seo-guide-link">
                         <div>
-                          <span className="gs-seo-guide-eyebrow">Plans</span>
+                          <span className="gs-seo-guide-eyebrow">{t("plans.overline")}</span>
                           <strong>{city.city}</strong>
                         </div>
                         <ArrowUpRight size={16} />
@@ -2690,8 +2780,8 @@ export default function App() {
                     ))}
                     <a href="/dates/" className="gs-seo-guide-link is-all">
                       <div>
-                        <span className="gs-seo-guide-eyebrow">Index</span>
-                        <strong>All date pages</strong>
+                        <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                        <strong>{t("plans.allDatePages")}</strong>
                       </div>
                       <ArrowUpRight size={16} />
                     </a>
@@ -2713,35 +2803,35 @@ export default function App() {
             >
               <div className="gs-slide-scroll">
                 <div className="gs-parallax-copy">
-                  <p className="gs-overline">Saved</p>
-                  <h2>Keep the gifts you are actually close to buying.</h2>
-                  <p>Your local shortlist for the gifts still in play.</p>
+                  <p className="gs-overline">{t("saved.overline")}</p>
+                  <h2>{t("saved.title")}</h2>
+                  <p>{t("saved.body")}</p>
                 </div>
 
                 <section className="gs-stack">
                   {savedGifts.length ? (
                     <>
                       <section className="gs-saved-helper" role="status" aria-live="polite" aria-atomic="true">
-                        <strong>{savedGifts.length} saved right now</strong>
-                        <p>Keep it tight. If one still feels obvious, open it and finish the buy.</p>
+                        <strong>{t("saved.nowCount", { count: savedGifts.length })}</strong>
+                        <p>{t("saved.helper")}</p>
                       </section>
-                      <div className="gs-saved-list" role="list" aria-label="Saved gift picks">
+                      <div className="gs-saved-list" role="list" aria-label={t("nav.saved")}>
                         {savedGifts.map((gift, index) => renderSavedRow(gift, index))}
                       </div>
                     </>
                   ) : (
                     <div className="gs-saved-list" role="status" aria-live="polite" aria-atomic="true">
                       <article className="gs-empty-panel">
-                        <p>No saved picks yet. Save the cover pick or one of the hot stories and it will collect here like a lightweight shortlist.</p>
+                        <p>{t("saved.empty")}</p>
                         <div className="gs-empty-actions">
                           <button type="button" className="gs-text-link-btn" onClick={() => setSlide(0)}>
-                            Open Popular
+                            {t("saved.openPopular")}
                           </button>
                           <button type="button" className="gs-text-link-btn" onClick={() => setSlide(1)}>
-                            Open Hot
+                            {t("saved.openHot")}
                           </button>
                           <button type="button" className="gs-text-link-btn" onClick={() => setSlide(2)}>
-                            Open Plans
+                            {t("saved.openPlans")}
                           </button>
                         </div>
                       </article>

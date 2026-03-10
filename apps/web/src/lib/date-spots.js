@@ -55,17 +55,17 @@ const fallbackDateSpotTemplates = [
   },
 ];
 
-const dateSummaryFormatter = new Intl.DateTimeFormat("en-US", {
+const DATE_SUMMARY_FORMAT_OPTIONS = {
   month: "short",
   day: "numeric",
   hour: "numeric",
   minute: "2-digit",
-});
+};
 
-const timeFormatter = new Intl.DateTimeFormat("en-US", {
+const TIME_FORMAT_OPTIONS = {
   hour: "numeric",
   minute: "2-digit",
-});
+};
 
 function pad(value) {
   return String(value).padStart(2, "0");
@@ -134,6 +134,20 @@ function humanizeToken(value) {
     .replace(/\s+/g, " ")
     .trim()
     .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+function formatDateTimeWithLocales(value, locales, options) {
+  const parsed = new Date(value);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  try {
+    return new Intl.DateTimeFormat(locales || undefined, options).format(parsed);
+  } catch (error) {
+    return new Intl.DateTimeFormat("en-US", options).format(parsed);
+  }
 }
 
 export function resolveDateSpotProvider(value) {
@@ -343,7 +357,7 @@ function normalizeRatingLabel(raw) {
   return reviewCount ? `${rating.toFixed(1)} stars · ${reviewCount} reviews` : `${rating.toFixed(1)} stars`;
 }
 
-function normalizeTimeLabel(value) {
+function normalizeTimeLabel(value, locales) {
   if (!value) {
     return null;
   }
@@ -355,13 +369,13 @@ function normalizeTimeLabel(value) {
   const parsed = new Date(value);
 
   if (!Number.isNaN(parsed.getTime())) {
-    return timeFormatter.format(parsed);
+    return formatDateTimeWithLocales(parsed, locales, TIME_FORMAT_OPTIONS);
   }
 
   return String(value);
 }
 
-function normalizeNextSlots(raw) {
+function normalizeNextSlots(raw, locales) {
   const candidates = [
     pickPath(raw, ["nextSlots", "availableTimes", "times", "availability.times", "availability.slots", "booking.nextSlots"]),
   ].flat().filter(Boolean);
@@ -375,11 +389,12 @@ function normalizeNextSlots(raw) {
   return values
     .map((value) => {
       if (typeof value === "string") {
-        return normalizeTimeLabel(value);
+        return normalizeTimeLabel(value, locales);
       }
 
       return normalizeTimeLabel(
-        pickPath(value, ["label", "time", "startTime", "dateTime", "datetime", "start"])
+        pickPath(value, ["label", "time", "startTime", "dateTime", "datetime", "start"]),
+        locales
       );
     })
     .filter(Boolean)
@@ -445,7 +460,7 @@ function resolveGoogleOpenStatus(raw) {
   return null;
 }
 
-function formatHoursTransitionLabel(prefix, value) {
+function formatHoursTransitionLabel(prefix, value, locales) {
   if (!value) {
     return null;
   }
@@ -456,7 +471,8 @@ function formatHoursTransitionLabel(prefix, value) {
     return null;
   }
 
-  return `${prefix} ${timeFormatter.format(parsed)}`;
+  const label = formatDateTimeWithLocales(parsed, locales, TIME_FORMAT_OPTIONS);
+  return label ? `${prefix} ${label}` : null;
 }
 
 function parseAddressSegments(value) {
@@ -504,10 +520,10 @@ function buildGoogleDescription(raw, addressLine) {
   return [addressLine, openStatus].filter(Boolean).join(" · ") || "Open place details in Google Maps.";
 }
 
-function resolveGoogleAvailabilityLabel(raw, websiteUrl) {
+function resolveGoogleAvailabilityLabel(raw, websiteUrl, locales) {
   const openStatus = resolveGoogleOpenStatus(raw);
-  const nextClose = formatHoursTransitionLabel("Closes", pickPath(raw, ["currentOpeningHours.nextCloseTime"]));
-  const nextOpen = formatHoursTransitionLabel("Opens", pickPath(raw, ["currentOpeningHours.nextOpenTime"]));
+  const nextClose = formatHoursTransitionLabel("Closes", pickPath(raw, ["currentOpeningHours.nextCloseTime"]), locales);
+  const nextOpen = formatHoursTransitionLabel("Opens", pickPath(raw, ["currentOpeningHours.nextOpenTime"]), locales);
 
   if (openStatus === "Open now") {
     return [openStatus, nextClose].filter(Boolean).join(" · ");
@@ -627,7 +643,7 @@ export function sortGooglePlaceResults(rawPlaces, search = {}) {
     });
 }
 
-function normalizeGoogleDateSpot(raw, index, search = {}) {
+function normalizeGoogleDateSpot(raw, index, search = {}, options = {}) {
   const name = getGoogleSpotName(raw);
 
   if (!name) {
@@ -663,7 +679,7 @@ function normalizeGoogleDateSpot(raw, index, search = {}) {
     ratingLabel: normalizeRatingLabel(raw),
     distanceMiles,
     distanceLabel: formatDistanceMiles(distanceMiles),
-    availabilityLabel: resolveGoogleAvailabilityLabel(raw, websiteUrl),
+    availabilityLabel: resolveGoogleAvailabilityLabel(raw, websiteUrl, options.locales),
     nextSlots: [],
     bookingUrl: websiteUrl || mapUrl,
     mapUrl,
@@ -673,7 +689,7 @@ function normalizeGoogleDateSpot(raw, index, search = {}) {
   };
 }
 
-function normalizeOpenTableDateSpot(raw, index, search = {}) {
+function normalizeOpenTableDateSpot(raw, index, search = {}, options = {}) {
   const name = pickPath(raw, ["name", "restaurantName", "restaurant.name", "title"]);
 
   if (!name) {
@@ -690,7 +706,7 @@ function normalizeOpenTableDateSpot(raw, index, search = {}) {
     pickPath(raw, ["description", "summary", "shortDescription", "editorialSummary"]) ||
     [cuisine, vibe].filter(Boolean).join(" · ") ||
     "Open in OpenTable for live availability.";
-  const nextSlots = normalizeNextSlots(raw);
+  const nextSlots = normalizeNextSlots(raw, options.locales);
   const bookingUrl = buildOpenTableNearbyUrl({
     bookingUrl: pickPath(raw, ["bookingUrl", "reservationUrl", "reserveUrl", "url", "link", "restaurant.url", "links.booking"]),
     partySize: search.partySize,
@@ -742,14 +758,14 @@ export function getDefaultDateTimeInput(baseDate = new Date()) {
   return toDateTimeLocalInput(next);
 }
 
-export function formatDateTimeSummary(value) {
-  const parsed = new Date(value);
+export function formatDateTimeSummary(value, locales) {
+  const formatted = formatDateTimeWithLocales(value, locales, DATE_SUMMARY_FORMAT_OPTIONS);
 
-  if (Number.isNaN(parsed.getTime())) {
+  if (!formatted) {
     return "Tonight";
   }
 
-  return dateSummaryFormatter.format(parsed);
+  return formatted;
 }
 
 export function formatDistanceMiles(value) {
@@ -830,8 +846,8 @@ export function normalizeDateSpot(raw, index, search = {}, options = {}) {
   const provider = inferDateSpotProvider(raw, options.provider);
 
   if (provider === DATE_SPOTS_PROVIDER_OPENTABLE) {
-    return normalizeOpenTableDateSpot(raw, index, search);
+    return normalizeOpenTableDateSpot(raw, index, search, options);
   }
 
-  return normalizeGoogleDateSpot(raw, index, search);
+  return normalizeGoogleDateSpot(raw, index, search, options);
 }

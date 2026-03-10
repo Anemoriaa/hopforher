@@ -13,6 +13,8 @@ import {
   resolveDateSpotProvider,
   sortGooglePlaceResults,
 } from "../../apps/web/src/lib/date-spots.js";
+import { translateUi } from "../../apps/web/src/lib/i18n.js";
+import { getPreferredLocales } from "../../apps/web/src/lib/locale.js";
 
 const GOOGLE_PLACES_SEARCH_NEARBY_URL = "https://places.googleapis.com/v1/places:searchNearby";
 const DEFAULT_GOOGLE_PLACES_FIELD_MASK = [
@@ -145,6 +147,16 @@ function getGooglePlacesLanguageCode(context) {
   return requested || "en";
 }
 
+function getRequestLocales(context) {
+  const header = context.request.headers.get("accept-language") || "";
+  const requestedLocales = header
+    .split(",")
+    .map((value) => value.split(";")[0]?.trim())
+    .filter(Boolean);
+
+  return getPreferredLocales(requestedLocales);
+}
+
 function getGooglePlacesRegionCode(context) {
   const explicit = String(context.env.GOOGLE_PLACES_REGION_CODE || "").trim();
 
@@ -199,13 +211,14 @@ function buildGooglePlacesSearchBody(search, context) {
 
 async function loadGooglePlacesResults(context, search, areaLabel) {
   const provider = DATE_SPOTS_PROVIDER_GOOGLE_PLACES;
+  const locales = getRequestLocales(context);
 
   if (!context.env.GOOGLE_PLACES_API_KEY) {
     return buildFallbackResponse(
       search,
       provider,
       "unconfigured",
-      "Add GOOGLE_PLACES_API_KEY in Cloudflare Pages to load live nearby results from Google Places.",
+      translateUi("server.googleUnconfigured", locales),
       areaLabel
     );
   }
@@ -215,7 +228,7 @@ async function loadGooglePlacesResults(context, search, areaLabel) {
       search,
       provider,
       "idle",
-      "Location is required to rank nearby places. Enable location and retry.",
+      translateUi("server.locationRequired", locales),
       areaLabel
     );
   }
@@ -241,14 +254,14 @@ async function loadGooglePlacesResults(context, search, areaLabel) {
         search,
         provider,
         "fallback",
-        "Nearby spots are unavailable right now. Showing backup date ideas instead.",
+        translateUi("server.fallbackUnavailable", locales),
         areaLabel
       );
     }
 
     const payload = await upstreamResponse.json();
     const spots = sortGooglePlaceResults(extractDateSpotArray(payload), search)
-      .map((spot, index) => normalizeDateSpot(spot, index, search, { provider }))
+      .map((spot, index) => normalizeDateSpot(spot, index, search, { provider, locales }))
       .filter(Boolean)
       .slice(0, search.limit);
 
@@ -259,7 +272,7 @@ async function loadGooglePlacesResults(context, search, areaLabel) {
         mode: "live",
         sourceLabel: getDateSpotPoweredLabel(provider),
         areaLabel: payload.areaLabel || deriveDateAreaLabel(spots, areaLabel),
-        note: "No nearby matches came back for this time. Try a different time or widen the search radius.",
+        note: translateUi("server.noMatchesGoogle", locales),
         searchUrl: buildDateSpotSearchUrl(search, { provider }),
         spots: [],
       });
@@ -271,15 +284,15 @@ async function loadGooglePlacesResults(context, search, areaLabel) {
       mode: "live",
       sourceLabel: getDateSpotPoweredLabel(provider),
       areaLabel: payload.areaLabel || deriveDateAreaLabel(spots, areaLabel),
-      note: payload.note || "Nearby results are coming from Google Places.",
+      note: payload.note || translateUi("server.googleLive", locales),
       searchUrl: buildDateSpotSearchUrl(search, { provider }),
       spots,
     });
   } catch (error) {
     const note =
       error?.name === "AbortError"
-        ? "Nearby spots are taking too long to load. Showing backup date ideas instead."
-        : "Nearby spots are unavailable right now. Showing backup date ideas instead.";
+        ? translateUi("server.fallbackTimeout", locales)
+        : translateUi("server.fallbackUnavailable", locales);
 
     return buildFallbackResponse(search, provider, "fallback", note, areaLabel);
   }
@@ -288,13 +301,14 @@ async function loadGooglePlacesResults(context, search, areaLabel) {
 async function loadOpenTableResults(context, search, areaLabel) {
   const provider = DATE_SPOTS_PROVIDER_OPENTABLE;
   const upstreamUrl = context.env.OPENTABLE_DIRECTORY_API_URL;
+  const locales = getRequestLocales(context);
 
   if (!upstreamUrl) {
     return buildFallbackResponse(
       search,
       provider,
       "unconfigured",
-      "Add OPENTABLE_DIRECTORY_API_URL and partner credentials in Cloudflare Pages to load live nearby results.",
+      translateUi("server.openTableUnconfigured", locales),
       areaLabel
     );
   }
@@ -329,14 +343,14 @@ async function loadOpenTableResults(context, search, areaLabel) {
         search,
         provider,
         "fallback",
-        "Nearby spots are unavailable right now. Showing backup date ideas instead.",
+        translateUi("server.fallbackUnavailable", locales),
         areaLabel
       );
     }
 
     const payload = await upstreamResponse.json();
     const spots = extractDateSpotArray(payload)
-      .map((spot, index) => normalizeDateSpot(spot, index, search, { provider }))
+      .map((spot, index) => normalizeDateSpot(spot, index, search, { provider, locales }))
       .filter(Boolean)
       .slice(0, search.limit);
 
@@ -347,7 +361,7 @@ async function loadOpenTableResults(context, search, areaLabel) {
         mode: "live",
         sourceLabel: getDateSpotPoweredLabel(provider),
         areaLabel: payload.areaLabel || payload.locationLabel || areaLabel,
-        note: "No nearby matches came back for this time. Try a different time or party size.",
+        note: translateUi("server.noMatchesOpenTable", locales),
         searchUrl: buildDateSpotSearchUrl(search, { provider }),
         spots: [],
       });
@@ -359,15 +373,15 @@ async function loadOpenTableResults(context, search, areaLabel) {
       mode: "live",
       sourceLabel: getDateSpotPoweredLabel(provider),
       areaLabel: payload.areaLabel || payload.locationLabel || deriveDateAreaLabel(spots, areaLabel),
-      note: payload.note || "Nearby results are coming from the configured OpenTable feed.",
+      note: payload.note || translateUi("server.openTableLive", locales),
       searchUrl: buildDateSpotSearchUrl(search, { provider }),
       spots,
     });
   } catch (error) {
     const note =
       error?.name === "AbortError"
-        ? "Nearby spots are taking too long to load. Showing backup date ideas instead."
-        : "Nearby spots are unavailable right now. Showing backup date ideas instead.";
+        ? translateUi("server.fallbackTimeout", locales)
+        : translateUi("server.fallbackUnavailable", locales);
 
     return buildFallbackResponse(search, provider, "fallback", note, areaLabel);
   }

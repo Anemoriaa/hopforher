@@ -241,6 +241,79 @@ function priceRange(gift) {
   };
 }
 
+function descriptorTokens(value) {
+  return [...new Set(
+    String(value || "")
+      .toLowerCase()
+      .split(/\/|,|\s+or\s+|\s+and\s+/g)
+      .map((token) => token.trim())
+      .filter((token) => token && token !== "her" && token.length > 1)
+  )];
+}
+
+function countSharedDescriptors(left, right) {
+  const rightTokens = new Set(descriptorTokens(right));
+
+  return descriptorTokens(left).filter((token) => rightTokens.has(token)).length;
+}
+
+function countSharedGuides(sourceGiftId, candidateGiftId) {
+  return seoGuides.reduce((total, guide) => {
+    return total + (guide.itemIds.includes(sourceGiftId) && guide.itemIds.includes(candidateGiftId) ? 1 : 0);
+  }, 0);
+}
+
+function relatedProductScore(source, candidate) {
+  let score = 0;
+
+  if (source.badge && candidate.badge && source.badge === candidate.badge) {
+    score += 24;
+  }
+
+  if (source.brand && candidate.brand && source.brand === candidate.brand) {
+    score += 8;
+  }
+
+  if (source.vibe && candidate.vibe && source.vibe === candidate.vibe) {
+    score += 8;
+  }
+
+  score += countSharedDescriptors(source.bestFor, candidate.bestFor) * 10;
+  score += countSharedGuides(source.id, candidate.id) * 14;
+
+  const sourcePrice = priceRange(source);
+  const candidatePrice = priceRange(candidate);
+
+  if (sourcePrice && candidatePrice) {
+    const delta = Math.abs(sourcePrice.low - candidatePrice.low);
+
+    if (delta <= 20) {
+      score += 12;
+    } else if (delta <= 50) {
+      score += 8;
+    } else if (delta <= 100) {
+      score += 4;
+    }
+  }
+
+  return score;
+}
+
+function relatedProductsForGift(gift) {
+  return [...seoCatalog]
+    .filter((entry) => entry.id !== gift.id)
+    .sort((left, right) => {
+      const scoreDelta = relatedProductScore(gift, right) - relatedProductScore(gift, left);
+
+      if (scoreDelta !== 0) {
+        return scoreDelta;
+      }
+
+      return left.name.localeCompare(right.name);
+    })
+    .slice(0, 6);
+}
+
 function schemaPrice(value) {
   return value.toFixed(2);
 }
@@ -285,6 +358,10 @@ function guideItems(guide) {
   return guide.itemIds.map((id) => catalogById.get(id)).filter(Boolean);
 }
 
+function hotStoryItems(story) {
+  return story.itemIds.map((id) => catalogById.get(id)).filter(Boolean);
+}
+
 function productUrl(gift) {
   return `${siteUrl}/gift/${gift.slug}/`;
 }
@@ -303,8 +380,25 @@ function guideImageUrl(guide) {
   return firstGift ? primaryImageUrl(firstGift) : `${siteUrl}/logo1.png`;
 }
 
+function hotVideoForGift(gift) {
+  const videos = Array.isArray(gift?.shortVideos) ? gift.shortVideos : [];
+
+  return videos.find((video) => video?.provider === "tiktok" && video?.posterUrl) || videos.find((video) => video?.provider === "tiktok") || null;
+}
+
+function hotGiftThumbnailUrl(gift) {
+  return hotVideoForGift(gift)?.posterUrl || primaryImageUrl(gift);
+}
+
+function hotGiftHasTikTokPoster(gift) {
+  return Boolean(hotVideoForGift(gift)?.posterUrl);
+}
+
 function hotThumbUrl(story) {
-  return `https://picsum.photos/seed/shopforher-${story.slug}/1200/1600`;
+  const items = hotStoryItems(story);
+  const featuredGift = items.find((gift) => hotGiftHasTikTokPoster(gift)) || items[0];
+
+  return featuredGift ? hotGiftThumbnailUrl(featuredGift) : `${siteUrl}/logo1.png`;
 }
 
 function jsonLdScript(data) {
@@ -544,7 +638,7 @@ function guideFaqs(guide, items) {
     {
       q: `What is the safest pick on this ${guide.label.toLowerCase()} page?`,
       a: items[0]
-        ? `${items[0].name} is the cleanest first answer because ${items[0].why.charAt(0).toLowerCase()}${items[0].why.slice(1)}`
+        ? `${items[0].name} is the cleanest first answer here. ${items[0].why}`
         : "Start with the first ranked pick.",
     },
     {
@@ -556,6 +650,8 @@ function guideFaqs(guide, items) {
 
 function renderGuidePage(guide) {
   const items = guideItems(guide);
+  const featuredGift = items[0] || null;
+  const shortlist = items.length > 1 ? items.slice(1) : [];
   const related = guide.related.map((slug) => guideBySlug.get(slug)).filter(Boolean);
   const canonical = `${siteUrl}/${guide.slug}/`;
   const pageTitle = guide.title;
@@ -667,7 +763,7 @@ function renderGuidePage(guide) {
   ${jsonLdScript(faqSchema)}
 </head>
 <body>
-  <div class="discovery-shell">
+  <div class="discovery-shell discovery-shell-guide">
     <header class="discovery-header">
       <a class="discovery-brand" href="/">
         <img src="/logo1.png" alt="ShopForHer">
@@ -678,52 +774,93 @@ function renderGuidePage(guide) {
         <a href="/affiliate-disclosure.html">Affiliate</a>
       </nav>
     </header>
-    <main class="discovery-main">
-      <section class="discovery-hero">
-        <p class="discovery-kicker">${escapeHtml(guide.groupLabel)}</p>
-        <h1>${escapeHtml(guide.h1)}</h1>
-        <p class="discovery-intro">${escapeHtml(guide.intro)}</p>
-        <div class="discovery-meta">
-          <span>Updated ${escapeHtml(formattedDate)}</span>
-          <span>${items.length} picks</span>
-          <span>Off-site merchant checkout</span>
+    <main class="discovery-main discovery-main-guide">
+      <section class="discovery-hero discovery-hero-guide">
+        <div class="discovery-hero-layout">
+          <div class="discovery-hero-copy">
+            <p class="discovery-kicker">${escapeHtml(guide.groupLabel)}</p>
+            <h1>${escapeHtml(guide.h1)}</h1>
+            <p class="discovery-intro">${escapeHtml(guide.intro)}</p>
+            <div class="discovery-meta">
+              <span>Updated ${escapeHtml(formattedDate)}</span>
+              <span>${items.length} picks</span>
+              <span>Off-site merchant checkout</span>
+            </div>
+          </div>
+          ${
+            featuredGift
+              ? `<aside class="discovery-hero-feature">
+            <a class="discovery-hero-feature-media" href="/gift/${featuredGift.slug}/">
+              <img src="${escapeHtml(primaryImageUrl(featuredGift))}" alt="${escapeHtml(featuredGift.name)}">
+            </a>
+            <div class="discovery-hero-feature-body">
+              <span class="discovery-card-kicker">Best first pick</span>
+              <h2><a class="discovery-title-link" href="/gift/${featuredGift.slug}/">${escapeHtml(featuredGift.name)}</a></h2>
+              <p class="discovery-feature-copy">${escapeHtml(featuredGift.hook)} ${escapeHtml(featuredGift.why)}</p>
+              <div class="discovery-pill-row">
+                <span>${escapeHtml(featuredGift.priceLabel)}</span>
+                <span>${escapeHtml(featuredGift.badge)}</span>
+                <span>Best for ${escapeHtml(featuredGift.bestFor)}</span>
+              </div>
+              <div class="discovery-actions">
+                <a class="discovery-text-link" href="/gift/${featuredGift.slug}/">Open product page</a>
+                ${renderAffiliateAnchor(featuredGift, `guide-${guide.slug}-hero`, "Buy now")}
+                ${renderPaidLinkNote(featuredGift)}
+              </div>
+            </div>
+          </aside>`
+              : ""
+          }
         </div>
       </section>
 
-      ${renderGuideMethodSection(guide)}
-      ${renderGuideSignalsSection(guide)}
-      ${renderGuideBestFitsSection(guide)}
-      ${renderGuideAvoidSection(guide)}
-      ${renderGuidePickLanesSection(guide)}
-
-      <section class="discovery-section">
+      ${
+        shortlist.length
+          ? `<section class="discovery-section">
         <div class="discovery-section-head">
-          <p class="discovery-kicker">Top picks</p>
-          <h2>Best matches right now</h2>
+          <p class="discovery-kicker">Shortlist</p>
+          <h2>More clean options</h2>
         </div>
-        <ol class="discovery-list">
-          ${items
+        <p class="discovery-section-note">Use these when the first answer is close but not final.</p>
+        <ol class="discovery-guide-list">
+          ${shortlist
             .map(
-              (gift, index) => `<li class="discovery-item">
-            <div class="discovery-item-head">
-              <span class="discovery-rank">${String(index + 1).padStart(2, "0")}</span>
-              <div>
-                <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
-                <p class="discovery-price">${escapeHtml(gift.priceLabel)}</p>
+              (gift, index) => `<li class="discovery-guide-item">
+            <a class="discovery-guide-item-media" href="/gift/${gift.slug}/">
+              <img src="${escapeHtml(primaryImageUrl(gift))}" alt="${escapeHtml(gift.name)}">
+            </a>
+            <div class="discovery-guide-item-body">
+              <div class="discovery-guide-item-head">
+                <span class="discovery-rank">${String(index + 2).padStart(2, "0")}</span>
+                <div>
+                  <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
+                  <div class="discovery-pill-row is-inline">
+                    <span>${escapeHtml(gift.priceLabel)}</span>
+                    <span>${escapeHtml(gift.badge)}</span>
+                  </div>
+                </div>
               </div>
-            </div>
-            <p class="discovery-copy">${escapeHtml(gift.hook)} ${escapeHtml(gift.why)}</p>
-            <p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}</p>
-            <div class="discovery-actions">
-              <a class="discovery-text-link" href="/gift/${gift.slug}/">View product</a>
-              ${renderAffiliateAnchor(gift, `guide-${guide.slug}-list`)}
-              ${renderPaidLinkNote(gift)}
+              <p class="discovery-copy">${escapeHtml(gift.hook)} ${escapeHtml(gift.why)}</p>
+              <p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}</p>
+              <div class="discovery-actions">
+                <a class="discovery-text-link" href="/gift/${gift.slug}/">View product</a>
+                ${renderAffiliateAnchor(gift, `guide-${guide.slug}-list`)}
+                ${renderPaidLinkNote(gift)}
+              </div>
             </div>
           </li>`
             )
             .join("")}
         </ol>
-      </section>
+      </section>`
+          : ""
+      }
+
+      ${renderGuidePickLanesSection(guide)}
+      ${renderGuideBestFitsSection(guide)}
+      ${renderGuideSignalsSection(guide)}
+      ${renderGuideAvoidSection(guide)}
+      ${renderGuideMethodSection(guide)}
 
       <section class="discovery-section">
         <div class="discovery-section-head">
@@ -772,7 +909,7 @@ function renderGuidePage(guide) {
 
 function renderProductPage(gift) {
   const matchingGuides = seoGuides.filter((guide) => guide.itemIds.includes(gift.id)).slice(0, 6);
-  const relatedProducts = seoCatalog.filter((entry) => entry.id !== gift.id).slice(0, 6);
+  const relatedProducts = relatedProductsForGift(gift);
   const canonical = productUrl(gift);
   const pageTitle = `${gift.name} | ShopForHer`;
   const description = `${gift.name} is a ${gift.badge} pick on ShopForHer. ${gift.why}`;
@@ -898,19 +1035,31 @@ function renderProductPage(gift) {
       </nav>
     </header>
     <main class="discovery-main discovery-main-product">
-      <section class="discovery-hero">
-        <p class="discovery-kicker">Product</p>
-        <h1>${escapeHtml(gift.name)}</h1>
-        <p class="discovery-intro">${escapeHtml(gift.hook)} ${escapeHtml(gift.why)}</p>
-        <div class="discovery-meta">
-          <span>${escapeHtml(gift.priceLabel)}</span>
-          <span>${escapeHtml(gift.badge)}</span>
-          <span>Updated ${escapeHtml(formattedDate)}</span>
-          <span>Off-site merchant checkout</span>
+      <section class="discovery-hero discovery-hero-product">
+        <div class="discovery-hero-layout">
+          <div class="discovery-hero-copy">
+            <p class="discovery-kicker">Product</p>
+            <h1>${escapeHtml(gift.name)}</h1>
+            <p class="discovery-intro">${escapeHtml(gift.hook)} ${escapeHtml(gift.why)}</p>
+            <div class="discovery-meta">
+              <span>${escapeHtml(gift.priceLabel)}</span>
+              <span>${escapeHtml(gift.badge)}</span>
+              <span>Updated ${escapeHtml(formattedDate)}</span>
+              <span>Off-site merchant checkout</span>
+            </div>
+          </div>
+          <aside class="discovery-product-glance">
+            <span class="discovery-card-kicker">Quick read</span>
+            <strong>${escapeHtml(gift.badge)}</strong>
+            <p>${escapeHtml(gift.why)}</p>
+            <div class="discovery-pill-row">
+              <span>${escapeHtml(gift.priceLabel)}</span>
+              <span>${escapeHtml(merchantName(gift))} checkout</span>
+              <span>${matchingGuides.length ? `${matchingGuides.length} guides use this` : "Direct product page"}</span>
+            </div>
+          </aside>
         </div>
       </section>
-
-      ${renderProductEditorialSection(gift)}
 
       <section class="discovery-product-spotlight">
         <div class="discovery-product-media">
@@ -953,7 +1102,7 @@ function renderProductPage(gift) {
             </article>
             <article class="discovery-product-point">
               <span>Mood</span>
-              <strong>${escapeHtml(gift.vibe)}</strong>
+              <strong>${escapeHtml(gift.vibe || gift.badge)}</strong>
             </article>
           </div>
           <div class="discovery-product-route">
@@ -966,14 +1115,21 @@ function renderProductPage(gift) {
             }</p>
           </div>
           <div class="discovery-actions">
-            ${renderAffiliateAnchor(gift, `product-${gift.slug}-primary`)}
+            ${renderAffiliateAnchor(gift, `product-${gift.slug}-primary`, "Buy now")}
+            ${
+              matchingGuides[0]
+                ? `<a class="discovery-text-link" href="/${matchingGuides[0].slug}/">See the best matching guide</a>`
+                : ""
+            }
             ${renderPaidLinkNote(gift)}
           </div>
           <p class="discovery-product-note">${escapeHtml(priceEstimateNote)} Checkout and final pricing happen on the merchant site.</p>
         </aside>
       </section>
 
-      <section class="discovery-section">
+      ${
+        matchingGuides.length
+          ? `<section class="discovery-section">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Featured in</p>
           <h2>Guides using this pick</h2>
@@ -988,7 +1144,9 @@ function renderProductPage(gift) {
             )
             .join("")}
         </div>
-      </section>
+      </section>`
+          : ""
+      }
 
       <section class="discovery-section">
         <div class="discovery-section-head">
@@ -1006,6 +1164,8 @@ function renderProductPage(gift) {
             .join("")}
         </div>
       </section>
+
+      ${renderProductEditorialSection(gift)}
     </main>
     ${renderDiscoveryFooter({
       notes: [
@@ -1333,12 +1493,23 @@ function renderHotIndex() {
           <p class="discovery-kicker">Feed</p>
           <h2>Current stories</h2>
         </div>
-        <div class="discovery-related">
+        <div class="discovery-hot-story-grid">
           ${seoHotStories
             .map(
-              (story) => `<a class="discovery-related-link" href="/hot/${story.slug}/">
-            <span>${escapeHtml(story.trendLabel)}</span>
-            <strong>${escapeHtml(story.h1)}</strong>
+              (story) => `<a class="discovery-hot-story-card" href="/hot/${story.slug}/">
+            <div class="discovery-hot-story-media">
+              <img src="${escapeHtml(hotThumbUrl(story))}" alt="${escapeHtml(story.h1)} thumbnail" loading="lazy">
+              <div class="discovery-hot-story-chip-row">
+                <span>TikTok</span>
+                <span>${escapeHtml(story.duration)}</span>
+                <span>${escapeHtml(story.views)}</span>
+              </div>
+            </div>
+            <div class="discovery-hot-story-body">
+              <span>${escapeHtml(story.trendLabel)}</span>
+              <strong>${escapeHtml(story.h1)}</strong>
+              <p>${escapeHtml(story.description)}</p>
+            </div>
           </a>`
             )
             .join("")}
@@ -1354,7 +1525,7 @@ function renderHotIndex() {
 }
 
 function renderHotStoryPage(story) {
-  const items = story.itemIds.map((id) => catalogById.get(id)).filter(Boolean);
+  const items = hotStoryItems(story);
   const relatedGuides = story.relatedGuides.map((slug) => guideBySlug.get(slug)).filter(Boolean);
   const canonical = `${siteUrl}/hot/${story.slug}/`;
   const pageTitle = story.title;
@@ -1401,11 +1572,11 @@ function renderHotStoryPage(story) {
   <meta property="og:title" content="${escapeHtml(pageTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${hotThumbUrl(story)}">
+  <meta property="og:image" content="${escapeHtml(hotThumbUrl(story))}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
-  <meta name="twitter:image" content="${hotThumbUrl(story)}">
+  <meta name="twitter:image" content="${escapeHtml(hotThumbUrl(story))}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${feedLinkTag()}
@@ -1438,7 +1609,7 @@ function renderHotStoryPage(story) {
       </section>
 
       <section class="discovery-poster">
-        <img src="${hotThumbUrl(story)}" alt="${escapeHtml(story.h1)} poster">
+        <img src="${escapeHtml(hotThumbUrl(story))}" alt="${escapeHtml(story.h1)} TikTok thumbnail" loading="lazy">
         <div class="discovery-poster-copy">
           <span>${escapeHtml(story.label)}</span>
           <strong>${escapeHtml(story.trendLabel)}</strong>
@@ -1450,15 +1621,26 @@ function renderHotStoryPage(story) {
           <p class="discovery-kicker">Products</p>
           <h2>Picks in this story</h2>
         </div>
-        <ol class="discovery-list">
+        <ol class="discovery-hot-item-list">
           ${items
-            .map(
-              (gift, index) => `<li class="discovery-item">
+            .map((gift, index) => {
+              const thumbnailUrl = hotGiftThumbnailUrl(gift);
+              const hasTikTokPoster = hotGiftHasTikTokPoster(gift);
+
+              return `<li class="discovery-hot-item">
+            <a class="discovery-hot-item-media" href="/gift/${gift.slug}/">
+              <img src="${escapeHtml(thumbnailUrl)}" alt="${escapeHtml(gift.name)}" loading="lazy">
+            </a>
+            <div class="discovery-hot-item-body">
             <div class="discovery-item-head">
               <span class="discovery-rank">${String(index + 1).padStart(2, "0")}</span>
               <div>
                 <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
-                <p class="discovery-price">${escapeHtml(gift.priceLabel)}</p>
+                <div class="discovery-pill-row is-inline">
+                  <span>${escapeHtml(gift.priceLabel)}</span>
+                  <span>${escapeHtml(gift.badge)}</span>
+                  ${hasTikTokPoster ? "<span>TikTok</span>" : ""}
+                </div>
               </div>
             </div>
             <p class="discovery-copy">${escapeHtml(gift.hook)} ${escapeHtml(gift.why)}</p>
@@ -1467,8 +1649,9 @@ function renderHotStoryPage(story) {
               ${renderAffiliateAnchor(gift, `hot-${story.slug}-list`)}
               ${renderPaidLinkNote(gift)}
             </div>
-          </li>`
-            )
+            </div>
+          </li>`;
+            })
             .join("")}
         </ol>
       </section>
