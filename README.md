@@ -65,6 +65,28 @@ The build also emits extra discovery surfaces:
 
 These utility files stay available for feeds and agents, but they are not included in the XML sitemap as primary search landing pages.
 
+### Google Search Console
+
+The site already ships the main Search Console crawl surfaces:
+
+- `robots.txt` with a sitemap reference
+- `sitemap.xml` as the primary sitemap index
+- crawlable trust pages, guides, product hubs, hot hubs, and an HTML site map
+
+Preferred ownership method:
+
+- add a Domain property in Google Search Console and verify it with Google's DNS TXT record
+
+URL-prefix verification is also supported by the build:
+
+- `GOOGLE_SITE_VERIFICATION_META` injects the homepage verification meta tag into `apps/web/dist/index.html`
+- `GOOGLE_SITE_VERIFICATION_FILE` writes the verification HTML file into `apps/web/dist/`
+- `GOOGLE_SITE_VERIFICATION_FILE_CONTENT` is optional if you need to override the default file body
+
+After verification, submit `https://shopforher.org/sitemap.xml` in Search Console.
+
+See [docs/google-search-console.md](/mnt/c/Projects/giftsher/docs/google-search-console.md) for the exact setup flow.
+
 ### Referral attribution
 
 `/ai-attribution.js` captures first-visit campaign and AI-referral sources such as `utm_source=chatgpt.com` or known AI referrers, then posts a lightweight event to `/api/attribution`.

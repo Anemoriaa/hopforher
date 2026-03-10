@@ -1,0 +1,24 @@
+DATE_SPOTS_PROVIDER=google-places
+GOOGLE_PLACES_API_KEY=
+GOOGLE_PLACES_SEARCH_RADIUS_METERS=4000
+GOOGLE_PLACES_RANK_PREFERENCE=POPULARITY
+GOOGLE_PLACES_FIELD_MASK=places.id,places.displayName,places.primaryType,places.primaryTypeDisplayName,places.formattedAddress,places.shortFormattedAddress,places.location,places.googleMapsUri,places.websiteUri,places.rating,places.userRatingCount,places.priceLevel,places.currentOpeningHours.openNow,places.currentOpeningHours.nextOpenTime,places.currentOpeningHours.nextCloseTime
+GOOGLE_PLACES_LANGUAGE_CODE=en
+GOOGLE_PLACES_REGION_CODE=US
+INDEXNOW_KEY=
+GOOGLE_SITE_VERIFICATION_META=
+GOOGLE_SITE_VERIFICATION_FILE=
+# Optional override. Usually leave blank so the build writes:
+# google-site-verification: <filename>
+GOOGLE_SITE_VERIFICATION_FILE_CONTENT=
+
+# Optional later provider: OpenTable partner feed
+OPENTABLE_DIRECTORY_API_URL=https://your-opentable-search-endpoint.example.com/restaurants
+OPENTABLE_API_KEY=
+OPENTABLE_API_KEY_HEADER=x-api-key
+OPENTABLE_BEARER_TOKEN=
+OPENTABLE_LAT_PARAM=latitude
+OPENTABLE_LNG_PARAM=longitude
+OPENTABLE_PARTY_SIZE_PARAM=partySize
+OPENTABLE_DATETIME_PARAM=dateTime
+OPENTABLE_LIMIT_PARAM=limit
