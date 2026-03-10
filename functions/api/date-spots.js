@@ -17,6 +17,7 @@ import { translateUi } from "../../apps/web/src/lib/i18n.js";
 import { getPreferredLocales } from "../../apps/web/src/lib/locale.js";
 
 const GOOGLE_PLACES_SEARCH_NEARBY_URL = "https://places.googleapis.com/v1/places:searchNearby";
+const GOOGLE_PLACES_TEXT_SEARCH_URL = "https://places.googleapis.com/v1/places:searchText";
 const DEFAULT_GOOGLE_PLACES_FIELD_MASK = [
   "places.id",
   "places.displayName",
@@ -34,6 +35,7 @@ const DEFAULT_GOOGLE_PLACES_FIELD_MASK = [
   "places.currentOpeningHours.nextOpenTime",
   "places.currentOpeningHours.nextCloseTime",
 ].join(",");
+const GOOGLE_PLACES_TIMEOUT_MS = 12000;
 
 function createJsonResponse(body, init = {}) {
   const headers = new Headers(init.headers);
@@ -144,7 +146,27 @@ function getGooglePlacesLanguageCode(context) {
   const header = context.request.headers.get("accept-language") || "";
   const requested = header.split(",")[0]?.trim();
 
-  return requested || "en";
+  if (!requested) {
+    return "en";
+  }
+
+  try {
+    const canonical = Intl.getCanonicalLocales(requested)[0];
+
+    if (!canonical) {
+      return "en";
+    }
+
+    const locale = new Intl.Locale(canonical);
+
+    if (locale.language && locale.region) {
+      return `${locale.language}-${locale.region}`;
+    }
+
+    return locale.language || canonical;
+  } catch (error) {
+    return requested.split("-")[0] || "en";
+  }
 }
 
 function getRequestLocales(context) {
@@ -183,23 +205,18 @@ function getGooglePlacesRadiusMeters(env) {
   );
 }
 
-function buildGooglePlacesSearchBody(search, context) {
-  const { includedPrimaryTypes } = getGooglePlacesSearchContext(search);
-  const body = {
-    maxResultCount: search.limit,
-    includedPrimaryTypes,
-    rankPreference: getGooglePlacesRankPreference(context.env),
-    locationRestriction: {
-      circle: {
-        center: {
-          latitude: search.latitude,
-          longitude: search.longitude,
-        },
-        radius: getGooglePlacesRadiusMeters(context.env),
-      },
+function buildGooglePlacesCircle(search, context) {
+  return {
+    center: {
+      latitude: search.latitude,
+      longitude: search.longitude,
     },
-    languageCode: getGooglePlacesLanguageCode(context),
+    radius: getGooglePlacesRadiusMeters(context.env),
   };
+}
+
+function applyGooglePlacesLocale(body, context) {
+  body.languageCode = getGooglePlacesLanguageCode(context);
   const regionCode = getGooglePlacesRegionCode(context);
 
   if (regionCode) {
@@ -207,6 +224,71 @@ function buildGooglePlacesSearchBody(search, context) {
   }
 
   return body;
+}
+
+function buildGooglePlacesSearchBody(search, context) {
+  const { includedPrimaryTypes } = getGooglePlacesSearchContext(search);
+
+  return applyGooglePlacesLocale(
+    {
+      maxResultCount: search.limit,
+      includedPrimaryTypes,
+      rankPreference: getGooglePlacesRankPreference(context.env),
+      locationRestriction: {
+        circle: buildGooglePlacesCircle(search, context),
+      },
+    },
+    context
+  );
+}
+
+function buildGooglePlacesTextSearchBody(search, context) {
+  const { searchQuery } = getGooglePlacesSearchContext(search);
+
+  return applyGooglePlacesLocale(
+    {
+      textQuery: searchQuery,
+      pageSize: search.limit,
+      locationBias: {
+        circle: buildGooglePlacesCircle(search, context),
+      },
+    },
+    context
+  );
+}
+
+function getGooglePlacesHeaders(context) {
+  return {
+    accept: "application/json",
+    "content-type": "application/json",
+    "X-Goog-Api-Key": context.env.GOOGLE_PLACES_API_KEY,
+    "X-Goog-FieldMask": context.env.GOOGLE_PLACES_FIELD_MASK || DEFAULT_GOOGLE_PLACES_FIELD_MASK,
+  };
+}
+
+function toGooglePlacesSpots(payload, search, locales) {
+  return sortGooglePlaceResults(extractDateSpotArray(payload), search)
+    .map((spot, index) =>
+      normalizeDateSpot(spot, index, search, {
+        provider: DATE_SPOTS_PROVIDER_GOOGLE_PLACES,
+        locales,
+      })
+    )
+    .filter(Boolean)
+    .slice(0, search.limit);
+}
+
+async function requestGooglePlaces(url, body, context) {
+  return fetchJsonWithTimeout(
+    url,
+    {
+      method: "POST",
+      headers: getGooglePlacesHeaders(context),
+      body: JSON.stringify(body),
+      cf: { cacheTtl: 0, cacheEverything: false },
+    },
+    GOOGLE_PLACES_TIMEOUT_MS
+  );
 }
 
 async function loadGooglePlacesResults(context, search, areaLabel) {
@@ -234,36 +316,51 @@ async function loadGooglePlacesResults(context, search, areaLabel) {
   }
 
   try {
-    const upstreamResponse = await fetchJsonWithTimeout(
-      GOOGLE_PLACES_SEARCH_NEARBY_URL,
-      {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json",
-          "X-Goog-Api-Key": context.env.GOOGLE_PLACES_API_KEY,
-          "X-Goog-FieldMask": context.env.GOOGLE_PLACES_FIELD_MASK || DEFAULT_GOOGLE_PLACES_FIELD_MASK,
-        },
-        body: JSON.stringify(buildGooglePlacesSearchBody(search, context)),
-        cf: { cacheTtl: 0, cacheEverything: false },
-      }
-    );
+    let payload = null;
+    let spots = [];
+    let timedOut = false;
 
-    if (!upstreamResponse.ok) {
+    try {
+      const nearbyResponse = await requestGooglePlaces(
+        GOOGLE_PLACES_SEARCH_NEARBY_URL,
+        buildGooglePlacesSearchBody(search, context),
+        context
+      );
+
+      if (nearbyResponse.ok) {
+        payload = await nearbyResponse.json();
+        spots = toGooglePlacesSpots(payload, search, locales);
+      }
+    } catch (error) {
+      timedOut = error?.name === "AbortError";
+    }
+
+    if (!spots.length) {
+      try {
+        const textResponse = await requestGooglePlaces(
+          GOOGLE_PLACES_TEXT_SEARCH_URL,
+          buildGooglePlacesTextSearchBody(search, context),
+          context
+        );
+
+        if (textResponse.ok) {
+          payload = await textResponse.json();
+          spots = toGooglePlacesSpots(payload, search, locales);
+        }
+      } catch (error) {
+        timedOut = timedOut || error?.name === "AbortError";
+      }
+    }
+
+    if (!payload) {
       return buildFallbackResponse(
         search,
         provider,
         "fallback",
-        translateUi("server.fallbackUnavailable", locales),
+        translateUi(timedOut ? "server.fallbackTimeout" : "server.fallbackUnavailable", locales),
         areaLabel
       );
     }
-
-    const payload = await upstreamResponse.json();
-    const spots = sortGooglePlaceResults(extractDateSpotArray(payload), search)
-      .map((spot, index) => normalizeDateSpot(spot, index, search, { provider, locales }))
-      .filter(Boolean)
-      .slice(0, search.limit);
 
     if (!spots.length) {
       return createJsonResponse({
