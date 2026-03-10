@@ -8,6 +8,7 @@ import {
   getCatalogSnapshot,
   subscribeToCatalogUpdates,
 } from "../../../../packages/catalog/storage.js";
+import { merchantProductUrl } from "./affiliate.js";
 
 export function readLiveCatalog() {
   const snapshot = getCatalogSnapshot();
@@ -130,14 +131,18 @@ function withAffiliateTag(urlValue, tag) {
 
 export function buildAffiliateLink(gift) {
   const liveAffiliateConfig = readLiveCatalog().affiliateConfig || baseAffiliateConfig;
-  const asin = gift.amazonAsin || gift.asin;
+  const productUrl = merchantProductUrl(gift);
+
+  if (gift.sourceProductUrl) {
+    return productUrl;
+  }
 
   if (gift.affiliateUrl) {
     return withAffiliateTag(gift.affiliateUrl, liveAffiliateConfig.tag);
   }
 
-  if (asin) {
-    return withAffiliateTag(`https://www.amazon.com/dp/${asin}`, liveAffiliateConfig.tag);
+  if (productUrl) {
+    return withAffiliateTag(productUrl, liveAffiliateConfig.tag);
   }
 
   const url = new URL(liveAffiliateConfig.baseUrl);

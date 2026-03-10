@@ -67,13 +67,22 @@ a {
   top: 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  align-items: center;
-  gap: 18px;
-  padding: calc(8px + env(safe-area-inset-top)) 0 8px;
+  gap: 8px;
+  padding: calc(8px + env(safe-area-inset-top)) 0 10px;
   background: rgba(255, 255, 255, 0.9);
   border-bottom: 1px solid rgba(17, 17, 17, 0.08);
   backdrop-filter: saturate(150%) blur(14px);
+}
+
+.discovery-header-top {
+  display: flex;
+  align-items: center;
+}
+
+.discovery-header.has-breadcrumbs .discovery-breadcrumbs {
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
 }
 
 .discovery-brand {
@@ -92,47 +101,6 @@ a {
   width: auto;
   max-width: min(320px, 38vw);
   object-fit: contain;
-}
-
-.discovery-nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-  gap: 16px;
-  width: 100%;
-  min-width: 0;
-}
-
-.discovery-nav a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 34px;
-  padding: 4px 0 8px;
-  border-bottom: 1px solid transparent;
-  font-family: var(--font-display);
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
-  transition:
-    border-color 0.2s ease,
-    color 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.discovery-nav a:hover {
-  color: var(--text);
-  border-color: rgba(17, 17, 17, 0.18);
-}
-
-.discovery-nav a[aria-current="page"] {
-  color: var(--text);
-  border-color: var(--text);
 }
 
 .discovery-main {
@@ -163,6 +131,10 @@ a {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.discovery-breadcrumbs.is-inline {
+  margin-bottom: 0;
 }
 
 .discovery-breadcrumbs a,
@@ -1050,24 +1022,9 @@ a {
 }
 
 @media (max-width: 720px) {
-  .discovery-header {
-    gap: 12px;
-  }
-
   .discovery-brand img {
     height: clamp(38px, 10vw, 48px);
     max-width: min(240px, 44vw);
-  }
-
-  .discovery-nav {
-    gap: 10px;
-  }
-
-  .discovery-nav a {
-    min-height: 30px;
-    padding: 4px 0 7px;
-    font-size: 0.54rem;
-    letter-spacing: 0.07em;
   }
 
   .discovery-hero h1 {
@@ -1088,11 +1045,6 @@ a {
     padding: 0 16px 56px;
   }
 
-  .discovery-header {
-    grid-template-columns: 1fr;
-    justify-items: start;
-  }
-
   .discovery-main {
     gap: 24px;
     padding-top: 18px;
@@ -1103,8 +1055,8 @@ a {
     gap: 20px;
   }
 
-  .discovery-nav {
-    justify-content: flex-start;
+  .discovery-header.has-breadcrumbs .discovery-breadcrumbs {
+    padding-top: 7px;
   }
 
   .discovery-hero-feature-body,

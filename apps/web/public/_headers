@@ -16,3 +16,18 @@
 
 /sitemap.xml
   X-Robots-Tag: noindex
+
+/sitemap-pages.xml
+  X-Robots-Tag: noindex
+
+/sitemap-guides.xml
+  X-Robots-Tag: noindex
+
+/sitemap-hot.xml
+  X-Robots-Tag: noindex
+
+/sitemap-dates.xml
+  X-Robots-Tag: noindex
+
+/sitemap-products.xml
+  X-Robots-Tag: noindex

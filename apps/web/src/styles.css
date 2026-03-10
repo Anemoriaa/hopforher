@@ -121,11 +121,6 @@ body {
   gap: 16px;
 }
 
-.gs-site-nav-wrap {
-  width: 100%;
-  min-width: 0;
-}
-
 .gs-wordmark {
   font-family: var(--font-display);
   font-size: 1.1rem;
@@ -134,16 +129,10 @@ body {
   text-transform: uppercase;
 }
 
-.gs-site-nav {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 16px;
-  width: 100%;
-}
-
 .gs-header-tabs {
-  margin-top: 8px;
+  width: 100%;
+  min-width: 0;
+  margin-top: 0;
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -155,9 +144,11 @@ body {
 .gs-header-tabs-inner {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 16px;
   min-width: max-content;
-  padding-bottom: 2px;
+  margin-left: auto;
+  padding-bottom: 1px;
 }
 
 .gs-site-link {
@@ -309,10 +300,6 @@ body {
     gap: 12px;
   }
 
-  .gs-site-nav {
-    gap: 12px;
-  }
-
   .gs-header-tabs-inner {
     gap: 12px;
   }
@@ -348,6 +335,8 @@ body {
 
   .gs-brand {
     padding: 0;
+    width: clamp(116px, 30vw, 148px);
+    height: clamp(40px, 10vw, 52px);
   }
 }
 
@@ -2975,8 +2964,8 @@ h2, h3 {
   justify-content: center;
   align-self: auto;
   flex: 0 0 auto;
-  width: clamp(160px, 28vw, 232px);
-  height: clamp(56px, 10vw, 72px);
+  width: clamp(132px, 22vw, 188px);
+  height: clamp(46px, 7vw, 60px);
   padding: 0;
   border: 0;
   border-radius: 0;

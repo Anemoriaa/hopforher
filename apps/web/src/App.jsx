@@ -16,10 +16,14 @@ import {
   subscribeToCatalogUpdates,
 } from "./lib/catalog.js";
 import {
-  AMAZON_AFFILIATE_REL,
   AMAZON_ASSOCIATE_DISCLOSURE,
   AMAZON_PAID_LINK_NOTE,
+  DIRECT_MERCHANT_LINK_NOTE,
   buildAffiliateDataAttributes,
+  resolveGiftCommerceLinkType,
+  resolveGiftCommerceRel,
+  resolveGiftMerchantName,
+  usesDirectMerchantPath,
 } from "./lib/affiliate.js";
 import {
   DATE_SPOTS_PROVIDER_OPENTABLE,
@@ -44,6 +48,9 @@ const slides = [
 
 const editorialSlides = slides.filter((slide) => slide.id !== "saved");
 const seoCatalogById = new Map(seoCatalog.map((gift) => [gift.id, gift]));
+const indexableSeoGiftIds = new Set(
+  seoCatalog.filter((gift) => gift.sourceProductUrl || gift.affiliateUrl || gift.amazonAsin || gift.asin).map((gift) => gift.id)
+);
 
 const relationshipOptions = [
   { id: "girlfriend", label: "Girlfriend", note: "Lower pressure, cleaner yes, easier first hit." },
@@ -87,7 +94,7 @@ const quickStartLanes = [
     title: "New relationship",
     description: "Lower-risk first answer.",
     ctaLabel: "Use",
-    guideHref: "/new-relationship-gifts-for-her/",
+    guideHref: "/gifts-for-girlfriend/",
     guideLabel: "Guide",
     selection: {
       relationship: "new-relationship",
@@ -117,7 +124,7 @@ const quickStartLanes = [
     title: "Last-minute buyer",
     description: "Fast path, cleaner checkout.",
     ctaLabel: "Use",
-    guideHref: "/last-minute-gifts-for-her/",
+    guideHref: "/amazon-gifts-for-her/",
     guideLabel: "Guide",
     selection: {
       relationship: "girlfriend",
@@ -145,9 +152,9 @@ const guideByRelationship = {
     chipLabel: "Anniversary guide",
   },
   "new-relationship": {
-    href: "/new-relationship-gifts-for-her/",
-    label: "Open the new relationship guide",
-    chipLabel: "New relationship guide",
+    href: "/gifts-for-girlfriend/",
+    label: "Open the low-pressure guide",
+    chipLabel: "Low-pressure guide",
   },
 };
 
@@ -463,6 +470,10 @@ function getProductPageHref(slug) {
   }
 
   return `/gift/${slug}/`;
+}
+
+function hasIndexableProductPage(gift) {
+  return Boolean(gift?.id && indexableSeoGiftIds.has(gift.id));
 }
 
 function rankGiftMatches(gifts, filters) {
@@ -840,9 +851,9 @@ export default function App() {
     [gifts]
   );
   const libraryProducts = useMemo(() => {
-    const merged = [...featuredSeoProducts, ...linkedTopProducts].filter(
-      (gift, index, array) => array.findIndex((item) => item.id === gift.id) === index
-    );
+    const merged = [...featuredSeoProducts, ...linkedTopProducts]
+      .filter((gift, index, array) => array.findIndex((item) => item.id === gift.id) === index)
+      .filter((gift) => hasIndexableProductPage(gift));
 
     return merged.slice(0, 10);
   }, [linkedTopProducts]);
@@ -1491,14 +1502,65 @@ export default function App() {
     };
   }
 
+  function getGiftCommerceSource(gift) {
+    return seoCatalogById.get(gift.id) || gift;
+  }
+
+  function getGiftMerchantName(gift) {
+    return resolveGiftMerchantName(getGiftCommerceSource(gift), affiliateConfig.merchantName);
+  }
+
+  function hasDirectMerchantLink(gift) {
+    return usesDirectMerchantPath(getGiftCommerceSource(gift));
+  }
+
+  function getGiftCommerceRel(gift) {
+    return resolveGiftCommerceRel(getGiftCommerceSource(gift));
+  }
+
+  function getGiftCommerceLinkType(gift) {
+    return resolveGiftCommerceLinkType(getGiftCommerceSource(gift));
+  }
+
+  function getGiftCommerceActionLabel(gift) {
+    const merchant = getGiftMerchantName(gift);
+
+    return hasDirectMerchantLink(gift)
+      ? t("generic.visitMerchant", { merchant })
+      : t("generic.buyOnMerchant", { merchant });
+  }
+
+  function getGiftPrimaryCtaText(gift) {
+    if (hasDirectMerchantLink(gift)) {
+      return t("generic.visitMerchant", { merchant: getGiftMerchantName(gift) });
+    }
+
+    return t("generic.buyNow");
+  }
+
+  function getGiftCommerceAriaLabel(gift) {
+    return `${getGiftCommerceActionLabel(gift)}: ${gift.name}`;
+  }
+
+  function getGiftCommerceDisclosure(gift) {
+    const merchant = getGiftMerchantName(gift);
+
+    if (hasDirectMerchantLink(gift)) {
+      return `Buying stays a separate second click on ${merchant}. ${DIRECT_MERCHANT_LINK_NOTE}.`;
+    }
+
+    return `Buying stays a separate second click on ${merchant}. ${AMAZON_PAID_LINK_NOTE}. ${AMAZON_ASSOCIATE_DISCLOSURE}`;
+  }
+
   function getAffiliateAnchorData(gift, placement) {
-    const seoGift = seoCatalogById.get(gift.id);
+    const seoGift = getGiftCommerceSource(gift);
 
     return buildAffiliateDataAttributes({
       gift,
       placement,
-      merchant: affiliateConfig.merchantName,
+      merchant: getGiftMerchantName(gift),
       slug: seoGift?.slug || "",
+      linkType: getGiftCommerceLinkType(gift),
     });
   }
 
@@ -1561,15 +1623,15 @@ export default function App() {
     }
 
     if (activePreviewMedia?.kind === "reel") {
-      return `${previewGift.hook} Tap once to play or pause the product reel, then use Buy on ${affiliateConfig.merchantName} as the second click.`;
+      return `${previewGift.hook} Tap once to play or pause the product reel, then use ${getGiftCommerceActionLabel(previewGift)} as the second click.`;
     }
 
     if (activePreviewMedia?.kind === "video") {
-      return `${previewGift.hook} Watch the clip here first, then use Buy on ${affiliateConfig.merchantName} if the product still looks right.`;
+      return `${previewGift.hook} Watch the clip here first, then use ${getGiftCommerceActionLabel(previewGift)} if the product still looks right.`;
     }
 
     if (activePreviewMedia?.kind === "embed") {
-      return `${previewGift.hook} Tap once to play or pause the TikTok here, then use Buy on ${affiliateConfig.merchantName} as the second click.`;
+      return `${previewGift.hook} Tap once to play or pause the TikTok here, then use ${getGiftCommerceActionLabel(previewGift)} as the second click.`;
     }
 
     return previewGift.hook;
@@ -1672,9 +1734,9 @@ export default function App() {
                       className="gs-icon-btn"
                       href={buildAffiliateLink(gift)}
                       target="_blank"
-                      rel={AMAZON_AFFILIATE_REL}
+                      rel={getGiftCommerceRel(gift)}
                       {...getAffiliateAnchorData(gift, "bento-card-icon")}
-                      aria-label={`Buy ${gift.name} on ${affiliateConfig.merchantName}`}
+                      aria-label={getGiftCommerceAriaLabel(gift)}
                     >
                       <ArrowUpRight />
                     </a>
@@ -1811,7 +1873,7 @@ export default function App() {
       eyebrow = gift.badge,
       deck = gift.hook,
       meta = [gift.priceLabel, gift.bestFor].filter(Boolean),
-      primaryLabel = "BUY",
+      primaryLabel = getGiftPrimaryCtaText(gift),
     } = options;
 
     return (
@@ -1838,9 +1900,9 @@ export default function App() {
             className="gs-primary-btn"
             href={buildAffiliateLink(gift)}
             target="_blank"
-            rel={AMAZON_AFFILIATE_REL}
+            rel={getGiftCommerceRel(gift)}
             {...getAffiliateAnchorData(gift, "product-card-primary")}
-            aria-label={`Buy ${gift.name} on ${affiliateConfig.merchantName}`}
+            aria-label={getGiftCommerceAriaLabel(gift)}
           >
             {primaryLabel}
           </a>
@@ -1876,11 +1938,11 @@ export default function App() {
               className="gs-primary-btn"
               href={buildAffiliateLink(gift)}
               target="_blank"
-              rel={AMAZON_AFFILIATE_REL}
+              rel={getGiftCommerceRel(gift)}
               {...getAffiliateAnchorData(gift, "saved-row-primary")}
             >
-              <span className="gs-visually-hidden">{`Buy ${gift.name} on ${affiliateConfig.merchantName}. `}</span>
-              BUY NOW
+              <span className="gs-visually-hidden">{`${getGiftCommerceActionLabel(gift)}: ${gift.name}. `}</span>
+              {getGiftPrimaryCtaText(gift)}
             </a>
             <button
               type="button"
@@ -1946,13 +2008,6 @@ export default function App() {
       : dateResults.mode === "unconfigured" || dateResults.mode === "fallback" || dateResults.status === "error"
         ? t("plans.poweredFallback")
         : t("plans.poweredIdle");
-  const siteNavLinks = [
-    { href: "/guides/", label: t("footer.guides") },
-    { href: "/hot/", label: t("footer.hot") },
-    { href: "/dates/", label: t("footer.plans") },
-    { href: "/affiliate-disclosure.html", label: t("footer.affiliate") },
-  ];
-
   function getDateSpotSummaryLabel(spot) {
     return [spot.distanceLabel, spot.priceHint].filter(Boolean).join(" · ") || spot.sourceLabel;
   }
@@ -1983,68 +2038,59 @@ export default function App() {
             <a href="/" className="gs-brand" aria-label={t("brand.homeAria")}>
               <img src="/logo1.png" alt="ShopForHer" className="gs-logo" />
             </a>
-            <nav className="gs-site-nav-wrap" aria-label={t("nav.primaryAria")}>
-              <div className="gs-site-nav">
-                {siteNavLinks.map((link) => (
-                  <a key={link.href} href={link.href} className="gs-site-link">
-                    <span className="gs-site-link-label">{link.label}</span>
-                  </a>
+            <nav className="gs-header-tabs" aria-label={t("nav.giftPagesAria")}>
+              <div className="gs-header-tabs-inner" role="tablist" aria-label={t("nav.giftPagesAria")}>
+                {editorialSlides.map((slide, index) => (
+                  <button
+                    key={slide.id}
+                    ref={(node) => setTabRef(index, node)}
+                    id={`tab-${slide.id}`}
+                    role="tab"
+                    type="button"
+                    className={classNames(
+                      "gs-site-link",
+                      slide.id === "popular" && "has-locale-badge",
+                      activeSlide === index && "is-active"
+                    )}
+                    onClick={() => setSlide(index)}
+                    onKeyDown={(event) => onTabKeyDown(event, index)}
+                    aria-selected={activeSlide === index}
+                    aria-controls={`panel-${slide.id}`}
+                    tabIndex={activeSlide === index ? 0 : -1}
+                    title={slide.id === "popular" ? popularLocaleBadge.title : undefined}
+                  >
+                    {slide.id === "popular" ? (
+                      <>
+                        <span className="gs-site-link-badge" aria-hidden="true">
+                          {popularLocaleBadge.emoji}
+                        </span>
+                        <span className="gs-visually-hidden">{popularLocaleBadge.screenReaderLabel}</span>
+                      </>
+                    ) : null}
+                    <span className="gs-site-link-label">{getSlideLabel(slide.id)}</span>
+                  </button>
                 ))}
+                <button
+                  ref={(node) => setTabRef(savedSlideIndex, node)}
+                  id="tab-saved"
+                  role="tab"
+                  type="button"
+                  className={classNames("gs-nav-save", activeSlide === savedSlideIndex && "is-active")}
+                  onClick={() => setSlide(savedSlideIndex)}
+                  onKeyDown={(event) => onTabKeyDown(event, savedSlideIndex)}
+                  aria-selected={activeSlide === savedSlideIndex}
+                  aria-controls="panel-saved"
+                  tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
+                >
+                  {t("nav.saved")}
+                  <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
+                    <span className="gs-visually-hidden">{`${t("nav.savedCountSr")} `}</span>
+                    {savedGifts.length}
+                  </span>
+                </button>
               </div>
             </nav>
           </div>
-          <nav className="gs-header-tabs" aria-label={t("nav.giftPagesAria")}>
-            <div className="gs-header-tabs-inner" role="tablist" aria-label={t("nav.giftPagesAria")}>
-              {editorialSlides.map((slide, index) => (
-                <button
-                  key={slide.id}
-                  ref={(node) => setTabRef(index, node)}
-                  id={`tab-${slide.id}`}
-                  role="tab"
-                  type="button"
-                  className={classNames(
-                    "gs-site-link",
-                    slide.id === "popular" && "has-locale-badge",
-                    activeSlide === index && "is-active"
-                  )}
-                  onClick={() => setSlide(index)}
-                  onKeyDown={(event) => onTabKeyDown(event, index)}
-                  aria-selected={activeSlide === index}
-                  aria-controls={`panel-${slide.id}`}
-                  tabIndex={activeSlide === index ? 0 : -1}
-                  title={slide.id === "popular" ? popularLocaleBadge.title : undefined}
-                >
-                  {slide.id === "popular" ? (
-                    <>
-                      <span className="gs-site-link-badge" aria-hidden="true">
-                        {popularLocaleBadge.emoji}
-                      </span>
-                      <span className="gs-visually-hidden">{popularLocaleBadge.screenReaderLabel}</span>
-                    </>
-                  ) : null}
-                  <span className="gs-site-link-label">{getSlideLabel(slide.id)}</span>
-                </button>
-              ))}
-              <button
-                ref={(node) => setTabRef(savedSlideIndex, node)}
-                id="tab-saved"
-                role="tab"
-                type="button"
-                className={classNames("gs-nav-save", activeSlide === savedSlideIndex && "is-active")}
-                onClick={() => setSlide(savedSlideIndex)}
-                onKeyDown={(event) => onTabKeyDown(event, savedSlideIndex)}
-                aria-selected={activeSlide === savedSlideIndex}
-                aria-controls="panel-saved"
-                tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
-              >
-                {t("nav.saved")}
-                    <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
-                      <span className="gs-visually-hidden">{`${t("nav.savedCountSr")} `}</span>
-                      {savedGifts.length}
-                    </span>
-              </button>
-            </div>
-          </nav>
         </header>
 
         <main className="gs-main" id="gs-main-content">
@@ -2105,9 +2151,9 @@ export default function App() {
                           key={gift.slug || gift.id}
                           href={buildAffiliateLink(gift)}
                           target="_blank"
-                          rel={AMAZON_AFFILIATE_REL}
+                          rel={getGiftCommerceRel(gift)}
                           {...getAffiliateAnchorData(gift, `popular-hero-card-${index + 1}`)}
-                          aria-label={`Buy ${gift.name} on ${affiliateConfig.merchantName}`}
+                          aria-label={getGiftCommerceAriaLabel(gift)}
                           {...getGiftImageFrameProps(gift, `gs-popular-hero-card is-layer-${index + 1}`)}
                         >
                           <img src={getGiftHeroImageUrl(gift)} alt={gift.name} loading="lazy" />
@@ -2199,7 +2245,7 @@ export default function App() {
                             >
                               {t("picker.buildManually")}
                             </button>
-                            <a href="/last-minute-gifts-for-her/" className="gs-home-inline-link">
+                            <a href="/amazon-gifts-for-her/" className="gs-home-inline-link">
                               {t("picker.needSpeed")}
                             </a>
                           </div>
@@ -2400,11 +2446,11 @@ export default function App() {
                                     className="gs-primary-btn"
                                     href={buildAffiliateLink(leadRecommendation)}
                                     target="_blank"
-                                    rel={AMAZON_AFFILIATE_REL}
+                                    rel={getGiftCommerceRel(leadRecommendation)}
                                     {...getAffiliateAnchorData(leadRecommendation, "home-decision-primary")}
-                                    aria-label={`Buy ${leadRecommendation.name} on ${affiliateConfig.merchantName}`}
+                                    aria-label={getGiftCommerceAriaLabel(leadRecommendation)}
                                   >
-                                    {t("generic.buyNow")}
+                                    {getGiftPrimaryCtaText(leadRecommendation)}
                                   </a>
                                   <a className="gs-secondary-btn" href={activeGuide.href}>
                                     {t("generic.openGuide")}
@@ -2525,6 +2571,56 @@ export default function App() {
                           <div>
                             <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
                             <strong>{t("home.allGuides")}</strong>
+                          </div>
+                          <ArrowUpRight size={16} />
+                        </a>
+                      </div>
+                    </article>
+                    <article className="gs-popular-library-panel">
+                      <div className="gs-popular-library-head">
+                        <span className="gs-overline">{t("footer.hot")}</span>
+                        <strong>Trending pages</strong>
+                        <p>Open faster-moving gift lanes when you want the current angle before the evergreen guide.</p>
+                      </div>
+                      <div className="gs-popular-library-list">
+                        {seoHotStories.slice(0, 4).map((story) => (
+                          <a key={story.slug} href={`/hot/${story.slug}/`} className="gs-popular-library-link">
+                            <div>
+                              <span className="gs-seo-guide-eyebrow">{story.trendLabel}</span>
+                              <strong>{story.h1}</strong>
+                            </div>
+                            <ArrowUpRight size={16} />
+                          </a>
+                        ))}
+                        <a href="/hot/" className="gs-popular-library-link is-all">
+                          <div>
+                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                            <strong>{t("hot.allPages")}</strong>
+                          </div>
+                          <ArrowUpRight size={16} />
+                        </a>
+                      </div>
+                    </article>
+                    <article className="gs-popular-library-panel">
+                      <div className="gs-popular-library-head">
+                        <span className="gs-overline">{t("footer.plans")}</span>
+                        <strong>Date city pages</strong>
+                        <p>Browse city landing pages when the gift search turns into an actual plan.</p>
+                      </div>
+                      <div className="gs-popular-library-list">
+                        {seoDateCities.slice(0, 4).map((city) => (
+                          <a key={city.slug} href={`/dates/${city.slug}/`} className="gs-popular-library-link">
+                            <div>
+                              <span className="gs-seo-guide-eyebrow">{t("plans.overline")}</span>
+                              <strong>{city.city}</strong>
+                            </div>
+                            <ArrowUpRight size={16} />
+                          </a>
+                        ))}
+                        <a href="/dates/" className="gs-popular-library-link is-all">
+                          <div>
+                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                            <strong>{t("plans.allDatePages")}</strong>
                           </div>
                           <ArrowUpRight size={16} />
                         </a>
@@ -2967,11 +3063,11 @@ export default function App() {
                       className="gs-secondary-btn gs-hot-preview-buy"
                       href={buildAffiliateLink(previewGift)}
                       target="_blank"
-                      rel={AMAZON_AFFILIATE_REL}
+                      rel={getGiftCommerceRel(previewGift)}
                       {...getAffiliateAnchorData(previewGift, "hot-preview-buy")}
-                      aria-label={`Buy ${previewGift.name} on ${affiliateConfig.merchantName}`}
+                      aria-label={getGiftCommerceAriaLabel(previewGift)}
                     >
-                      Buy on {affiliateConfig.merchantName}
+                      {getGiftCommerceActionLabel(previewGift)}
                     </a>
                   </div>
                 </div>
@@ -3221,11 +3317,11 @@ export default function App() {
                     className="gs-primary-btn gs-preview-primary"
                     href={buildAffiliateLink(previewGift)}
                     target="_blank"
-                    rel={AMAZON_AFFILIATE_REL}
+                    rel={getGiftCommerceRel(previewGift)}
                     {...getAffiliateAnchorData(previewGift, "preview-primary")}
-                    aria-label={`Buy ${previewGift.name} on ${affiliateConfig.merchantName}`}
+                    aria-label={getGiftCommerceAriaLabel(previewGift)}
                   >
-                    Buy on {affiliateConfig.merchantName}
+                    {getGiftCommerceActionLabel(previewGift)}
                   </a>
                   <div className="gs-preview-secondary-actions">
                     <button
@@ -3257,7 +3353,7 @@ export default function App() {
                   {activePreviewMedia?.kind === "image"
                     ? "This preview is image-led."
                     : "The first click stays in the preview so you can watch first."}{" "}
-                  Buying stays a separate second click on {affiliateConfig.merchantName}. {AMAZON_PAID_LINK_NOTE}. {AMAZON_ASSOCIATE_DISCLOSURE}
+                  {getGiftCommerceDisclosure(previewGift)}
                 </p>
               </div>
             </section>

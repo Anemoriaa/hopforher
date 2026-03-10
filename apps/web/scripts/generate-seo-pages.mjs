@@ -6,6 +6,7 @@ import {
   AMAZON_AFFILIATE_REL,
   AMAZON_ASSOCIATE_DISCLOSURE,
   AMAZON_PAID_LINK_NOTE,
+  DIRECT_MERCHANT_LINK_NOTE,
   buildAffiliateDataAttributes,
 } from "../src/lib/affiliate.js";
 
@@ -17,6 +18,13 @@ const updatedAt = seoSite.updatedAt;
 const catalogById = new Map(seoCatalog.map((gift) => [gift.id, gift]));
 const guideBySlug = new Map(seoGuides.map((guide) => [guide.slug, guide]));
 const giftBySlug = new Map(seoCatalog.map((gift) => [gift.slug, gift]));
+const suppressedGuideSlugs = new Set([
+  "birthday-gifts-for-girlfriend",
+  "birthday-gifts-for-wife",
+  "new-relationship-gifts-for-her",
+  "last-minute-gifts-for-her",
+  "date-night-gifts-for-her",
+]);
 const lastmodPlaceholder = {
   isoDate: "__LASTMOD_DATE__",
   dateTime: "__LASTMOD_DATE_TIME__",
@@ -25,6 +33,45 @@ const lastmodPlaceholder = {
 const heavyGuideReuseThreshold = 5;
 const distinctiveGuideReuseThreshold = 3;
 const guideDistinctiveTarget = 2;
+const guideExpansionUsageThreshold = 2;
+const guideExpansionCount = 3;
+const keywordStopwords = new Set([
+  "and",
+  "are",
+  "best",
+  "buy",
+  "buys",
+  "for",
+  "from",
+  "gift",
+  "gifts",
+  "her",
+  "hers",
+  "into",
+  "its",
+  "just",
+  "more",
+  "most",
+  "not",
+  "now",
+  "off",
+  "out",
+  "page",
+  "pages",
+  "she",
+  "that",
+  "the",
+  "their",
+  "them",
+  "they",
+  "this",
+  "those",
+  "use",
+  "when",
+  "with",
+  "you",
+  "your",
+]);
 const trustPages = [
   {
     filename: "about.html",
@@ -279,15 +326,92 @@ function merchantName(gift) {
 }
 
 function usesAffiliateSearchFallback(gift) {
-  return !(gift.affiliateUrl || gift.amazonAsin || gift.asin);
+  return !merchantProductUrl(gift);
 }
 
+function usesDirectMerchantPath(gift) {
+  return Boolean(gift.sourceProductUrl && !gift.affiliateUrl && !(gift.amazonAsin || gift.asin));
+}
+
+function productIndexState(gift) {
+  if (usesAffiliateSearchFallback(gift)) {
+    return {
+      indexable: false,
+      reason: "merchant-search-fallback",
+    };
+  }
+
+  return {
+    indexable: true,
+    reason: usesDirectMerchantPath(gift) ? "direct-merchant-url" : "direct-merchant-path",
+  };
+}
+
+function isIndexableProductPage(gift) {
+  return productIndexState(gift).indexable;
+}
+
+function productRobotsContent(gift) {
+  return isIndexableProductPage(gift)
+    ? "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    : "noindex,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
+}
+
+const indexableSeoCatalog = seoCatalog.filter((gift) => isIndexableProductPage(gift));
+const indexableSeoGuides = seoGuides.filter((guide) => !suppressedGuideSlugs.has(guide.slug));
+
 function affiliateLabel(gift) {
-  return usesAffiliateSearchFallback(gift) ? "Find on Amazon" : "Buy on Amazon";
+  if (usesAffiliateSearchFallback(gift)) {
+    return "Find on Amazon";
+  }
+
+  if (usesDirectMerchantPath(gift) && merchantName(gift) !== "Amazon") {
+    return `Visit ${merchantName(gift)}`;
+  }
+
+  return "Buy now";
 }
 
 function paidLinkNote(gift) {
-  return usesAffiliateSearchFallback(gift) ? "Paid search link to Amazon" : AMAZON_PAID_LINK_NOTE;
+  if (usesAffiliateSearchFallback(gift)) {
+    return "Paid search link to Amazon";
+  }
+
+  return usesDirectMerchantPath(gift) ? DIRECT_MERCHANT_LINK_NOTE : AMAZON_PAID_LINK_NOTE;
+}
+
+function commerceUrl(gift) {
+  return merchantProductUrl(gift) || affiliateUrl(gift);
+}
+
+function commerceRel(gift) {
+  return usesDirectMerchantPath(gift) ? "noopener noreferrer" : AMAZON_AFFILIATE_REL;
+}
+
+function commerceLinkType(gift) {
+  return usesDirectMerchantPath(gift) ? "merchant" : "amazon";
+}
+
+function guideIndexState(guide) {
+  return suppressedGuideSlugs.has(guide.slug)
+    ? {
+        indexable: false,
+        reason: "overlap-suppressed",
+      }
+    : {
+        indexable: true,
+        reason: "search-facing",
+      };
+}
+
+function isIndexableGuidePage(guide) {
+  return guideIndexState(guide).indexable;
+}
+
+function guideRobotsContent(guide) {
+  return isIndexableGuidePage(guide)
+    ? "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    : "noindex,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
 }
 
 function parsePriceNumbers(priceLabel) {
@@ -323,6 +447,18 @@ function descriptorTokens(value) {
   )];
 }
 
+function keywordTokens(...values) {
+  return [...new Set(
+    values
+      .flatMap((value) => String(value || "")
+        .toLowerCase()
+        .replaceAll(/[^a-z0-9]+/g, " ")
+        .split(/\s+/g))
+      .map((token) => token.trim())
+      .filter((token) => token.length > 2 && !keywordStopwords.has(token))
+  )];
+}
+
 function countSharedDescriptors(left, right) {
   const rightTokens = new Set(descriptorTokens(right));
 
@@ -330,7 +466,7 @@ function countSharedDescriptors(left, right) {
 }
 
 function countSharedGuides(sourceGiftId, candidateGiftId) {
-  return seoGuides.reduce((total, guide) => {
+  return indexableSeoGuides.reduce((total, guide) => {
     return total + (guide.itemIds.includes(sourceGiftId) && guide.itemIds.includes(candidateGiftId) ? 1 : 0);
   }, 0);
 }
@@ -434,12 +570,112 @@ function hotStoryItems(story) {
   return story.itemIds.map((id) => catalogById.get(id)).filter(Boolean);
 }
 
+function hotStoriesForGift(gift) {
+  return seoHotStories.filter((story) => story.itemIds.includes(gift.id));
+}
+
+function hotStoriesForGuide(guide, items = guideItems(guide)) {
+  const itemIds = new Set(items.map((gift) => gift.id));
+
+  return seoHotStories
+    .map((story) => {
+      const sharedItems = hotStoryItems(story).filter((gift) => itemIds.has(gift.id));
+
+      return {
+        story,
+        sharedItems,
+        sharedCount: sharedItems.length,
+      };
+    })
+    .filter((entry) => entry.sharedCount > 0)
+    .sort((left, right) => right.sharedCount - left.sharedCount || left.story.h1.localeCompare(right.story.h1));
+}
+
 function guideUsageCount(giftId) {
-  return seoGuides.reduce((total, guide) => total + (guide.itemIds.includes(giftId) ? 1 : 0), 0);
+  return indexableSeoGuides.reduce((total, guide) => total + (guide.itemIds.includes(giftId) ? 1 : 0), 0);
+}
+
+function guideBudgetCap(guide) {
+  const match = `${guide.label} ${guide.h1} ${guide.title}`.match(/under\s*\$?(\d+)/i);
+
+  return match ? Number.parseInt(match[1], 10) : null;
+}
+
+function guideKeywordSet(guide) {
+  return new Set(keywordTokens(
+    guide.label,
+    guide.h1,
+    guide.description,
+    guide.intro,
+    guide.selectionMethod,
+    guide.bestUseCase,
+    guide.avoidWhen,
+    ...(guide.buyerSignals || []).map((entry) => `${entry.title} ${entry.body}`),
+    ...(guide.bestFits || []).map((entry) => `${entry.title} ${entry.body}`),
+    ...(guide.pickLanes || []).map((entry) => `${entry.title} ${entry.body}`)
+  ));
+}
+
+function guideExpansionScore(guide, items, keywordSet, budgetCap, candidate) {
+  if (!isIndexableProductPage(candidate) || items.some((entry) => entry.id === candidate.id)) {
+    return Number.NEGATIVE_INFINITY;
+  }
+
+  const usageCount = guideUsageCount(candidate.id);
+
+  if (usageCount > guideExpansionUsageThreshold) {
+    return Number.NEGATIVE_INFINITY;
+  }
+
+  const price = priceRange(candidate);
+
+  if (budgetCap && price && price.low > budgetCap) {
+    return Number.NEGATIVE_INFINITY;
+  }
+
+  const candidateTokens = keywordTokens(candidate.name, candidate.brand, candidate.badge, candidate.bestFor, candidate.hook, candidate.why);
+  const keywordOverlap = candidateTokens.filter((token) => keywordSet.has(token)).length;
+  const descriptorOverlap = items.reduce((best, item) => {
+    return Math.max(best, countSharedDescriptors(item.bestFor, candidate.bestFor));
+  }, 0);
+  const badgeOverlap = items.some((item) => item.badge === candidate.badge) ? 1 : 0;
+  const usageBonus = usageCount === 0 ? 24 : usageCount === 1 ? 16 : 8;
+  const budgetBonus = budgetCap && price && price.high <= budgetCap ? 8 : 0;
+
+  return (keywordOverlap * 16) + (descriptorOverlap * 10) + (badgeOverlap * 6) + usageBonus + budgetBonus;
+}
+
+function guideExpansionProducts(guide, items = guideItems(guide)) {
+  const keywordSet = guideKeywordSet(guide);
+  const budgetCap = guideBudgetCap(guide);
+
+  return [...indexableSeoCatalog]
+    .map((candidate) => ({
+      candidate,
+      score: guideExpansionScore(guide, items, keywordSet, budgetCap, candidate),
+    }))
+    .filter((entry) => Number.isFinite(entry.score) && entry.score > 0)
+    .sort((left, right) => {
+      const scoreDelta = right.score - left.score;
+
+      if (scoreDelta !== 0) {
+        return scoreDelta;
+      }
+
+      const usageDelta = guideUsageCount(left.candidate.id) - guideUsageCount(right.candidate.id);
+
+      if (usageDelta !== 0) {
+        return usageDelta;
+      }
+
+      return left.candidate.name.localeCompare(right.candidate.name);
+    })
+    .slice(0, guideExpansionCount)
+    .map((entry) => entry.candidate);
 }
 
 function guideOverlapDetails(guide, items = guideItems(guide)) {
-  const relatedGuides = (guide.related || []).map((slug) => guideBySlug.get(slug)).filter(Boolean);
+  const relatedGuides = (guide.related || []).map((slug) => guideBySlug.get(slug)).filter(Boolean).filter(isIndexableGuidePage);
   const relatedItemIds = new Set(relatedGuides.flatMap((entry) => entry.itemIds || []));
   const uniqueAgainstRelated = items.filter((gift) => !relatedItemIds.has(gift.id));
   const distinctiveItems = (uniqueAgainstRelated.length ? uniqueAgainstRelated : [...items].sort((left, right) => {
@@ -486,7 +722,7 @@ function guideOverlapDetails(guide, items = guideItems(guide)) {
 }
 
 function logGuideOverlapWarnings() {
-  const flagged = seoGuides
+  const flagged = indexableSeoGuides
     .map((guide) => {
       const items = guideItems(guide);
       const overlap = guideOverlapDetails(guide, items);
@@ -565,13 +801,38 @@ function jsonLdScript(data) {
   return `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
 }
 
+function buildBreadcrumbSchema(items = []) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      item: item.href.startsWith("http") ? item.href : `${siteUrl}${item.href}`,
+    })),
+  };
+}
+
+function buildLinkedItemListSchema(name, url, links = []) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name,
+    url,
+    numberOfItems: links.length,
+    itemListElement: links.map((link, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: link.label,
+      url: link.href.startsWith("http") ? link.href : `${siteUrl}${link.href}`,
+    })),
+  };
+}
+
 function attributionScriptTag() {
   return `<script defer src="/ai-attribution.js"></script>
   <script defer src="/affiliate-clicks.js"></script>`;
-}
-
-function feedLinkTag() {
-  return `<link rel="alternate" type="application/rss+xml" title="${escapeHtml(seoSite.name)} feed" href="/feed.xml">`;
 }
 
 function socialImageMetaTags(imageUrl, altText) {
@@ -612,44 +873,37 @@ function renderHtmlAttributes(attributes) {
 }
 
 function renderAffiliateAnchor(gift, placement, label = affiliateLabel(gift)) {
-  const attrs = renderHtmlAttributes(buildAffiliateDataAttributes({ gift, placement }));
+  const attrs = renderHtmlAttributes(buildAffiliateDataAttributes({
+    gift,
+    placement,
+    merchant: merchantName(gift),
+    linkType: commerceLinkType(gift),
+  }));
 
-  return `<a class="discovery-btn" href="${affiliateUrl(gift)}" target="_blank" rel="${AMAZON_AFFILIATE_REL}" ${attrs}>${escapeHtml(label)}</a>`;
+  return `<a class="discovery-btn" href="${commerceUrl(gift)}" target="_blank" rel="${commerceRel(gift)}" ${attrs}>${escapeHtml(label)}</a>`;
 }
 
 function renderPaidLinkNote(gift) {
   return `<span class="discovery-paid-note">${escapeHtml(paidLinkNote(gift))}</span>`;
 }
 
-function renderDiscoveryHeader(active = "") {
-  const links = [
-    { key: "home", href: "/", label: "Home" },
-    { key: "guides", href: "/guides/", label: "Guides" },
-    { key: "hot", href: "/hot/", label: "Hot" },
-    { key: "plans", href: "/dates/", label: "Plans" },
-    { key: "affiliate", href: "/affiliate-disclosure.html", label: "Affiliate" },
-  ];
-
-  return `<header class="discovery-header">
+function renderDiscoveryHeader(_active = "", breadcrumbs = []) {
+  return `<header class="discovery-header${breadcrumbs.length ? " has-breadcrumbs" : ""}">
+      <div class="discovery-header-top">
       <a class="discovery-brand" href="/">
         <img src="/logo1.png" alt="ShopForHer">
       </a>
-      <nav class="discovery-nav" aria-label="Primary">
-        ${links
-          .map(
-            (link) => `<a href="${link.href}"${link.key === active ? ' aria-current="page"' : ""}>${escapeHtml(link.label)}</a>`
-          )
-          .join("")}
-      </nav>
+      </div>
+      ${breadcrumbs.length ? renderBreadcrumbs(breadcrumbs, "is-inline") : ""}
     </header>`;
 }
 
-function renderBreadcrumbs(items = []) {
+function renderBreadcrumbs(items = [], className = "") {
   if (!items.length) {
     return "";
   }
 
-  return `<nav class="discovery-breadcrumbs" aria-label="Breadcrumb">
+  return `<nav class="discovery-breadcrumbs${className ? ` ${className}` : ""}" aria-label="Breadcrumb">
       ${items
         .map((item, index) => {
           const content = item.href
@@ -787,6 +1041,34 @@ function renderGuideComparisonSection(guide, items = guideItems(guide)) {
       </section>`;
 }
 
+function renderGuideExpansionSection(guide, expansionProducts = []) {
+  if (!expansionProducts.length) {
+    return "";
+  }
+
+  return `<section class="discovery-section" id="guide-expansion">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">More specific picks</p>
+          <h2>Less-repeated products that still fit</h2>
+        </div>
+        <p class="discovery-section-note">${escapeHtml(`These are lower-reuse product pages that still match ${guide.label.toLowerCase()} when you want a more specific answer than the main shortlist.`)}</p>
+        <div class="discovery-decision-grid">
+          ${expansionProducts
+            .map((gift) => {
+              const usageCount = guideUsageCount(gift.id);
+
+              return `<article class="discovery-decision-card">
+            <span class="discovery-decision-label">Specific lane</span>
+            <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
+            <p>${escapeHtml(gift.why)}</p>
+            <p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}. Used on ${usageCount} other guide${usageCount === 1 ? "" : "s"}.</p>
+          </article>`;
+            })
+            .join("")}
+        </div>
+      </section>`;
+}
+
 function renderProductEditorialSection(gift) {
   const cards = [
     ["Written by", `${editorialAuthor.name} · ${editorialAuthor.title}`],
@@ -799,7 +1081,9 @@ function renderProductEditorialSection(gift) {
       "Merchant path",
       usesAffiliateSearchFallback(gift)
         ? "This page currently uses an Amazon search path for checkout because a pinned direct merchant listing is not yet stored in the catalog."
-        : "This page links out to a direct merchant listing and all checkout still happens off-site.",
+        : usesDirectMerchantPath(gift)
+          ? `This page links directly to the ${merchantName(gift)} product page and checkout still happens off-site.`
+          : "This page links out to a stable merchant listing and all checkout still happens off-site.",
     ],
     ["Pricing note", priceEstimateNote],
   ];
@@ -954,7 +1238,9 @@ function renderProductContextSection(gift, matchingGuides) {
   const leadGuide = matchingGuides[0] || null;
   const merchantPathNote = usesAffiliateSearchFallback(gift)
     ? "This page currently uses an Amazon search path because a pinned direct merchant listing is not yet stored in the catalog."
-    : `Checkout opens on ${merchantName(gift)} and final pricing is confirmed there on the merchant site.`;
+    : usesDirectMerchantPath(gift)
+      ? `Checkout opens on the ${merchantName(gift)} product page and final pricing is confirmed there on the merchant site.`
+      : `Checkout opens on ${merchantName(gift)} and final pricing is confirmed there on the merchant site.`;
   const guideFitNote = leadGuide
     ? `${gift.name} appears in ${matchingGuides.length} guide${matchingGuides.length === 1 ? "" : "s"} on ShopForHer. Start with ${leadGuide.label.toLowerCase()} when you want the surrounding buyer context before you buy.`
     : `${gift.name} currently stands on its own product page, so this page is the fastest way to understand why it is on the site.`;
@@ -1075,7 +1361,9 @@ function productFaqs(gift, matchingGuides) {
   const leadGuide = matchingGuides[0] || null;
   const buyNote = usesAffiliateSearchFallback(gift)
     ? "This page currently uses an Amazon search link so you can find the latest listing, then finish checkout on the merchant site."
-    : `This page links out to the ${merchantName(gift)} listing and checkout still happens on the merchant site.`;
+    : usesDirectMerchantPath(gift)
+      ? `This page links directly to the ${merchantName(gift)} product page and checkout still happens on the merchant site.`
+      : `This page links out to the ${merchantName(gift)} listing and checkout still happens on the merchant site.`;
 
   return [
     {
@@ -1146,7 +1434,9 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   const items = guideItems(guide);
   const featuredGift = items[0] || null;
   const shortlist = items.length > 1 ? items.slice(1) : [];
-  const related = guide.related.map((slug) => guideBySlug.get(slug)).filter(Boolean);
+  const related = guide.related.map((slug) => guideBySlug.get(slug)).filter(Boolean).filter(isIndexableGuidePage);
+  const relatedHotStories = hotStoriesForGuide(guide, items);
+  const expansionProducts = guideExpansionProducts(guide, items);
   const canonical = `${siteUrl}/${guide.slug}/`;
   const pageTitle = guide.title;
   const faqs = guideFaqs(guide, items);
@@ -1157,12 +1447,14 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
     { href: "#guide-overview", label: "How to use this page", meta: "Start here" },
     ...(shortlist.length ? [{ href: "#guide-shortlist", label: "Shortlist", meta: `${shortlist.length} more picks` }] : []),
     ...(comparisonSection ? [{ href: "#guide-differentiation", label: "How this page differs", meta: "Comparison read" }] : []),
+    ...(expansionProducts.length ? [{ href: "#guide-expansion", label: "Less-repeated fits", meta: `${expansionProducts.length} more picks` }] : []),
     ...(guide.pickLanes?.length ? [{ href: "#guide-pick-lanes", label: "Best pick by lane", meta: "Short answer" }] : []),
     ...(guide.bestFits?.length ? [{ href: "#guide-best-fits", label: "Best if she likes...", meta: "Decision guide" }] : []),
     ...(guide.buyerSignals?.length ? [{ href: "#guide-buyer-read", label: "Buyer read", meta: "What usually works" }] : []),
     ...(guide.avoidNotes?.length ? [{ href: "#guide-avoid", label: "What to avoid", meta: "Skip these moves" }] : []),
     { href: "#guide-editorial", label: "Editorial notes", meta: "How we picked" },
     { href: "#guide-faq", label: "Quick answers", meta: `${faqs.length} FAQ${faqs.length === 1 ? "" : "s"}` },
+    ...(relatedHotStories.length ? [{ href: "#guide-hot", label: "Hot pages using these picks", meta: `${relatedHotStories.length} trending page${relatedHotStories.length === 1 ? "" : "s"}` }] : []),
     ...(related.length ? [{ href: "#guide-related", label: "Related guides", meta: `${related.length} more pages` }] : []),
   ];
   const guideRail = renderPageRail([
@@ -1185,6 +1477,18 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
       title: "Jump to a section",
       links: guideSectionLinks,
     },
+    relatedHotStories.length
+      ? {
+          kicker: "Hot",
+          title: "Trending pages using these picks",
+          body: "Open a hot page when you want the same product lane in a more current, faster-moving context.",
+          links: relatedHotStories.slice(0, 4).map(({ story, sharedCount }) => ({
+            href: `/hot/${story.slug}/`,
+            label: story.h1,
+            meta: `${story.trendLabel} · ${sharedCount} shared pick${sharedCount === 1 ? "" : "s"}`,
+          })),
+        }
+      : null,
     related.length
       ? {
           kicker: "Keep browsing",
@@ -1288,7 +1592,7 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(pageTitle)}</title>
   <meta name="description" content="${escapeHtml(guide.description)}">
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="robots" content="${guideRobotsContent(guide)}">
   <link rel="canonical" href="${canonical}">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="${escapeHtml(seoSite.name)}">
@@ -1304,7 +1608,6 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   <meta name="twitter:description" content="${escapeHtml(guide.description)}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
-  ${feedLinkTag()}
   ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(itemListSchema)}
@@ -1313,14 +1616,13 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
 </head>
 <body>
   <div class="discovery-shell discovery-shell-guide">
-    ${renderDiscoveryHeader("guides")}
+    ${renderDiscoveryHeader("guides", [
+      { label: "Home", href: "/" },
+      { label: "Guides", href: "/guides/" },
+      { label: guide.h1 },
+    ])}
     <main class="discovery-main discovery-main-guide">
       <section class="discovery-hero discovery-hero-guide">
-        ${renderBreadcrumbs([
-          { label: "Home", href: "/" },
-          { label: "Guides", href: "/guides/" },
-          { label: guide.h1 },
-        ])}
         <div class="discovery-hero-layout">
           <div class="discovery-hero-copy">
             <p class="discovery-kicker">${escapeHtml(guide.groupLabel)}</p>
@@ -1404,6 +1706,7 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
           }
 
           ${comparisonSection}
+          ${renderGuideExpansionSection(guide, expansionProducts)}
           ${renderGuidePickLanesSection(guide)}
           ${renderGuideBestFitsSection(guide)}
           ${renderGuideSignalsSection(guide)}
@@ -1426,6 +1729,29 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
             .join("")}
         </div>
       </section>
+
+          ${
+            relatedHotStories.length
+              ? `<section class="discovery-section" id="guide-hot">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Hot</p>
+          <h2>Trending pages using these picks</h2>
+        </div>
+        <p class="discovery-section-note">Use a hot page first when you want the faster trend angle around the same gift lane.</p>
+        <div class="discovery-related">
+          ${relatedHotStories
+            .map(
+              ({ story, sharedCount, sharedItems }) => `<a class="discovery-related-link" href="/hot/${story.slug}/">
+            <span>${escapeHtml(`${story.trendLabel} · ${sharedCount} shared pick${sharedCount === 1 ? "" : "s"}`)}</span>
+            <strong>${escapeHtml(story.h1)}</strong>
+            <small>${escapeHtml(sharedItems.slice(0, 2).map((gift) => gift.name).join(", "))}</small>
+          </a>`
+            )
+            .join("")}
+        </div>
+      </section>`
+              : ""
+          }
 
           <section class="discovery-section" id="guide-related">
         <div class="discovery-section-head">
@@ -1459,7 +1785,8 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
 }
 
 function renderProductPage(gift, freshness = lastmodPlaceholder) {
-  const matchingGuides = seoGuides.filter((guide) => guide.itemIds.includes(gift.id)).slice(0, 6);
+  const matchingGuides = indexableSeoGuides.filter((guide) => guide.itemIds.includes(gift.id)).slice(0, 6);
+  const matchingHotStories = hotStoriesForGift(gift).slice(0, 6);
   const relatedProducts = relatedProductsForGift(gift);
   const canonical = productUrl(gift);
   const pageTitle = `${gift.name} | ShopForHer`;
@@ -1474,6 +1801,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
     { href: "#product-spotlight", label: "Product spotlight", meta: "Images and notes" },
     { href: "#product-context", label: "Where it fits", meta: "Buyer context" },
     ...(matchingGuides.length ? [{ href: "#product-guides", label: "Guides using this pick", meta: `${matchingGuides.length} guide${matchingGuides.length === 1 ? "" : "s"}` }] : []),
+    ...(matchingHotStories.length ? [{ href: "#product-hot", label: "Hot stories using this pick", meta: `${matchingHotStories.length} story${matchingHotStories.length === 1 ? "" : "s"}` }] : []),
     { href: "#product-related", label: "Related products", meta: `${relatedProducts.length} more picks` },
     { href: "#product-faq", label: "Quick answers", meta: `${faqs.length} FAQ${faqs.length === 1 ? "" : "s"}` },
     { href: "#product-editorial", label: "Editorial notes", meta: "How it was reviewed" },
@@ -1500,6 +1828,18 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
       title: "Jump to a section",
       links: productSectionLinks,
     },
+    matchingHotStories.length
+      ? {
+          kicker: "Hot",
+          title: "Hot stories using this pick",
+          body: "Move into a trend page first if you want the social or seasonal angle before you buy.",
+          links: matchingHotStories.slice(0, 4).map((story) => ({
+            href: `/hot/${story.slug}/`,
+            label: story.h1,
+            meta: story.trendLabel,
+          })),
+        }
+      : null,
     matchingGuides.length
       ? {
           kicker: "Featured in",
@@ -1614,7 +1954,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(pageTitle)}</title>
   <meta name="description" content="${escapeHtml(description)}">
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="robots" content="${productRobotsContent(gift)}">
   <link rel="canonical" href="${canonical}">
   <meta property="og:type" content="product">
   <meta property="og:site_name" content="${escapeHtml(seoSite.name)}">
@@ -1627,7 +1967,6 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
-  ${feedLinkTag()}
   ${attributionScriptTag()}
   ${jsonLdScript(productSchema)}
   ${jsonLdScript(productPageSchema)}
@@ -1636,13 +1975,12 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
 </head>
 <body>
   <div class="discovery-shell discovery-shell-product">
-    ${renderDiscoveryHeader("guides")}
+    ${renderDiscoveryHeader("guides", [
+      { label: "Home", href: "/" },
+      { label: gift.name },
+    ])}
     <main class="discovery-main discovery-main-product">
       <section class="discovery-hero discovery-hero-product">
-        ${renderBreadcrumbs([
-          { label: "Home", href: "/" },
-          { label: gift.name },
-        ])}
         <div class="discovery-hero-layout">
           <div class="discovery-hero-copy">
             <p class="discovery-kicker">Product</p>
@@ -1719,7 +2057,9 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
             <p>${
               usesAffiliateSearchFallback(gift)
                 ? "Use the Amazon search link here to find the current listing, then finish checkout on the merchant site."
-                : "Open the merchant listing here, then finish checkout on the merchant site."
+                : usesDirectMerchantPath(gift)
+                  ? `Open the ${merchantName(gift)} product page here, then finish checkout on the merchant site.`
+                  : "Open the merchant listing here, then finish checkout on the merchant site."
             }</p>
           </div>
           <div class="discovery-actions">
@@ -1757,6 +2097,27 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
       </section>`
           : ""
       }
+
+          ${
+            matchingHotStories.length
+              ? `<section class="discovery-section" id="product-hot">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Hot</p>
+          <h2>Hot stories using this pick</h2>
+        </div>
+        <div class="discovery-related">
+          ${matchingHotStories
+            .map(
+              (story) => `<a class="discovery-related-link" href="/hot/${story.slug}/">
+            <span>${escapeHtml(story.trendLabel)}</span>
+            <strong>${escapeHtml(story.h1)}</strong>
+          </a>`
+            )
+            .join("")}
+        </div>
+      </section>`
+              : ""
+          }
 
           <section class="discovery-section" id="product-related">
         <div class="discovery-section-head">
@@ -1815,6 +2176,15 @@ function renderGuideIndex(freshness = lastmodPlaceholder) {
       url: `${siteUrl}/`,
     },
   };
+  const guideLinks = indexableSeoGuides.map((guide) => ({
+    href: `/${guide.slug}/`,
+    label: guide.h1,
+  }));
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { label: "Home", href: `${siteUrl}/` },
+    { label: "Guides", href: `${siteUrl}/guides/` },
+  ]);
+  const itemListSchema = buildLinkedItemListSchema("Gift guides", `${siteUrl}/guides/`, guideLinks);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -1827,13 +2197,17 @@ function renderGuideIndex(freshness = lastmodPlaceholder) {
   <link rel="canonical" href="${siteUrl}/guides/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
-  ${feedLinkTag()}
   ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
+  ${jsonLdScript(itemListSchema)}
+  ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
   <div class="discovery-shell">
-    ${renderDiscoveryHeader("guides")}
+    ${renderDiscoveryHeader("guides", [
+      { label: "Home", href: "/" },
+      { label: "Guides" },
+    ])}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Index</p>
@@ -1841,12 +2215,12 @@ function renderGuideIndex(freshness = lastmodPlaceholder) {
         <p class="discovery-intro">Real landing pages for the main buying intents on ShopForHer.</p>
         <div class="discovery-meta">
           <span>Updated ${escapeHtml(freshness.displayDate)}</span>
-          <span>${seoGuides.length} pages</span>
+          <span>${indexableSeoGuides.length} pages</span>
         </div>
       </section>
       ${groups
         .map(([groupId, groupTitle]) => {
-          const entries = seoGuides.filter((guide) => guide.group === groupId);
+          const entries = indexableSeoGuides.filter((guide) => guide.group === groupId);
           return `<section class="discovery-section">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Browse</p>
@@ -1889,6 +2263,15 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
       url: `${siteUrl}/`,
     },
   };
+  const cityLinks = seoDateCities.map((city) => ({
+    href: `/dates/${city.slug}/`,
+    label: city.h1,
+  }));
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { label: "Home", href: `${siteUrl}/` },
+    { label: "Plans", href: `${siteUrl}/dates/` },
+  ]);
+  const itemListSchema = buildLinkedItemListSchema("Date spots", `${siteUrl}/dates/`, cityLinks);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -1901,13 +2284,17 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
   <link rel="canonical" href="${siteUrl}/dates/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
-  ${feedLinkTag()}
   ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
+  ${jsonLdScript(itemListSchema)}
+  ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
   <div class="discovery-shell">
-    ${renderDiscoveryHeader("plans")}
+    ${renderDiscoveryHeader("plans", [
+      { label: "Home", href: "/" },
+      { label: "Plans" },
+    ])}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Plans</p>
@@ -1961,15 +2348,11 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
     },
   };
 
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
-      { "@type": "ListItem", position: 2, name: "Dates", item: `${siteUrl}/dates/` },
-      { "@type": "ListItem", position: 3, name: city.city, item: canonical },
-    ],
-  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { label: "Home", href: `${siteUrl}/` },
+    { label: "Plans", href: `${siteUrl}/dates/` },
+    { label: city.city, href: canonical },
+  ]);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -1982,14 +2365,17 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
   <link rel="canonical" href="${canonical}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
-  ${feedLinkTag()}
   ${attributionScriptTag()}
   ${jsonLdScript(localBusinessSchema)}
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
   <div class="discovery-shell">
-    ${renderDiscoveryHeader("plans")}
+    ${renderDiscoveryHeader("plans", [
+      { label: "Home", href: "/" },
+      { label: "Plans", href: "/dates/" },
+      { label: city.city },
+    ])}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Plans</p>
@@ -2050,6 +2436,15 @@ function renderHotIndex(freshness = lastmodPlaceholder) {
       url: `${siteUrl}/`,
     },
   };
+  const storyLinks = seoHotStories.map((story) => ({
+    href: `/hot/${story.slug}/`,
+    label: story.h1,
+  }));
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { label: "Home", href: `${siteUrl}/` },
+    { label: "Hot", href: `${siteUrl}/hot/` },
+  ]);
+  const itemListSchema = buildLinkedItemListSchema("Hot gift trends", `${siteUrl}/hot/`, storyLinks);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -2062,13 +2457,17 @@ function renderHotIndex(freshness = lastmodPlaceholder) {
   <link rel="canonical" href="${siteUrl}/hot/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
-  ${feedLinkTag()}
   ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
+  ${jsonLdScript(itemListSchema)}
+  ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
   <div class="discovery-shell">
-    ${renderDiscoveryHeader("hot")}
+    ${renderDiscoveryHeader("hot", [
+      { label: "Home", href: "/" },
+      { label: "Hot" },
+    ])}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Hot</p>
@@ -2117,7 +2516,7 @@ function renderHotIndex(freshness = lastmodPlaceholder) {
 
 function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
   const items = hotStoryItems(story);
-  const relatedGuides = story.relatedGuides.map((slug) => guideBySlug.get(slug)).filter(Boolean);
+  const relatedGuides = story.relatedGuides.map((slug) => guideBySlug.get(slug)).filter(Boolean).filter(isIndexableGuidePage);
   const canonical = `${siteUrl}/hot/${story.slug}/`;
   const pageTitle = story.title;
   const description = story.description;
@@ -2282,7 +2681,6 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
   <meta name="twitter:description" content="${escapeHtml(description)}">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
-  ${feedLinkTag()}
   ${attributionScriptTag()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(articleSchema)}
@@ -2292,14 +2690,13 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
 </head>
 <body>
   <div class="discovery-shell">
-    ${renderDiscoveryHeader("hot")}
+    ${renderDiscoveryHeader("hot", [
+      { label: "Home", href: "/" },
+      { label: "Hot", href: "/hot/" },
+      { label: story.h1 },
+    ])}
     <main class="discovery-main">
       <section class="discovery-hero">
-        ${renderBreadcrumbs([
-          { label: "Home", href: "/" },
-          { label: "Hot", href: "/hot/" },
-          { label: story.h1 },
-        ])}
         <p class="discovery-kicker">Hot</p>
         <h1>${escapeHtml(story.h1)}</h1>
         <p class="discovery-intro">${escapeHtml(story.intro)}</p>
@@ -2413,6 +2810,10 @@ function renderTrustPage(page, freshness = lastmodPlaceholder) {
     },
     about: siteOrganizationSchema,
   };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { label: "Home", href: `${siteUrl}/` },
+    { label: page.kicker, href: canonical },
+  ]);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -2435,13 +2836,16 @@ function renderTrustPage(page, freshness = lastmodPlaceholder) {
   <meta name="twitter:image" content="${siteUrl}/logo1.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
-  ${feedLinkTag()}
   ${attributionScriptTag()}
   ${jsonLdScript(pageSchema)}
+  ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
   <div class="discovery-shell">
-    ${renderDiscoveryHeader()}
+    ${renderDiscoveryHeader("", [
+      { label: "Home", href: "/" },
+      { label: page.kicker },
+    ])}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">${escapeHtml(page.kicker)}</p>
@@ -2507,7 +2911,7 @@ function renderSiteMapPage(freshness = lastmodPlaceholder) {
     {
       kicker: "Guides",
       title: "Gift guides",
-      links: seoGuides.map((guide) => ({
+      links: indexableSeoGuides.map((guide) => ({
         href: `/${guide.slug}/`,
         label: guide.h1,
         meta: guide.groupLabel,
@@ -2535,8 +2939,8 @@ function renderSiteMapPage(freshness = lastmodPlaceholder) {
     },
     {
       kicker: "Products",
-      title: "Product pages",
-      links: seoCatalog.map((gift) => ({
+      title: "Indexable product pages",
+      links: indexableSeoCatalog.map((gift) => ({
         href: `/gift/${gift.slug}/`,
         label: gift.name,
         meta: gift.badge,
@@ -2544,6 +2948,15 @@ function renderSiteMapPage(freshness = lastmodPlaceholder) {
     },
   ];
   const linkedCount = sections.reduce((total, section) => total + section.links.length, 0);
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { label: "Home", href: `${siteUrl}/` },
+    { label: "Site map", href: canonical },
+  ]);
+  const itemListSchema = buildLinkedItemListSchema(
+    "Site map",
+    canonical,
+    sections.flatMap((section) => section.links)
+  );
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -2566,13 +2979,17 @@ function renderSiteMapPage(freshness = lastmodPlaceholder) {
   <meta name="twitter:image" content="${siteUrl}/logo1.png">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
-  ${feedLinkTag()}
   ${attributionScriptTag()}
   ${jsonLdScript(pageSchema)}
+  ${jsonLdScript(itemListSchema)}
+  ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
   <div class="discovery-shell">
-    ${renderDiscoveryHeader()}
+    ${renderDiscoveryHeader("", [
+      { label: "Home", href: "/" },
+      { label: "Site map" },
+    ])}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Directory</p>
@@ -2706,7 +3123,7 @@ function writeFeed() {
       description: page.description,
       lastmod: pageLastmod(`${siteUrl}/${page.filename}`),
     })),
-    ...seoGuides.map((guide) => ({
+    ...indexableSeoGuides.map((guide) => ({
       title: guide.h1,
       url: guideUrl(guide),
       description: guide.description,
@@ -2724,7 +3141,7 @@ function writeFeed() {
       description: city.description,
       lastmod: pageLastmod(`${siteUrl}/dates/${city.slug}/`),
     })),
-    ...seoCatalog.map((gift) => ({
+    ...indexableSeoCatalog.map((gift) => ({
       title: gift.name,
       url: productUrl(gift),
       description: `${gift.hook} ${gift.why}`,
@@ -2761,6 +3178,7 @@ ${items
 function buildProductCatalogEntries() {
   return seoCatalog.map((gift) => {
     const range = priceRange(gift);
+    const indexState = productIndexState(gift);
 
     return {
       id: gift.id,
@@ -2771,7 +3189,11 @@ function buildProductCatalogEntries() {
       affiliateUrl: affiliateUrl(gift),
       merchantName: merchantName(gift),
       merchantProductUrl: merchantProductUrl(gift) || null,
-      affiliatePathType: usesAffiliateSearchFallback(gift) ? "amazon-search" : "direct-product",
+      affiliatePathType: usesAffiliateSearchFallback(gift)
+        ? "amazon-search"
+        : usesDirectMerchantPath(gift)
+          ? "direct-merchant-url"
+          : "direct-product",
       checkout: "offsite",
       price: {
         currency: "USD",
@@ -2785,6 +3207,8 @@ function buildProductCatalogEntries() {
       additionalImages: productImages(gift).slice(1),
       summary: gift.why,
       bestFor: gift.bestFor,
+      searchIndexable: indexState.indexable,
+      indexStatus: indexState.reason,
       updatedAt: pageLastmod(productUrl(gift)),
     };
   });
@@ -2813,8 +3237,9 @@ function writeProductCatalog() {
 function buildGuideCatalogEntries() {
   return seoGuides.map((guide) => {
     const items = guideItems(guide);
-    const relatedGuides = (guide.related || []).map((slug) => guideBySlug.get(slug)).filter(Boolean);
+    const relatedGuides = (guide.related || []).map((slug) => guideBySlug.get(slug)).filter(Boolean).filter(isIndexableGuidePage);
     const overlap = guideOverlapDetails(guide, items);
+    const indexState = guideIndexState(guide);
 
     return {
       slug: guide.slug,
@@ -2825,6 +3250,8 @@ function buildGuideCatalogEntries() {
       intro: guide.intro,
       group: guide.group,
       groupLabel: guide.groupLabel,
+      searchIndexable: indexState.indexable,
+      indexStatus: indexState.reason,
       updatedAt: pageLastmod(guideUrl(guide)),
       featuredGiftId: items[0]?.id || null,
       featuredGiftUrl: items[0] ? productUrl(items[0]) : null,
@@ -2863,12 +3290,22 @@ function buildGuideCatalogEntries() {
         price: gift.priceLabel,
         badge: gift.badge,
         bestFor: gift.bestFor,
+        searchIndexable: isIndexableProductPage(gift),
       })),
       relatedGuides: relatedGuides.map((entry) => ({
         slug: entry.slug,
         label: entry.label,
         h1: entry.h1,
         url: guideUrl(entry),
+      })),
+      exploreProducts: guideExpansionProducts(guide, items).map((gift) => ({
+        id: gift.id,
+        slug: gift.slug,
+        name: gift.name,
+        url: productUrl(gift),
+        badge: gift.badge,
+        bestFor: gift.bestFor,
+        guideCount: guideUsageCount(gift.id),
       })),
       uniqueness: {
         needsEditorialRefresh: overlap.needsEditorialRefresh,
@@ -2918,26 +3355,8 @@ function writeGuideCatalog() {
   });
 }
 
-function writeSitemap() {
-  const staticPages = [
-    "/",
-    "/guides/",
-    "/hot/",
-    "/dates/",
-    "/site-map.html",
-    seoSite.aboutPath,
-    seoSite.editorialPath,
-    seoSite.contactPath,
-  ];
-
-  const urls = [
-    ...staticPages.map((url) => ({ loc: `${siteUrl}${url}`, lastmod: pageLastmod(`${siteUrl}${url}`) })),
-    ...seoGuides.map((guide) => ({ loc: guideUrl(guide), lastmod: pageLastmod(guideUrl(guide)) })),
-    ...seoHotStories.map((story) => ({ loc: `${siteUrl}/hot/${story.slug}/`, lastmod: pageLastmod(`${siteUrl}/hot/${story.slug}/`) })),
-    ...seoDateCities.map((city) => ({ loc: `${siteUrl}/dates/${city.slug}/`, lastmod: pageLastmod(`${siteUrl}/dates/${city.slug}/`) })),
-    ...seoCatalog.map((gift) => ({ loc: productUrl(gift), lastmod: pageLastmod(productUrl(gift)) })),
-  ];
-  const render = () => `<?xml version="1.0" encoding="UTF-8"?>
+function renderSitemapUrlset(urls) {
+  return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
   .map(
@@ -2949,8 +3368,70 @@ ${urls
   .join("\n")}
 </urlset>
 `;
+}
 
-  writeResolvedText(path.join(publicDir, "sitemap.xml"), `${siteUrl}/sitemap.xml`, render);
+function writeSitemaps() {
+  const staticPages = [
+    "/",
+    "/guides/",
+    "/hot/",
+    "/dates/",
+    "/site-map.html",
+    seoSite.aboutPath,
+    seoSite.editorialPath,
+    seoSite.contactPath,
+  ];
+  const sitemapFiles = [
+    {
+      filename: "sitemap-pages.xml",
+      urls: staticPages.map((url) => ({ loc: `${siteUrl}${url}`, lastmod: pageLastmod(`${siteUrl}${url}`) })),
+    },
+    {
+      filename: "sitemap-guides.xml",
+      urls: indexableSeoGuides.map((guide) => ({ loc: guideUrl(guide), lastmod: pageLastmod(guideUrl(guide)) })),
+    },
+    {
+      filename: "sitemap-hot.xml",
+      urls: seoHotStories.map((story) => ({
+        loc: `${siteUrl}/hot/${story.slug}/`,
+        lastmod: pageLastmod(`${siteUrl}/hot/${story.slug}/`),
+      })),
+    },
+    {
+      filename: "sitemap-dates.xml",
+      urls: seoDateCities.map((city) => ({
+        loc: `${siteUrl}/dates/${city.slug}/`,
+        lastmod: pageLastmod(`${siteUrl}/dates/${city.slug}/`),
+      })),
+    },
+    {
+      filename: "sitemap-products.xml",
+      urls: indexableSeoCatalog.map((gift) => ({ loc: productUrl(gift), lastmod: pageLastmod(productUrl(gift)) })),
+    },
+  ];
+  const sitemapEntries = sitemapFiles.map((entry) => {
+    const sitemapUrl = `${siteUrl}/${entry.filename}`;
+    const lastmod = writeResolvedText(path.join(publicDir, entry.filename), sitemapUrl, () => renderSitemapUrlset(entry.urls));
+
+    return {
+      loc: sitemapUrl,
+      lastmod,
+    };
+  });
+  const renderIndex = () => `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${sitemapEntries
+  .map(
+    (entry) => `  <sitemap>
+    <loc>${entry.loc}</loc>
+    <lastmod>${entry.lastmod}</lastmod>
+  </sitemap>`
+  )
+  .join("\n")}
+</sitemapindex>
+`;
+
+  writeResolvedText(path.join(publicDir, "sitemap.xml"), `${siteUrl}/sitemap.xml`, renderIndex);
 }
 
 function writeLlmsFiles() {
@@ -2986,13 +3467,13 @@ function writeLlmsFiles() {
     "- Use /editorial-policy.html for methodology and /contact.html for corrections or verification.",
     "",
     "## Top guides",
-    ...seoGuides.map((guide) => `- [${guide.h1}](${siteUrl}/${guide.slug}/)`),
+    ...indexableSeoGuides.map((guide) => `- [${guide.h1}](${siteUrl}/${guide.slug}/)`),
     "",
     "## Hot pages",
     ...seoHotStories.map((story) => `- [${story.h1}](${siteUrl}/hot/${story.slug}/)`),
     "",
     "## Product pages",
-    ...seoCatalog.map((gift) => `- [${gift.name}](${productUrl(gift)})`),
+    ...indexableSeoCatalog.map((gift) => `- [${gift.name}](${productUrl(gift)})`),
     "",
     "## Plans",
     ...seoDateCities.map((city) => `- [${city.h1}](${siteUrl}/dates/${city.slug}/)`),
@@ -3000,6 +3481,8 @@ function writeLlmsFiles() {
     "## Notes",
     "- Affiliate links may be present.",
     "- Product checkout happens on the merchant site.",
+    "- Product pages without a stable merchant product URL stay crawlable but are kept out of search indexing until a direct merchant path is stored.",
+    "- A small set of overlapping guide pages are intentionally kept out of search indexing until they are more distinct.",
     "- Editorial policy is published on-site.",
     "- Product catalog JSON includes merchant-path and price-band metadata.",
     `- Discovery files refreshed: ${freshness.displayDate}.`,
@@ -3023,10 +3506,10 @@ function writeLlmsFiles() {
     `- Product catalog: ${siteUrl}/product-catalog.json`,
     `- llms.txt: ${siteUrl}/llms.txt`,
     `- llms-full.txt: ${siteUrl}/llms-full.txt`,
-    ...seoGuides.map((guide) => `- ${guide.h1}: ${siteUrl}/${guide.slug}/`),
+    ...indexableSeoGuides.map((guide) => `- ${guide.h1}: ${siteUrl}/${guide.slug}/`),
     ...seoHotStories.map((story) => `- ${story.h1}: ${siteUrl}/hot/${story.slug}/`),
     ...seoDateCities.map((city) => `- ${city.h1}: ${siteUrl}/dates/${city.slug}/`),
-    ...seoCatalog.map((gift) => `- ${gift.name}: ${productUrl(gift)}`),
+    ...indexableSeoCatalog.map((gift) => `- ${gift.name}: ${productUrl(gift)}`),
   ].join("\n");
 
   writeResolvedText(path.join(publicDir, "llms.txt"), `${siteUrl}/llms.txt`, renderLlms);
@@ -3051,5 +3534,5 @@ writeFeed();
 writeGuideCatalog();
 writeProductCatalog();
 writeLlmsFiles();
-writeSitemap();
+writeSitemaps();
 writeLastmodCache();

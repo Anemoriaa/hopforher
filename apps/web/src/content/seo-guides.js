@@ -492,7 +492,7 @@ export const seoGuides = [
         body: "Choose this when you want the wife gift to feel more substantial and clearly above the routine-gift line.",
       },
     ],
-    itemIds: ["digital-frame", "walking-pad", "ceramic-floor-vase", "temperature-mug", "theragun-relief", "nespresso-machine"],
+    itemIds: ["digital-frame", "walking-pad", "vanity-mirror", "temperature-mug", "theragun-relief", "nespresso-machine"],
     related: ["anniversary-gifts-for-her", "luxury-gifts-for-her", "daily-use-gifts-for-her"],
   },
   {
@@ -1014,7 +1014,7 @@ export const seoGuides = [
         body: "The strongest answer when the gift should feel more substantial while still carrying current online momentum.",
       },
     ],
-    itemIds: ["ninja-creami", "sol-de-janeiro", "mchic-beaded-choker", "stanley-quencher", "laneige-set", "mini-photo-printer"],
+    itemIds: ["ninja-creami", "sol-de-janeiro", "owala-bottle", "stanley-quencher", "laneige-set", "mini-photo-printer"],
     related: ["gifts-for-girlfriend", "tech-gifts-for-her", "amazon-gifts-for-her"],
   },
   {
@@ -1101,7 +1101,7 @@ export const seoGuides = [
         body: "The stronger answer when you want the luxury gift to feel more substantial and obviously above a small upgrade.",
       },
     ],
-    itemIds: ["marc-jacobs-perfect-absolute", "artificial-olive-tree-1026", "theragun-relief", "kindle-paperwhite", "gucci-flora-gorgeous-magnolia", "nespresso-machine"],
+    itemIds: ["marc-jacobs-perfect-absolute", "bose-speaker", "theragun-relief", "kindle-paperwhite", "gucci-flora-gorgeous-magnolia", "nespresso-machine"],
     related: ["gifts-for-wife", "anniversary-gifts-for-her", "looks-expensive-gifts-for-her"],
   },
   {
@@ -1275,7 +1275,7 @@ export const seoGuides = [
         body: "The better answer when you want cozy-home energy with a routine she will actually keep using.",
       },
     ],
-    itemIds: ["luxury-throw", "faux-olive-tree-planter", "ninehaoou-scroll-vase", "candle-warmer", "nespresso-machine", "miyuki-rustic-vase"],
+    itemIds: ["luxury-throw", "faux-olive-tree-planter", "cashmere-robe", "candle-warmer", "nespresso-machine", "miyuki-rustic-vase"],
     related: ["gifts-for-homebodies", "date-night-gifts-for-her", "best-gifts-under-100"],
   },
   {
@@ -1485,7 +1485,7 @@ export const seoGuides = [
       },
       {
         q: "What is the safest gift on this page?",
-        a: "The ceramic floor vase and jewelry case are strong because they feel polished and intentional without being too complicated.",
+        a: "The black olive tree and jewelry case are strong because they feel polished and intentional without being too complicated.",
       },
       {
         q: "When should I leave this page for luxury gifts instead?",
@@ -1495,7 +1495,7 @@ export const seoGuides = [
     bestFits: [
       {
         title: "A stronger decor answer with real room impact",
-        giftId: "ceramic-floor-vase",
+        giftId: "black-olive-tree",
         body: "Best when you want the gift to feel more considered and less like another mainstream gadget.",
       },
       {
@@ -1536,7 +1536,7 @@ export const seoGuides = [
         body: "The cleaner answer when you want taste and gift energy without moving into a bigger object category.",
       },
     ],
-    itemIds: ["ceramic-floor-vase", "rustic-vase-set", "faux-olive-tree-planter", "projector", "jewelry-case", "vanity-mirror"],
+    itemIds: ["black-olive-tree", "rustic-vase-set", "faux-olive-tree-planter", "projector", "jewelry-case", "vanity-mirror"],
     related: ["luxury-gifts-for-her", "anniversary-gifts-for-her", "tech-gifts-for-her"],
   },
   {
@@ -2058,7 +2058,7 @@ export const seoGuides = [
         body: "The cleaner answer when the expensive-looking signal should come from a better everyday ritual rather than pure decoration.",
       },
     ],
-    itemIds: ["cashmere-robe", "ceramic-floor-vase", "artificial-olive-tree-1026", "digital-frame", "nespresso-machine", "gucci-flora-gorgeous-magnolia"],
+    itemIds: ["cashmere-robe", "marc-jacobs-perfect-absolute", "panluca-statement-necklace", "digital-frame", "nespresso-machine", "gucci-flora-gorgeous-magnolia"],
     related: ["luxury-gifts-for-her", "best-gifts-under-100", "gifts-for-girlfriend"],
   },
 ];
@@ -2066,10 +2066,10 @@ export const seoGuides = [
 export const featuredSeoGuides = [
   "gifts-for-girlfriend",
   "gifts-for-wife",
+  "anniversary-gifts-for-her",
   "best-gifts-under-100",
   "viral-gifts-for-her",
   "looks-expensive-gifts-for-her",
-  "date-night-gifts-for-her",
 ].map((slug) => seoGuides.find((guide) => guide.slug === slug)).filter(Boolean);
 
 export const heroSeoProducts = [
