@@ -3914,29 +3914,12 @@ function writeSitemaps() {
       urls: indexableSeoCatalog.map((gift) => ({ loc: productUrl(gift), lastmod: pageLastmod(productUrl(gift)) })),
     },
   ];
-  const sitemapEntries = sitemapFiles.map((entry) => {
+  const primarySitemapUrls = sitemapFiles.flatMap((entry) => entry.urls);
+  sitemapFiles.forEach((entry) => {
     const sitemapUrl = `${siteUrl}/${entry.filename}`;
-    const lastmod = writeResolvedText(path.join(publicDir, entry.filename), sitemapUrl, () => renderSitemapUrlset(entry.urls));
-
-    return {
-      loc: sitemapUrl,
-      lastmod,
-    };
+    writeResolvedText(path.join(publicDir, entry.filename), sitemapUrl, () => renderSitemapUrlset(entry.urls));
   });
-  const renderIndex = () => `<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${sitemapEntries
-  .map(
-    (entry) => `  <sitemap>
-    <loc>${entry.loc}</loc>
-    <lastmod>${entry.lastmod}</lastmod>
-  </sitemap>`
-  )
-  .join("\n")}
-</sitemapindex>
-`;
-
-  writeResolvedText(path.join(publicDir, "sitemap.xml"), `${siteUrl}/sitemap.xml`, renderIndex);
+  writeResolvedText(path.join(publicDir, "sitemap.xml"), `${siteUrl}/sitemap.xml`, () => renderSitemapUrlset(primarySitemapUrls));
 }
 
 function writeLlmsFiles() {

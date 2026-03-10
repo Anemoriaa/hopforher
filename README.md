@@ -70,7 +70,7 @@ These utility files stay available for feeds and agents, but they are not includ
 The site already ships the main Search Console crawl surfaces:
 
 - `robots.txt` with a sitemap reference
-- `sitemap.xml` as the primary sitemap index
+- `sitemap.xml` as the primary sitemap to submit
 - crawlable trust pages, guides, product hubs, hot hubs, and an HTML site map
 
 Preferred ownership method:
