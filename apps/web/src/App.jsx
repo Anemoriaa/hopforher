@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
-import { featuredSeoGuides, featuredSeoProducts, heroSeoProducts, seoCatalog, seoDateCities, seoHotStories } from "./content/seo-guides.js";
+import { featuredSeoGuides, featuredSeoProducts, heroSeoProducts, seoCatalog, seoDateCities, seoHotStories, seoSite } from "./content/seo-guides.js";
 import {
   buildAffiliateLink,
   classNames,
@@ -48,7 +48,7 @@ const relationshipOptions = [
   { id: "girlfriend", label: "Girlfriend", note: "Lower pressure, cleaner yes, easier first hit." },
   { id: "wife", label: "Wife", note: "Better room for stronger quality and repeat use." },
   { id: "anniversary", label: "Anniversary", note: "Higher signal and more emotional weight." },
-  { id: "new-relationship", label: "New", note: "Keep it sharp, simple, and easy to receive." },
+  { id: "new-relationship", label: "New relationship", note: "Keep it sharp, simple, and easy to receive." },
 ];
 
 const budgetOptions = [
@@ -77,6 +77,86 @@ const sliderFields = [
   { key: "budget", label: "How much", options: budgetOptions },
   { key: "signal", label: "What lane", options: signalOptions },
   { key: "intent", label: "What should it feel like", options: intentOptions },
+];
+
+const quickStartLanes = [
+  {
+    id: "new-relationship",
+    eyebrow: "Lower pressure",
+    title: "New relationship",
+    description: "Lower-risk first answer.",
+    ctaLabel: "Use",
+    guideHref: "/new-relationship-gifts-for-her/",
+    guideLabel: "Guide",
+    selection: {
+      relationship: "new-relationship",
+      budget: "under-50",
+      signal: "best-overall",
+      intent: "thoughtful",
+    },
+  },
+  {
+    id: "wife",
+    eyebrow: "Higher signal",
+    title: "Long-term partner",
+    description: "More quality, more signal.",
+    ctaLabel: "Use",
+    guideHref: "/gifts-for-wife/",
+    guideLabel: "Guide",
+    selection: {
+      relationship: "wife",
+      budget: "premium",
+      signal: "looks-expensive",
+      intent: "thoughtful",
+    },
+  },
+  {
+    id: "last-minute",
+    eyebrow: "Fast checkout",
+    title: "Last-minute buyer",
+    description: "Fast path, cleaner checkout.",
+    ctaLabel: "Use",
+    guideHref: "/last-minute-gifts-for-her/",
+    guideLabel: "Guide",
+    selection: {
+      relationship: "girlfriend",
+      budget: "under-100",
+      signal: "best-overall",
+      intent: "everyday",
+    },
+  },
+];
+
+const guideByRelationship = {
+  girlfriend: {
+    href: "/gifts-for-girlfriend/",
+    label: "Open the girlfriend guide",
+    chipLabel: "Girlfriend guide",
+  },
+  wife: {
+    href: "/gifts-for-wife/",
+    label: "Open the wife guide",
+    chipLabel: "Wife guide",
+  },
+  anniversary: {
+    href: "/anniversary-gifts-for-her/",
+    label: "Open the anniversary guide",
+    chipLabel: "Anniversary guide",
+  },
+  "new-relationship": {
+    href: "/new-relationship-gifts-for-her/",
+    label: "Open the new relationship guide",
+    chipLabel: "New relationship guide",
+  },
+};
+
+const pickerSlides = [
+  { id: "start", label: "Start" },
+  { id: "relationship", label: "Relationship" },
+  { id: "budget", label: "Budget" },
+  { id: "intent", label: "Vibe" },
+  { id: "signal", label: "Lane" },
+  { id: "result", label: "Gift" },
 ];
 
 const datePartySizeOptions = Array.from({ length: 8 }, (_, index) => index + 1);
@@ -130,6 +210,38 @@ function formatDurationLabel(totalSeconds) {
   const seconds = totalSeconds % 60;
 
   return `${minutes}:${String(seconds).padStart(2, "0")}`;
+}
+
+function formatIsoDateLabel(value) {
+  if (!value) {
+    return "";
+  }
+
+  const parsed = new Date(`${value}T00:00:00`);
+
+  if (Number.isNaN(parsed.getTime())) {
+    return value;
+  }
+
+  return parsed.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function getOptionIndexById(options, id, fallback = 0) {
+  const index = options.findIndex((option) => option.id === id);
+  return index >= 0 ? index : fallback;
+}
+
+function buildBriefSelection(selection) {
+  return {
+    relationship: getOptionIndexById(relationshipOptions, selection.relationship, 1),
+    budget: getOptionIndexById(budgetOptions, selection.budget, 1),
+    signal: getOptionIndexById(signalOptions, selection.signal, 0),
+    intent: getOptionIndexById(intentOptions, selection.intent, 0),
+  };
 }
 
 function getGiftImageList(gift) {
@@ -384,6 +496,8 @@ function rankGiftMatches(gifts, filters) {
 export default function App() {
   const touchRef = useRef({ x: 0, y: 0 });
   const tabRefs = useRef([]);
+  const decisionPanelRef = useRef(null);
+  const topPicksRef = useRef(null);
   const hotScrollRef = useRef(null);
   const hotFeedBatchRefs = useRef(new Map());
   const hotFeedCanAppendRef = useRef(true);
@@ -424,6 +538,7 @@ export default function App() {
     signal: 0,
     intent: 0,
   });
+  const [pickerStep, setPickerStep] = useState(0);
   const [hotFeedCycles, setHotFeedCycles] = useState([]);
   const { ref: hotFeedSentinelRef, inView: hotFeedSentinelInView } = useInView({
     triggerOnce: false,
@@ -629,6 +744,7 @@ export default function App() {
   const activeBudget = budgetOptions[brief.budget];
   const activeSignal = signalOptions[brief.signal];
   const activeIntent = intentOptions[brief.intent];
+  const homeUpdatedLabel = formatIsoDateLabel(seoSite.updatedAt);
 
   const activeFilters = useMemo(
     () => ({
@@ -683,6 +799,10 @@ export default function App() {
     return merged.slice(0, 10);
   }, [linkedTopProducts]);
   const popularHeroProducts = heroCatalogProducts.length ? heroCatalogProducts : linkedTopProducts.slice(0, 3);
+  const leadRecommendation = topPicks[0] || popularHeroProducts[0] || null;
+  const activeGuide = guideByRelationship[activeRelationship.id] || guideByRelationship.girlfriend;
+  const activeGuideChipLabel = activeGuide.chipLabel || activeGuide.label;
+  const pickerResultStep = pickerSlides.length - 1;
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
   const datesSlideIndex = slides.findIndex((slide) => slide.id === "guides");
   const savedGifts = useMemo(
@@ -1124,7 +1244,7 @@ export default function App() {
           provider,
           mode: "fallback",
           areaLabel: geoState.label,
-          note: "Nearby results could not be loaded. You can still open Maps or configure the live provider.",
+          note: "Nearby spots are unavailable right now. Open Maps or use the backup list.",
           sourceLabel: getDateSpotPoweredLabel(provider),
           searchUrl,
           spots: buildFallbackDateSpots({
@@ -1203,6 +1323,45 @@ export default function App() {
     if (nextIndex >= 0) {
       updateBrief("signal", nextIndex);
     }
+  }
+
+  function scrollToSection(ref) {
+    ref?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+
+  function goToPickerStep(step) {
+    const nextStep = Math.max(0, Math.min(step, pickerResultStep));
+    setPickerStep(nextStep);
+
+    requestAnimationFrame(() => {
+      scrollToSection(decisionPanelRef);
+    });
+  }
+
+  function updateBriefAndAdvance(key, value, nextStep) {
+    updateBrief(key, value);
+    goToPickerStep(nextStep);
+  }
+
+  function updateSignalAndAdvance(id) {
+    updateSignalById(id);
+    goToPickerStep(pickerResultStep);
+  }
+
+  function applyBriefSelection(selection, target = "decision") {
+    setBrief(buildBriefSelection(selection));
+
+    requestAnimationFrame(() => {
+      if (target === "top-picks") {
+        scrollToSection(topPicksRef);
+        return;
+      }
+
+      goToPickerStep(pickerResultStep);
+    });
   }
 
   function toggleSaved(id) {
@@ -1671,23 +1830,13 @@ export default function App() {
     );
   }
 
-  function renderTrustStrip() {
-    return (
-      <section className="gs-trust-strip" aria-label="Why ShopForHer works">
-        <span className="gs-trust-chip">Curated weekly</span>
-        <span className="gs-trust-chip">Paid links disclosed</span>
-        <span className="gs-trust-chip">Direct merchant checkout</span>
-      </section>
-    );
-  }
-
   const dateStatusLabel =
     dateResults.status === "loading"
       ? "Finding nearby spots"
       : dateResults.mode === "live"
         ? `${dateResults.spots.length} nearby ${dateResults.spots.length === 1 ? "option" : "options"}`
         : dateResults.mode === "unconfigured" || dateResults.mode === "fallback"
-          ? "Curated fallback plans"
+          ? "Backup date ideas"
         : "Location needed";
 
   const datePoweredCopy =
@@ -1696,7 +1845,7 @@ export default function App() {
         ? "Nearby ranking is live. Links open on OpenTable."
         : "Nearby ranking is live. Actions open the venue site when possible, otherwise Maps."
       : dateResults.mode === "unconfigured" || dateResults.mode === "fallback" || dateResults.status === "error"
-        ? "Showing a cleaner fallback list while live nearby results are unavailable."
+        ? "Showing backup date ideas while nearby spots are unavailable."
         : "Use your area to turn these into nearby options.";
 
   function getDateSpotSummaryLabel(spot) {
@@ -1786,18 +1935,41 @@ export default function App() {
               tabIndex={activeSlide === 0 ? 0 : -1}
             >
               <div className="gs-slide-scroll">
-                <section className="gs-popular-hero">
-                  <div className="gs-popular-hero-copy">
-                    <p className="gs-overline">Popular</p>
-                    <h2>Gifts to buy right now.</h2>
-                    <p>Clean picks in {activeBudget.label.toLowerCase()} and {activeSignal.label.toLowerCase()}.</p>
+                <section className="gs-popular-hero gs-home-hero">
+                  <div className="gs-popular-hero-copy gs-home-hero-copy">
+                    <div className="gs-home-hero-head">
+                      <p className="gs-overline">Fast, low-risk gift decisions</p>
+                      <h1>Pick the right gift in 2 minutes.</h1>
+                      <p className="gs-home-hero-lede">
+                        Built for men buying for her who want one strong answer fast, not another endless gift list.
+                      </p>
+                    </div>
+                    <div className="gs-home-hero-actions">
+                      <button
+                        type="button"
+                        className="gs-primary-btn"
+                        onClick={() => scrollToSection(decisionPanelRef)}
+                      >
+                        Start the 3-step picker
+                      </button>
+                      <button
+                        type="button"
+                        className="gs-secondary-btn"
+                        onClick={() => scrollToSection(topPicksRef)}
+                      >
+                        See most bought
+                      </button>
+                    </div>
+                    <p className="gs-home-hero-summary">
+                      Relationship, budget, vibe. Low-risk picks updated {homeUpdatedLabel}.
+                    </p>
                     <button
                       type="button"
                       className="gs-popular-next-indicator"
                       onClick={() => setSlide(1)}
                       aria-label="Open the Hot page"
                     >
-                      <span>Scroll right for Hot</span>
+                      <span>Need trend proof? Open Hot</span>
                       <ArrowRight size={14} />
                     </button>
                   </div>
@@ -1805,7 +1977,7 @@ export default function App() {
                     <div className="gs-popular-hero-stack">
                       {popularHeroProducts.map((gift, index) => (
                         <a
-                          key={gift.slug}
+                          key={gift.slug || gift.id}
                           href={buildAffiliateLink(gift)}
                           target="_blank"
                           rel={AMAZON_AFFILIATE_REL}
@@ -1825,13 +1997,334 @@ export default function App() {
                   </div>
                 </section>
 
-                <section className="gs-product-list">
+                <section
+                  ref={decisionPanelRef}
+                  className="gs-home-decision-shell gs-home-decision-module"
+                  aria-labelledby="gs-home-decision-title"
+                >
+                  <div className="gs-home-module-head">
+                    <div className="gs-home-module-copy">
+                      <p className="gs-overline">Gift picker</p>
+                      <h3 id="gs-home-decision-title">Relationship, budget, vibe. Get the gift.</h3>
+                      <p className="gs-home-section-note">Quick mode or manual.</p>
+                    </div>
+                    <div className="gs-home-module-meta" aria-label="Gift picker summary">
+                      <span className="gs-trust-chip">Low-risk picks</span>
+                      <span className="gs-trust-chip">Paid links disclosed</span>
+                      <span className="gs-trust-chip">Updated {homeUpdatedLabel}</span>
+                    </div>
+                  </div>
+                  <div className="gs-home-picker-progress" aria-label="Gift picker progress">
+                    {pickerSlides.map((slide, index) => (
+                      <button
+                        key={slide.id}
+                        type="button"
+                        className={classNames("gs-home-picker-progress-step", pickerStep === index && "is-active")}
+                        onClick={() => goToPickerStep(index)}
+                        aria-current={pickerStep === index ? "step" : undefined}
+                      >
+                        {slide.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="gs-home-picker-viewport">
+                    <div
+                      className="gs-home-picker-track"
+                      style={{ transform: `translateX(-${pickerStep * 100}%)` }}
+                    >
+                      <section
+                        className="gs-home-picker-slide"
+                        aria-hidden={pickerStep !== 0}
+                        tabIndex={pickerStep === 0 ? 0 : -1}
+                      >
+                        <div className="gs-home-picker-panel is-intro">
+                          <div className="gs-home-picker-copy">
+                            <span className="gs-seo-guide-eyebrow">Start here</span>
+                            <h4>Quick mode or manual build.</h4>
+                            <p>Pick a lane or answer three fast taps.</p>
+                          </div>
+                          <div className="gs-home-quick-start-row" aria-label="Audience quick starts">
+                            {quickStartLanes.map((lane) => (
+                              <article key={lane.id} className="gs-home-quick-start-card is-condensed">
+                                <div className="gs-home-quick-start-copy">
+                                  <span className="gs-seo-guide-eyebrow">{lane.eyebrow}</span>
+                                  <h4>{lane.title}</h4>
+                                  <p>{lane.description}</p>
+                                </div>
+                                <div className="gs-home-quick-start-actions is-inline">
+                                  <button
+                                    type="button"
+                                    className="gs-secondary-btn"
+                                    onClick={() => applyBriefSelection(lane.selection)}
+                                  >
+                                    {lane.ctaLabel}
+                                  </button>
+                                  <a href={lane.guideHref} className="gs-home-inline-link">
+                                    {lane.guideLabel}
+                                  </a>
+                                </div>
+                              </article>
+                            ))}
+                          </div>
+                          <div className="gs-home-picker-footer">
+                            <button
+                              type="button"
+                              className="gs-primary-btn"
+                              onClick={() => goToPickerStep(1)}
+                            >
+                              Build manually
+                            </button>
+                            <a href="/last-minute-gifts-for-her/" className="gs-home-inline-link">
+                              Need speed? Last-minute guide
+                            </a>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section
+                        className="gs-home-picker-slide"
+                        aria-hidden={pickerStep !== 1}
+                        tabIndex={pickerStep === 1 ? 0 : -1}
+                      >
+                        <div className="gs-home-question gs-home-picker-panel" aria-label="Relationship stage">
+                          <div className="gs-home-picker-step-copy">
+                            <span className="gs-home-step-number">01</span>
+                            <div>
+                              <h4>Relationship stage</h4>
+                              <p>Set the pressure level first.</p>
+                            </div>
+                          </div>
+                          <div className="gs-home-choice-grid">
+                            {relationshipOptions.map((option, index) => (
+                              <button
+                                key={option.id}
+                                type="button"
+                                className={classNames("gs-home-choice", brief.relationship === index && "is-active")}
+                                onClick={() => updateBriefAndAdvance("relationship", index, 2)}
+                                aria-pressed={brief.relationship === index}
+                              >
+                                <strong>{option.label}</strong>
+                                <span>{option.note}</span>
+                              </button>
+                            ))}
+                          </div>
+                          <div className="gs-home-picker-nav">
+                            <button
+                              type="button"
+                              className="gs-secondary-btn"
+                              onClick={() => goToPickerStep(0)}
+                            >
+                              Back
+                            </button>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section
+                        className="gs-home-picker-slide"
+                        aria-hidden={pickerStep !== 2}
+                        tabIndex={pickerStep === 2 ? 0 : -1}
+                      >
+                        <div className="gs-home-question gs-home-picker-panel" aria-label="Budget">
+                          <div className="gs-home-picker-step-copy">
+                            <span className="gs-home-step-number">02</span>
+                            <div>
+                              <h4>Budget</h4>
+                              <p>Set the spend ceiling.</p>
+                            </div>
+                          </div>
+                          <div className="gs-home-choice-grid">
+                            {budgetOptions.map((option, index) => (
+                              <button
+                                key={option.id}
+                                type="button"
+                                className={classNames("gs-home-choice", brief.budget === index && "is-active")}
+                                onClick={() => updateBriefAndAdvance("budget", index, 3)}
+                                aria-pressed={brief.budget === index}
+                              >
+                                <strong>{option.label}</strong>
+                                <span>{option.note}</span>
+                              </button>
+                            ))}
+                          </div>
+                          <div className="gs-home-picker-nav">
+                            <button
+                              type="button"
+                              className="gs-secondary-btn"
+                              onClick={() => goToPickerStep(1)}
+                            >
+                              Back
+                            </button>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section
+                        className="gs-home-picker-slide"
+                        aria-hidden={pickerStep !== 3}
+                        tabIndex={pickerStep === 3 ? 0 : -1}
+                      >
+                        <div className="gs-home-question gs-home-picker-panel" aria-label="Vibe or use case">
+                          <div className="gs-home-picker-step-copy">
+                            <span className="gs-home-step-number">03</span>
+                            <div>
+                              <h4>Vibe or use case</h4>
+                              <p>Pick the feel first.</p>
+                            </div>
+                          </div>
+                          <div className="gs-home-choice-grid">
+                            {intentOptions.map((option, index) => (
+                              <button
+                                key={option.id}
+                                type="button"
+                                className={classNames("gs-home-choice", brief.intent === index && "is-active")}
+                                onClick={() => updateBriefAndAdvance("intent", index, 4)}
+                                aria-pressed={brief.intent === index}
+                              >
+                                <strong>{option.label}</strong>
+                                <span>{option.note}</span>
+                              </button>
+                            ))}
+                          </div>
+                          <div className="gs-home-picker-nav">
+                            <button
+                              type="button"
+                              className="gs-secondary-btn"
+                              onClick={() => goToPickerStep(2)}
+                            >
+                              Back
+                            </button>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section
+                        className="gs-home-picker-slide"
+                        aria-hidden={pickerStep !== 4}
+                        tabIndex={pickerStep === 4 ? 0 : -1}
+                      >
+                        <div className="gs-home-question is-compact gs-home-picker-panel" aria-label="Optional lane refinement">
+                          <div className="gs-home-picker-step-copy">
+                            <span className="gs-home-step-number">+</span>
+                            <div>
+                              <h4>Tighten the lane</h4>
+                              <p>Optional. Add one last filter or skip.</p>
+                            </div>
+                          </div>
+                          <div className="gs-home-compact-choice-grid">
+                            {signalOptions.map((option) => (
+                              <button
+                                key={option.id}
+                                type="button"
+                                className={classNames("gs-home-choice is-compact", activeSignal.id === option.id && "is-active")}
+                                onClick={() => updateSignalAndAdvance(option.id)}
+                                aria-pressed={activeSignal.id === option.id}
+                              >
+                                <strong>{option.label}</strong>
+                              </button>
+                            ))}
+                          </div>
+                          <div className="gs-home-picker-nav">
+                            <button
+                              type="button"
+                              className="gs-secondary-btn"
+                              onClick={() => goToPickerStep(3)}
+                            >
+                              Back
+                            </button>
+                            <button
+                              type="button"
+                              className="gs-secondary-btn"
+                              onClick={() => goToPickerStep(pickerResultStep)}
+                            >
+                              Skip to gift
+                            </button>
+                          </div>
+                        </div>
+                      </section>
+
+                      <section
+                        className="gs-home-picker-slide"
+                        aria-hidden={pickerStep !== pickerResultStep}
+                        tabIndex={pickerStep === pickerResultStep ? 0 : -1}
+                      >
+                        <div className="gs-home-picker-panel gs-home-picker-panel-result">
+                          <aside className="gs-home-result-card" aria-live="polite" aria-atomic="true">
+                            <p className="gs-overline">Current recommendation</p>
+                            {leadRecommendation ? (
+                              <>
+                                <div className="gs-home-result-head">
+                                  <h4>{leadRecommendation.name}</h4>
+                                  <p>{leadRecommendation.hook}</p>
+                                </div>
+                                <div className="gs-home-result-tags">
+                                  <span>{activeRelationship.label}</span>
+                                  <span>{activeBudget.label}</span>
+                                  <span>{activeIntent.label}</span>
+                                  <span>{activeSignal.label}</span>
+                                </div>
+                                <div className="gs-home-result-points is-condensed">
+                                  <p>{leadRecommendation.why}</p>
+                                  <div className="gs-home-result-mini-meta">
+                                    <span>Best for {leadRecommendation.bestFor}</span>
+                                    <span>{activeGuideChipLabel}</span>
+                                  </div>
+                                </div>
+                                <div className="gs-home-result-actions">
+                                  <a
+                                    className="gs-primary-btn"
+                                    href={buildAffiliateLink(leadRecommendation)}
+                                    target="_blank"
+                                    rel={AMAZON_AFFILIATE_REL}
+                                    {...getAffiliateAnchorData(leadRecommendation, "home-decision-primary")}
+                                    aria-label={`Buy ${leadRecommendation.name} on ${affiliateConfig.merchantName}`}
+                                  >
+                                    Buy now
+                                  </a>
+                                  <a className="gs-secondary-btn" href={activeGuide.href}>
+                                    Open guide
+                                  </a>
+                                </div>
+                                <p className="gs-home-result-helper">
+                                  Need speed instead? <a href="/last-minute-gifts-for-her/">Open the last-minute guide</a>.
+                                </p>
+                              </>
+                            ) : (
+                              <p className="gs-home-result-empty">No recommendation available yet.</p>
+                            )}
+                          </aside>
+                          <div className="gs-home-picker-nav is-result">
+                            <button
+                              type="button"
+                              className="gs-secondary-btn"
+                              onClick={() => goToPickerStep(1)}
+                            >
+                              Edit answers
+                            </button>
+                            <button
+                              type="button"
+                              className="gs-secondary-btn"
+                              onClick={() => goToPickerStep(0)}
+                            >
+                              Quick start
+                            </button>
+                          </div>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </section>
+
+                <section ref={topPicksRef} className="gs-product-list">
                   <div className="gs-section-head">
                     <p className="gs-overline">Top picks</p>
-                    <h3>Most bought</h3>
+                    <h3>Most bought this week</h3>
                   </div>
-                  <div className="gs-bento-grid gs-popular-grid" role="list" aria-label="Most bought gifts">
-                    {topPicks.map((gift, index) =>
+                  <p className="gs-popular-library-note">
+                    The cleanest current answers for {activeRelationship.label.toLowerCase()} gifts in {activeBudget.label.toLowerCase()} with a {activeIntent.label.toLowerCase()} feel.
+                  </p>
+                  <div className="gs-bento-grid gs-popular-grid" role="list" aria-label="Most bought gifts this week">
+                    {topPicks.slice(0, 6).map((gift, index) =>
                       renderBentoCard(gift, index + 1, {
                         motion: "minimal",
                         imageOnly: true,
@@ -1909,7 +2402,6 @@ export default function App() {
                       </div>
                     </article>
                   </div>
-                  {renderTrustStrip()}
                 </section>
                 {renderFooter()}
               </div>

@@ -241,7 +241,7 @@ async function loadGooglePlacesResults(context, search, areaLabel) {
         search,
         provider,
         "fallback",
-        `Google Places returned ${upstreamResponse.status}. Showing fallback date lanes instead.`,
+        "Nearby spots are unavailable right now. Showing backup date ideas instead.",
         areaLabel
       );
     }
@@ -278,8 +278,8 @@ async function loadGooglePlacesResults(context, search, areaLabel) {
   } catch (error) {
     const note =
       error?.name === "AbortError"
-        ? "Google Places timed out while loading nearby spots. Showing fallback date lanes instead."
-        : "Could not load live nearby results from Google Places. Showing fallback date lanes instead.";
+        ? "Nearby spots are taking too long to load. Showing backup date ideas instead."
+        : "Nearby spots are unavailable right now. Showing backup date ideas instead.";
 
     return buildFallbackResponse(search, provider, "fallback", note, areaLabel);
   }
@@ -329,7 +329,7 @@ async function loadOpenTableResults(context, search, areaLabel) {
         search,
         provider,
         "fallback",
-        `OpenTable returned ${upstreamResponse.status}. Showing fallback date lanes instead.`,
+        "Nearby spots are unavailable right now. Showing backup date ideas instead.",
         areaLabel
       );
     }
@@ -366,8 +366,8 @@ async function loadOpenTableResults(context, search, areaLabel) {
   } catch (error) {
     const note =
       error?.name === "AbortError"
-        ? "OpenTable timed out while loading nearby spots. Showing fallback date lanes instead."
-        : "Could not load live nearby results from OpenTable. Showing fallback date lanes instead.";
+        ? "Nearby spots are taking too long to load. Showing backup date ideas instead."
+        : "Nearby spots are unavailable right now. Showing backup date ideas instead.";
 
     return buildFallbackResponse(search, provider, "fallback", note, areaLabel);
   }

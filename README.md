@@ -33,11 +33,11 @@ Without provider credentials, the Dates tab falls back to generic nearby date la
 
 ### Client-side env
 
-Copy `apps/web/.env.example` to `apps/web/.env.local` if the client should call a different API origin in dev:
+Local `npm run dev` now serves `/api/date-spots` directly through Vite dev middleware, using values from `.dev.vars`.
+
+Copy `apps/web/.env.example` to `apps/web/.env.local` only if the client should call a different API origin in dev:
 
 - `VITE_DATE_SPOTS_API_PATH=/api/date-spots`
-
-That lets local Vite dev talk to a deployed or separately-run proxy instead of assuming the same origin serves Pages Functions.
 
 The UI stays provider-agnostic: it ranks nearby spots from the server response, then opens Google Maps, the venue site, or OpenTable depending on which provider is active.
 

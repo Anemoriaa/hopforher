@@ -617,6 +617,60 @@ h2, h3 {
   color: var(--text-soft);
 }
 
+.gs-home-hero {
+  gap: 24px;
+}
+
+.gs-home-hero-copy {
+  gap: 18px;
+}
+
+.gs-home-hero-head {
+  display: grid;
+  gap: 12px;
+}
+
+.gs-home-hero-copy h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 12vw, 4.5rem);
+  line-height: 0.9;
+  font-weight: 900;
+  letter-spacing: -0.07em;
+  text-transform: uppercase;
+}
+
+.gs-home-hero-lede {
+  max-width: 36rem;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--text-soft);
+}
+
+.gs-home-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.gs-home-hero-actions .gs-primary-btn,
+.gs-home-hero-actions .gs-secondary-btn {
+  min-width: 190px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.gs-home-hero-summary {
+  max-width: 32rem;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
 .gs-popular-next-indicator {
   display: inline-flex;
   align-items: center;
@@ -843,6 +897,496 @@ h2, h3 {
 
   .gs-popular-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.gs-home-decision-shell {
+  display: grid;
+  gap: 12px;
+  width: min(100%, 820px);
+  margin-inline: auto;
+}
+
+.gs-home-decision-shell,
+.gs-product-list {
+  scroll-margin-top: 88px;
+}
+
+.gs-home-decision-module {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at top, rgba(17, 17, 17, 0.045), transparent 54%),
+    linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(17, 17, 17, 0.025));
+  box-shadow: 0 12px 28px rgba(17, 17, 17, 0.05);
+}
+
+.gs-home-module-head {
+  display: grid;
+  gap: 10px;
+  justify-items: center;
+  text-align: center;
+}
+
+.gs-home-module-copy {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+.gs-home-module-copy h3 {
+  max-width: 16ch;
+  font-size: clamp(1.2rem, 2.7vw, 1.65rem);
+  line-height: 1;
+}
+
+.gs-home-module-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.gs-home-module-meta .gs-trust-chip {
+  padding: 5px 7px;
+  font-size: 0.56rem;
+  letter-spacing: 0.05em;
+}
+
+.gs-home-picker-progress {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+
+.gs-home-picker-progress-step {
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  font-family: var(--font-display);
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.gs-home-picker-progress-step.is-active {
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--surface);
+}
+
+.gs-home-picker-viewport {
+  overflow: hidden;
+}
+
+.gs-home-picker-track {
+  display: flex;
+  transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.gs-home-picker-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  display: flex;
+}
+
+.gs-home-picker-panel {
+  width: 100%;
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+
+.gs-home-picker-panel.is-intro {
+  gap: 14px;
+}
+
+.gs-home-picker-copy,
+.gs-home-picker-step-copy {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  text-align: center;
+}
+
+.gs-home-picker-copy h4,
+.gs-home-picker-step-copy h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.gs-home-picker-copy p,
+.gs-home-picker-step-copy p {
+  max-width: 30ch;
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+
+.gs-home-picker-footer,
+.gs-home-picker-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.gs-home-picker-nav.is-result {
+  gap: 6px;
+}
+
+.gs-home-quick-start-row {
+  display: grid;
+  gap: 8px;
+}
+
+.gs-home-quick-start-card,
+.gs-home-question,
+.gs-home-result-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.gs-home-quick-start-card {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.gs-home-quick-start-card h4,
+.gs-home-question-head h4,
+.gs-home-result-head h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.84rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.gs-home-quick-start-card p,
+.gs-home-question-head p,
+.gs-home-result-head p,
+.gs-home-section-note,
+.gs-home-result-helper,
+.gs-home-result-empty {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.gs-home-section-note {
+  max-width: 28ch;
+  color: var(--text-soft);
+  font-size: 0.72rem;
+}
+
+.gs-home-step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--surface);
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  flex: 0 0 auto;
+}
+
+.gs-home-quick-start-card.is-condensed {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.gs-home-quick-start-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.gs-home-quick-start-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.gs-home-quick-start-actions.is-inline {
+  grid-template-columns: auto auto;
+  align-items: center;
+  justify-content: start;
+  gap: 8px;
+}
+
+.gs-home-quick-start-actions.is-inline .gs-secondary-btn {
+  min-width: 0;
+  padding: 7px 10px;
+  font-size: 0.62rem;
+}
+
+.gs-home-inline-link {
+  width: fit-content;
+  font-family: var(--font-display);
+  font-size: 0.56rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.gs-home-inline-link:hover,
+.gs-home-result-helper a:hover {
+  text-decoration: underline;
+}
+
+.gs-home-decision-shell {
+  gap: 12px;
+}
+
+.gs-home-question {
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.gs-home-question.is-compact {
+  background: rgba(17, 17, 17, 0.04);
+}
+
+.gs-home-question-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px;
+  align-items: start;
+}
+
+.gs-home-quick-start-card p,
+.gs-home-question-head p {
+  color: var(--text-soft);
+  font-size: 0.7rem;
+}
+
+.gs-home-choice-grid,
+.gs-home-compact-choice-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.gs-home-choice {
+  display: grid;
+  gap: 0;
+  min-height: 38px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.gs-home-choice:hover {
+  border-color: var(--text);
+  transform: translateY(-1px);
+}
+
+.gs-home-choice strong {
+  font-family: var(--font-display);
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.gs-home-choice span {
+  display: none;
+}
+
+.gs-home-choice.is-compact {
+  align-content: center;
+}
+
+.gs-home-choice.is-active {
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--surface);
+}
+
+.gs-home-choice.is-active span {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.gs-home-result-card {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  align-content: start;
+  background: var(--text);
+  border-color: var(--text);
+  color: var(--surface);
+}
+
+.gs-home-result-card .gs-overline {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.gs-home-result-head {
+  display: grid;
+  gap: 4px;
+}
+
+.gs-home-result-head h4 {
+  font-size: clamp(1rem, 2.4vw, 1.28rem);
+  color: var(--surface);
+}
+
+.gs-home-result-head p,
+.gs-home-result-helper,
+.gs-home-result-empty,
+.gs-home-result-points p {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.gs-home-result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gs-home-result-tags span {
+  padding: 4px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+  font-family: var(--font-display);
+  font-size: 0.54rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gs-home-result-points {
+  display: grid;
+  gap: 10px;
+}
+
+.gs-home-result-points.is-condensed {
+  gap: 8px;
+}
+
+.gs-home-result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gs-home-result-actions .gs-primary-btn,
+.gs-home-result-actions .gs-secondary-btn {
+  flex: 1 1 140px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.gs-home-result-actions .gs-primary-btn {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--surface);
+}
+
+.gs-home-result-actions .gs-secondary-btn {
+  background: transparent;
+  color: var(--surface);
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.gs-home-result-actions .gs-secondary-btn:hover {
+  border-color: rgba(255, 255, 255, 0.46);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.gs-home-result-mini-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.gs-home-result-mini-meta span {
+  padding: 5px 6px;
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 0.64rem;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.gs-home-result-helper {
+  font-size: 0.7rem;
+}
+
+.gs-home-result-helper a {
+  color: var(--surface);
+}
+
+@media (min-width: 640px) {
+  .gs-home-decision-module {
+    padding: 18px;
+  }
+
+  .gs-home-quick-start-row {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .gs-home-question-stack,
+  .gs-home-choice-grid,
+  .gs-home-compact-choice-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gs-home-picker-nav.is-result {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 639px) {
+  .gs-home-hero-actions .gs-primary-btn,
+  .gs-home-hero-actions .gs-secondary-btn,
+  .gs-home-result-actions .gs-primary-btn,
+  .gs-home-result-actions .gs-secondary-btn {
+    width: 100%;
+  }
+
+  .gs-home-quick-start-actions.is-inline {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .gs-home-picker-footer .gs-primary-btn,
+  .gs-home-picker-nav .gs-secondary-btn {
+    width: 100%;
   }
 }
 
@@ -2262,9 +2806,9 @@ h2, h3 {
 
 .gs-logo {
   display: block;
-  height: clamp(28px, 5vw, 36px);
+  height: clamp(56px, 10vw, 72px);
   width: auto;
-  max-width: min(220px, 38vw);
+  max-width: min(440px, 76vw);
   object-fit: contain;
 }
 
