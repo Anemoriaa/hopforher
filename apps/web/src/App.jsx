@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play, RefreshCw } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
 import { featuredSeoGuides, featuredSeoProducts, heroSeoProducts, seoCatalog, seoDateCities, seoHotStories, seoSite } from "./content/seo-guides.js";
@@ -164,7 +164,7 @@ const datePartySizeOptions = Array.from({ length: 8 }, (_, index) => index + 1);
 const dateSpotsApiPath = import.meta.env.VITE_DATE_SPOTS_API_PATH || "/api/date-spots";
 
 const hotStoryHeights = [320, 360, 400, 340, 380, 430, 360, 410];
-const HOT_FEED_TARGET_COUNT = 10;
+const HOT_FEED_TARGET_COUNT = 12;
 const HOT_FEED_INITIAL_BATCH_COUNT = 2;
 const HOT_FEED_MAX_BATCH_COUNT = 5;
 const HOT_FEED_ROTATION_STEP = 3;
@@ -179,12 +179,12 @@ function getHotStoryHeight(giftId, storyId) {
   return hotStoryHeights[getStableSeed(giftId, storyId) % hotStoryHeights.length];
 }
 
-function buildLoopedHotStories(stories, cycleIndex) {
+function buildLoopedHotStories(stories, cycleIndex, rotationOffset = 0) {
   if (!stories.length) {
     return [];
   }
 
-  const rotation = (cycleIndex * HOT_FEED_ROTATION_STEP) % stories.length;
+  const rotation = (rotationOffset + cycleIndex * HOT_FEED_ROTATION_STEP) % stories.length;
 
   return stories.map((_, index) => {
     const story = stories[(index + rotation) % stories.length];
@@ -355,6 +355,7 @@ function buildGiftPreviewMedia(gift) {
       kind: video.provider === "direct" ? "video" : "embed",
       provider: video.provider,
       title: video.title,
+      nativePosterUrl: video.posterUrl || "",
       posterUrl: video.posterUrl || images[0] || "",
       videoUrl: video.videoUrl || "",
       embedUrl:
@@ -405,7 +406,11 @@ function isTikTokPreviewMedia(media) {
 }
 
 function getPrimaryHotVideoMedia(gift) {
-  return buildGiftPreviewMedia(gift).find((media) => isTikTokPreviewMedia(media)) || null;
+  const mediaItems = buildGiftPreviewMedia(gift);
+
+  return mediaItems.find((media) => isTikTokPreviewMedia(media) && media.nativePosterUrl)
+    || mediaItems.find((media) => isTikTokPreviewMedia(media))
+    || null;
 }
 
 function getHotFallbackLabel(gift) {
@@ -523,6 +528,7 @@ export default function App() {
   });
   const [pickerStep, setPickerStep] = useState(0);
   const [hotFeedCycles, setHotFeedCycles] = useState([]);
+  const [hotFeedRotationOffset, setHotFeedRotationOffset] = useState(0);
   const { ref: hotFeedSentinelRef, inView: hotFeedSentinelInView } = useInView({
     triggerOnce: false,
     rootMargin: "900px 0px 1200px 0px",
@@ -1103,6 +1109,20 @@ export default function App() {
   const leadingHotFeedCycle = hotFeedCycles[0] ?? null;
   const trailingHotFeedCycles = hotFeedCycles.slice(1);
 
+  function refreshHotFeed() {
+    if (!videoStories.length) {
+      return;
+    }
+
+    hotFeedCanAppendRef.current = true;
+    setHotFeedRotationOffset((current) => (current + HOT_FEED_ROTATION_STEP * HOT_FEED_INITIAL_BATCH_COUNT) % videoStories.length);
+    setHotFeedCycles(Array.from({ length: HOT_FEED_INITIAL_BATCH_COUNT }, (_, index) => index));
+
+    requestAnimationFrame(() => {
+      hotScrollRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
   useEffect(() => {
     if (activeSlide === datesSlideIndex && geoState.status === "idle") {
       useMyArea();
@@ -1117,6 +1137,7 @@ export default function App() {
       return;
     }
 
+    setHotFeedRotationOffset(0);
     setHotFeedCycles(
       Array.from({ length: HOT_FEED_INITIAL_BATCH_COUNT }, (_, index) => index)
     );
@@ -1670,17 +1691,47 @@ export default function App() {
     return <AnimatedBentoCard key={`${gift.id}-bento-${index}`} gift={gift} index={index} options={options} savedIds={savedIds} toggleSaved={toggleSaved} openPreview={openPreview} />;
   }
 
-  function HotFeedMedia({ item, gift }) {
-    const media = useMemo(() => getPrimaryHotVideoMedia(gift), [gift]);
-    const posterUrl = media?.posterUrl || getGiftImageUrl(gift);
+  function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
+    const media = useMemo(() => {
+      const mediaItems = buildGiftPreviewMedia(gift);
+
+      return mediaItems.find((candidate) => candidate.id === item.mediaId) || getPrimaryHotVideoMedia(gift);
+    }, [gift, item.mediaId]);
+    const posterUrl = media?.nativePosterUrl || media?.posterUrl || getGiftImageUrl(gift);
+    const embedUrl =
+      shouldLoadEmbed && media?.provider === "tiktok"
+        ? buildTikTokPlayerUrl(media.videoId, {
+            autoplay: 0,
+            controls: 0,
+            description: 0,
+            music_info: 0,
+            rel: 0,
+          }) || media?.embedUrl || ""
+        : "";
+    const [embedLoaded, setEmbedLoaded] = useState(false);
+
+    useEffect(() => {
+      setEmbedLoaded(false);
+    }, [embedUrl]);
 
     return (
       <div className="gs-hot-feed-media">
-        <div className="gs-hot-feed-video-placeholder">
+        <div className="gs-hot-feed-video-placeholder" aria-hidden={embedUrl && embedLoaded ? "true" : undefined}>
           {posterUrl ? <img src={posterUrl} alt="" className="gs-hot-feed-poster" loading="lazy" /> : null}
           <span className="gs-hot-feed-video-placeholder-scrim" aria-hidden="true" />
           <span>Open video</span>
         </div>
+
+        {embedUrl ? (
+          <iframe
+            src={embedUrl}
+            title={media?.title || `${gift.name} TikTok video`}
+            className="gs-hot-feed-embed"
+            loading="lazy"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            onLoad={() => setEmbedLoaded(true)}
+          />
+        ) : null}
 
         {(item.mediaLabel || item.durationLabel) ? (
           <div className="gs-hot-feed-media-badges" aria-hidden="true">
@@ -1730,7 +1781,7 @@ export default function App() {
           onClick={() => openHotPreview(item)}
           aria-label={`Open ${gift.name} video full screen`}
         >
-          <HotFeedMedia item={item} gift={gift} />
+          <HotFeedMedia item={item} gift={gift} shouldLoadEmbed={inView || hasEntered} />
           <div className="gs-hot-feed-body">
             <div className="gs-hot-feed-chip-row">
               <span className="gs-hot-feed-chip">{item.label}</span>
@@ -2480,10 +2531,21 @@ export default function App() {
               tabIndex={activeSlide === 1 ? 0 : -1}
             >
               <div className="gs-slide-scroll" ref={hotScrollRef}>
-                <div className="gs-parallax-copy">
-                  <p className="gs-overline">{t("hot.overline")}</p>
-                  <h2>{t("hot.title")}</h2>
-                  <p>{t("hot.body")}</p>
+                <div className="gs-hot-feed-toolbar">
+                  <div className="gs-parallax-copy">
+                    <p className="gs-overline">{t("hot.overline")}</p>
+                    <h2>{t("hot.title")}</h2>
+                    <p>{t("hot.body")}</p>
+                  </div>
+                  <button
+                    type="button"
+                    className="gs-hot-refresh-btn"
+                    onClick={refreshHotFeed}
+                    disabled={!videoStories.length}
+                  >
+                    <RefreshCw size={14} />
+                    <span>{t("hot.refresh")}</span>
+                  </button>
                 </div>
                 {leadingHotFeedCycle !== null ? (
                   <section
@@ -2497,7 +2559,7 @@ export default function App() {
                       role="list"
                       aria-label="Hot gift stories"
                     >
-                      {buildLoopedHotStories(videoStories, leadingHotFeedCycle).map((item, index) => (
+                      {buildLoopedHotStories(videoStories, leadingHotFeedCycle, hotFeedRotationOffset).map((item, index) => (
                         <AnimatedHotCard key={item.instanceId} item={item} index={index} openPreview={openPreview} />
                       ))}
                     </Masonry>
@@ -2540,7 +2602,7 @@ export default function App() {
                       role="list"
                       aria-label={`More hot gift stories batch ${cycleIndex + 1}`}
                     >
-                      {buildLoopedHotStories(videoStories, cycleIndex).map((item, index) => (
+                      {buildLoopedHotStories(videoStories, cycleIndex, hotFeedRotationOffset).map((item, index) => (
                         <AnimatedHotCard key={item.instanceId} item={item} index={index} openPreview={openPreview} />
                       ))}
                     </Masonry>

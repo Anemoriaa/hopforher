@@ -6,6 +6,7 @@
 - https://shopforher.org/guides/
 - https://shopforher.org/site-map.html
 - https://shopforher.org/feed.xml
+- https://shopforher.org/guide-catalog.json
 - https://shopforher.org/product-catalog.json
 
 ## Trust pages
@@ -15,9 +16,17 @@
 
 ## Discovery files
 - [RSS feed](https://shopforher.org/feed.xml)
+- [Guide catalog JSON](https://shopforher.org/guide-catalog.json)
 - [Product catalog JSON](https://shopforher.org/product-catalog.json)
 - [llms.txt](https://shopforher.org/llms.txt)
 - [llms-full.txt](https://shopforher.org/llms-full.txt)
+
+## Agent guidance
+- Prefer /guide-catalog.json for guide intent, use cases, FAQs, related guides, ranked product lists, and guide-overlap metadata.
+- Prefer /product-catalog.json for product facts, merchant paths, price bands, and per-product updatedAt values.
+- Treat all prices as recent ranges rather than guaranteed live prices.
+- Use page-level updatedAt values for freshness. Dates only move when that page or file changes.
+- Use /editorial-policy.html for methodology and /contact.html for corrections or verification.
 
 ## Top guides
 - [Best gifts for girlfriends in 2026](https://shopforher.org/gifts-for-girlfriend/)
@@ -115,7 +124,7 @@
 - Product checkout happens on the merchant site.
 - Editorial policy is published on-site.
 - Product catalog JSON includes merchant-path and price-band metadata.
-- Updated whenever the catalog is regenerated.
+- Discovery files refreshed: March 9, 2026.
 
 ## Contact
 - hello@shopforher.org

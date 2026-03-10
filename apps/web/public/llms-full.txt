@@ -8,6 +8,7 @@ Updated: 2026-03-09
 - Contact: https://shopforher.org/contact.html
 - Site map: https://shopforher.org/site-map.html
 - Feed: https://shopforher.org/feed.xml
+- Guide catalog: https://shopforher.org/guide-catalog.json
 - Product catalog: https://shopforher.org/product-catalog.json
 - llms.txt: https://shopforher.org/llms.txt
 - llms-full.txt: https://shopforher.org/llms-full.txt

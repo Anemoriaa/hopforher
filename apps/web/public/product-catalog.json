@@ -3,6 +3,7 @@
   "site": {
     "name": "ShopForHer",
     "url": "https://shopforher.org/",
+    "guideCatalogUrl": "https://shopforher.org/guide-catalog.json",
     "productCatalogUrl": "https://shopforher.org/product-catalog.json",
     "editorialPolicyUrl": "https://shopforher.org/editorial-policy.html",
     "affiliateDisclosure": "As an Amazon Associate I earn from qualifying purchases.",

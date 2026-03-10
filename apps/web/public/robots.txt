@@ -22,6 +22,8 @@ Allow: /
 # https://shopforher.org/site-map.html
 # RSS feed
 # https://shopforher.org/feed.xml
+# Guide catalog JSON
+# https://shopforher.org/guide-catalog.json
 # Product catalog JSON
 # https://shopforher.org/product-catalog.json
 

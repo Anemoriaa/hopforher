@@ -16,12 +16,71 @@
   <meta property="og:description" content="Popular gifts, viral picks, and simple date ideas for men buying for her.">
   <meta property="og:url" content="https://shopforher.org/">
   <meta property="og:image" content="https://shopforher.org/logo1.png">
+  <meta property="og:image:alt" content="ShopForHer logo">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="ShopForHer | Popular gifts for her, bought fast">
   <meta name="twitter:description" content="Popular gifts, viral picks, and simple date ideas for men buying for her.">
   <meta name="twitter:image" content="https://shopforher.org/logo1.png">
+  <meta name="twitter:image:alt" content="ShopForHer logo">
   <title>ShopForHer | Popular gifts for her, bought fast</title>
   <link rel="alternate" type="application/rss+xml" title="ShopForHer feed" href="/feed.xml">
+  <link rel="stylesheet" href="/discovery.css">
+  <style>
+    #root:not(:empty) + #seo-home-shell {
+      display: none;
+    }
+
+    #seo-home-shell .discovery-main {
+      gap: 32px;
+    }
+
+    #seo-home-shell .discovery-fallback-note {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      max-width: 48rem;
+    }
+
+    #seo-home-shell .discovery-link-list {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    #seo-home-shell .discovery-link-card {
+      display: block;
+      padding: 18px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      background: rgba(8, 8, 8, 0.26);
+      color: inherit;
+      text-decoration: none;
+    }
+
+    #seo-home-shell .discovery-link-card span {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    #seo-home-shell .discovery-link-card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1rem;
+      line-height: 1.3;
+    }
+
+    #seo-home-shell .discovery-link-card p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+  </style>
   <script defer src="/ai-attribution.js"></script>
   <script defer src="/affiliate-clicks.js"></script>
   <script type="application/ld+json">
@@ -30,6 +89,7 @@
       "@graph": [
         {
           "@type": "Organization",
+          "@id": "https://shopforher.org/#organization",
           "name": "ShopForHer",
           "url": "https://shopforher.org/",
           "logo": "https://shopforher.org/logo1.png",
@@ -54,11 +114,11 @@
         },
         {
           "@type": "WebSite",
+          "@id": "https://shopforher.org/#website",
           "name": "ShopForHer",
           "url": "https://shopforher.org/",
           "publisher": {
-            "@type": "Organization",
-            "name": "ShopForHer"
+            "@id": "https://shopforher.org/#organization"
           },
           "about": {
             "@type": "Thing",
@@ -81,7 +141,35 @@
               "@type": "CollectionPage",
               "@id": "https://shopforher.org/site-map.html"
             }
+          ],
+          "hasPart": [
+            {
+              "@id": "https://shopforher.org/guide-catalog.json#catalog"
+            },
+            {
+              "@id": "https://shopforher.org/product-catalog.json#catalog"
+            }
           ]
+        },
+        {
+          "@type": "DataCatalog",
+          "@id": "https://shopforher.org/guide-catalog.json#catalog",
+          "name": "ShopForHer guide catalog",
+          "url": "https://shopforher.org/guide-catalog.json",
+          "description": "Machine-readable guide intent, FAQs, related guides, and ranked product lists.",
+          "publisher": {
+            "@id": "https://shopforher.org/#organization"
+          }
+        },
+        {
+          "@type": "DataCatalog",
+          "@id": "https://shopforher.org/product-catalog.json#catalog",
+          "name": "ShopForHer product catalog",
+          "url": "https://shopforher.org/product-catalog.json",
+          "description": "Machine-readable product data with merchant paths, price bands, and page URLs.",
+          "publisher": {
+            "@id": "https://shopforher.org/#organization"
+          }
         },
         {
           "@type": "AboutPage",
@@ -89,8 +177,7 @@
           "name": "About ShopForHer",
           "url": "https://shopforher.org/about.html",
           "about": {
-            "@type": "Organization",
-            "name": "ShopForHer"
+            "@id": "https://shopforher.org/#organization"
           }
         },
         {
@@ -116,7 +203,173 @@
   </script>
 </head>
 <body>
-  <div id="root"></div>
+  <div id="root"></div><div id="seo-home-shell" class="discovery-shell">
+    <header class="discovery-header">
+      <a class="discovery-brand" href="/">
+        <img src="/logo1.png" alt="ShopForHer">
+      </a>
+      <nav class="discovery-nav" aria-label="Primary">
+        <a href="/guides/">Guides</a>
+        <a href="/hot/">Hot</a>
+        <a href="/dates/">Plans</a>
+        <a href="/site-map.html">Site map</a>
+      </nav>
+    </header>
+    <main class="discovery-main">
+      <section class="discovery-hero">
+        <p class="discovery-kicker">Fallback index</p>
+        <h1>Popular gifts for her, bought fast</h1>
+        <p class="discovery-intro">ShopForHer publishes crawlable gift guides, product pages, trust pages, and date-planning hubs for users, search engines, and AI assistants.</p>
+        <div class="discovery-meta">
+          <span>Updated March 9, 2026</span>
+          <span>Guide and product catalogs available</span>
+          <span>Off-site merchant checkout</span>
+        </div>
+        <p class="discovery-fallback-note">This homepage shell exists so the main entry point still exposes useful links and site structure before the interactive app loads.</p>
+      </section>
+
+      <section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Start here</p>
+          <h2>Core gift guides</h2>
+        </div>
+        <div class="discovery-link-list">
+          <a class="discovery-link-card" href="/gifts-for-girlfriend/">
+            <span>Relationship</span>
+            <strong>Best gifts for girlfriends in 2026</strong>
+            <p>Low-risk, popular gifts for men buying for a girlfriend right now.</p>
+          </a>
+          <a class="discovery-link-card" href="/gifts-for-wife/">
+            <span>Relationship</span>
+            <strong>Best gifts for wives in 2026</strong>
+            <p>Higher-confidence gift picks for wives with stronger quality and daily-use upside.</p>
+          </a>
+          <a class="discovery-link-card" href="/anniversary-gifts-for-her/">
+            <span>Moment</span>
+            <strong>Best anniversary gifts for her in 2026</strong>
+            <p>Sharper anniversary gifts that feel intentional without getting cheesy.</p>
+          </a>
+          <a class="discovery-link-card" href="/best-gifts-under-100/">
+            <span>Budget</span>
+            <strong>Best gifts for her under $100 in 2026</strong>
+            <p>The highest-confidence shortlist when you want strong results without premium spend.</p>
+          </a>
+          <a class="discovery-link-card" href="/tech-gifts-for-her/">
+            <span>Angle</span>
+            <strong>Tech gifts for her in 2026</strong>
+            <p>Cleaner tech gifts that feel current, useful, and safe to buy.</p>
+          </a>
+          <a class="discovery-link-card" href="/viral-gifts-for-her/">
+            <span>Angle</span>
+            <strong>Viral gifts for her in 2026</strong>
+            <p>Current, shareable gift ideas that still make sense in real life.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Trust</p>
+          <h2>Method and contact</h2>
+        </div>
+        <div class="discovery-link-list">
+          <a class="discovery-link-card" href="/about.html">
+            <span>About</span>
+            <strong>About ShopForHer</strong>
+            <p>What the site is, who it helps, and how the content is structured.</p>
+          </a>
+          <a class="discovery-link-card" href="/editorial-policy.html">
+            <span>Editorial</span>
+            <strong>Editorial policy</strong>
+            <p>How products are selected, reviewed, disclosed, and refreshed.</p>
+          </a>
+          <a class="discovery-link-card" href="/contact.html">
+            <span>Contact</span>
+            <strong>Contact ShopForHer</strong>
+            <p>Use this for corrections, brand questions, or partnership requests.</p>
+          </a>
+          <a class="discovery-link-card" href="/site-map.html">
+            <span>Directory</span>
+            <strong>HTML site map</strong>
+            <p>A readable directory of guides, products, trust pages, and date hubs.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Machine-readable</p>
+          <h2>Agent and crawler surfaces</h2>
+        </div>
+        <div class="discovery-link-list">
+          <a class="discovery-link-card" href="/guide-catalog.json">
+            <span>JSON</span>
+            <strong>Guide catalog</strong>
+            <p>Guide intent, FAQs, related pages, and ranked product lists in one structured file.</p>
+          </a>
+          <a class="discovery-link-card" href="/product-catalog.json">
+            <span>JSON</span>
+            <strong>Product catalog</strong>
+            <p>Machine-readable product facts, merchant paths, and price-band data.</p>
+          </a>
+          <a class="discovery-link-card" href="/llms.txt">
+            <span>LLMs</span>
+            <strong>llms.txt</strong>
+            <p>A compact site index with instructions for AI assistants and agent workflows.</p>
+          </a>
+          <a class="discovery-link-card" href="/feed.xml">
+            <span>RSS</span>
+            <strong>RSS feed</strong>
+            <p>Fresh trust, guide, hot, and date pages in a simple feed format.</p>
+          </a>
+        </div>
+      </section>
+
+      <section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">More paths</p>
+          <h2>Trending and planning hubs</h2>
+        </div>
+        <div class="discovery-link-list">
+          <a class="discovery-link-card" href="/hot/">
+            <span>Hot</span>
+            <strong>Trending gift pages</strong>
+            <p>Current gift lanes shaped around what is moving now.</p>
+          </a>
+          <a class="discovery-link-card" href="/dates/">
+            <span>Plans</span>
+            <strong>Date spots</strong>
+            <p>City pages with simple booking paths for dinner, drinks, and date-night planning.</p>
+          </a>
+          <a class="discovery-link-card" href="/dates/los-angeles/">
+            <span>City</span>
+            <strong>Best date spots in Los Angeles</strong>
+            <p>Nearby date ideas with cleaner booking paths.</p>
+          </a>
+          <a class="discovery-link-card" href="/hot/looks-expensive-gifts-going-viral/">
+            <span>Hot story</span>
+            <strong>Looks expensive and going viral</strong>
+            <p>Polished gifts with stronger visual payoff and current attention.</p>
+          </a>
+        </div>
+      </section>
+    </main>
+    <footer class="discovery-footer">
+      <p>Sharper gift picks for men buying for her.</p>
+      <p>Prefer <a href="/guide-catalog.json">guide-catalog.json</a> for guide intent and <a href="/product-catalog.json">product-catalog.json</a> for product facts.</p>
+      <div class="discovery-footer-links">
+        <a href="/about.html">About</a>
+        <a href="/editorial-policy.html">Editorial</a>
+        <a href="/contact.html">Contact</a>
+        <a href="/site-map.html">Site map</a>
+        <a href="/feed.xml">Feed</a>
+        <a href="/guide-catalog.json">Guide JSON</a>
+        <a href="/product-catalog.json">Catalog JSON</a>
+        <a href="/llms.txt">llms.txt</a>
+      </div>
+      <a href="mailto:hello@shopforher.org">hello@shopforher.org</a>
+    </footer>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>

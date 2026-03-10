@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import crypto from "node:crypto";
 import path from "node:path";
 import { seoCatalog, seoDateCities, seoGuides, seoHotStories, seoSite } from "../src/content/seo-guides.js";
 import {
@@ -10,12 +11,20 @@ import {
 
 const rootDir = process.cwd();
 const publicDir = path.join(rootDir, "public");
+const lastmodCachePath = path.join(rootDir, "scripts", ".seo-lastmod-cache.json");
 const siteUrl = seoSite.url;
 const updatedAt = seoSite.updatedAt;
-const formattedDate = new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(`${updatedAt}T00:00:00Z`));
 const catalogById = new Map(seoCatalog.map((gift) => [gift.id, gift]));
 const guideBySlug = new Map(seoGuides.map((guide) => [guide.slug, guide]));
 const giftBySlug = new Map(seoCatalog.map((gift) => [gift.slug, gift]));
+const lastmodPlaceholder = {
+  isoDate: "__LASTMOD_DATE__",
+  dateTime: "__LASTMOD_DATE_TIME__",
+  displayDate: "__LASTMOD_DISPLAY__",
+};
+const heavyGuideReuseThreshold = 5;
+const distinctiveGuideReuseThreshold = 3;
+const guideDistinctiveTarget = 2;
 const trustPages = [
   {
     filename: "about.html",
@@ -77,7 +86,7 @@ const trustPages = [
       },
       {
         title: "Freshness",
-        body: "Guide pages, hot pages, and supporting discovery files are regenerated regularly so the site can stay crawlable and current for both traditional search and AI-assisted discovery.",
+        body: "Guide pages, hot pages, and supporting discovery files are regenerated regularly. Last-modified dates are preserved per page and only move when that page or discovery file actually changes.",
       },
     ],
   },
@@ -141,6 +150,69 @@ const editorialReviewerSchema = {
   url: editorialReviewer.url,
 };
 const priceEstimateNote = "Price labels reflect recent observed ranges and final pricing can change on the merchant site.";
+const previousLastmodCache = readLastmodCache();
+const nextLastmodCache = {};
+
+function formatDate(dateValue) {
+  return new Intl.DateTimeFormat("en-US", { dateStyle: "long", timeZone: "UTC" }).format(new Date(`${dateValue}T00:00:00Z`));
+}
+
+function fullDateTime(dateValue) {
+  return `${dateValue}T00:00:00Z`;
+}
+
+function pageFreshness(dateValue) {
+  return {
+    isoDate: dateValue,
+    dateTime: fullDateTime(dateValue),
+    displayDate: formatDate(dateValue),
+  };
+}
+
+function readLastmodCache() {
+  if (!fs.existsSync(lastmodCachePath)) {
+    return {};
+  }
+
+  try {
+    const parsed = JSON.parse(fs.readFileSync(lastmodCachePath, "utf8"));
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function hashContent(value) {
+  return crypto.createHash("sha256").update(String(value)).digest("hex");
+}
+
+function resolveLastmod(url, previewValue) {
+  const hash = hashContent(previewValue);
+  const previous = previousLastmodCache[url];
+  const lastmod = previous?.hash === hash && previous?.lastmod ? previous.lastmod : updatedAt;
+
+  nextLastmodCache[url] = { hash, lastmod };
+  return lastmod;
+}
+
+function pageLastmod(url, fallback = updatedAt) {
+  return nextLastmodCache[url]?.lastmod || previousLastmodCache[url]?.lastmod || fallback;
+}
+
+function latestLastmod(urls = []) {
+  if (!urls.length) {
+    return updatedAt;
+  }
+
+  return urls.reduce((latest, url) => {
+    const current = pageLastmod(url, updatedAt);
+    return current > latest ? current : latest;
+  }, "0000-00-00");
+}
+
+function utcPubDate(dateValue) {
+  return new Date(fullDateTime(dateValue)).toUTCString();
+}
 
 function ensureDir(dirPath) {
   fs.mkdirSync(dirPath, { recursive: true });
@@ -362,8 +434,96 @@ function hotStoryItems(story) {
   return story.itemIds.map((id) => catalogById.get(id)).filter(Boolean);
 }
 
+function guideUsageCount(giftId) {
+  return seoGuides.reduce((total, guide) => total + (guide.itemIds.includes(giftId) ? 1 : 0), 0);
+}
+
+function guideOverlapDetails(guide, items = guideItems(guide)) {
+  const relatedGuides = (guide.related || []).map((slug) => guideBySlug.get(slug)).filter(Boolean);
+  const relatedItemIds = new Set(relatedGuides.flatMap((entry) => entry.itemIds || []));
+  const uniqueAgainstRelated = items.filter((gift) => !relatedItemIds.has(gift.id));
+  const distinctiveItems = (uniqueAgainstRelated.length ? uniqueAgainstRelated : [...items].sort((left, right) => {
+    const reuseDelta = guideUsageCount(left.id) - guideUsageCount(right.id);
+
+    if (reuseDelta !== 0) {
+      return reuseDelta;
+    }
+
+    return left.name.localeCompare(right.name);
+  })).slice(0, 3);
+  const overusedItems = items.filter((gift) => guideUsageCount(gift.id) >= heavyGuideReuseThreshold);
+  const topHeavyCount = items.slice(0, 3).filter((gift) => guideUsageCount(gift.id) >= heavyGuideReuseThreshold).length;
+  const relatedOverlap = relatedGuides
+    .map((entry) => {
+      const sharedItems = items.filter((gift) => entry.itemIds.includes(gift.id));
+
+      return {
+        slug: entry.slug,
+        label: entry.label,
+        h1: entry.h1,
+        url: guideUrl(entry),
+        sharedCount: sharedItems.length,
+        sharedItems: sharedItems.map((gift) => ({
+          id: gift.id,
+          name: gift.name,
+          slug: gift.slug,
+          url: productUrl(gift),
+        })),
+      };
+    })
+    .filter((entry) => entry.sharedCount > 0)
+    .sort((left, right) => right.sharedCount - left.sharedCount || left.label.localeCompare(right.label));
+
+  return {
+    distinctiveItems,
+    overusedItems,
+    relatedOverlap,
+    topHeavyCount,
+    needsEditorialRefresh:
+      distinctiveItems.filter((gift) => guideUsageCount(gift.id) <= distinctiveGuideReuseThreshold).length < guideDistinctiveTarget
+      || topHeavyCount >= 2,
+  };
+}
+
+function logGuideOverlapWarnings() {
+  const flagged = seoGuides
+    .map((guide) => {
+      const items = guideItems(guide);
+      const overlap = guideOverlapDetails(guide, items);
+
+      if (!overlap.needsEditorialRefresh) {
+        return null;
+      }
+
+      return {
+        slug: guide.slug,
+        overusedItems: overlap.overusedItems,
+      };
+    })
+    .filter(Boolean);
+
+  if (!flagged.length) {
+    return;
+  }
+
+  const topRepeatedProducts = [...new Set(flagged.flatMap((entry) => entry.overusedItems.map((gift) => gift.id)))]
+    .map((giftId) => catalogById.get(giftId))
+    .filter(Boolean)
+    .sort((left, right) => guideUsageCount(right.id) - guideUsageCount(left.id) || left.name.localeCompare(right.name))
+    .slice(0, 8)
+    .map((gift) => `${gift.name} (${guideUsageCount(gift.id)} guides)`)
+    .join(", ");
+
+  console.warn(`[seo] ${flagged.length} guides need more distinctive picks: ${flagged.map((entry) => entry.slug).join(", ")}.`);
+  console.warn(`[seo] Most reused guide products: ${topRepeatedProducts}.`);
+}
+
 function productUrl(gift) {
   return `${siteUrl}/gift/${gift.slug}/`;
+}
+
+function guideUrl(guide) {
+  return `${siteUrl}/${guide.slug}/`;
 }
 
 function productImages(gift) {
@@ -421,6 +581,7 @@ function renderFooterLinks({ includeLlms = true } = {}) {
     ["Contact", seoSite.contactPath],
     ["Site map", "/site-map.html"],
     ["Feed", "/feed.xml"],
+    ["Guide JSON", "/guide-catalog.json"],
     ["Catalog JSON", "/product-catalog.json"],
     ["Privacy", "/privacy.html"],
     ["Terms", "/terms.html"],
@@ -453,6 +614,86 @@ function renderPaidLinkNote(gift) {
   return `<span class="discovery-paid-note">${escapeHtml(paidLinkNote(gift))}</span>`;
 }
 
+function renderDiscoveryHeader(active = "") {
+  const links = [
+    { key: "home", href: "/", label: "Home" },
+    { key: "guides", href: "/guides/", label: "Guides" },
+    { key: "hot", href: "/hot/", label: "Hot" },
+    { key: "plans", href: "/dates/", label: "Plans" },
+    { key: "affiliate", href: "/affiliate-disclosure.html", label: "Affiliate" },
+  ];
+
+  return `<header class="discovery-header">
+      <a class="discovery-brand" href="/">
+        <img src="/logo1.png" alt="ShopForHer">
+      </a>
+      <nav class="discovery-nav" aria-label="Primary">
+        ${links
+          .map(
+            (link) => `<a href="${link.href}"${link.key === active ? ' aria-current="page"' : ""}>${escapeHtml(link.label)}</a>`
+          )
+          .join("")}
+      </nav>
+    </header>`;
+}
+
+function renderBreadcrumbs(items = []) {
+  if (!items.length) {
+    return "";
+  }
+
+  return `<nav class="discovery-breadcrumbs" aria-label="Breadcrumb">
+      ${items
+        .map((item, index) => {
+          const content = item.href
+            ? `<a href="${item.href}">${escapeHtml(item.label)}</a>`
+            : `<span aria-current="page">${escapeHtml(item.label)}</span>`;
+          const separator = index < items.length - 1 ? '<span class="discovery-breadcrumb-sep">/</span>' : "";
+
+          return `${content}${separator}`;
+        })
+        .join("")}
+    </nav>`;
+}
+
+function renderRailCard(card) {
+  if (!card) {
+    return "";
+  }
+
+  const links = (card.links || [])
+    .map((link) => `<a class="discovery-rail-link" href="${link.href}">
+          <strong>${escapeHtml(link.label)}</strong>
+          ${link.meta ? `<span>${escapeHtml(link.meta)}</span>` : ""}
+        </a>`)
+    .join("");
+
+  return `<section class="discovery-rail-card${card.emphasis ? " is-emphasis" : ""}">
+      ${card.kicker ? `<p class="discovery-card-kicker">${escapeHtml(card.kicker)}</p>` : ""}
+      ${card.title ? `<h2>${escapeHtml(card.title)}</h2>` : ""}
+      ${card.body ? `<p>${escapeHtml(card.body)}</p>` : ""}
+      ${
+        (card.pills || []).length
+          ? `<div class="discovery-pill-row discovery-pill-row-rail">
+        ${card.pills.map((pill) => `<span>${escapeHtml(pill)}</span>`).join("")}
+      </div>`
+          : ""
+      }
+      ${links ? `<div class="discovery-rail-links">${links}</div>` : ""}
+      ${card.cta || ""}
+    </section>`;
+}
+
+function renderPageRail(cards = []) {
+  const markup = cards.map((card) => renderRailCard(card)).filter(Boolean).join("");
+
+  if (!markup) {
+    return "";
+  }
+
+  return `<aside class="discovery-page-rail">${markup}</aside>`;
+}
+
 function renderDiscoveryFooter({ notes = [], includeLlms = true, includeAffiliateDisclosure = false } = {}) {
   const footerNotes = includeAffiliateDisclosure ? [AMAZON_ASSOCIATE_DISCLOSURE, ...notes] : notes;
 
@@ -476,7 +717,7 @@ function renderGuideMethodSection(guide) {
     ["Pricing note", priceEstimateNote],
   ];
 
-  return `<section class="discovery-section">
+  return `<section class="discovery-section" id="guide-editorial">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Editorial</p>
           <h2>Why you can trust this page</h2>
@@ -487,6 +728,51 @@ function renderGuideMethodSection(guide) {
               ([title, body]) => `<article class="discovery-faq">
             <h3>${escapeHtml(title)}</h3>
             <p>${escapeHtml(body)}</p>
+          </article>`
+            )
+            .join("")}
+        </div>
+      </section>`;
+}
+
+function renderGuideComparisonSection(guide, items = guideItems(guide)) {
+  const overlap = guideOverlapDetails(guide, items);
+
+  if (!overlap.distinctiveItems.length) {
+    return "";
+  }
+
+  const relatedSummary = overlap.relatedOverlap.slice(0, 2).map((entry) => entry.label).join(" and ");
+  const distinctiveSummary = overlap.distinctiveItems.map((gift) => gift.name).join(", ");
+  const baseUseCase = guide.bestUseCase || "Use this page when the title closely matches the relationship stage, budget, or occasion you are buying for.";
+  const note = relatedSummary
+    ? `Compared with ${relatedSummary}, this page answers a narrower buying moment. ${baseUseCase} Less-repeated picks here include ${distinctiveSummary}.`
+    : `${baseUseCase} Less-repeated picks here include ${distinctiveSummary}.`;
+
+  return `<section class="discovery-section" id="guide-differentiation">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Differentiation</p>
+          <h2>How this page differs</h2>
+        </div>
+        <p class="discovery-section-note">${escapeHtml(note)}</p>
+        <div class="discovery-decision-grid">
+          <article class="discovery-decision-card">
+            <span class="discovery-decision-label">Use this page when</span>
+            <h3>${escapeHtml(guide.label)}</h3>
+            <p>${escapeHtml(guide.bestUseCase || "The page title closely matches the moment you are buying for.")}</p>
+          </article>
+          <article class="discovery-decision-card">
+            <span class="discovery-decision-label">Use another page when</span>
+            <h3>${escapeHtml(guide.related?.length ? "A nearby guide fits better" : "The moment changed")}</h3>
+            <p>${escapeHtml(guide.avoidWhen || "Another guide on the site matches the budget, relationship stage, or intent more directly.")}</p>
+          </article>
+          ${overlap.distinctiveItems
+            .map(
+              (gift) => `<article class="discovery-decision-card">
+            <span class="discovery-decision-label">Distinctive pick</span>
+            <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
+            <p>${escapeHtml(gift.why)}</p>
+            <p class="discovery-best-for">Appears in ${guideUsageCount(gift.id)} guide${guideUsageCount(gift.id) === 1 ? "" : "s"}.</p>
           </article>`
             )
             .join("")}
@@ -511,7 +797,7 @@ function renderProductEditorialSection(gift) {
     ["Pricing note", priceEstimateNote],
   ];
 
-  return `<section class="discovery-section">
+  return `<section class="discovery-section" id="product-editorial">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Editorial</p>
           <h2>How this pick was reviewed</h2>
@@ -534,7 +820,7 @@ function renderGuideSignalsSection(guide) {
     return "";
   }
 
-  return `<section class="discovery-section">
+  return `<section class="discovery-section" id="guide-buyer-read">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Buyer read</p>
           <h2>What usually works here</h2>
@@ -557,7 +843,7 @@ function renderGuideBestFitsSection(guide) {
     return "";
   }
 
-  return `<section class="discovery-section">
+  return `<section class="discovery-section" id="guide-best-fits">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Decision guide</p>
           <h2>Best if she likes...</h2>
@@ -584,7 +870,7 @@ function renderGuideAvoidSection(guide) {
     return "";
   }
 
-  return `<section class="discovery-section">
+  return `<section class="discovery-section" id="guide-avoid">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Avoid</p>
           <h2>Skip these moves if...</h2>
@@ -607,7 +893,7 @@ function renderGuidePickLanesSection(guide) {
     return "";
   }
 
-  return `<section class="discovery-section">
+  return `<section class="discovery-section" id="guide-pick-lanes">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Short answer</p>
           <h2>Best pick by budget or use case</h2>
@@ -625,6 +911,136 @@ function renderGuidePickLanesSection(guide) {
           </article>`;
             })
             .join("")}
+        </div>
+      </section>`;
+}
+
+function renderGuideOverviewSection(guide, items) {
+  const featuredGift = items[0] || null;
+  const firstClickBody = featuredGift
+    ? `${featuredGift.name} is the fastest first click on this page when you want the cleanest answer without overthinking it. ${featuredGift.why}`
+    : "Start with the first ranked pick on this page when the title matches the exact buyer moment you are trying to solve.";
+
+  return `<section class="discovery-section" id="guide-overview">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Start here</p>
+          <h2>How to use this page</h2>
+        </div>
+        <div class="discovery-faqs">
+          <article class="discovery-faq">
+            <h3>Best first click</h3>
+            <p>${escapeHtml(firstClickBody)}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>Use this page when</h3>
+            <p>${escapeHtml(guide.bestUseCase || "Use this page when the page title closely matches the occasion, budget, or relationship stage you are buying for.")}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>Skip this page when</h3>
+            <p>${escapeHtml(guide.avoidWhen || "Skip this page when a narrower page on the site matches your moment, budget, or relationship stage more directly.")}</p>
+          </article>
+        </div>
+      </section>`;
+}
+
+function renderProductContextSection(gift, matchingGuides) {
+  const leadGuide = matchingGuides[0] || null;
+  const merchantPathNote = usesAffiliateSearchFallback(gift)
+    ? "This page currently uses an Amazon search path because a pinned direct merchant listing is not yet stored in the catalog."
+    : `Checkout opens on ${merchantName(gift)} and final pricing is confirmed there on the merchant site.`;
+  const guideFitNote = leadGuide
+    ? `${gift.name} appears in ${matchingGuides.length} guide${matchingGuides.length === 1 ? "" : "s"} on ShopForHer. Start with ${leadGuide.label.toLowerCase()} when you want the surrounding buyer context before you buy.`
+    : `${gift.name} currently stands on its own product page, so this page is the fastest way to understand why it is on the site.`;
+
+  return `<section class="discovery-section" id="product-context">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Context</p>
+          <h2>Where this product fits</h2>
+        </div>
+        <div class="discovery-faqs">
+          <article class="discovery-faq">
+            <h3>Best buyer moment</h3>
+            <p>${escapeHtml(`Use ${gift.name} when the buyer moment matches ${gift.bestFor} and you want something that feels ${gift.badge} without needing extra explanation.`)}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>Why it reads as a gift</h3>
+            <p>${escapeHtml(`${gift.hook} ${gift.why}`)}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>Where it shows up on the site</h3>
+            <p>${escapeHtml(guideFitNote)}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>Buying note</h3>
+            <p>${escapeHtml(`${merchantPathNote} ${priceEstimateNote}`)}</p>
+          </article>
+        </div>
+      </section>`;
+}
+
+function renderHotStoryAngleSection(story, items, relatedGuides) {
+  const leadGift = items[0] || null;
+  const leadGuide = relatedGuides[0] || null;
+  const trendRead = leadGift
+    ? `${story.description} ${leadGift.name} shows the lane well because ${leadGift.why}`
+    : story.description;
+  const firstClick = leadGift
+    ? `${leadGift.name} is the first product to open if you want the quickest read on this trend. ${leadGift.hook}`
+    : "Start with the first ranked product in the story list when you want the fastest answer.";
+  const useLane = leadGuide
+    ? `Use this story when you want a current-feeling answer fast and do not need the broadest evergreen guide first. If you want more context before buying, move next to ${leadGuide.label.toLowerCase()}.`
+    : "Use this story when you want a current-feeling answer fast and do not need the broadest evergreen guide first.";
+
+  return `<section class="discovery-section" id="story-angle">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Read the lane</p>
+          <h2>Why this story is moving</h2>
+        </div>
+        <div class="discovery-faqs">
+          <article class="discovery-faq">
+            <h3>What is actually trending</h3>
+            <p>${escapeHtml(trendRead)}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>Best first click</h3>
+            <p>${escapeHtml(firstClick)}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>When to use this page</h3>
+            <p>${escapeHtml(useLane)}</p>
+          </article>
+        </div>
+      </section>`;
+}
+
+function renderHotStoryEditorialSection(story, relatedGuides) {
+  const leadGuide = relatedGuides[0] || null;
+  const skipLaneCopy = leadGuide
+    ? `Skip the viral lane when you need slower-moving evergreen coverage, a tighter budget read, or a clearer relationship-stage filter. ${leadGuide.label} is the better next move.`
+    : "Skip the viral lane when you need slower-moving evergreen coverage, a tighter budget read, or a clearer relationship-stage filter.";
+
+  return `<section class="discovery-section" id="story-editorial">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Editorial</p>
+          <h2>How this story was built</h2>
+        </div>
+        <div class="discovery-faqs">
+          <article class="discovery-faq">
+            <h3>Written by</h3>
+            <p>${escapeHtml(`${editorialAuthor.name} · ${editorialAuthor.title}`)}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>How the page is structured</h3>
+            <p>${escapeHtml("Hot pages combine a current trend angle, a short ranked product list, and related evergreen guides so the page can move fast without losing context.")}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>When to skip this lane</h3>
+            <p>${escapeHtml(skipLaneCopy)}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>Pricing note</h3>
+            <p>${escapeHtml(priceEstimateNote)}</p>
+          </article>
         </div>
       </section>`;
 }
@@ -648,7 +1064,7 @@ function guideFaqs(guide, items) {
   ];
 }
 
-function renderGuidePage(guide) {
+function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   const items = guideItems(guide);
   const featuredGift = items[0] || null;
   const shortlist = items.length > 1 ? items.slice(1) : [];
@@ -657,6 +1073,52 @@ function renderGuidePage(guide) {
   const pageTitle = guide.title;
   const faqs = guideFaqs(guide, items);
   const pageImage = guideImageUrl(guide);
+  const comparisonSection = renderGuideComparisonSection(guide, items);
+  const guideSectionLinks = [
+    { href: "#guide-overview", label: "How to use this page", meta: "Start here" },
+    ...(shortlist.length ? [{ href: "#guide-shortlist", label: "Shortlist", meta: `${shortlist.length} more picks` }] : []),
+    ...(comparisonSection ? [{ href: "#guide-differentiation", label: "How this page differs", meta: "Comparison read" }] : []),
+    ...(guide.pickLanes?.length ? [{ href: "#guide-pick-lanes", label: "Best pick by lane", meta: "Short answer" }] : []),
+    ...(guide.bestFits?.length ? [{ href: "#guide-best-fits", label: "Best if she likes...", meta: "Decision guide" }] : []),
+    ...(guide.buyerSignals?.length ? [{ href: "#guide-buyer-read", label: "Buyer read", meta: "What usually works" }] : []),
+    ...(guide.avoidNotes?.length ? [{ href: "#guide-avoid", label: "What to avoid", meta: "Skip these moves" }] : []),
+    { href: "#guide-editorial", label: "Editorial notes", meta: "How we picked" },
+    { href: "#guide-faq", label: "Quick answers", meta: `${faqs.length} FAQ${faqs.length === 1 ? "" : "s"}` },
+    ...(related.length ? [{ href: "#guide-related", label: "Related guides", meta: `${related.length} more pages` }] : []),
+  ];
+  const guideRail = renderPageRail([
+    {
+      kicker: "Page snapshot",
+      title: guide.label,
+      body: guide.bestUseCase || guide.description,
+      pills: [`Updated ${freshness.displayDate}`, `${items.length} picks`, featuredGift ? featuredGift.priceLabel : ""].filter(Boolean),
+      emphasis: true,
+      cta: featuredGift
+        ? `<div class="discovery-actions discovery-actions-rail">
+        <a class="discovery-text-link" href="/gift/${featuredGift.slug}/">Open top pick</a>
+        ${renderAffiliateAnchor(featuredGift, `guide-${guide.slug}-rail`, "Buy first pick")}
+      </div>
+      ${renderPaidLinkNote(featuredGift)}`
+        : "",
+    },
+    {
+      kicker: "On this page",
+      title: "Jump to a section",
+      links: guideSectionLinks,
+    },
+    related.length
+      ? {
+          kicker: "Keep browsing",
+          title: "Related guides",
+          body: "Move into a narrower angle if this page is close but not exact.",
+          links: related.slice(0, 4).map((entry) => ({
+            href: `/${entry.slug}/`,
+            label: entry.label,
+            meta: entry.groupLabel,
+          })),
+        }
+      : null,
+  ]);
 
   const itemListSchema = {
     "@context": "https://schema.org",
@@ -717,7 +1179,7 @@ function renderGuidePage(guide) {
     name: guide.h1,
     description: guide.description,
     url: canonical,
-    dateModified: updatedAt,
+    dateModified: freshness.isoDate,
     mainEntityOfPage: canonical,
     author: editorialAuthorSchema,
     reviewedBy: editorialReviewerSchema,
@@ -748,7 +1210,7 @@ function renderGuidePage(guide) {
   <meta property="og:description" content="${escapeHtml(guide.description)}">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${escapeHtml(pageImage)}">
-  <meta property="article:modified_time" content="${updatedAt}">
+  <meta property="article:modified_time" content="${escapeHtml(freshness.dateTime)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
   <meta name="twitter:description" content="${escapeHtml(guide.description)}">
@@ -764,25 +1226,21 @@ function renderGuidePage(guide) {
 </head>
 <body>
   <div class="discovery-shell discovery-shell-guide">
-    <header class="discovery-header">
-      <a class="discovery-brand" href="/">
-        <img src="/logo1.png" alt="ShopForHer">
-      </a>
-      <nav class="discovery-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/guides/">Guides</a>
-        <a href="/affiliate-disclosure.html">Affiliate</a>
-      </nav>
-    </header>
+    ${renderDiscoveryHeader("guides")}
     <main class="discovery-main discovery-main-guide">
       <section class="discovery-hero discovery-hero-guide">
+        ${renderBreadcrumbs([
+          { label: "Home", href: "/" },
+          { label: "Guides", href: "/guides/" },
+          { label: guide.h1 },
+        ])}
         <div class="discovery-hero-layout">
           <div class="discovery-hero-copy">
             <p class="discovery-kicker">${escapeHtml(guide.groupLabel)}</p>
             <h1>${escapeHtml(guide.h1)}</h1>
             <p class="discovery-intro">${escapeHtml(guide.intro)}</p>
             <div class="discovery-meta">
-              <span>Updated ${escapeHtml(formattedDate)}</span>
+              <span>Updated ${escapeHtml(freshness.displayDate)}</span>
               <span>${items.length} picks</span>
               <span>Off-site merchant checkout</span>
             </div>
@@ -813,10 +1271,12 @@ function renderGuidePage(guide) {
           }
         </div>
       </section>
-
-      ${
-        shortlist.length
-          ? `<section class="discovery-section">
+      <div class="discovery-page-main">
+        <div class="discovery-page-stack">
+          ${renderGuideOverviewSection(guide, items)}
+          ${
+            shortlist.length
+              ? `<section class="discovery-section" id="guide-shortlist">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Shortlist</p>
           <h2>More clean options</h2>
@@ -853,16 +1313,17 @@ function renderGuidePage(guide) {
             .join("")}
         </ol>
       </section>`
-          : ""
-      }
+              : ""
+          }
 
-      ${renderGuidePickLanesSection(guide)}
-      ${renderGuideBestFitsSection(guide)}
-      ${renderGuideSignalsSection(guide)}
-      ${renderGuideAvoidSection(guide)}
-      ${renderGuideMethodSection(guide)}
+          ${comparisonSection}
+          ${renderGuidePickLanesSection(guide)}
+          ${renderGuideBestFitsSection(guide)}
+          ${renderGuideSignalsSection(guide)}
+          ${renderGuideAvoidSection(guide)}
+          ${renderGuideMethodSection(guide)}
 
-      <section class="discovery-section">
+          <section class="discovery-section" id="guide-faq">
         <div class="discovery-section-head">
           <p class="discovery-kicker">FAQ</p>
           <h2>Quick answers</h2>
@@ -879,7 +1340,7 @@ function renderGuidePage(guide) {
         </div>
       </section>
 
-      <section class="discovery-section">
+          <section class="discovery-section" id="guide-related">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Related</p>
           <h2>More guides</h2>
@@ -894,7 +1355,10 @@ function renderGuidePage(guide) {
             )
             .join("")}
         </div>
-      </section>
+          </section>
+        </div>
+        ${guideRail}
+      </div>
     </main>
     ${renderDiscoveryFooter({
       notes: [
@@ -907,7 +1371,7 @@ function renderGuidePage(guide) {
 </html>`;
 }
 
-function renderProductPage(gift) {
+function renderProductPage(gift, freshness = lastmodPlaceholder) {
   const matchingGuides = seoGuides.filter((guide) => guide.itemIds.includes(gift.id)).slice(0, 6);
   const relatedProducts = relatedProductsForGift(gift);
   const canonical = productUrl(gift);
@@ -917,6 +1381,57 @@ function renderProductPage(gift) {
   const primaryImage = primaryImageUrl(gift);
   const offerSchema = productOfferSchema(gift);
   const productSchemaId = `${canonical}#product`;
+  const productSectionLinks = [
+    { href: "#product-spotlight", label: "Product spotlight", meta: "Images and notes" },
+    { href: "#product-context", label: "Where it fits", meta: "Buyer context" },
+    ...(matchingGuides.length ? [{ href: "#product-guides", label: "Guides using this pick", meta: `${matchingGuides.length} guide${matchingGuides.length === 1 ? "" : "s"}` }] : []),
+    { href: "#product-related", label: "Related products", meta: `${relatedProducts.length} more picks` },
+    { href: "#product-editorial", label: "Editorial notes", meta: "How it was reviewed" },
+  ];
+  const productRail = renderPageRail([
+    {
+      kicker: "Product snapshot",
+      title: gift.name,
+      body: gift.hook,
+      pills: [gift.priceLabel, gift.badge, `${merchantName(gift)} checkout`],
+      emphasis: true,
+      cta: `<div class="discovery-actions discovery-actions-rail">
+        ${renderAffiliateAnchor(gift, `product-${gift.slug}-rail`, "Buy now")}
+        ${
+          matchingGuides[0]
+            ? `<a class="discovery-text-link" href="/${matchingGuides[0].slug}/">Open best matching guide</a>`
+            : ""
+        }
+      </div>
+      ${renderPaidLinkNote(gift)}`,
+    },
+    {
+      kicker: "On this page",
+      title: "Jump to a section",
+      links: productSectionLinks,
+    },
+    matchingGuides.length
+      ? {
+          kicker: "Featured in",
+          title: "Guides using this pick",
+          body: "Open the guide context first if you want to compare this item against nearby alternatives.",
+          links: matchingGuides.slice(0, 4).map((guide) => ({
+            href: `/${guide.slug}/`,
+            label: guide.label,
+            meta: guide.groupLabel,
+          })),
+        }
+      : {
+          kicker: "Keep browsing",
+          title: "Related products",
+          body: "Stay in the same lane if you want a similar price band or buying signal before checkout.",
+          links: relatedProducts.slice(0, 4).map((entry) => ({
+            href: `/gift/${entry.slug}/`,
+            label: entry.name,
+            meta: entry.badge,
+          })),
+        },
+  ]);
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -956,7 +1471,7 @@ function renderProductPage(gift) {
     name: pageTitle,
     description,
     url: canonical,
-    dateModified: updatedAt,
+    dateModified: freshness.isoDate,
     author: editorialAuthorSchema,
     reviewedBy: editorialReviewerSchema,
     mainEntity: {
@@ -983,12 +1498,6 @@ function renderProductPage(gift) {
       {
         "@type": "ListItem",
         position: 2,
-        name: "Gift",
-        item: `${siteUrl}/gift/${gift.slug}/`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
         name: gift.name,
         item: canonical,
       },
@@ -1024,18 +1533,13 @@ function renderProductPage(gift) {
 </head>
 <body>
   <div class="discovery-shell discovery-shell-product">
-    <header class="discovery-header">
-      <a class="discovery-brand" href="/">
-        <img src="/logo1.png" alt="ShopForHer">
-      </a>
-      <nav class="discovery-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/guides/">Guides</a>
-        <a href="/affiliate-disclosure.html">Affiliate</a>
-      </nav>
-    </header>
+    ${renderDiscoveryHeader("guides")}
     <main class="discovery-main discovery-main-product">
       <section class="discovery-hero discovery-hero-product">
+        ${renderBreadcrumbs([
+          { label: "Home", href: "/" },
+          { label: gift.name },
+        ])}
         <div class="discovery-hero-layout">
           <div class="discovery-hero-copy">
             <p class="discovery-kicker">Product</p>
@@ -1044,7 +1548,7 @@ function renderProductPage(gift) {
             <div class="discovery-meta">
               <span>${escapeHtml(gift.priceLabel)}</span>
               <span>${escapeHtml(gift.badge)}</span>
-              <span>Updated ${escapeHtml(formattedDate)}</span>
+              <span>Updated ${escapeHtml(freshness.displayDate)}</span>
               <span>Off-site merchant checkout</span>
             </div>
           </div>
@@ -1060,8 +1564,9 @@ function renderProductPage(gift) {
           </aside>
         </div>
       </section>
-
-      <section class="discovery-product-spotlight">
+      <div class="discovery-page-main">
+        <div class="discovery-page-stack">
+          <section class="discovery-product-spotlight" id="product-spotlight">
         <div class="discovery-product-media">
           <figure class="discovery-product-image">
             <img src="${escapeHtml(primaryImage)}" alt="${escapeHtml(gift.name)}">
@@ -1127,9 +1632,11 @@ function renderProductPage(gift) {
         </aside>
       </section>
 
+          ${renderProductContextSection(gift, matchingGuides)}
+
       ${
         matchingGuides.length
-          ? `<section class="discovery-section">
+          ? `<section class="discovery-section" id="product-guides">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Featured in</p>
           <h2>Guides using this pick</h2>
@@ -1148,7 +1655,7 @@ function renderProductPage(gift) {
           : ""
       }
 
-      <section class="discovery-section">
+          <section class="discovery-section" id="product-related">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Related picks</p>
           <h2>More products</h2>
@@ -1163,9 +1670,12 @@ function renderProductPage(gift) {
             )
             .join("")}
         </div>
-      </section>
+          </section>
 
-      ${renderProductEditorialSection(gift)}
+          ${renderProductEditorialSection(gift)}
+        </div>
+        ${productRail}
+      </div>
     </main>
     ${renderDiscoveryFooter({
       notes: [
@@ -1178,7 +1688,7 @@ function renderProductPage(gift) {
 </html>`;
 }
 
-function renderGuideIndex() {
+function renderGuideIndex(freshness = lastmodPlaceholder) {
   const groups = [
     ["relationship", "Relationship guides"],
     ["moments", "Moment guides"],
@@ -1192,6 +1702,7 @@ function renderGuideIndex() {
     name: "Gift guides",
     description: "Crawlable gift guides for girlfriends, wives, budgets, and buying angles.",
     url: `${siteUrl}/guides/`,
+    dateModified: freshness.isoDate,
     publisher: siteOrganizationSchema,
     isPartOf: {
       "@type": "WebSite",
@@ -1217,23 +1728,14 @@ function renderGuideIndex() {
 </head>
 <body>
   <div class="discovery-shell">
-    <header class="discovery-header">
-      <a class="discovery-brand" href="/">
-        <img src="/logo1.png" alt="ShopForHer">
-      </a>
-      <nav class="discovery-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/guides/">Guides</a>
-        <a href="/affiliate-disclosure.html">Affiliate</a>
-      </nav>
-    </header>
+    ${renderDiscoveryHeader("guides")}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Index</p>
         <h1>Gift guides</h1>
         <p class="discovery-intro">Real landing pages for the main buying intents on ShopForHer.</p>
         <div class="discovery-meta">
-          <span>Updated ${escapeHtml(formattedDate)}</span>
+          <span>Updated ${escapeHtml(freshness.displayDate)}</span>
           <span>${seoGuides.length} pages</span>
         </div>
       </section>
@@ -1267,13 +1769,14 @@ function renderGuideIndex() {
 </html>`;
 }
 
-function renderDatesIndex() {
+function renderDatesIndex(freshness = lastmodPlaceholder) {
   const collectionPageSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Date spots",
     description: "City date pages with simple booking paths.",
     url: `${siteUrl}/dates/`,
+    dateModified: freshness.isoDate,
     publisher: siteOrganizationSchema,
     isPartOf: {
       "@type": "WebSite",
@@ -1299,21 +1802,16 @@ function renderDatesIndex() {
 </head>
 <body>
   <div class="discovery-shell">
-    <header class="discovery-header">
-      <a class="discovery-brand" href="/">
-        <img src="/logo1.png" alt="ShopForHer">
-      </a>
-      <nav class="discovery-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/guides/">Guides</a>
-        <a href="/dates/">Plans</a>
-      </nav>
-    </header>
+    ${renderDiscoveryHeader("plans")}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Plans</p>
         <h1>Date spots</h1>
         <p class="discovery-intro">City pages for dinner, drinks, and easier date-night booking paths.</p>
+        <div class="discovery-meta">
+          <span>Updated ${escapeHtml(freshness.displayDate)}</span>
+          <span>${seoDateCities.length} cities</span>
+        </div>
       </section>
       <section class="discovery-section">
         <div class="discovery-section-head">
@@ -1341,7 +1839,7 @@ function renderDatesIndex() {
 </html>`;
 }
 
-function renderDateCityPage(city) {
+function renderDateCityPage(city, freshness = lastmodPlaceholder) {
   const canonical = `${siteUrl}/dates/${city.slug}/`;
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -1349,6 +1847,7 @@ function renderDateCityPage(city) {
     name: city.h1,
     description: city.description,
     url: canonical,
+    dateModified: freshness.isoDate,
     mainEntityOfPage: canonical,
     publisher: siteOrganizationSchema,
     about: {
@@ -1385,16 +1884,7 @@ function renderDateCityPage(city) {
 </head>
 <body>
   <div class="discovery-shell">
-    <header class="discovery-header">
-      <a class="discovery-brand" href="/">
-        <img src="/logo1.png" alt="ShopForHer">
-      </a>
-      <nav class="discovery-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/guides/">Guides</a>
-        <a href="/dates/">Plans</a>
-      </nav>
-    </header>
+    ${renderDiscoveryHeader("plans")}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Plans</p>
@@ -1402,7 +1892,7 @@ function renderDateCityPage(city) {
         <p class="discovery-intro">${escapeHtml(city.intro)}</p>
         <div class="discovery-meta">
           <span>Booking path</span>
-          <span>Updated ${escapeHtml(formattedDate)}</span>
+          <span>Updated ${escapeHtml(freshness.displayDate)}</span>
         </div>
       </section>
       <section class="discovery-section">
@@ -1440,13 +1930,14 @@ function renderDateCityPage(city) {
 </html>`;
 }
 
-function renderHotIndex() {
+function renderHotIndex(freshness = lastmodPlaceholder) {
   const collectionPageSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Hot gift trends",
     description: "Trending and viral gift pages for her.",
     url: `${siteUrl}/hot/`,
+    dateModified: freshness.isoDate,
     publisher: siteOrganizationSchema,
     isPartOf: {
       "@type": "WebSite",
@@ -1472,21 +1963,16 @@ function renderHotIndex() {
 </head>
 <body>
   <div class="discovery-shell">
-    <header class="discovery-header">
-      <a class="discovery-brand" href="/">
-        <img src="/logo1.png" alt="ShopForHer">
-      </a>
-      <nav class="discovery-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/guides/">Guides</a>
-        <a href="/hot/">Hot</a>
-      </nav>
-    </header>
+    ${renderDiscoveryHeader("hot")}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Hot</p>
         <h1>Trending gift pages</h1>
         <p class="discovery-intro">Real pages for the viral side of ShopForHer: fast-moving picks, cleaner buys, and current angles.</p>
+        <div class="discovery-meta">
+          <span>Updated ${escapeHtml(freshness.displayDate)}</span>
+          <span>${seoHotStories.length} stories</span>
+        </div>
       </section>
       <section class="discovery-section">
         <div class="discovery-section-head">
@@ -1524,28 +2010,92 @@ function renderHotIndex() {
 </html>`;
 }
 
-function renderHotStoryPage(story) {
+function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
   const items = hotStoryItems(story);
   const relatedGuides = story.relatedGuides.map((slug) => guideBySlug.get(slug)).filter(Boolean);
   const canonical = `${siteUrl}/hot/${story.slug}/`;
   const pageTitle = story.title;
   const description = story.description;
-  const videoSchema = {
+  const leadGift = items[0] || null;
+  const storySectionLinks = [
+    { href: "#story-poster", label: "Story poster", meta: "Trend snapshot" },
+    { href: "#story-angle", label: "Why this is moving", meta: "Read the lane" },
+    { href: "#story-picks", label: "Products in this story", meta: `${items.length} picks` },
+    ...(relatedGuides.length ? [{ href: "#story-related", label: "Related guides", meta: `${relatedGuides.length} more pages` }] : []),
+    { href: "#story-editorial", label: "Editorial notes", meta: "How this page was built" },
+  ];
+  const storyRail = renderPageRail([
+    {
+      kicker: "Story snapshot",
+      title: story.h1,
+      body: story.description,
+      pills: [story.trendLabel, story.views, story.duration],
+      emphasis: true,
+      cta: leadGift
+        ? `<div class="discovery-actions discovery-actions-rail">
+        <a class="discovery-text-link" href="/gift/${leadGift.slug}/">Open first product</a>
+        ${
+          relatedGuides[0]
+            ? `<a class="discovery-text-link" href="/${relatedGuides[0].slug}/">Open matching guide</a>`
+            : ""
+        }
+      </div>`
+        : "",
+    },
+    {
+      kicker: "On this page",
+      title: "Jump to a section",
+      links: storySectionLinks,
+    },
+    relatedGuides.length
+      ? {
+          kicker: "Keep browsing",
+          title: "Related guides",
+          body: "Move into a broader evergreen page if you want more context before you buy.",
+          links: relatedGuides.slice(0, 4).map((guide) => ({
+            href: `/${guide.slug}/`,
+            label: guide.label,
+            meta: guide.groupLabel,
+          })),
+        }
+      : null,
+  ]);
+  const itemListSchema = {
     "@context": "https://schema.org",
-    "@type": "VideoObject",
+    "@type": "ItemList",
+    name: story.h1,
+    url: canonical,
+    numberOfItems: items.length,
+    itemListElement: items.map((gift, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: gift.name,
+      url: productUrl(gift),
+      description: gift.why,
+    })),
+  };
+
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
     name: story.h1,
     description,
-    thumbnailUrl: [hotThumbUrl(story)],
-    uploadDate: updatedAt,
     url: canonical,
-    publisher: {
-      ...siteOrganizationSchema,
-      logo: {
-        "@type": "ImageObject",
-        url: `${siteUrl}/logo1.png`,
-      },
+    dateModified: freshness.isoDate,
+    mainEntityOfPage: canonical,
+    author: editorialAuthorSchema,
+    reviewedBy: editorialReviewerSchema,
+    publisher: siteOrganizationSchema,
+    isPartOf: {
+      "@type": "WebSite",
+      name: seoSite.name,
+      url: `${siteUrl}/`,
     },
-    keywords: [story.label, "gifts for her", "viral gifts", "trending gifts"],
+    about: {
+      "@type": "Thing",
+      name: story.label,
+    },
+    keywords: [story.label, "gifts for her", "viral gifts", "trending gifts"].join(", "),
   };
 
   const breadcrumbSchema = {
@@ -1567,12 +2117,13 @@ function renderHotStoryPage(story) {
   <meta name="description" content="${escapeHtml(description)}">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="${canonical}">
-  <meta property="og:type" content="video.other">
+  <meta property="og:type" content="article">
   <meta property="og:site_name" content="${escapeHtml(seoSite.name)}">
   <meta property="og:title" content="${escapeHtml(pageTitle)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${canonical}">
   <meta property="og:image" content="${escapeHtml(hotThumbUrl(story))}">
+  <meta property="article:modified_time" content="${escapeHtml(freshness.dateTime)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(pageTitle)}">
   <meta name="twitter:description" content="${escapeHtml(description)}">
@@ -1581,34 +2132,33 @@ function renderHotStoryPage(story) {
   <link rel="stylesheet" href="/discovery.css">
   ${feedLinkTag()}
   ${attributionScriptTag()}
-  ${jsonLdScript(videoSchema)}
+  ${jsonLdScript(collectionPageSchema)}
+  ${jsonLdScript(itemListSchema)}
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
   <div class="discovery-shell">
-    <header class="discovery-header">
-      <a class="discovery-brand" href="/">
-        <img src="/logo1.png" alt="ShopForHer">
-      </a>
-      <nav class="discovery-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/guides/">Guides</a>
-        <a href="/hot/">Hot</a>
-      </nav>
-    </header>
+    ${renderDiscoveryHeader("hot")}
     <main class="discovery-main">
       <section class="discovery-hero">
+        ${renderBreadcrumbs([
+          { label: "Home", href: "/" },
+          { label: "Hot", href: "/hot/" },
+          { label: story.h1 },
+        ])}
         <p class="discovery-kicker">Hot</p>
         <h1>${escapeHtml(story.h1)}</h1>
         <p class="discovery-intro">${escapeHtml(story.intro)}</p>
         <div class="discovery-meta">
+          <span>Updated ${escapeHtml(freshness.displayDate)}</span>
           <span>${escapeHtml(story.trendLabel)}</span>
           <span>${escapeHtml(story.views)}</span>
           <span>${escapeHtml(story.duration)}</span>
         </div>
       </section>
-
-      <section class="discovery-poster">
+      <div class="discovery-page-main">
+        <div class="discovery-page-stack">
+          <section class="discovery-poster" id="story-poster">
         <img src="${escapeHtml(hotThumbUrl(story))}" alt="${escapeHtml(story.h1)} TikTok thumbnail" loading="lazy">
         <div class="discovery-poster-copy">
           <span>${escapeHtml(story.label)}</span>
@@ -1616,7 +2166,9 @@ function renderHotStoryPage(story) {
         </div>
       </section>
 
-      <section class="discovery-section">
+          ${renderHotStoryAngleSection(story, items, relatedGuides)}
+
+          <section class="discovery-section" id="story-picks">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Products</p>
           <h2>Picks in this story</h2>
@@ -1656,7 +2208,7 @@ function renderHotStoryPage(story) {
         </ol>
       </section>
 
-      <section class="discovery-section">
+          <section class="discovery-section" id="story-related">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Related</p>
           <h2>More guides</h2>
@@ -1671,7 +2223,12 @@ function renderHotStoryPage(story) {
             )
             .join("")}
         </div>
-      </section>
+          </section>
+
+          ${renderHotStoryEditorialSection(story, relatedGuides)}
+        </div>
+        ${storyRail}
+      </div>
     </main>
     ${renderDiscoveryFooter({
       notes: [
@@ -1684,7 +2241,7 @@ function renderHotStoryPage(story) {
 </html>`;
 }
 
-function renderTrustPage(page) {
+function renderTrustPage(page, freshness = lastmodPlaceholder) {
   const canonical = `${siteUrl}/${page.filename}`;
   const pageSchema = {
     "@context": "https://schema.org",
@@ -1692,6 +2249,7 @@ function renderTrustPage(page) {
     name: page.h1,
     description: page.description,
     url: canonical,
+    dateModified: freshness.isoDate,
     isPartOf: {
       "@type": "WebSite",
       name: seoSite.name,
@@ -1727,24 +2285,14 @@ function renderTrustPage(page) {
 </head>
 <body>
   <div class="discovery-shell">
-    <header class="discovery-header">
-      <a class="discovery-brand" href="/">
-        <img src="/logo1.png" alt="ShopForHer">
-      </a>
-      <nav class="discovery-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/guides/">Guides</a>
-        <a href="/hot/">Hot</a>
-        <a href="/dates/">Plans</a>
-      </nav>
-    </header>
+    ${renderDiscoveryHeader()}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">${escapeHtml(page.kicker)}</p>
         <h1>${escapeHtml(page.h1)}</h1>
         <p class="discovery-intro">${escapeHtml(page.intro)}</p>
         <div class="discovery-meta">
-          <span>Updated ${escapeHtml(formattedDate)}</span>
+          <span>Updated ${escapeHtml(freshness.displayDate)}</span>
           <span>${escapeHtml(seoSite.name)}</span>
         </div>
       </section>
@@ -1773,7 +2321,7 @@ function renderTrustPage(page) {
 </html>`;
 }
 
-function renderSiteMapPage() {
+function renderSiteMapPage(freshness = lastmodPlaceholder) {
   const canonical = `${siteUrl}/site-map.html`;
   const pageSchema = {
     "@context": "https://schema.org",
@@ -1781,6 +2329,7 @@ function renderSiteMapPage() {
     name: "Site map",
     description: "Browse ShopForHer guides, hot pages, date pages, product pages, and trust pages in one crawlable index.",
     url: canonical,
+    dateModified: freshness.isoDate,
     isPartOf: {
       "@type": "WebSite",
       name: seoSite.name,
@@ -1842,6 +2391,7 @@ function renderSiteMapPage() {
       title: "Discovery files",
       links: [
         { href: "/feed.xml", label: "RSS feed", meta: "RSS" },
+        { href: "/guide-catalog.json", label: "Guide catalog", meta: "JSON" },
         { href: "/product-catalog.json", label: "Product catalog", meta: "JSON" },
         { href: "/llms.txt", label: "llms.txt", meta: "LLMs" },
         { href: "/llms-full.txt", label: "llms-full.txt", meta: "LLMs" },
@@ -1877,24 +2427,14 @@ function renderSiteMapPage() {
 </head>
 <body>
   <div class="discovery-shell">
-    <header class="discovery-header">
-      <a class="discovery-brand" href="/">
-        <img src="/logo1.png" alt="ShopForHer">
-      </a>
-      <nav class="discovery-nav" aria-label="Primary">
-        <a href="/">Home</a>
-        <a href="/guides/">Guides</a>
-        <a href="/hot/">Hot</a>
-        <a href="/dates/">Plans</a>
-      </nav>
-    </header>
+    ${renderDiscoveryHeader()}
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Directory</p>
         <h1>Site map</h1>
         <p class="discovery-intro">A full HTML index of the main ShopForHer pages for users, search engines, and AI assistants.</p>
         <div class="discovery-meta">
-          <span>Updated ${escapeHtml(formattedDate)}</span>
+          <span>Updated ${escapeHtml(freshness.displayDate)}</span>
           <span>${linkedCount} links surfaced</span>
         </div>
       </section>
@@ -1923,6 +2463,7 @@ function renderSiteMapPage() {
       notes: [
         "Use this page when you want a readable directory instead of the XML sitemap.",
         "The RSS feed is available at /feed.xml.",
+        "A machine-readable guide catalog is available at /guide-catalog.json.",
         "A machine-readable product catalog is available at /product-catalog.json.",
       ],
     })}
@@ -1931,16 +2472,43 @@ function renderSiteMapPage() {
 </html>`;
 }
 
+function writeResolvedHtml(filePath, url, render) {
+  const preview = render(lastmodPlaceholder);
+  const lastmod = resolveLastmod(url, preview);
+  const output = render(pageFreshness(lastmod));
+  fs.writeFileSync(filePath, output);
+  return lastmod;
+}
+
+function writeResolvedText(filePath, url, render) {
+  const preview = render(lastmodPlaceholder);
+  const lastmod = resolveLastmod(url, preview);
+  const output = render(pageFreshness(lastmod));
+  fs.writeFileSync(filePath, output);
+  return lastmod;
+}
+
+function registerHomePageLastmod() {
+  const homepagePath = path.join(rootDir, "index.html");
+
+  if (!fs.existsSync(homepagePath)) {
+    return;
+  }
+
+  const homepageSource = fs.readFileSync(homepagePath, "utf8");
+  resolveLastmod(`${siteUrl}/`, homepageSource);
+}
+
 function writeGuidePages() {
   seoGuides.forEach((guide) => {
     const guideDir = path.join(publicDir, guide.slug);
     ensureDir(guideDir);
-    fs.writeFileSync(path.join(guideDir, "index.html"), renderGuidePage(guide));
+    writeResolvedHtml(path.join(guideDir, "index.html"), guideUrl(guide), (freshness) => renderGuidePage(guide, freshness));
   });
 
   const guidesDir = path.join(publicDir, "guides");
   ensureDir(guidesDir);
-  fs.writeFileSync(path.join(guidesDir, "index.html"), renderGuideIndex());
+  writeResolvedHtml(path.join(guidesDir, "index.html"), `${siteUrl}/guides/`, (freshness) => renderGuideIndex(freshness));
 }
 
 function writeProductPages() {
@@ -1950,81 +2518,85 @@ function writeProductPages() {
   seoCatalog.forEach((gift) => {
     const productDir = path.join(giftDir, gift.slug);
     ensureDir(productDir);
-    fs.writeFileSync(path.join(productDir, "index.html"), renderProductPage(gift));
+    writeResolvedHtml(path.join(productDir, "index.html"), productUrl(gift), (freshness) => renderProductPage(gift, freshness));
   });
 }
 
 function writeDatePages() {
   const datesDir = path.join(publicDir, "dates");
   ensureDir(datesDir);
-  fs.writeFileSync(path.join(datesDir, "index.html"), renderDatesIndex());
+  writeResolvedHtml(path.join(datesDir, "index.html"), `${siteUrl}/dates/`, (freshness) => renderDatesIndex(freshness));
 
   seoDateCities.forEach((city) => {
     const cityDir = path.join(datesDir, city.slug);
     ensureDir(cityDir);
-    fs.writeFileSync(path.join(cityDir, "index.html"), renderDateCityPage(city));
+    writeResolvedHtml(path.join(cityDir, "index.html"), `${siteUrl}/dates/${city.slug}/`, (freshness) => renderDateCityPage(city, freshness));
   });
 }
 
 function writeHotPages() {
   const hotDir = path.join(publicDir, "hot");
   ensureDir(hotDir);
-  fs.writeFileSync(path.join(hotDir, "index.html"), renderHotIndex());
+  writeResolvedHtml(path.join(hotDir, "index.html"), `${siteUrl}/hot/`, (freshness) => renderHotIndex(freshness));
 
   seoHotStories.forEach((story) => {
     const storyDir = path.join(hotDir, story.slug);
     ensureDir(storyDir);
-    fs.writeFileSync(path.join(storyDir, "index.html"), renderHotStoryPage(story));
+    writeResolvedHtml(path.join(storyDir, "index.html"), `${siteUrl}/hot/${story.slug}/`, (freshness) => renderHotStoryPage(story, freshness));
   });
 }
 
 function writeTrustPages() {
   trustPages.forEach((page) => {
-    fs.writeFileSync(path.join(publicDir, page.filename), renderTrustPage(page));
+    writeResolvedHtml(path.join(publicDir, page.filename), `${siteUrl}/${page.filename}`, (freshness) => renderTrustPage(page, freshness));
   });
 }
 
 function writeSiteMapPage() {
-  fs.writeFileSync(path.join(publicDir, "site-map.html"), renderSiteMapPage());
+  writeResolvedHtml(path.join(publicDir, "site-map.html"), `${siteUrl}/site-map.html`, (freshness) => renderSiteMapPage(freshness));
 }
 
 function writeFeed() {
-  const pubDate = new Date(updatedAt).toUTCString();
   const items = [
     ...trustPages.map((page) => ({
       title: page.h1,
       url: `${siteUrl}/${page.filename}`,
       description: page.description,
+      lastmod: pageLastmod(`${siteUrl}/${page.filename}`),
     })),
     ...seoGuides.map((guide) => ({
       title: guide.h1,
-      url: `${siteUrl}/${guide.slug}/`,
+      url: guideUrl(guide),
       description: guide.description,
+      lastmod: pageLastmod(guideUrl(guide)),
     })),
     ...seoHotStories.map((story) => ({
       title: story.h1,
       url: `${siteUrl}/hot/${story.slug}/`,
       description: story.description,
+      lastmod: pageLastmod(`${siteUrl}/hot/${story.slug}/`),
     })),
     ...seoDateCities.map((city) => ({
       title: city.h1,
       url: `${siteUrl}/dates/${city.slug}/`,
       description: city.description,
+      lastmod: pageLastmod(`${siteUrl}/dates/${city.slug}/`),
     })),
     ...seoCatalog.map((gift) => ({
       title: gift.name,
       url: productUrl(gift),
       description: `${gift.hook} ${gift.why}`,
+      lastmod: pageLastmod(productUrl(gift)),
     })),
   ];
-
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  const channelDate = utcPubDate(latestLastmod(items.map((item) => item.url)));
+  const render = () => `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
     <title>${escapeHtml(seoSite.name)}</title>
     <description>${escapeHtml(seoSite.description)}</description>
     <link>${siteUrl}/</link>
-    <lastBuildDate>${pubDate}</lastBuildDate>
+    <lastBuildDate>${channelDate}</lastBuildDate>
     <language>en-us</language>
 ${items
   .map(
@@ -2032,7 +2604,7 @@ ${items
       <title>${escapeHtml(item.title)}</title>
       <link>${item.url}</link>
       <guid isPermaLink="true">${item.url}</guid>
-      <pubDate>${pubDate}</pubDate>
+      <pubDate>${utcPubDate(item.lastmod)}</pubDate>
       <description>${escapeHtml(item.description)}</description>
     </item>`
   )
@@ -2041,7 +2613,7 @@ ${items
 </rss>
 `;
 
-  fs.writeFileSync(path.join(publicDir, "feed.xml"), xml);
+  writeResolvedText(path.join(publicDir, "feed.xml"), `${siteUrl}/feed.xml`, render);
 }
 
 function buildProductCatalogEntries() {
@@ -2071,26 +2643,137 @@ function buildProductCatalogEntries() {
       additionalImages: productImages(gift).slice(1),
       summary: gift.why,
       bestFor: gift.bestFor,
-      updatedAt,
+      updatedAt: pageLastmod(productUrl(gift)),
     };
   });
 }
 
 function writeProductCatalog() {
-  const payload = {
-    generatedAt: `${updatedAt}T00:00:00Z`,
-    site: {
-      name: seoSite.name,
-      url: `${siteUrl}/`,
-      productCatalogUrl: `${siteUrl}/product-catalog.json`,
-      editorialPolicyUrl: `${siteUrl}${seoSite.editorialPath}`,
-      affiliateDisclosure: AMAZON_ASSOCIATE_DISCLOSURE,
-      checkout: "offsite",
-    },
-    products: buildProductCatalogEntries(),
-  };
+  writeResolvedText(path.join(publicDir, "product-catalog.json"), `${siteUrl}/product-catalog.json`, (freshness) => {
+    const payload = {
+      generatedAt: freshness.dateTime,
+      site: {
+        name: seoSite.name,
+        url: `${siteUrl}/`,
+        guideCatalogUrl: `${siteUrl}/guide-catalog.json`,
+        productCatalogUrl: `${siteUrl}/product-catalog.json`,
+        editorialPolicyUrl: `${siteUrl}${seoSite.editorialPath}`,
+        affiliateDisclosure: AMAZON_ASSOCIATE_DISCLOSURE,
+        checkout: "offsite",
+      },
+      products: buildProductCatalogEntries(),
+    };
 
-  fs.writeFileSync(path.join(publicDir, "product-catalog.json"), `${JSON.stringify(payload, null, 2)}\n`);
+    return `${JSON.stringify(payload, null, 2)}\n`;
+  });
+}
+
+function buildGuideCatalogEntries() {
+  return seoGuides.map((guide) => {
+    const items = guideItems(guide);
+    const relatedGuides = (guide.related || []).map((slug) => guideBySlug.get(slug)).filter(Boolean);
+    const overlap = guideOverlapDetails(guide, items);
+
+    return {
+      slug: guide.slug,
+      pageUrl: guideUrl(guide),
+      title: guide.title,
+      h1: guide.h1,
+      description: guide.description,
+      intro: guide.intro,
+      group: guide.group,
+      groupLabel: guide.groupLabel,
+      updatedAt: pageLastmod(guideUrl(guide)),
+      featuredGiftId: items[0]?.id || null,
+      featuredGiftUrl: items[0] ? productUrl(items[0]) : null,
+      selectionMethod: guide.selectionMethod || "",
+      bestUseCase: guide.bestUseCase || "",
+      avoidWhen: guide.avoidWhen || "",
+      buyerSignals: guide.buyerSignals || [],
+      bestFits: (guide.bestFits || []).map((fit) => {
+        const gift = catalogById.get(fit.giftId);
+
+        return {
+          ...fit,
+          giftSlug: gift?.slug || "",
+          giftUrl: gift ? productUrl(gift) : null,
+        };
+      }),
+      pickLanes: (guide.pickLanes || []).map((lane) => {
+        const gift = catalogById.get(lane.giftId);
+
+        return {
+          ...lane,
+          giftSlug: gift?.slug || "",
+          giftUrl: gift ? productUrl(gift) : null,
+        };
+      }),
+      avoidNotes: guide.avoidNotes || [],
+      faqs: guideFaqs(guide, items).map((faq) => ({
+        question: faq.q,
+        answer: faq.a,
+      })),
+      products: items.map((gift) => ({
+        id: gift.id,
+        slug: gift.slug,
+        name: gift.name,
+        url: productUrl(gift),
+        price: gift.priceLabel,
+        badge: gift.badge,
+        bestFor: gift.bestFor,
+      })),
+      relatedGuides: relatedGuides.map((entry) => ({
+        slug: entry.slug,
+        label: entry.label,
+        h1: entry.h1,
+        url: guideUrl(entry),
+      })),
+      uniqueness: {
+        needsEditorialRefresh: overlap.needsEditorialRefresh,
+        distinctiveProducts: overlap.distinctiveItems.map((gift) => ({
+          id: gift.id,
+          slug: gift.slug,
+          name: gift.name,
+          url: productUrl(gift),
+          guideCount: guideUsageCount(gift.id),
+        })),
+        overusedProducts: overlap.overusedItems.map((gift) => ({
+          id: gift.id,
+          slug: gift.slug,
+          name: gift.name,
+          url: productUrl(gift),
+          guideCount: guideUsageCount(gift.id),
+        })),
+        relatedGuideOverlap: overlap.relatedOverlap.map((entry) => ({
+          slug: entry.slug,
+          label: entry.label,
+          h1: entry.h1,
+          url: entry.url,
+          sharedCount: entry.sharedCount,
+          sharedItems: entry.sharedItems,
+        })),
+      },
+    };
+  });
+}
+
+function writeGuideCatalog() {
+  writeResolvedText(path.join(publicDir, "guide-catalog.json"), `${siteUrl}/guide-catalog.json`, (freshness) => {
+    const payload = {
+      generatedAt: freshness.dateTime,
+      site: {
+        name: seoSite.name,
+        url: `${siteUrl}/`,
+        guideCatalogUrl: `${siteUrl}/guide-catalog.json`,
+        productCatalogUrl: `${siteUrl}/product-catalog.json`,
+        editorialPolicyUrl: `${siteUrl}${seoSite.editorialPath}`,
+        contactUrl: `${siteUrl}${seoSite.contactPath}`,
+      },
+      guides: buildGuideCatalogEntries(),
+    };
+
+    return `${JSON.stringify(payload, null, 2)}\n`;
+  });
 }
 
 function writeSitemap() {
@@ -2101,42 +2784,40 @@ function writeSitemap() {
     "/dates/",
     "/site-map.html",
     "/feed.xml",
+    "/guide-catalog.json",
     "/product-catalog.json",
     "/llms.txt",
     "/llms-full.txt",
     seoSite.aboutPath,
     seoSite.editorialPath,
     seoSite.contactPath,
-    "/privacy.html",
-    "/terms.html",
-    "/affiliate-disclosure.html",
   ];
 
   const urls = [
-    ...staticPages,
-    ...seoGuides.map((guide) => `/${guide.slug}/`),
-    ...seoHotStories.map((story) => `/hot/${story.slug}/`),
-    ...seoDateCities.map((city) => `/dates/${city.slug}/`),
-    ...seoCatalog.map((gift) => `/gift/${gift.slug}/`),
+    ...staticPages.map((url) => ({ loc: `${siteUrl}${url}`, lastmod: pageLastmod(`${siteUrl}${url}`) })),
+    ...seoGuides.map((guide) => ({ loc: guideUrl(guide), lastmod: pageLastmod(guideUrl(guide)) })),
+    ...seoHotStories.map((story) => ({ loc: `${siteUrl}/hot/${story.slug}/`, lastmod: pageLastmod(`${siteUrl}/hot/${story.slug}/`) })),
+    ...seoDateCities.map((city) => ({ loc: `${siteUrl}/dates/${city.slug}/`, lastmod: pageLastmod(`${siteUrl}/dates/${city.slug}/`) })),
+    ...seoCatalog.map((gift) => ({ loc: productUrl(gift), lastmod: pageLastmod(productUrl(gift)) })),
   ];
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  const render = () => `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
   .map(
-    (url) => `  <url>
-    <loc>${siteUrl}${url}</loc>
-    <lastmod>${updatedAt}</lastmod>
+    (entry) => `  <url>
+    <loc>${entry.loc}</loc>
+    <lastmod>${entry.lastmod}</lastmod>
   </url>`
   )
   .join("\n")}
 </urlset>
 `;
 
-  fs.writeFileSync(path.join(publicDir, "sitemap.xml"), xml);
+  writeResolvedText(path.join(publicDir, "sitemap.xml"), `${siteUrl}/sitemap.xml`, render);
 }
 
 function writeLlmsFiles() {
-  const lines = [
+  const renderLlms = (freshness) => [
     "# ShopForHer",
     "",
     `> ${seoSite.description}`,
@@ -2145,6 +2826,7 @@ function writeLlmsFiles() {
     `- ${siteUrl}/guides/`,
     `- ${siteUrl}/site-map.html`,
     `- ${siteUrl}/feed.xml`,
+    `- ${siteUrl}/guide-catalog.json`,
     `- ${siteUrl}/product-catalog.json`,
     "",
     "## Trust pages",
@@ -2154,9 +2836,17 @@ function writeLlmsFiles() {
     "",
     "## Discovery files",
     `- [RSS feed](${siteUrl}/feed.xml)`,
+    `- [Guide catalog JSON](${siteUrl}/guide-catalog.json)`,
     `- [Product catalog JSON](${siteUrl}/product-catalog.json)`,
     `- [llms.txt](${siteUrl}/llms.txt)`,
     `- [llms-full.txt](${siteUrl}/llms-full.txt)`,
+    "",
+    "## Agent guidance",
+    "- Prefer /guide-catalog.json for guide intent, use cases, FAQs, related guides, ranked product lists, and guide-overlap metadata.",
+    "- Prefer /product-catalog.json for product facts, merchant paths, price bands, and per-product updatedAt values.",
+    "- Treat all prices as recent ranges rather than guaranteed live prices.",
+    "- Use page-level updatedAt values for freshness. Dates only move when that page or file changes.",
+    "- Use /editorial-policy.html for methodology and /contact.html for corrections or verification.",
     "",
     "## Top guides",
     ...seoGuides.map((guide) => `- [${guide.h1}](${siteUrl}/${guide.slug}/)`),
@@ -2175,23 +2865,24 @@ function writeLlmsFiles() {
     "- Product checkout happens on the merchant site.",
     "- Editorial policy is published on-site.",
     "- Product catalog JSON includes merchant-path and price-band metadata.",
-    "- Updated whenever the catalog is regenerated.",
+    `- Discovery files refreshed: ${freshness.displayDate}.`,
     "",
     "## Contact",
     `- ${seoSite.contactEmail}`,
   ].join("\n");
 
-  const full = [
+  const renderLlmsFull = (freshness) => [
     "# ShopForHer full index",
     "",
     `Base URL: ${siteUrl}/`,
-    `Updated: ${updatedAt}`,
+    `Updated: ${freshness.isoDate}`,
     "",
     `- About: ${siteUrl}${seoSite.aboutPath}`,
     `- Editorial policy: ${siteUrl}${seoSite.editorialPath}`,
     `- Contact: ${siteUrl}${seoSite.contactPath}`,
     `- Site map: ${siteUrl}/site-map.html`,
     `- Feed: ${siteUrl}/feed.xml`,
+    `- Guide catalog: ${siteUrl}/guide-catalog.json`,
     `- Product catalog: ${siteUrl}/product-catalog.json`,
     `- llms.txt: ${siteUrl}/llms.txt`,
     `- llms-full.txt: ${siteUrl}/llms-full.txt`,
@@ -2201,11 +2892,18 @@ function writeLlmsFiles() {
     ...seoCatalog.map((gift) => `- ${gift.name}: ${productUrl(gift)}`),
   ].join("\n");
 
-  fs.writeFileSync(path.join(publicDir, "llms.txt"), lines);
-  fs.writeFileSync(path.join(publicDir, "llms-full.txt"), full);
+  writeResolvedText(path.join(publicDir, "llms.txt"), `${siteUrl}/llms.txt`, renderLlms);
+  writeResolvedText(path.join(publicDir, "llms-full.txt"), `${siteUrl}/llms-full.txt`, renderLlmsFull);
+}
+
+function writeLastmodCache() {
+  const ordered = Object.fromEntries(Object.entries(nextLastmodCache).sort(([left], [right]) => left.localeCompare(right)));
+  fs.writeFileSync(lastmodCachePath, `${JSON.stringify(ordered, null, 2)}\n`);
 }
 
 ensureDir(publicDir);
+registerHomePageLastmod();
+logGuideOverlapWarnings();
 writeTrustPages();
 writeSiteMapPage();
 writeGuidePages();
@@ -2213,6 +2911,8 @@ writeHotPages();
 writeProductPages();
 writeDatePages();
 writeFeed();
+writeGuideCatalog();
 writeProductCatalog();
-writeSitemap();
 writeLlmsFiles();
+writeSitemap();
+writeLastmodCache();

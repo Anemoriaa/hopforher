@@ -2476,6 +2476,52 @@ h2, h3 {
 
 
 /* Hot Feed Masonry */
+.gs-hot-feed-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.gs-hot-feed-toolbar .gs-parallax-copy {
+  flex: 1 1 280px;
+}
+
+.gs-hot-refresh-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  color: var(--text);
+  font-family: var(--font-display);
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.gs-hot-refresh-btn:hover {
+  background: var(--surface);
+  transform: translateY(-1px);
+}
+
+.gs-hot-refresh-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  transform: none;
+}
+
+.gs-hot-refresh-btn svg {
+  flex: 0 0 auto;
+}
+
 .gs-hot-feed-batch + .gs-hot-feed-batch {
   margin-top: 12px;
 }
@@ -2501,6 +2547,10 @@ h2, h3 {
 }
 
 @media (min-width: 640px) {
+  .gs-hot-feed-toolbar {
+    gap: 18px;
+  }
+
   .gs-masonry-grid {
     gap: 18px;
   }
@@ -2539,6 +2589,7 @@ h2, h3 {
 .gs-primary-btn:focus-visible,
 .gs-secondary-btn:focus-visible,
 .gs-text-link-btn:focus-visible,
+.gs-hot-refresh-btn:focus-visible,
 .gs-date-locate:focus-visible,
 .gs-date-status-link:focus-visible,
 .gs-date-row-main:focus-visible,
@@ -2806,6 +2857,11 @@ h2, h3 {
 }
 
 @media (max-width: 640px) {
+  .gs-hot-refresh-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
   .gs-hot-feed-media {
     height: min(var(--hot-story-height, 400px), 44vh);
   }
@@ -3429,8 +3485,8 @@ h2, h3 {
 }
 
 .gs-preview-media-bar span {
-  padding: 6px 9px;
-  border-radius: 999px;
+  padding: 4px 8px;
+  border-radius: 6px;
   background: rgba(255, 255, 255, 0.74);
   border: 1px solid rgba(17, 17, 17, 0.08);
   color: var(--text);
@@ -3495,11 +3551,10 @@ h2, h3 {
 .gs-preview-badge-row span {
   display: inline-flex;
   align-items: center;
-  min-height: 30px;
-  padding: 7px 10px;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 999px;
-  background: #ffffff;
+  min-height: 26px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: var(--accent-dim);
   color: var(--text-soft);
   font-family: var(--font-display);
   font-size: 0.62rem;
@@ -3515,7 +3570,7 @@ h2, h3 {
   min-height: 36px;
   padding: 0 12px;
   border: 1px solid rgba(17, 17, 17, 0.1);
-  border-radius: 999px;
+  border-radius: 8px;
   background: transparent;
   font-family: var(--font-display);
   font-size: 0.62rem;
@@ -3591,7 +3646,7 @@ h2, h3 {
 .gs-preview-panel {
   padding: 16px;
   border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 20px;
+  border-radius: 12px;
   background: #ffffff;
 }
 
@@ -3631,8 +3686,8 @@ h2, h3 {
   text-transform: uppercase;
   background: rgba(17, 17, 17, 0.03);
   border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 999px;
-  padding: 6px 8px;
+  border-radius: 6px;
+  padding: 4px 8px;
   color: var(--text);
   letter-spacing: 0.06em;
 }
