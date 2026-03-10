@@ -3875,6 +3875,21 @@ ${urls
 `;
 }
 
+function renderSitemapIndex(entries) {
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries
+  .map(
+    (entry) => `  <sitemap>
+    <loc>${entry.loc}</loc>
+    <lastmod>${entry.lastmod}</lastmod>
+  </sitemap>`
+  )
+  .join("\n")}
+</sitemapindex>
+`;
+}
+
 function writeSitemaps() {
   const staticPages = [
     "/",
@@ -3914,12 +3929,16 @@ function writeSitemaps() {
       urls: indexableSeoCatalog.map((gift) => ({ loc: productUrl(gift), lastmod: pageLastmod(productUrl(gift)) })),
     },
   ];
-  const primarySitemapUrls = sitemapFiles.flatMap((entry) => entry.urls);
-  sitemapFiles.forEach((entry) => {
+  const sitemapEntries = sitemapFiles.map((entry) => {
     const sitemapUrl = `${siteUrl}/${entry.filename}`;
-    writeResolvedText(path.join(publicDir, entry.filename), sitemapUrl, () => renderSitemapUrlset(entry.urls));
+    const lastmod = writeResolvedText(path.join(publicDir, entry.filename), sitemapUrl, () => renderSitemapUrlset(entry.urls));
+
+    return {
+      loc: sitemapUrl,
+      lastmod,
+    };
   });
-  writeResolvedText(path.join(publicDir, "sitemap.xml"), `${siteUrl}/sitemap.xml`, () => renderSitemapUrlset(primarySitemapUrls));
+  writeResolvedText(path.join(publicDir, "sitemap.xml"), `${siteUrl}/sitemap.xml`, () => renderSitemapIndex(sitemapEntries));
 }
 
 function writeLlmsFiles() {

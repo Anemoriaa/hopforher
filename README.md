@@ -70,7 +70,7 @@ These utility files stay available for feeds and agents, but they are not includ
 The site already ships the main Search Console crawl surfaces:
 
 - `robots.txt` with a sitemap reference
-- `sitemap.xml` as the primary sitemap to submit
+- `sitemap.xml` as the primary sitemap index to submit
 - crawlable trust pages, guides, product hubs, hot hubs, and an HTML site map
 
 Preferred ownership method:
@@ -114,10 +114,10 @@ Those logs include:
 If `INDEXNOW_KEY` is set in Cloudflare Pages env:
 
 - `/indexnow.txt` will serve the key from the Pages Function
-- `npm run build -w @giftsher/web` will auto-submit URLs from `public/sitemap.xml` after the build completes
+- `npm run build -w @giftsher/web` will auto-submit URLs from the sitemap index in `public/sitemap.xml` after the build completes
 - `npm run indexnow -w @giftsher/web` still works as a manual retry path
 
-The submit script uses `INDEXNOW_KEY` and posts the current sitemap URLs to the IndexNow endpoint.
+The submit script uses `INDEXNOW_KEY`, expands the sitemap index into page URLs, and posts those URLs to the IndexNow endpoint.
 
 Optional env:
 

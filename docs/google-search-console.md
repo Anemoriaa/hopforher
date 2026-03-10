@@ -2,8 +2,8 @@
 
 This repo is already prepared for Google Search Console crawling:
 
-- `https://shopforher.org/robots.txt` allows crawling and points to the primary sitemap
-- `https://shopforher.org/sitemap.xml` is the primary sitemap to submit
+- `https://shopforher.org/robots.txt` allows crawling and points to the sitemap index
+- `https://shopforher.org/sitemap.xml` is the primary sitemap index to submit
 - the build emits trust pages, guide hubs, product hubs, hot hubs, date hubs, and an HTML site map
 
 ## Preferred property type
@@ -87,8 +87,8 @@ After verification, inspect these first:
 
 ## What is already handled in the repo
 
-- primary XML sitemap at `/sitemap.xml`
-- segmented child sitemaps if you ever want to inspect subsets manually
+- XML sitemap index at `/sitemap.xml`
+- segmented child sitemaps for pages, guides, hot stories, date cities, and products
 - `robots.txt` sitemap reference
 - canonical URLs on landing pages
 - HTML site map
