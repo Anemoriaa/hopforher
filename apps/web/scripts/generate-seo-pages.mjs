@@ -197,6 +197,29 @@ const editorialReviewerSchema = {
   url: editorialReviewer.url,
 };
 const priceEstimateNote = "Price labels reflect recent observed ranges and final pricing can change on the merchant site.";
+const editorialPolicyUrl = `${siteUrl}${seoSite.editorialPath}`;
+const aboutPageUrl = `${siteUrl}/about.html`;
+const contactPageUrl = `${siteUrl}${seoSite.contactPath}`;
+const trustResourceLinks = [
+  {
+    href: seoSite.editorialPath,
+    url: editorialPolicyUrl,
+    label: "Editorial policy",
+    meta: "Selection method and disclosures",
+  },
+  {
+    href: "/about.html",
+    url: aboutPageUrl,
+    label: "About ShopForHer",
+    meta: "Who the site is for",
+  },
+  {
+    href: seoSite.contactPath,
+    url: contactPageUrl,
+    label: "Contact",
+    meta: "Corrections and questions",
+  },
+];
 const previousLastmodCache = readLastmodCache();
 const nextLastmodCache = {};
 
@@ -437,6 +460,16 @@ function priceRange(gift) {
   };
 }
 
+function priceMidpoint(gift) {
+  const range = priceRange(gift);
+
+  if (!range) {
+    return null;
+  }
+
+  return (range.low + range.high) / 2;
+}
+
 function descriptorTokens(value) {
   return [...new Set(
     String(value || "")
@@ -508,7 +541,7 @@ function relatedProductScore(source, candidate) {
 }
 
 function relatedProductsForGift(gift) {
-  return [...seoCatalog]
+  return [...indexableSeoCatalog]
     .filter((entry) => entry.id !== gift.id)
     .sort((left, right) => {
       const scoreDelta = relatedProductScore(gift, right) - relatedProductScore(gift, left);
@@ -572,6 +605,10 @@ function hotStoryItems(story) {
 
 function hotStoriesForGift(gift) {
   return seoHotStories.filter((story) => story.itemIds.includes(gift.id));
+}
+
+function hotStoryUsageCount(giftId) {
+  return seoHotStories.reduce((total, story) => total + (story.itemIds.includes(giftId) ? 1 : 0), 0);
 }
 
 function hotStoriesForGuide(guide, items = guideItems(guide)) {
@@ -818,6 +855,7 @@ function buildLinkedItemListSchema(name, url, links = []) {
   return {
     "@context": "https://schema.org",
     "@type": "ItemList",
+    "@id": `${url}#list`,
     name,
     url,
     numberOfItems: links.length,
@@ -849,6 +887,7 @@ function renderFooterLinks({ includeLlms = false } = {}) {
     ["Contact", seoSite.contactPath],
     ["Guides", "/guides/"],
     ["Hot", "/hot/"],
+    ["Products", "/gift/"],
     ["Plans", "/dates/"],
     ["Site map", "/site-map.html"],
     ["Privacy", "/privacy.html"],
@@ -887,12 +926,46 @@ function renderPaidLinkNote(gift) {
   return `<span class="discovery-paid-note">${escapeHtml(paidLinkNote(gift))}</span>`;
 }
 
-function renderDiscoveryHeader(_active = "", breadcrumbs = []) {
+function renderEditorialSupportLinks() {
+  return `<div class="discovery-editorial-links">
+      <a class="discovery-editorial-link" href="${seoSite.editorialPath}">
+        <span>Method</span>
+        <strong>Read the editorial policy</strong>
+      </a>
+      <a class="discovery-editorial-link" href="${seoSite.aboutPath}">
+        <span>About</span>
+        <strong>See how the site is structured</strong>
+      </a>
+      <a class="discovery-editorial-link" href="${seoSite.contactPath}">
+        <span>Corrections</span>
+        <strong>Report a broken link or outdated page</strong>
+      </a>
+    </div>`;
+}
+
+function renderDiscoveryHeader(active = "", breadcrumbs = []) {
+  const links = [
+    { id: "guides", label: "Guides", href: "/guides/" },
+    { id: "hot", label: "Hot", href: "/hot/" },
+    { id: "products", label: "Products", href: "/gift/" },
+    { id: "plans", label: "Plans", href: "/dates/" },
+    { id: "site-map", label: "Site map", href: "/site-map.html" },
+  ];
+
   return `<header class="discovery-header${breadcrumbs.length ? " has-breadcrumbs" : ""}">
       <div class="discovery-header-top">
-      <a class="discovery-brand" href="/">
-        <img src="/logo1.png" alt="ShopForHer">
-      </a>
+        <a class="discovery-brand" href="/">
+          <img src="/logo1.png" alt="ShopForHer">
+        </a>
+        <nav class="discovery-header-nav" aria-label="Discovery">
+          ${links
+            .map(
+              (link) => `<a class="discovery-header-link${active === link.id ? " is-active" : ""}" href="${link.href}"${
+                active === link.id ? ' aria-current="page"' : ""
+              }>${escapeHtml(link.label)}</a>`
+            )
+            .join("")}
+        </nav>
       </div>
       ${breadcrumbs.length ? renderBreadcrumbs(breadcrumbs, "is-inline") : ""}
     </header>`;
@@ -955,6 +1028,34 @@ function renderPageRail(cards = []) {
   return `<aside class="discovery-page-rail">${markup}</aside>`;
 }
 
+function renderTrustResourceLinks(note, excludeHrefs = []) {
+  const excluded = new Set(excludeHrefs);
+  const links = trustResourceLinks.filter((entry) => !excluded.has(entry.href));
+
+  if (!links.length) {
+    return "";
+  }
+
+  return `${note ? `<p class="discovery-section-note">${escapeHtml(note)}</p>` : ""}
+        <div class="discovery-related">
+          ${links
+            .map(
+              (entry) => `<a class="discovery-related-link" href="${entry.href}">
+            <span>${escapeHtml(entry.meta)}</span>
+            <strong>${escapeHtml(entry.label)}</strong>
+          </a>`
+            )
+            .join("")}
+        </div>`;
+}
+
+function pageTrustSchemaFields() {
+  return {
+    isAccessibleForFree: true,
+    publishingPrinciples: editorialPolicyUrl,
+  };
+}
+
 function renderDiscoveryFooter({ notes = [], includeLlms = false, includeAffiliateDisclosure = false } = {}) {
   const footerNotes = includeAffiliateDisclosure ? [AMAZON_ASSOCIATE_DISCLOSURE, ...notes] : notes;
 
@@ -993,6 +1094,7 @@ function renderGuideMethodSection(guide) {
             )
             .join("")}
         </div>
+        ${renderTrustResourceLinks("Use these pages when you want to verify the site methodology, understand who writes the pages, or flag a correction.")}
       </section>`;
 }
 
@@ -1101,6 +1203,77 @@ function renderProductEditorialSection(gift) {
             <p>${escapeHtml(body)}</p>
           </article>`
             )
+            .join("")}
+        </div>
+        ${renderTrustResourceLinks("Read the methodology, team context, or contact page if you want to validate why this product stayed on the site.")}
+      </section>`;
+}
+
+function productComparisonLabel(source, candidate) {
+  const sourcePrice = priceMidpoint(source);
+  const candidatePrice = priceMidpoint(candidate);
+
+  if (Number.isFinite(sourcePrice) && Number.isFinite(candidatePrice)) {
+    if (candidatePrice <= sourcePrice - 25) {
+      return "Switch for lower spend";
+    }
+
+    if (candidatePrice >= sourcePrice + 25) {
+      return "Switch for premium spend";
+    }
+  }
+
+  if (source.badge && candidate.badge && source.badge !== candidate.badge) {
+    return `Switch for the ${candidate.badge.toLowerCase()} lane`;
+  }
+
+  if (source.vibe && candidate.vibe && source.vibe !== candidate.vibe) {
+    return `Switch for the ${candidate.vibe.toLowerCase()} mood`;
+  }
+
+  return "Switch for a different fit";
+}
+
+function renderProductComparisonSection(gift, relatedProducts = []) {
+  const comparisonProducts = relatedProducts.slice(0, 3);
+
+  if (!comparisonProducts.length) {
+    return "";
+  }
+
+  const stayNote = usesAffiliateSearchFallback(gift)
+    ? `Stay with ${gift.name} when the product lane is right and you do not mind using the Amazon search path to reach the current listing.`
+    : usesDirectMerchantPath(gift)
+      ? `Stay with ${gift.name} when ${merchantName(gift)} is the merchant you already trust and ${gift.bestFor} is the exact fit.`
+      : `Stay with ${gift.name} when ${gift.bestFor} is the exact fit and you want the cleanest version of this lane.`;
+
+  return `<section class="discovery-section" id="product-compare">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Comparison</p>
+          <h2>Compare this pick with nearby options</h2>
+        </div>
+        <p class="discovery-section-note">Use this section when the product lane is right but you want to trade price band, mood, or use case before checkout.</p>
+        <div class="discovery-decision-grid">
+          <article class="discovery-decision-card">
+            <span class="discovery-decision-label">Stay with this pick</span>
+            <h3>${escapeHtml(gift.name)}</h3>
+            <p>${escapeHtml(stayNote)}</p>
+            <p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}. ${escapeHtml(gift.priceLabel)}.</p>
+          </article>
+          ${comparisonProducts
+            .map((entry) => {
+              const sharedGuideCount = countSharedGuides(gift.id, entry.id);
+              const guideNote = sharedGuideCount
+                ? `Shared with this pick in ${sharedGuideCount} guide${sharedGuideCount === 1 ? "" : "s"}.`
+                : "This is a nearby alternative in the same general product lane.";
+
+              return `<article class="discovery-decision-card">
+            <span class="discovery-decision-label">${escapeHtml(productComparisonLabel(gift, entry))}</span>
+            <h3><a class="discovery-title-link" href="/gift/${entry.slug}/">${escapeHtml(entry.name)}</a></h3>
+            <p>${escapeHtml(entry.why)}</p>
+            <p class="discovery-best-for">Best for: ${escapeHtml(entry.bestFor)}. ${escapeHtml(entry.priceLabel)}. ${escapeHtml(guideNote)}</p>
+          </article>`;
+            })
             .join("")}
         </div>
       </section>`;
@@ -1323,6 +1496,10 @@ function renderHotStoryEditorialSection(story, relatedGuides) {
             <p>${escapeHtml(`${editorialAuthor.name} · ${editorialAuthor.title}`)}</p>
           </article>
           <article class="discovery-faq">
+            <h3>Reviewed by</h3>
+            <p>${escapeHtml(`${editorialReviewer.name} · ${editorialReviewer.title}`)}</p>
+          </article>
+          <article class="discovery-faq">
             <h3>How the page is structured</h3>
             <p>${escapeHtml("Hot pages combine a current trend angle, a short ranked product list, and related evergreen guides so the page can move fast without losing context.")}</p>
           </article>
@@ -1335,6 +1512,7 @@ function renderHotStoryEditorialSection(story, relatedGuides) {
             <p>${escapeHtml(priceEstimateNote)}</p>
           </article>
         </div>
+        ${renderTrustResourceLinks("Use the trust pages when you want to verify how the trend page was built or report something that looks stale.")}
       </section>`;
 }
 
@@ -1506,6 +1684,7 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
+    "@id": `${canonical}#items`,
     name: guide.h1,
     url: canonical,
     numberOfItems: items.length,
@@ -1565,6 +1744,9 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
     inLanguage: "en-US",
     dateModified: freshness.isoDate,
     mainEntityOfPage: canonical,
+    mainEntity: {
+      "@id": `${canonical}#items`,
+    },
     author: editorialAuthorSchema,
     reviewedBy: editorialReviewerSchema,
     publisher: siteOrganizationSchema,
@@ -1583,6 +1765,7 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
       url: productUrl(gift),
     })),
     keywords: [guide.label, guide.groupLabel, "gifts for her", "gift guide"].join(", "),
+    ...pageTrustSchemaFields(),
   };
 
   return `<!DOCTYPE html>
@@ -1753,7 +1936,9 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
               : ""
           }
 
-          <section class="discovery-section" id="guide-related">
+          ${
+            related.length
+              ? `<section class="discovery-section" id="guide-related">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Related</p>
           <h2>More guides</h2>
@@ -1768,7 +1953,9 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
             )
             .join("")}
         </div>
-          </section>
+          </section>`
+              : ""
+          }
         </div>
         ${guideRail}
       </div>
@@ -1800,6 +1987,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
   const productSectionLinks = [
     { href: "#product-spotlight", label: "Product spotlight", meta: "Images and notes" },
     { href: "#product-context", label: "Where it fits", meta: "Buyer context" },
+    ...(relatedProducts.length ? [{ href: "#product-compare", label: "Compare nearby picks", meta: `${Math.min(3, relatedProducts.length)} options` }] : []),
     ...(matchingGuides.length ? [{ href: "#product-guides", label: "Guides using this pick", meta: `${matchingGuides.length} guide${matchingGuides.length === 1 ? "" : "s"}` }] : []),
     ...(matchingHotStories.length ? [{ href: "#product-hot", label: "Hot stories using this pick", meta: `${matchingHotStories.length} story${matchingHotStories.length === 1 ? "" : "s"}` }] : []),
     { href: "#product-related", label: "Related products", meta: `${relatedProducts.length} more picks` },
@@ -1893,6 +2081,15 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
       : {}),
     ...(gift.sourceProductUrl ? { sameAs: gift.sourceProductUrl } : {}),
     ...(offerSchema ? { offers: offerSchema } : {}),
+    ...(relatedProducts.length
+      ? {
+          isSimilarTo: relatedProducts.slice(0, 3).map((entry) => ({
+            "@type": "Product",
+            name: entry.name,
+            url: productUrl(entry),
+          })),
+        }
+      : {}),
   };
 
   const productPageSchema = {
@@ -1903,6 +2100,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
     url: canonical,
     inLanguage: "en-US",
     dateModified: freshness.isoDate,
+    mainEntityOfPage: canonical,
     author: editorialAuthorSchema,
     reviewedBy: editorialReviewerSchema,
     mainEntity: {
@@ -1914,6 +2112,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
       name: seoSite.name,
       url: `${siteUrl}/`,
     },
+    ...pageTrustSchemaFields(),
   };
   const faqSchema = {
     "@context": "https://schema.org",
@@ -1941,6 +2140,12 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
       {
         "@type": "ListItem",
         position: 2,
+        name: "Products",
+        item: `${siteUrl}/gift/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
         name: gift.name,
         item: canonical,
       },
@@ -1975,8 +2180,9 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
 </head>
 <body>
   <div class="discovery-shell discovery-shell-product">
-    ${renderDiscoveryHeader("guides", [
+    ${renderDiscoveryHeader("products", [
       { label: "Home", href: "/" },
+      { label: "Products", href: "/gift/" },
       { label: gift.name },
     ])}
     <main class="discovery-main discovery-main-product">
@@ -2076,6 +2282,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
       </section>
 
           ${renderProductContextSection(gift, matchingGuides)}
+          ${renderProductComparisonSection(gift, relatedProducts)}
 
       ${
         matchingGuides.length
@@ -2147,6 +2354,196 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
       notes: [
         "Checkout and final pricing happen on the merchant site.",
       ],
+      includeAffiliateDisclosure: true,
+    })}
+  </div>
+</body>
+</html>`;
+}
+
+function productHubMeta(gift) {
+  const guideCount = guideUsageCount(gift.id);
+  const hotCount = hotStoryUsageCount(gift.id);
+  const context = [];
+
+  if (usesDirectMerchantPath(gift)) {
+    context.push(`${merchantName(gift)} checkout`);
+  } else if (gift.amazonAsin) {
+    context.push("Amazon checkout");
+  }
+
+  if (guideCount) {
+    context.push(`${guideCount} guide${guideCount === 1 ? "" : "s"}`);
+  }
+
+  if (hotCount) {
+    context.push(`${hotCount} hot page${hotCount === 1 ? "" : "s"}`);
+  }
+
+  return [gift.priceLabel, ...context].join(" · ");
+}
+
+function featuredProductHubPicks() {
+  return [...indexableSeoCatalog]
+    .sort((left, right) => {
+      const usageDelta = (guideUsageCount(right.id) + hotStoryUsageCount(right.id)) - (guideUsageCount(left.id) + hotStoryUsageCount(left.id));
+
+      if (usageDelta !== 0) {
+        return usageDelta;
+      }
+
+      const merchantDelta = Number(usesDirectMerchantPath(right)) - Number(usesDirectMerchantPath(left));
+
+      if (merchantDelta !== 0) {
+        return merchantDelta;
+      }
+
+      return left.name.localeCompare(right.name);
+    })
+    .slice(0, 8);
+}
+
+function renderProductIndex(freshness = lastmodPlaceholder) {
+  const canonical = `${siteUrl}/gift/`;
+  const featuredProducts = featuredProductHubPicks();
+  const directMerchantProducts = indexableSeoCatalog.filter((gift) => usesDirectMerchantPath(gift));
+  const allProductLinks = [...indexableSeoCatalog]
+    .sort((left, right) => left.name.localeCompare(right.name))
+    .map((gift) => ({
+      href: `/gift/${gift.slug}/`,
+      label: gift.name,
+      meta: productHubMeta(gift),
+    }));
+  const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Product pages",
+    description: "Direct product-level gift pages with merchant paths, price bands, and surrounding guide context.",
+    url: canonical,
+    dateModified: freshness.isoDate,
+    mainEntity: {
+      "@id": `${canonical}#list`,
+    },
+    publisher: siteOrganizationSchema,
+    isPartOf: {
+      "@type": "WebSite",
+      name: seoSite.name,
+      url: `${siteUrl}/`,
+    },
+    mentions: featuredProducts.map((gift) => ({
+      "@type": "Product",
+      name: gift.name,
+      url: productUrl(gift),
+    })),
+    ...pageTrustSchemaFields(),
+  };
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { label: "Home", href: `${siteUrl}/` },
+    { label: "Products", href: canonical },
+  ]);
+  const itemListSchema = buildLinkedItemListSchema("Product pages", canonical, allProductLinks);
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product pages | ShopForHer</title>
+  <meta name="description" content="Browse the full index of ShopForHer product pages with price ranges, merchant paths, and nearby guide context.">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <link rel="canonical" href="${canonical}">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/discovery.css">
+  ${attributionScriptTag()}
+  ${jsonLdScript(collectionPageSchema)}
+  ${jsonLdScript(itemListSchema)}
+  ${jsonLdScript(breadcrumbSchema)}
+</head>
+<body>
+  <div class="discovery-shell">
+    ${renderDiscoveryHeader("products", [
+      { label: "Home", href: "/" },
+      { label: "Products" },
+    ])}
+    <main class="discovery-main">
+      <section class="discovery-hero">
+        <p class="discovery-kicker">Products</p>
+        <h1>Product pages</h1>
+        <p class="discovery-intro">Use this hub when you already want the exact item and need the price band, merchant path, and nearby guide context fast.</p>
+        <div class="discovery-meta">
+          <span>Updated ${escapeHtml(freshness.displayDate)}</span>
+          <span>${indexableSeoCatalog.length} pages</span>
+          <span>Off-site merchant checkout</span>
+        </div>
+      </section>
+
+      <section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Featured</p>
+          <h2>Product pages with the strongest site context</h2>
+        </div>
+        <p class="discovery-section-note">These products show up most often across evergreen guides and hot pages, so they are the fastest entries when you want both a direct product read and surrounding comparison context.</p>
+        <div class="discovery-related">
+          ${featuredProducts
+            .map(
+              (gift) => `<a class="discovery-related-link" href="/gift/${gift.slug}/">
+            <span>${escapeHtml(productHubMeta(gift))}</span>
+            <strong>${escapeHtml(gift.name)}</strong>
+          </a>`
+            )
+            .join("")}
+        </div>
+      </section>
+
+      ${
+        directMerchantProducts.length
+          ? `<section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Direct merchant</p>
+          <h2>Pages with direct merchant checkout paths</h2>
+        </div>
+        <p class="discovery-section-note">Use these when you want the product page to land on the brand site instead of an Amazon listing.</p>
+        <div class="discovery-related">
+          ${directMerchantProducts
+            .map(
+              (gift) => `<a class="discovery-related-link" href="/gift/${gift.slug}/">
+            <span>${escapeHtml(productHubMeta(gift))}</span>
+            <strong>${escapeHtml(gift.name)}</strong>
+          </a>`
+            )
+            .join("")}
+        </div>
+      </section>`
+          : ""
+      }
+
+      <section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Browse</p>
+          <h2>All indexable product pages</h2>
+        </div>
+        <div class="discovery-related">
+          ${allProductLinks
+            .map(
+              (entry) => `<a class="discovery-related-link" href="${entry.href}">
+            <span>${escapeHtml(entry.meta)}</span>
+            <strong>${escapeHtml(entry.label)}</strong>
+          </a>`
+            )
+            .join("")}
+        </div>
+      </section>
+
+      <section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Trust</p>
+          <h2>Method and correction path</h2>
+        </div>
+        ${renderTrustResourceLinks("Open these pages when you want the methodology behind the product pages, the site background, or the correction route.")}
+      </section>
+    </main>
+    ${renderDiscoveryFooter({
+      notes: ["Product pages are built for exact-item lookup, not exhaustive merchant catalog coverage."],
       includeAffiliateDisclosure: true,
     })}
   </div>
@@ -2571,6 +2968,7 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
+    "@id": `${canonical}#items`,
     name: story.h1,
     url: canonical,
     numberOfItems: items.length,
@@ -2592,6 +2990,9 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
     inLanguage: "en-US",
     dateModified: freshness.isoDate,
     mainEntityOfPage: canonical,
+    mainEntity: {
+      "@id": `${canonical}#items`,
+    },
     author: editorialAuthorSchema,
     reviewedBy: editorialReviewerSchema,
     publisher: siteOrganizationSchema,
@@ -2610,6 +3011,7 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
       url: productUrl(gift),
     })),
     keywords: [story.label, "gifts for her", "viral gifts", "trending gifts"].join(", "),
+    ...pageTrustSchemaFields(),
   };
   const articleSchema = {
     "@context": "https://schema.org",
@@ -2622,6 +3024,7 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
     dateModified: freshness.isoDate,
     image: [pageImage],
     author: editorialAuthorSchema,
+    reviewedBy: editorialReviewerSchema,
     publisher: siteOrganizationSchema,
     articleSection: "Hot",
     keywords: [story.label, story.trendLabel, "gifts for her", "viral gifts"].join(", "),
@@ -2634,6 +3037,7 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
       name: gift.name,
       url: productUrl(gift),
     })),
+    ...pageTrustSchemaFields(),
   };
   const faqSchema = {
     "@context": "https://schema.org",
@@ -2759,7 +3163,9 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
         </ol>
       </section>
 
-          <section class="discovery-section" id="story-related">
+          ${
+            relatedGuides.length
+              ? `<section class="discovery-section" id="story-related">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Related</p>
           <h2>More guides</h2>
@@ -2774,7 +3180,9 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
             )
             .join("")}
         </div>
-          </section>
+          </section>`
+              : ""
+          }
 
           ${renderFaqSection("story-faq", "Quick answers", faqs)}
 
@@ -2802,13 +3210,19 @@ function renderTrustPage(page, freshness = lastmodPlaceholder) {
     name: page.h1,
     description: page.description,
     url: canonical,
+    inLanguage: "en-US",
     dateModified: freshness.isoDate,
+    mainEntityOfPage: canonical,
+    author: editorialAuthorSchema,
+    reviewedBy: editorialReviewerSchema,
+    publisher: siteOrganizationSchema,
     isPartOf: {
       "@type": "WebSite",
       name: seoSite.name,
       url: `${siteUrl}/`,
     },
     about: siteOrganizationSchema,
+    ...pageTrustSchemaFields(),
   };
   const breadcrumbSchema = buildBreadcrumbSchema([
     { label: "Home", href: `${siteUrl}/` },
@@ -2871,6 +3285,13 @@ function renderTrustPage(page, freshness = lastmodPlaceholder) {
             )
             .join("")}
         </div>
+      </section>
+      <section class="discovery-section">
+        <div class="discovery-section-head">
+          <p class="discovery-kicker">Trust</p>
+          <h2>Related trust pages</h2>
+        </div>
+        ${renderTrustResourceLinks("Use the related trust pages when you want the site background, methodology, or contact route in one place.", [`/${page.filename}`])}
       </section>
     </main>
     ${renderDiscoveryFooter({
