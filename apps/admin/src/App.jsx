@@ -219,8 +219,8 @@ export default function App() {
           return;
         }
 
-        writeCatalogOverrides(parsed);
-        refreshCatalog(parsed);
+        const nextOverrides = writeCatalogOverrides(parsed);
+        refreshCatalog(nextOverrides);
       } catch (error) {
         return;
       } finally {
