@@ -61,7 +61,9 @@ The build also emits extra discovery surfaces:
 
 - `/site-map.html` for a readable HTML directory of the main pages
 - `/feed.xml` for a simple RSS feed of trust, guide, hot, and date pages
+- `/page-catalog.json` for a unified machine-readable inventory of page archetypes, buyer-intent tags, indexability, and operational SEO queues
 - `/product-catalog.json` for a machine-readable product catalog with price bands, merchant paths, and product-page URLs
+- `/guide-catalog.json` for guide-specific intent, FAQ, related-page, and overlap metadata
 
 These utility files stay available for feeds and agents, but they are not included in the XML sitemap as primary search landing pages.
 
@@ -86,6 +88,12 @@ URL-prefix verification is also supported by the build:
 After verification, submit `https://shopforher.org/sitemap.xml` in Search Console.
 
 See [docs/google-search-console.md](/mnt/c/Projects/giftsher/docs/google-search-console.md) for the exact setup flow.
+
+### SEO ops
+
+After a build, run `npm run seo:ops` to print the current search-facing counts, guide-overlap queue, suppressed guides, and merchant-path gaps from `apps/web/public/page-catalog.json`.
+
+See [docs/seo-product-roadmap.md](/mnt/c/Projects/giftsher/docs/seo-product-roadmap.md) for the current backlog and template-level improvement plan.
 
 ### Referral attribution
 

@@ -9,6 +9,7 @@
 - https://shopforher.org/dates/
 - https://shopforher.org/site-map.html
 - https://shopforher.org/feed.xml
+- https://shopforher.org/page-catalog.json
 - https://shopforher.org/guide-catalog.json
 - https://shopforher.org/product-catalog.json
 
@@ -19,12 +20,14 @@
 
 ## Discovery files
 - [RSS feed](https://shopforher.org/feed.xml)
+- [Page catalog JSON](https://shopforher.org/page-catalog.json)
 - [Guide catalog JSON](https://shopforher.org/guide-catalog.json)
 - [Product catalog JSON](https://shopforher.org/product-catalog.json)
 - [llms.txt](https://shopforher.org/llms.txt)
 - [llms-full.txt](https://shopforher.org/llms-full.txt)
 
 ## Agent guidance
+- Prefer /page-catalog.json for page archetypes, buyer-intent coverage, search indexability, and operational SEO queues.
 - Prefer /guide-catalog.json for guide intent, use cases, FAQs, related guides, ranked product lists, and guide-overlap metadata.
 - Prefer /product-catalog.json for product facts, merchant paths, price bands, and per-product updatedAt values.
 - Treat all prices as recent ranges rather than guaranteed live prices.
@@ -35,6 +38,7 @@
 - [Best gifts for girlfriends in 2026](https://shopforher.org/gifts-for-girlfriend/)
 - [Best gifts for wives in 2026](https://shopforher.org/gifts-for-wife/)
 - [Best anniversary gifts for her in 2026](https://shopforher.org/anniversary-gifts-for-her/)
+- [Best birthday gifts for wives in 2026](https://shopforher.org/birthday-gifts-for-wife/)
 - [Best gifts for her under $75 in 2026](https://shopforher.org/best-gifts-under-75/)
 - [Best gifts for her under $100 in 2026](https://shopforher.org/best-gifts-under-100/)
 - [Viral gifts for her in 2026](https://shopforher.org/viral-gifts-for-her/)

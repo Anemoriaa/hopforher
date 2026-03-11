@@ -1,4 +1,5 @@
 import { applyProductMedia } from "../../../../packages/catalog/media.js";
+import { gifts as catalogGifts } from "../../../../packages/catalog/index.js";
 import { importedCatalogItems } from "../../../../packages/catalog/imported-items.js";
 import { normalizeSeoCatalog } from "../../../../packages/catalog/schema.js";
 
@@ -14,6 +15,24 @@ export const seoSite = {
   affiliateTag: "shopforher0b7-20",
   affiliateBaseUrl: "https://www.amazon.com/s",
 };
+
+const catalogGiftById = new Map(catalogGifts.map((gift) => [gift.id, gift]));
+
+function mergeCatalogTaxonomy(gift) {
+  const baseGift = catalogGiftById.get(gift.id);
+
+  if (!baseGift) {
+    return gift;
+  }
+
+  return {
+    ...gift,
+    vibe: gift.vibe || baseGift.vibe,
+    relationships: gift.relationships || baseGift.relationships,
+    intents: gift.intents || baseGift.intents,
+    tabs: gift.tabs || baseGift.tabs,
+  };
+}
 
 const rawSeoCatalog = [
   {
@@ -318,7 +337,7 @@ const rawSeoCatalog = [
   ...importedCatalogItems,
 ];
 
-export const seoCatalog = normalizeSeoCatalog(rawSeoCatalog.map((gift) => applyProductMedia(gift)));
+export const seoCatalog = normalizeSeoCatalog(rawSeoCatalog.map((gift) => applyProductMedia(mergeCatalogTaxonomy(gift))));
 
 export const seoGuides = [
   {
@@ -492,7 +511,7 @@ export const seoGuides = [
         body: "Choose this when you want the wife gift to feel more substantial and clearly above the routine-gift line.",
       },
     ],
-    itemIds: ["digital-frame", "walking-pad", "vanity-mirror", "temperature-mug", "theragun-relief", "nespresso-machine"],
+    itemIds: ["digital-frame", "walking-pad", "vanity-mirror", "temperature-mug", "black-olive-tree", "nespresso-machine"],
     related: ["anniversary-gifts-for-her", "luxury-gifts-for-her", "daily-use-gifts-for-her"],
   },
   {
@@ -590,8 +609,8 @@ export const seoGuides = [
     title: "Best birthday gifts for girlfriends in 2026 | ShopForHer",
     h1: "Best birthday gifts for girlfriends in 2026",
     description: "Birthday gifts for girlfriends that feel current, giftable, and easy to buy fast.",
-    intro: "Use this lane when you want a present that feels like a yes immediately, not something she has to work around.",
-    selectionMethod: "This page keeps the birthday lane lighter and more giftable, with picks that feel present-ready without feeling too serious too soon.",
+    intro: "Use this lane when you want a present that feels current, visibly giftable, and easier to open than to explain.",
+    selectionMethod: "This page keeps the birthday lane lighter and more present-ready, with picks that feel current, branded, or visually strong without getting too serious too soon.",
     bestUseCase: "Use this when you want a cleaner birthday answer for a girlfriend that still feels fun and current.",
     avoidWhen: "Skip this page if the relationship is long-term enough that you really need a stronger wife-level or anniversary-style move.",
     buyerSignals: [
@@ -604,14 +623,14 @@ export const seoGuides = [
         body: "Products that already feel easy to understand or visually strong help the birthday reveal work faster.",
       },
       {
-        title: "Do not force meaning",
-        body: "A gift can feel thoughtful without carrying anniversary-level emotional weight.",
+        title: "Present-ready beats purely practical",
+        body: "The page works best when the gift feels like a real birthday reveal first and only second like something she will slot into a routine.",
       },
     ],
     faqs: [
       {
         q: "What is the easiest birthday gift for a girlfriend to get right?",
-        a: "The mini photo printer and jewelry case are strong first picks because they feel current, easy to open, and clearly gift-like.",
+        a: "The mini photo printer and jewelry case are still the strongest first picks because they feel current, easy to open, and clearly chosen as a gift.",
       },
       {
         q: "Should a girlfriend birthday gift be more fun than practical?",
@@ -634,7 +653,7 @@ export const seoGuides = [
         body: "Use this when she likes branded beauty gifts and you want something that feels more elevated than a random add-on.",
       },
       {
-        title: "A polished smaller gift with easy presentation",
+        title: "A polished accessory lane with easy presentation",
         giftId: "jewelry-case",
         body: "This is the safer answer when you want the birthday gift to feel organized, feminine, and clearly chosen for her.",
       },
@@ -666,8 +685,8 @@ export const seoGuides = [
         body: "The cleaner answer when recognizable branding and a stronger reveal matter more than utility.",
       },
     ],
-    itemIds: ["mini-photo-printer", "jewelry-case", "gucci-flora-gorgeous-magnolia", "earbuds", "candle-warmer", "mchic-beaded-choker"],
-    related: ["gifts-for-girlfriend", "viral-gifts-for-her", "best-gifts-under-100"],
+    itemIds: ["mini-photo-printer", "jewelry-case", "gucci-flora-gorgeous-magnolia", "sol-de-janeiro", "panluca-statement-necklace", "laneige-set"],
+    related: ["gifts-for-girlfriend", "best-gifts-under-100", "looks-expensive-gifts-for-her"],
   },
   {
     slug: "birthday-gifts-for-wife",
@@ -677,8 +696,8 @@ export const seoGuides = [
     title: "Best birthday gifts for wives in 2026 | ShopForHer",
     h1: "Best birthday gifts for wives in 2026",
     description: "Birthday gifts for wives that feel more substantial, polished, and worth opening.",
-    intro: "This page stays on stronger upgrades and safer premium picks.",
-    selectionMethod: "This page filters toward gifts with clearer upgrade value, stronger finish, and enough presence to feel birthday-worthy for a wife.",
+    intro: "This page stays on gifts with stronger birthday reveal value, cleaner design, and enough presence to feel worth opening.",
+    selectionMethod: "This page filters toward gifts with clearer visual payoff, stronger finish, and enough presence to feel birthday-worthy for a wife.",
     bestUseCase: "Use this when you need a birthday gift for your wife that feels bigger than a routine buy but still easy to defend.",
     avoidWhen: "Skip this page if your main constraint is speed, a low budget, or a softer cozy-home mood.",
     buyerSignals: [
@@ -687,22 +706,22 @@ export const seoGuides = [
         body: "A wife birthday gift should feel clearly bigger than a standard practical purchase, even when the item is still useful.",
       },
       {
-        title: "Upgrade a real routine",
-        body: "The strongest answers here improve something she already does every day instead of introducing a random hobby.",
+        title: "Visible payoff matters fast",
+        body: "The strongest birthday gifts here look like a real present the second she opens them rather than reading like a quiet routine errand.",
       },
       {
-        title: "Premium finish beats novelty",
-        body: "Cleaner materials, brand trust, and visible quality usually outperform gimmicks in this lane.",
+        title: "Clean design beats random size",
+        body: "A sharper finish, clearer brand signal, or better visual presence usually lands better than buying something big just to make it feel important.",
       },
     ],
     faqs: [
       {
         q: "What is the safest birthday gift for a wife on this page?",
-        a: "The digital frame and temperature-control mug are the easiest first answers because they feel upgraded immediately and fit real daily life.",
+        a: "The LED vanity mirror and Kindle Paperwhite are the easiest first answers because they feel polished, useful, and clearly above a routine purchase.",
       },
       {
         q: "Is it better to buy something personal or something useful for my wife's birthday?",
-        a: "The strongest gifts sit in the overlap. A useful item is fine if it still feels premium and obviously chosen for her.",
+        a: "Useful is fine if the birthday payoff is still obvious. Design, finish, or recognizable branding should make the gift feel chosen instead of merely practical.",
       },
       {
         q: "When should I choose this page over anniversary or luxury gifts?",
@@ -711,19 +730,19 @@ export const seoGuides = [
     ],
     bestFits: [
       {
-        title: "A meaningful gift with stronger birthday presence",
-        giftId: "digital-frame",
-        body: "Best when you want the gift to feel personal enough for a birthday while still being easy to defend.",
-      },
-      {
-        title: "A bigger upgrade that feels clearly above routine",
-        giftId: "walking-pad",
-        body: "Use this when the birthday gift should feel more substantial than a smaller accessory or comfort item.",
+        title: "A home gift with stronger birthday presence",
+        giftId: "faux-olive-tree-planter",
+        body: "Best when you want the present to look substantial right away and keep that visual payoff in the room after her birthday.",
       },
       {
         title: "A polished setup upgrade with obvious payoff",
         giftId: "vanity-mirror",
-        body: "This is the cleaner answer when she will notice the finish and use the gift often enough for the spend to make sense.",
+        body: "Use this when you want the birthday gift to feel elevated, visible, and easy to appreciate the first night it is opened.",
+      },
+      {
+        title: "A designer-beauty lane with cleaner reveal value",
+        giftId: "gucci-flora-gorgeous-magnolia",
+        body: "This is the better answer when recognizable branding and a more present-ready beauty signal matter more than a larger home item.",
       },
     ],
     avoidNotes: [
@@ -738,22 +757,22 @@ export const seoGuides = [
     ],
     pickLanes: [
       {
-        title: "Best daily-use pick",
-        giftId: "temperature-mug",
-        body: "The safest move when you want a premium-feeling routine upgrade that still looks gift-worthy.",
+        title: "Best visual reveal",
+        giftId: "faux-olive-tree-planter",
+        body: "The cleanest move when you want the birthday present to look substantial and finished the second she opens it.",
       },
       {
         title: "Best polished reveal",
         giftId: "vanity-mirror",
-        body: "Use this when the gift should feel visually stronger right away without relying on novelty.",
+        body: "Use this when the gift should feel visibly upgraded right away without leaning on novelty or filler.",
       },
       {
-        title: "Best bigger move",
-        giftId: "walking-pad",
-        body: "The stronger answer when you want the birthday gift to feel more substantial than a typical home accessory.",
+        title: "Best fun bigger move",
+        giftId: "ninja-creami",
+        body: "The better answer when you want more energy and presence than a small premium accessory can deliver.",
       },
     ],
-    itemIds: ["digital-frame", "walking-pad", "faux-olive-tree-planter", "temperature-mug", "vanity-mirror", "cashmere-robe"],
+    itemIds: ["faux-olive-tree-planter", "vanity-mirror", "gucci-flora-gorgeous-magnolia", "ninja-creami", "kindle-paperwhite", "panluca-statement-necklace"],
     related: ["gifts-for-wife", "anniversary-gifts-for-her", "luxury-gifts-for-her"],
   },
   {
@@ -1220,7 +1239,7 @@ export const seoGuides = [
     faqs: [
       {
         q: "What is the safest cozy home gift on this page?",
-        a: "The luxury throw and candle warmer are strong because they improve comfort quickly and are easy to understand on sight.",
+        a: "The luxury throw and UGG slippers are strong because they improve comfort quickly and are easy to understand on sight.",
       },
       {
         q: "Do decor gifts actually work well here?",
@@ -1275,8 +1294,8 @@ export const seoGuides = [
         body: "The better answer when you want cozy-home energy with a routine she will actually keep using.",
       },
     ],
-    itemIds: ["luxury-throw", "faux-olive-tree-planter", "cashmere-robe", "candle-warmer", "nespresso-machine", "miyuki-rustic-vase"],
-    related: ["gifts-for-homebodies", "date-night-gifts-for-her", "best-gifts-under-100"],
+    itemIds: ["luxury-throw", "faux-olive-tree-planter", "cashmere-robe", "ugg-slippers", "nespresso-machine", "miyuki-rustic-vase"],
+    related: ["gifts-for-homebodies", "gifts-for-wife", "best-gifts-under-100"],
   },
   {
     slug: "tech-gifts-for-her",

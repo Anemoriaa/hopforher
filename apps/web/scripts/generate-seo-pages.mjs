@@ -20,7 +20,6 @@ const guideBySlug = new Map(seoGuides.map((guide) => [guide.slug, guide]));
 const giftBySlug = new Map(seoCatalog.map((gift) => [gift.slug, gift]));
 const suppressedGuideSlugs = new Set([
   "birthday-gifts-for-girlfriend",
-  "birthday-gifts-for-wife",
   "new-relationship-gifts-for-her",
   "last-minute-gifts-for-her",
   "date-night-gifts-for-her",
@@ -2675,7 +2674,7 @@ function renderProductIndex(freshness = lastmodPlaceholder) {
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
-  <div class="discovery-shell">
+  <div class="discovery-shell discovery-shell-products-index">
     ${renderDiscoveryHeader("products", [
       { label: "Home", href: "/" },
       { label: "Products" },
@@ -2893,7 +2892,7 @@ function renderGuideIndex(freshness = lastmodPlaceholder) {
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
-  <div class="discovery-shell">
+  <div class="discovery-shell discovery-shell-guides-index">
     ${renderDiscoveryHeader("guides", [
       { label: "Home", href: "/" },
       { label: "Guides" },
@@ -2981,7 +2980,7 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
-  <div class="discovery-shell">
+  <div class="discovery-shell discovery-shell-dates-index">
     ${renderDiscoveryHeader("plans", [
       { label: "Home", href: "/" },
       { label: "Plans" },
@@ -3104,7 +3103,7 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
   ${faqSchema ? jsonLdScript(faqSchema) : ""}
 </head>
 <body>
-  <div class="discovery-shell">
+  <div class="discovery-shell discovery-shell-date-city">
     ${renderDiscoveryHeader("plans", [
       { label: "Home", href: "/" },
       { label: "Plans", href: "/dates/" },
@@ -3280,7 +3279,7 @@ function renderHotIndex(freshness = lastmodPlaceholder) {
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
-  <div class="discovery-shell">
+  <div class="discovery-shell discovery-shell-hot-index">
     ${renderDiscoveryHeader("hot", [
       { label: "Home", href: "/" },
       { label: "Hot" },
@@ -3512,7 +3511,7 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
-  <div class="discovery-shell">
+  <div class="discovery-shell discovery-shell-hot-story">
     ${renderDiscoveryHeader("hot", [
       { label: "Home", href: "/" },
       { label: "Hot", href: "/hot/" },
@@ -3673,7 +3672,7 @@ function renderTrustPage(page, freshness = lastmodPlaceholder) {
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
-  <div class="discovery-shell">
+  <div class="discovery-shell discovery-shell-trust">
     ${renderDiscoveryHeader("", [
       { label: "Home", href: "/" },
       { label: page.kicker },
@@ -3825,7 +3824,7 @@ function renderSiteMapPage(freshness = lastmodPlaceholder) {
   ${jsonLdScript(breadcrumbSchema)}
 </head>
 <body>
-  <div class="discovery-shell">
+  <div class="discovery-shell discovery-shell-site-map">
     ${renderDiscoveryHeader("", [
       { label: "Home", href: "/" },
       { label: "Site map" },
@@ -4048,6 +4047,12 @@ function buildProductCatalogEntries() {
       additionalImages: productImages(gift).slice(1),
       summary: gift.why,
       bestFor: gift.bestFor,
+      vibe: gift.vibe || "",
+      relationshipTags: gift.relationships || [],
+      intentTags: gift.intents || [],
+      tabTags: gift.tabs || [],
+      priceBand: productPriceBand(gift),
+      taxonomy: buildProductTaxonomy(gift),
       searchIndexable: indexState.indexable,
       indexStatus: indexState.reason,
       updatedAt: pageLastmod(productUrl(gift)),
@@ -4064,6 +4069,7 @@ function writeProductCatalog() {
         url: `${siteUrl}/`,
         guideCatalogUrl: `${siteUrl}/guide-catalog.json`,
         productCatalogUrl: `${siteUrl}/product-catalog.json`,
+        pageCatalogUrl: `${siteUrl}/page-catalog.json`,
         editorialPolicyUrl: `${siteUrl}${seoSite.editorialPath}`,
         affiliateDisclosure: AMAZON_ASSOCIATE_DISCLOSURE,
         checkout: "offsite",
@@ -4073,6 +4079,192 @@ function writeProductCatalog() {
 
     return `${JSON.stringify(payload, null, 2)}\n`;
   });
+}
+
+function uniqueSortedStrings(values = []) {
+  return [...new Set(
+    values
+      .flatMap((value) => Array.isArray(value) ? value : [value])
+      .map((value) => String(value || "").trim())
+      .filter(Boolean)
+  )].sort((left, right) => left.localeCompare(right));
+}
+
+function textMatcherValue(...values) {
+  return values
+    .flatMap((value) => Array.isArray(value) ? value : [value])
+    .map((value) => String(value || ""))
+    .join(" ")
+    .toLowerCase();
+}
+
+function matchTagsFromText(textValue, matchers = []) {
+  return uniqueSortedStrings(
+    matchers
+      .filter(({ pattern }) => {
+        pattern.lastIndex = 0;
+        return pattern.test(textValue);
+      })
+      .flatMap(({ tags }) => tags)
+  );
+}
+
+function budgetTagsFromText(textValue) {
+  return uniqueSortedStrings(
+    [...textValue.matchAll(/under\s*\$?(\d+)/g)].map((match) => `under-${match[1]}`)
+  );
+}
+
+function productPriceBand(gift) {
+  const range = priceRange(gift);
+
+  if (!range) {
+    return null;
+  }
+
+  if (range.high <= 25) {
+    return "under-25";
+  }
+
+  if (range.high <= 50) {
+    return "under-50";
+  }
+
+  if (range.high <= 75) {
+    return "under-75";
+  }
+
+  if (range.high <= 100) {
+    return "under-100";
+  }
+
+  if (range.high <= 150) {
+    return "under-150";
+  }
+
+  return "over-150";
+}
+
+function buildProductCoverage(items = []) {
+  return {
+    relationshipTags: uniqueSortedStrings(items.flatMap((gift) => gift.relationships || [])),
+    intentTags: uniqueSortedStrings(items.flatMap((gift) => gift.intents || [])),
+    tabTags: uniqueSortedStrings(items.flatMap((gift) => gift.tabs || [])),
+    priceBands: uniqueSortedStrings(items.map((gift) => productPriceBand(gift)).filter(Boolean)),
+  };
+}
+
+const relationshipFocusMatchers = [
+  { pattern: /\bgirlfriend\b/g, tags: ["girlfriend"] },
+  { pattern: /\bwife\b|\bwives\b/g, tags: ["wife"] },
+  { pattern: /\bnew[-\s]relationship\b/g, tags: ["new-relationship"] },
+];
+
+const occasionFocusMatchers = [
+  { pattern: /\bbirthday\b/g, tags: ["birthday"] },
+  { pattern: /\banniversary\b/g, tags: ["anniversary"] },
+  { pattern: /\bdate[-\s]night\b|\bdate plan\b|\bdate spots\b/g, tags: ["date-night"] },
+  { pattern: /\blast[-\s]minute\b/g, tags: ["last-minute"] },
+];
+
+const angleFocusMatchers = [
+  { pattern: /\bviral\b|\btrending\b|\brising now\b|\bmost opened\b/g, tags: ["viral"] },
+  { pattern: /\bluxury\b/g, tags: ["luxury"] },
+  { pattern: /\bpractical\b|\buseful\b/g, tags: ["practical"] },
+  { pattern: /\bcozy\b|\bhomebodies\b/g, tags: ["cozy-home"] },
+  { pattern: /\bdaily[-\s]use\b|\bactually use\b|\beveryday\b/g, tags: ["daily-use"] },
+  { pattern: /\blooks expensive\b/g, tags: ["looks-expensive"] },
+  { pattern: /\btech\b/g, tags: ["tech"] },
+  { pattern: /\bamazon\b/g, tags: ["amazon"] },
+  { pattern: /\bhas everything\b|\bhard to buy\b/g, tags: ["hard-to-buy-for"] },
+  { pattern: /\bhomebod(y|ies)\b/g, tags: ["homebody"] },
+  { pattern: /\bbudget\b|under\s*\$?\d+/g, tags: ["budget"] },
+];
+
+function buildGuideTaxonomy(guide, items = guideItems(guide)) {
+  const textValue = textMatcherValue(
+    guide.slug,
+    guide.label,
+    guide.group,
+    guide.groupLabel,
+    guide.title,
+    guide.h1,
+    guide.description,
+    guide.intro
+  );
+
+  return {
+    primary: {
+      relationships: matchTagsFromText(textValue, relationshipFocusMatchers),
+      occasions: matchTagsFromText(textValue, occasionFocusMatchers),
+      budgetBands: budgetTagsFromText(textValue),
+      angles: matchTagsFromText(textValue, angleFocusMatchers),
+      guideGroups: uniqueSortedStrings([guide.group]),
+    },
+    coverage: buildProductCoverage(items),
+  };
+}
+
+function buildHotStoryTaxonomy(story, items = hotStoryItems(story)) {
+  const textValue = textMatcherValue(
+    story.slug,
+    story.label,
+    story.title,
+    story.h1,
+    story.description,
+    story.intro,
+    story.trendLabel
+  );
+
+  return {
+    primary: {
+      relationships: matchTagsFromText(textValue, relationshipFocusMatchers),
+      occasions: matchTagsFromText(textValue, occasionFocusMatchers),
+      budgetBands: budgetTagsFromText(textValue),
+      angles: uniqueSortedStrings(["viral", ...matchTagsFromText(textValue, angleFocusMatchers)]),
+      guideGroups: ["trend"],
+    },
+    coverage: buildProductCoverage(items),
+  };
+}
+
+function buildDateCityTaxonomy(city) {
+  const neighborhoods = uniqueSortedStrings([
+    ...(city.spots || []).map((spot) => spot.area),
+    ...(city.lanes || []).map((lane) => lane.area),
+  ]);
+  const spotTypes = uniqueSortedStrings((city.spots || []).map((spot) => String(spot.type || "").toLowerCase()));
+
+  return {
+    primary: {
+      cities: [city.slug],
+      occasions: ["date-night"],
+      angles: ["city-guide", "local-planning"],
+    },
+    coverage: {
+      neighborhoods,
+      spotTypes,
+    },
+  };
+}
+
+function buildProductTaxonomy(gift) {
+  return {
+    primary: {
+      relationshipTags: uniqueSortedStrings(gift.relationships || []),
+      intentTags: uniqueSortedStrings(gift.intents || []),
+      tabTags: uniqueSortedStrings(gift.tabs || []),
+      priceBands: uniqueSortedStrings([productPriceBand(gift)].filter(Boolean)),
+      vibes: uniqueSortedStrings([gift.vibe || ""]),
+    },
+    coverage: {
+      merchantTypes: uniqueSortedStrings([usesAffiliateSearchFallback(gift)
+        ? "amazon-search"
+        : usesDirectMerchantPath(gift)
+          ? "direct-merchant-url"
+          : "direct-product"]),
+    },
+  };
 }
 
 function buildGuideCatalogEntries() {
@@ -4085,12 +4277,14 @@ function buildGuideCatalogEntries() {
     return {
       slug: guide.slug,
       pageUrl: guideUrl(guide),
+      pageArchetype: "gift-guide",
       title: guide.title,
       h1: guide.h1,
       description: guide.description,
       intro: guide.intro,
       group: guide.group,
       groupLabel: guide.groupLabel,
+      taxonomy: buildGuideTaxonomy(guide, items),
       searchIndexable: indexState.indexable,
       indexStatus: indexState.reason,
       updatedAt: pageLastmod(guideUrl(guide)),
@@ -4186,10 +4380,389 @@ function writeGuideCatalog() {
         url: `${siteUrl}/`,
         guideCatalogUrl: `${siteUrl}/guide-catalog.json`,
         productCatalogUrl: `${siteUrl}/product-catalog.json`,
+        pageCatalogUrl: `${siteUrl}/page-catalog.json`,
         editorialPolicyUrl: `${siteUrl}${seoSite.editorialPath}`,
         contactUrl: `${siteUrl}${seoSite.contactPath}`,
       },
       guides: buildGuideCatalogEntries(),
+    };
+
+    return `${JSON.stringify(payload, null, 2)}\n`;
+  });
+}
+
+function buildStaticPageCatalogEntries() {
+  const indexPages = [
+    {
+      slug: "home",
+      path: "/",
+      pageType: "index",
+      pageArchetype: "home-shell",
+      title: "ShopForHer | Popular gifts for her, bought fast",
+      description: "ShopForHer helps men buy the right gift for a girlfriend or wife fast, with popular picks, viral products, and simple date ideas.",
+      taxonomy: {
+        primary: {
+          intents: ["browse"],
+          angles: ["popular", "discovery"],
+        },
+        coverage: {},
+      },
+    },
+    {
+      slug: "guides",
+      path: "/guides/",
+      pageType: "index",
+      pageArchetype: "discovery-index",
+      title: "Gift guides | ShopForHer",
+      description: "Browse all ShopForHer gift guides for girlfriends, wives, budgets, and high-converting gift angles.",
+      taxonomy: {
+        primary: {
+          intents: ["browse"],
+          angles: ["guide-index"],
+        },
+        coverage: {},
+      },
+    },
+    {
+      slug: "hot",
+      path: "/hot/",
+      pageType: "index",
+      pageArchetype: "discovery-index",
+      title: "Hot gift trends | ShopForHer",
+      description: "Current-interest gift pages for her built from editor-tracked angles and product patterns.",
+      taxonomy: {
+        primary: {
+          intents: ["browse"],
+          angles: ["trend-index", "viral"],
+        },
+        coverage: {},
+      },
+    },
+    {
+      slug: "gift",
+      path: "/gift/",
+      pageType: "index",
+      pageArchetype: "discovery-index",
+      title: "Product pages | ShopForHer",
+      description: "Browse the full index of ShopForHer product pages with price ranges, merchant paths, and nearby guide context.",
+      taxonomy: {
+        primary: {
+          intents: ["browse"],
+          angles: ["product-index"],
+        },
+        coverage: {},
+      },
+    },
+    {
+      slug: "dates",
+      path: "/dates/",
+      pageType: "index",
+      pageArchetype: "discovery-index",
+      title: "Date spots | ShopForHer",
+      description: "Neighborhood-led city date pages with cleaner planning paths for dinner, drinks, and follow-up moves.",
+      taxonomy: {
+        primary: {
+          intents: ["browse"],
+          occasions: ["date-night"],
+          angles: ["date-index", "local-planning"],
+        },
+        coverage: {},
+      },
+    },
+    {
+      slug: "site-map",
+      path: "/site-map.html",
+      pageType: "index",
+      pageArchetype: "discovery-index",
+      title: "Site map | ShopForHer",
+      description: "Browse every ShopForHer guide, product page, date page, hot page, and trust page from one crawlable site map.",
+      taxonomy: {
+        primary: {
+          intents: ["browse"],
+          angles: ["site-map"],
+        },
+        coverage: {},
+      },
+    },
+  ];
+
+  const trustEntries = trustPages.map((page) => ({
+    slug: page.filename.replace(/\.html$/i, ""),
+    path: `/${page.filename}`,
+    pageType: "trust",
+    pageArchetype: "trust-page",
+    title: page.title,
+    description: page.description,
+    taxonomy: {
+      primary: {
+        intents: ["trust"],
+        angles: [page.filename.replace(/\.html$/i, "")],
+      },
+      coverage: {},
+    },
+  }));
+
+  return indexPages.concat(trustEntries).map((page) => ({
+    id: `${page.pageType}:${page.slug}`,
+    slug: page.slug,
+    path: page.path,
+    pageType: page.pageType,
+    pageArchetype: page.pageArchetype,
+    pageUrl: `${siteUrl}${page.path}`,
+    title: page.title,
+    h1: page.title.replace(/\s+\|\s+ShopForHer$/, ""),
+    description: page.description,
+    updatedAt: pageLastmod(`${siteUrl}${page.path}`),
+    searchIndexable: true,
+    indexStatus: "search-facing",
+    taxonomy: page.taxonomy,
+  }));
+}
+
+function buildHotPageCatalogEntries() {
+  return seoHotStories.map((story) => {
+    const items = hotStoryItems(story);
+
+    return {
+      id: `hot-story:${story.slug}`,
+      slug: story.slug,
+      path: `/hot/${story.slug}/`,
+      pageType: "hot-story",
+      pageArchetype: "trend-roundup",
+      pageUrl: `${siteUrl}/hot/${story.slug}/`,
+      title: story.title,
+      h1: story.h1,
+      description: story.description,
+      updatedAt: pageLastmod(`${siteUrl}/hot/${story.slug}/`),
+      searchIndexable: true,
+      indexStatus: "search-facing",
+      taxonomy: buildHotStoryTaxonomy(story, items),
+      entities: {
+        productIds: items.map((gift) => gift.id),
+        relatedGuideSlugs: uniqueSortedStrings(story.relatedGuides || []),
+      },
+      metrics: {
+        viewsLabel: story.views,
+        durationLabel: story.duration,
+        trendLabel: story.trendLabel,
+      },
+    };
+  });
+}
+
+function buildDatePageCatalogEntries() {
+  return seoDateCities.map((city) => ({
+    id: `date-city:${city.slug}`,
+    slug: city.slug,
+    path: `/dates/${city.slug}/`,
+    pageType: "date-city",
+    pageArchetype: "city-date-guide",
+    pageUrl: `${siteUrl}/dates/${city.slug}/`,
+    title: city.title,
+    h1: city.h1,
+    description: city.description,
+    updatedAt: pageLastmod(`${siteUrl}/dates/${city.slug}/`),
+    searchIndexable: true,
+    indexStatus: "search-facing",
+    taxonomy: buildDateCityTaxonomy(city),
+    entities: {
+      spotCount: (city.spots || []).length,
+      laneCount: (city.lanes || []).length,
+    },
+  }));
+}
+
+function buildPageTypeCounts(pages = [], key = "pageType") {
+  const counts = pages.reduce((map, page) => {
+    const value = page[key];
+    map.set(value, (map.get(value) || 0) + 1);
+    return map;
+  }, new Map());
+
+  return Object.fromEntries([...counts.entries()].sort(([left], [right]) => left.localeCompare(right)));
+}
+
+function buildPageCatalogEntries(guideCatalogEntries = buildGuideCatalogEntries(), productCatalogEntries = buildProductCatalogEntries()) {
+  const guidePages = guideCatalogEntries.map((guide) => ({
+    id: `guide:${guide.slug}`,
+    slug: guide.slug,
+    path: `/${guide.slug}/`,
+    pageType: "guide",
+    pageArchetype: guide.pageArchetype,
+    pageUrl: guide.pageUrl,
+    title: guide.title,
+    h1: guide.h1,
+    description: guide.description,
+    updatedAt: guide.updatedAt,
+    searchIndexable: guide.searchIndexable,
+    indexStatus: guide.indexStatus,
+    taxonomy: guide.taxonomy,
+    entities: {
+      featuredGiftId: guide.featuredGiftId,
+      productIds: guide.products.map((product) => product.id),
+      relatedGuideSlugs: guide.relatedGuides.map((entry) => entry.slug),
+    },
+    ops: {
+      needsEditorialRefresh: guide.uniqueness.needsEditorialRefresh,
+    },
+  }));
+  const productPages = productCatalogEntries.map((product) => ({
+    id: `product:${product.slug}`,
+    slug: product.slug,
+    path: `/gift/${product.slug}/`,
+    pageType: "product",
+    pageArchetype: "product-detail",
+    pageUrl: product.pageUrl,
+    title: `${product.name} | ShopForHer`,
+    h1: product.name,
+    description: product.summary,
+    updatedAt: product.updatedAt,
+    searchIndexable: product.searchIndexable,
+    indexStatus: product.indexStatus,
+    taxonomy: product.taxonomy,
+    commerce: {
+      merchantName: product.merchantName,
+      merchantPathType: product.affiliatePathType,
+      checkout: product.checkout,
+    },
+    entities: {
+      guideSlugs: seoGuides.filter((guide) => guide.itemIds.includes(product.id)).map((guide) => guide.slug),
+      hotStorySlugs: seoHotStories.filter((story) => story.itemIds.includes(product.id)).map((story) => story.slug),
+    },
+  }));
+
+  return [
+    ...buildStaticPageCatalogEntries(),
+    ...guidePages,
+    ...buildHotPageCatalogEntries(),
+    ...buildDatePageCatalogEntries(),
+    ...productPages,
+  ];
+}
+
+function buildPageCatalogSummary(pages = []) {
+  return {
+    totalPages: pages.length,
+    searchIndexablePages: pages.filter((page) => page.searchIndexable).length,
+    blockedPages: pages.filter((page) => !page.searchIndexable).length,
+    byPageType: buildPageTypeCounts(pages, "pageType"),
+    byArchetype: buildPageTypeCounts(pages, "pageArchetype"),
+    coverage: {
+      relationships: uniqueSortedStrings(pages.flatMap((page) => page.taxonomy?.primary?.relationships || [])),
+      occasions: uniqueSortedStrings(pages.flatMap((page) => page.taxonomy?.primary?.occasions || [])),
+      budgetBands: uniqueSortedStrings(pages.flatMap((page) => page.taxonomy?.primary?.budgetBands || [])),
+      angles: uniqueSortedStrings(pages.flatMap((page) => page.taxonomy?.primary?.angles || [])),
+      guideGroups: uniqueSortedStrings(pages.flatMap((page) => page.taxonomy?.primary?.guideGroups || [])),
+      cities: uniqueSortedStrings(pages.flatMap((page) => page.taxonomy?.primary?.cities || [])),
+      productRelationshipTags: uniqueSortedStrings(
+        pages.flatMap((page) => page.taxonomy?.coverage?.relationshipTags || page.taxonomy?.primary?.relationshipTags || [])
+      ),
+      productIntentTags: uniqueSortedStrings(
+        pages.flatMap((page) => page.taxonomy?.coverage?.intentTags || page.taxonomy?.primary?.intentTags || [])
+      ),
+      productTabTags: uniqueSortedStrings(
+        pages.flatMap((page) => page.taxonomy?.coverage?.tabTags || page.taxonomy?.primary?.tabTags || [])
+      ),
+    },
+  };
+}
+
+function buildPageCatalogOps(guideCatalogEntries = buildGuideCatalogEntries(), productCatalogEntries = buildProductCatalogEntries()) {
+  return {
+    guidesNeedingEditorialRefresh: guideCatalogEntries
+      .filter((guide) => guide.uniqueness.needsEditorialRefresh)
+      .map((guide) => ({
+        slug: guide.slug,
+        pageUrl: guide.pageUrl,
+      })),
+    searchSuppressedGuides: guideCatalogEntries
+      .filter((guide) => !guide.searchIndexable)
+      .map((guide) => ({
+        slug: guide.slug,
+        pageUrl: guide.pageUrl,
+        reason: guide.indexStatus,
+      })),
+    productsMissingDirectMerchantPath: productCatalogEntries
+      .filter((product) => !product.searchIndexable)
+      .map((product) => ({
+        id: product.id,
+        slug: product.slug,
+        pageUrl: product.pageUrl,
+        reason: product.indexStatus,
+      })),
+  };
+}
+
+function writePageCatalog() {
+  writeResolvedText(path.join(publicDir, "page-catalog.json"), `${siteUrl}/page-catalog.json`, (freshness) => {
+    const guideCatalogEntries = buildGuideCatalogEntries();
+    const productCatalogEntries = buildProductCatalogEntries();
+    const pages = buildPageCatalogEntries(guideCatalogEntries, productCatalogEntries);
+    const payload = {
+      generatedAt: freshness.dateTime,
+      site: {
+        name: seoSite.name,
+        url: `${siteUrl}/`,
+        guideCatalogUrl: `${siteUrl}/guide-catalog.json`,
+        productCatalogUrl: `${siteUrl}/product-catalog.json`,
+        pageCatalogUrl: `${siteUrl}/page-catalog.json`,
+        editorialPolicyUrl: `${siteUrl}${seoSite.editorialPath}`,
+        contactUrl: `${siteUrl}${seoSite.contactPath}`,
+        recommendedKpis: [
+          "indexed pages by archetype",
+          "organic clicks by archetype",
+          "pages with zero impressions after indexing",
+          "guides flagged for editorial refresh",
+          "products blocked by merchant-search fallback",
+        ],
+      },
+      archetypes: [
+        {
+          id: "gift-guide",
+          pageType: "guide",
+          description: "Buyer-moment gift landing pages driven by relationship stage, occasion, budget, or angle.",
+          sitemap: `${siteUrl}/sitemap-guides.xml`,
+          primaryInputs: ["relationship", "occasion", "budget", "angle"],
+        },
+        {
+          id: "trend-roundup",
+          pageType: "hot-story",
+          description: "Trend-led gift pages that cluster products around a current angle or social proof lane.",
+          sitemap: `${siteUrl}/sitemap-hot.xml`,
+          primaryInputs: ["trend angle", "buyer moment", "shared products"],
+        },
+        {
+          id: "city-date-guide",
+          pageType: "date-city",
+          description: "City date pages organized around neighborhoods, spot types, and lower-friction planning tips.",
+          sitemap: `${siteUrl}/sitemap-dates.xml`,
+          primaryInputs: ["city", "neighborhood", "date format"],
+        },
+        {
+          id: "product-detail",
+          pageType: "product",
+          description: "Product pages with merchant-path and fit metadata for guide and hot-page reuse.",
+          sitemap: `${siteUrl}/sitemap-products.xml`,
+          primaryInputs: ["product fit", "merchant path", "price band"],
+        },
+        {
+          id: "discovery-index",
+          pageType: "index",
+          description: "Top-level discovery and browse surfaces that route users and crawlers into deeper clusters.",
+          sitemap: `${siteUrl}/sitemap-pages.xml`,
+          primaryInputs: ["page cluster", "browse intent"],
+        },
+        {
+          id: "trust-page",
+          pageType: "trust",
+          description: "Trust and methodology pages that explain ownership, editorial standards, and contact paths.",
+          sitemap: `${siteUrl}/sitemap-pages.xml`,
+          primaryInputs: ["trust intent", "methodology"],
+        },
+      ],
+      summary: buildPageCatalogSummary(pages),
+      ops: buildPageCatalogOps(guideCatalogEntries, productCatalogEntries),
+      pages,
     };
 
     return `${JSON.stringify(payload, null, 2)}\n`;
@@ -4291,6 +4864,7 @@ function writeLlmsFiles() {
     `- ${siteUrl}/dates/`,
     `- ${siteUrl}/site-map.html`,
     `- ${siteUrl}/feed.xml`,
+    `- ${siteUrl}/page-catalog.json`,
     `- ${siteUrl}/guide-catalog.json`,
     `- ${siteUrl}/product-catalog.json`,
     "",
@@ -4301,12 +4875,14 @@ function writeLlmsFiles() {
     "",
     "## Discovery files",
     `- [RSS feed](${siteUrl}/feed.xml)`,
+    `- [Page catalog JSON](${siteUrl}/page-catalog.json)`,
     `- [Guide catalog JSON](${siteUrl}/guide-catalog.json)`,
     `- [Product catalog JSON](${siteUrl}/product-catalog.json)`,
     `- [llms.txt](${siteUrl}/llms.txt)`,
     `- [llms-full.txt](${siteUrl}/llms-full.txt)`,
     "",
     "## Agent guidance",
+    "- Prefer /page-catalog.json for page archetypes, buyer-intent coverage, search indexability, and operational SEO queues.",
     "- Prefer /guide-catalog.json for guide intent, use cases, FAQs, related guides, ranked product lists, and guide-overlap metadata.",
     "- Prefer /product-catalog.json for product facts, merchant paths, price bands, and per-product updatedAt values.",
     "- Treat all prices as recent ranges rather than guaranteed live prices.",
@@ -4353,6 +4929,7 @@ function writeLlmsFiles() {
     `- Contact: ${siteUrl}${seoSite.contactPath}`,
     `- Site map: ${siteUrl}/site-map.html`,
     `- Feed: ${siteUrl}/feed.xml`,
+    `- Page catalog: ${siteUrl}/page-catalog.json`,
     `- Guide catalog: ${siteUrl}/guide-catalog.json`,
     `- Product catalog: ${siteUrl}/product-catalog.json`,
     `- llms.txt: ${siteUrl}/llms.txt`,
@@ -4384,6 +4961,7 @@ writeDatePages();
 writeFeed();
 writeGuideCatalog();
 writeProductCatalog();
+writePageCatalog();
 writeLlmsFiles();
 writeSitemaps();
 writeLastmodCache();

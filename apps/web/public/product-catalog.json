@@ -5,6 +5,7 @@
     "url": "https://shopforher.org/",
     "guideCatalogUrl": "https://shopforher.org/guide-catalog.json",
     "productCatalogUrl": "https://shopforher.org/product-catalog.json",
+    "pageCatalogUrl": "https://shopforher.org/page-catalog.json",
     "editorialPolicyUrl": "https://shopforher.org/editorial-policy.html",
     "affiliateDisclosure": "As an Amazon Associate I earn from qualifying purchases.",
     "checkout": "offsite"
@@ -39,6 +40,59 @@
       ],
       "summary": "Feels polished, feminine, and expensive without needing her exact size or taste.",
       "bestFor": "girlfriend / wife / new relationship",
+      "vibe": "soft luxury",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "looks-expensive",
+        "cozy"
+      ],
+      "tabTags": [
+        "best-overall",
+        "looks-expensive",
+        "under-100",
+        "cozy-home"
+      ],
+      "priceBand": "under-100",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-100"
+          ],
+          "vibes": [
+            "soft luxury"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -73,6 +127,57 @@
       ],
       "summary": "A strong wife or girlfriend gift because it solves an annoying problem and feels upgraded immediately.",
       "bestFor": "wife / girlfriend / coffee or tea",
+      "vibe": "quiet daily flex",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "daily-use",
+        "looks-expensive",
+        "everyday"
+      ],
+      "tabTags": [
+        "best-overall",
+        "looks-expensive",
+        "daily-use"
+      ],
+      "priceBand": "under-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "daily-use",
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "under-150"
+          ],
+          "vibes": [
+            "quiet daily flex"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -107,6 +212,53 @@
       ],
       "summary": "One of the cleanest meaningful gifts for wives because it feels emotional the second photos are loaded.",
       "bestFor": "wife / anniversary / home",
+      "vibe": "emotional but clean",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "looks-expensive",
+        "cozy"
+      ],
+      "tabTags": [
+        "best-overall",
+        "looks-expensive",
+        "cozy-home"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "emotional but clean"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -134,6 +286,55 @@
       "additionalImages": [],
       "summary": "Easy girlfriend pick because it feels fun, personal, and shareable without being too serious.",
       "bestFor": "girlfriend / anniversary / travel",
+      "vibe": "memory-driven",
+      "relationshipTags": [
+        "girlfriend",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "viral",
+        "looks-expensive"
+      ],
+      "tabTags": [
+        "best-overall",
+        "under-100",
+        "looks-expensive"
+      ],
+      "priceBand": "under-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-150"
+          ],
+          "vibes": [
+            "memory-driven"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -165,6 +366,55 @@
       ],
       "summary": "Feels wellness-forward and designed, which makes it a good choice when you want thoughtful without overdoing it.",
       "bestFor": "girlfriend / wife / home routine",
+      "vibe": "calm morning reset",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "cozy",
+        "everyday"
+      ],
+      "tabTags": [
+        "under-100",
+        "cozy-home",
+        "daily-use"
+      ],
+      "priceBand": "under-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-150"
+          ],
+          "vibes": [
+            "calm morning reset"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -199,6 +449,55 @@
       ],
       "summary": "Very safe because it feels expensive, feminine, and cozy without forcing a specific personal taste.",
       "bestFor": "girlfriend / wife / apartment",
+      "vibe": "cozy premium",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "thoughtful",
+        "looks-expensive"
+      ],
+      "tabTags": [
+        "under-100",
+        "cozy-home",
+        "looks-expensive"
+      ],
+      "priceBand": "under-100",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-100"
+          ],
+          "vibes": [
+            "cozy premium"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -233,6 +532,53 @@
       ],
       "summary": "The kind of wife gift that reads as useful, current, and more substantial than a small accessory.",
       "bestFor": "wife / remote work / wellness",
+      "vibe": "high-value upgrade",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "everyday",
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "best-overall",
+        "looks-expensive",
+        "daily-use"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "high-value upgrade"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -267,6 +613,53 @@
       ],
       "summary": "One of the easiest gifts for a girlfriend or wife because the use case is immediate and obvious.",
       "bestFor": "girlfriend / wife / commute",
+      "vibe": "clean utility",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anyone"
+      ],
+      "intentTags": [
+        "everyday",
+        "viral",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "best-overall",
+        "under-100",
+        "daily-use"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "clean utility"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -301,6 +694,53 @@
       ],
       "summary": "Great when you want the gift to feel like an experience and a home upgrade at the same time.",
       "bestFor": "wife / girlfriend / date nights",
+      "vibe": "weekend flex",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "cozy",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "cozy-home",
+        "best-overall"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "weekend flex"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -328,6 +768,51 @@
       "additionalImages": [],
       "summary": "A professional-feeling option when she likes neat spaces, bedside setups, or a more polished desk.",
       "bestFor": "girlfriend / wife / desk setup",
+      "vibe": "small clean upgrade",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "everyday",
+        "looks-expensive"
+      ],
+      "tabTags": [
+        "under-100",
+        "daily-use"
+      ],
+      "priceBand": "under-100",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "looks-expensive"
+          ],
+          "tabTags": [
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-100"
+          ],
+          "vibes": [
+            "small clean upgrade"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -362,6 +847,57 @@
       ],
       "summary": "A strong pick because it feels feminine, organized, and clearly chosen for her rather than bought at random.",
       "bestFor": "girlfriend / wife / travel",
+      "vibe": "clean vanity piece",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "looks-expensive",
+        "everyday"
+      ],
+      "tabTags": [
+        "best-overall",
+        "looks-expensive",
+        "under-100",
+        "daily-use"
+      ],
+      "priceBand": "under-100",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-100"
+          ],
+          "vibes": [
+            "clean vanity piece"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -396,6 +932,53 @@
       ],
       "summary": "Feels warm, aesthetic, and feminine, which makes it a low-risk cozy-home gift for a girlfriend or wife.",
       "bestFor": "girlfriend / wife / apartment",
+      "vibe": "warm home detail",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "under-100",
+        "best-overall"
+      ],
+      "priceBand": "under-75",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-75"
+          ],
+          "vibes": [
+            "warm home detail"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -423,6 +1006,51 @@
       "additionalImages": [],
       "summary": "Useful, visual, and clearly premium, which makes it a stronger wife or long-term girlfriend option.",
       "bestFor": "wife / girlfriend / beauty setup",
+      "vibe": "polished daily station",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "everyday"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "daily-use",
+        "best-overall"
+      ],
+      "priceBand": "under-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "looks-expensive"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "under-150"
+          ],
+          "vibes": [
+            "polished daily station"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -450,6 +1078,53 @@
       "additionalImages": [],
       "summary": "One of the better elevated home gifts because it feels personal, premium, and clearly for her comfort.",
       "bestFor": "wife / anniversary / home",
+      "vibe": "soft luxury",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "cozy-home",
+        "best-overall"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "soft luxury"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -484,6 +1159,55 @@
       ],
       "summary": "Feels thoughtful and polished, especially when she reads at night, travels, or wants a cleaner way to unwind.",
       "bestFor": "girlfriend / wife / reader",
+      "vibe": "smart downtime",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "everyday",
+        "looks-expensive"
+      ],
+      "tabTags": [
+        "best-overall",
+        "looks-expensive",
+        "daily-use"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "smart downtime"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -518,6 +1242,55 @@
       ],
       "summary": "Strong when she likes hosting, dessert, or wellness routines and you want a more current-feeling home gift.",
       "bestFor": "girlfriend / wife / kitchen",
+      "vibe": "playful upgrade",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "viral",
+        "everyday",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "best-overall",
+        "daily-use",
+        "looks-expensive"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "playful upgrade"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -552,6 +1325,55 @@
       ],
       "summary": "Feels elevated right away and makes the everyday routine look more put together.",
       "bestFor": "wife / girlfriend / coffee",
+      "vibe": "countertop luxury",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "everyday",
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "best-overall",
+        "looks-expensive",
+        "daily-use"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "countertop luxury"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -586,6 +1408,55 @@
       ],
       "summary": "Low-risk when she likes stylish everyday gear and you want something current without overspending.",
       "bestFor": "girlfriend / wife / gym bag",
+      "vibe": "cute utility",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "everyday",
+        "viral",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "under-100",
+        "daily-use",
+        "best-overall"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "cute utility"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -620,6 +1491,55 @@
       ],
       "summary": "A better premium wellness gift when you want something more serious than a small accessory.",
       "bestFor": "wife / girlfriend / workouts",
+      "vibe": "recovery upgrade",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "everyday",
+        "thoughtful",
+        "looks-expensive"
+      ],
+      "tabTags": [
+        "best-overall",
+        "daily-use",
+        "looks-expensive"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "recovery upgrade"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -653,6 +1573,57 @@
       ],
       "summary": "Reads more intentional than a generic home gift and lands fast if she likes comfort and warm routines.",
       "bestFor": "girlfriend / wife / home",
+      "vibe": "cozy branded comfort",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "best-overall",
+        "under-100",
+        "cozy-home",
+        "looks-expensive"
+      ],
+      "priceBand": "under-100",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-100"
+          ],
+          "vibes": [
+            "cozy branded comfort"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -686,6 +1657,53 @@
       ],
       "summary": "Works because it is instantly recognizable, easy to carry every day, and giftable without much explanation.",
       "bestFor": "girlfriend / wife / daily carry",
+      "vibe": "trend with utility",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "viral",
+        "everyday"
+      ],
+      "tabTags": [
+        "best-overall",
+        "under-100",
+        "daily-use"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "trend with utility"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -720,6 +1738,55 @@
       ],
       "summary": "Good add-on or lower-budget pick when you want something beauty-adjacent that still feels current and polished.",
       "bestFor": "girlfriend / stocking / add-on",
+      "vibe": "beauty desk candy",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "looks-expensive",
+        "viral"
+      ],
+      "tabTags": [
+        "best-overall",
+        "under-100",
+        "looks-expensive"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "beauty desk candy"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -754,6 +1821,55 @@
       ],
       "summary": "A clean option when she likes music, travel, or outdoor hangs and you want something with stronger brand recognition.",
       "bestFor": "girlfriend / wife / travel",
+      "vibe": "premium portability",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "everyday",
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "best-overall",
+        "daily-use",
+        "looks-expensive"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "premium portability"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -783,6 +1899,55 @@
       ],
       "summary": "Useful when you want a smaller beauty pick that still feels current, feminine, and clearly chosen for her.",
       "bestFor": "girlfriend / wife / beauty",
+      "vibe": "vacation-energy mini set",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "viral",
+        "thoughtful",
+        "looks-expensive"
+      ],
+      "tabTags": [
+        "best-overall",
+        "under-100",
+        "looks-expensive"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "vacation-energy mini set"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
       "updatedAt": "2026-03-09"
@@ -815,6 +1980,55 @@
       ],
       "summary": "Useful when you want a warm-weather gift that feels trend-aware without overcomplicating the pick.",
       "bestFor": "girlfriend / wife / beach trip",
+      "vibe": "boho vacation layer",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "viral",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "boho vacation layer"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
       "updatedAt": "2026-03-09"
@@ -844,6 +2058,53 @@
       ],
       "summary": "Works when she likes resortwear styling and you want a lower-risk fashion gift with an easy vacation angle.",
       "bestFor": "girlfriend / wife / beach vacation",
+      "vibe": "sheer coastal layer",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "viral"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "viral"
+          ],
+          "tabTags": [
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "sheer coastal layer"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "amazon-search"
+          ]
+        }
+      },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "updatedAt": "2026-03-09"
@@ -875,6 +2136,53 @@
       ],
       "summary": "A safer apparel-adjacent gift when you want something visual and seasonal without jumping to a full dress buy.",
       "bestFor": "girlfriend / wife / resort trip",
+      "vibe": "coastal cardigan mini",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "viral"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "viral"
+          ],
+          "tabTags": [
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "coastal cardigan mini"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
       "updatedAt": "2026-03-09"
@@ -909,6 +2217,53 @@
       ],
       "summary": "Easy to justify as a lower-cost style add-on when you want something breezy and visibly giftable.",
       "bestFor": "girlfriend / wife / warm weather",
+      "vibe": "airy mesh shrug",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "under-100",
+        "looks-expensive"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "airy mesh shrug"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -939,6 +2294,57 @@
       ],
       "summary": "Strong when she likes noticeable accessories and you want a jewelry gift with more visual payoff than tiny basics.",
       "bestFor": "girlfriend / wife / statement jewelry",
+      "vibe": "color-pop accessory",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "thoughtful",
+        "viral"
+      ],
+      "tabTags": [
+        "best-overall",
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "color-pop accessory"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -973,6 +2379,57 @@
       ],
       "summary": "A cleaner small gift when she likes personalized-looking extras that attach to something she already uses daily.",
       "bestFor": "girlfriend / wife / small add-on",
+      "vibe": "beaded everyday detail",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "everyday",
+        "thoughtful",
+        "viral"
+      ],
+      "tabTags": [
+        "under-100",
+        "daily-use",
+        "best-overall"
+      ],
+      "priceBand": "under-25",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "beaded everyday detail"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1002,6 +2459,57 @@
       ],
       "summary": "Useful when you want a playful accessory gift that feels trend-aware without a big spend.",
       "bestFor": "girlfriend / wife / summer styling",
+      "vibe": "surfer-inspired color",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "viral",
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "under-100",
+        "looks-expensive",
+        "best-overall"
+      ],
+      "priceBand": "under-25",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "surfer-inspired color"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "amazon-search"
+          ]
+        }
+      },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "updatedAt": "2026-03-09"
@@ -1031,6 +2539,53 @@
       ],
       "summary": "Better when you want spring decor to read intentional and gift-ready rather than like filler basket extras.",
       "bestFor": "wife / spring decorating / porch",
+      "vibe": "front-door spring accent",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "thoughtful",
+        "looks-expensive"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": "under-100",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-100"
+          ],
+          "vibes": [
+            "front-door spring accent"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1062,6 +2617,53 @@
       ],
       "summary": "A cleaner pick for someone who likes tableware, hosting pieces, or a recognizable home brand.",
       "bestFor": "wife / host gift / spring table",
+      "vibe": "spring serveware accent",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "thoughtful",
+        "looks-expensive"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "under-100",
+        "best-overall"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "spring serveware accent"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1091,6 +2693,49 @@
       ],
       "summary": "Fits when she likes exterior seasonal decor and you want something more visible than tabletop pieces.",
       "bestFor": "wife / porch decorating / seasonal home",
+      "vibe": "outdoor spring statement",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "outdoor spring statement"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "amazon-search"
+          ]
+        }
+      },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "updatedAt": "2026-03-09"
@@ -1120,6 +2765,45 @@
       ],
       "summary": "Useful as an add-on when you need low-cost Easter decor rather than a standalone main gift.",
       "bestFor": "host gift / Easter setup / add-on",
+      "vibe": "spring filler set",
+      "relationshipTags": [
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "under-100"
+      ],
+      "priceBand": "under-25",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "spring filler set"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "amazon-search"
+          ]
+        }
+      },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "updatedAt": "2026-03-09"
@@ -1149,6 +2833,45 @@
       ],
       "summary": "Best when you need packaging, a basket base, or a supporting Easter add-on at a very low spend.",
       "bestFor": "Easter gift setup / add-on",
+      "vibe": "woven gifting extra",
+      "relationshipTags": [
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "cozy"
+      ],
+      "tabTags": [
+        "under-100",
+        "cozy-home"
+      ],
+      "priceBand": "under-25",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "woven gifting extra"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1180,6 +2903,49 @@
       ],
       "summary": "Useful for spring hosting or Easter brunch when you want a seasonal pick that still feels functional.",
       "bestFor": "wife / host gift / Easter brunch",
+      "vibe": "seasonal table set",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "under-100"
+      ],
+      "priceBand": "under-25",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "seasonal table set"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1209,6 +2975,57 @@
       ],
       "summary": "Stronger when you want a dressier apparel gift that reads current and occasion-specific instead of basic.",
       "bestFor": "girlfriend / wife / wedding guest season",
+      "vibe": "sleek event dress",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "viral",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "best-overall",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "sleek event dress"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1236,6 +3053,55 @@
       "additionalImages": [],
       "summary": "Useful when she likes more feminine eventwear and you want the gift to feel visibly styled.",
       "bestFor": "girlfriend / wife / summer events",
+      "vibe": "ruffled occasion dress",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "best-overall",
+        "under-100"
+      ],
+      "priceBand": "under-75",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-75"
+          ],
+          "vibes": [
+            "ruffled occasion dress"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1265,6 +3131,55 @@
       ],
       "summary": "Cleaner when you want occasionwear that feels wearable beyond one event and less revealing than trendier options.",
       "bestFor": "wife / girlfriend / spring events",
+      "vibe": "easy formal flow",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "looks-expensive"
+      ],
+      "tabTags": [
+        "best-overall",
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "easy formal flow"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1294,6 +3209,53 @@
       ],
       "summary": "Best when she likes trendier occasionwear and you want a gift that feels overtly dressed up.",
       "bestFor": "girlfriend / wife / party season",
+      "vibe": "sleek night-out dress",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "viral"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "viral"
+          ],
+          "tabTags": [
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "sleek night-out dress"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1323,6 +3285,53 @@
       ],
       "summary": "Strong when she likes home decor with earthy materials and a calmer neutral look.",
       "bestFor": "wife / home decor / shelf styling",
+      "vibe": "rustic tabletop ceramic",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "rustic tabletop ceramic"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1352,6 +3361,53 @@
       ],
       "summary": "Better when you want the home gift to read more substantial and visually obvious.",
       "bestFor": "wife / living room / home refresh",
+      "vibe": "statement floor ceramic",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": "under-100",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-100"
+          ],
+          "vibes": [
+            "statement floor ceramic"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "amazon-search"
+          ]
+        }
+      },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "updatedAt": "2026-03-09"
@@ -1381,6 +3437,53 @@
       ],
       "summary": "A lower-risk home pick because multiple pieces make it feel fuller without a big budget.",
       "bestFor": "wife / apartment / shelf styling",
+      "vibe": "neutral decor trio",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "thoughtful",
+        "looks-expensive"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "under-100",
+        "looks-expensive"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "neutral decor trio"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1410,6 +3513,49 @@
       ],
       "summary": "Useful when you want a decor gift with visible character at a lower spend.",
       "bestFor": "wife / shelf decor / small-space styling",
+      "vibe": "antique ceramic detail",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "antique ceramic detail"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "amazon-search"
+          ]
+        }
+      },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "updatedAt": "2026-03-09"
@@ -1442,6 +3588,51 @@
       ],
       "summary": "Works when the buy is more about brand recognition and presentation than novelty.",
       "bestFor": "wife / premium gift / fragrance",
+      "vibe": "designer fragrance pick",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "best-overall",
+        "daily-use"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "designer fragrance pick"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1472,6 +3663,53 @@
       ],
       "summary": "A cleaner premium lane when she already likes fragrance and the goal is obvious brand polish.",
       "bestFor": "girlfriend / wife / fragrance",
+      "vibe": "designer scent upgrade",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "best-overall"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "designer scent upgrade"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1502,6 +3740,57 @@
       ],
       "summary": "Useful when you want a branded beauty gift with stronger luxury signaling than a generic scent.",
       "bestFor": "girlfriend / wife / beauty",
+      "vibe": "luxury fragrance flex",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "looks-expensive",
+        "thoughtful",
+        "viral"
+      ],
+      "tabTags": [
+        "looks-expensive",
+        "best-overall",
+        "under-100"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "luxury fragrance flex"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1531,6 +3820,53 @@
       ],
       "summary": "A better big decor gift when you want scale and a more noticeable home impact.",
       "bestFor": "wife / home refresh / larger spaces",
+      "vibe": "tall greenery statement",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "looks-expensive",
+        "best-overall"
+      ],
+      "priceBand": "over-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "looks-expensive"
+          ],
+          "priceBands": [
+            "over-150"
+          ],
+          "vibes": [
+            "tall greenery statement"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "amazon-search"
+          ]
+        }
+      },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "updatedAt": "2026-03-09"
@@ -1560,6 +3896,53 @@
       ],
       "summary": "Useful when you want the look of a statement plant without going to the highest spend tier.",
       "bestFor": "wife / apartment / living room",
+      "vibe": "styled indoor greenery",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "looks-expensive",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": "under-150",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-150"
+          ],
+          "vibes": [
+            "styled indoor greenery"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"
@@ -1589,6 +3972,49 @@
       ],
       "summary": "A cleaner decor gift when you want something bigger than tabletop pieces without crossing into premium pricing.",
       "bestFor": "wife / home decor / office",
+      "vibe": "budget statement greenery",
+      "relationshipTags": [
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "cozy-home",
+        "under-100"
+      ],
+      "priceBand": "under-75",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-75"
+          ],
+          "vibes": [
+            "budget statement greenery"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "updatedAt": "2026-03-09"

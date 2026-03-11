@@ -12,6 +12,7 @@ Updated: 2026-03-09
 - Contact: https://shopforher.org/contact.html
 - Site map: https://shopforher.org/site-map.html
 - Feed: https://shopforher.org/feed.xml
+- Page catalog: https://shopforher.org/page-catalog.json
 - Guide catalog: https://shopforher.org/guide-catalog.json
 - Product catalog: https://shopforher.org/product-catalog.json
 - llms.txt: https://shopforher.org/llms.txt
@@ -19,6 +20,7 @@ Updated: 2026-03-09
 - Best gifts for girlfriends in 2026: https://shopforher.org/gifts-for-girlfriend/
 - Best gifts for wives in 2026: https://shopforher.org/gifts-for-wife/
 - Best anniversary gifts for her in 2026: https://shopforher.org/anniversary-gifts-for-her/
+- Best birthday gifts for wives in 2026: https://shopforher.org/birthday-gifts-for-wife/
 - Best gifts for her under $75 in 2026: https://shopforher.org/best-gifts-under-75/
 - Best gifts for her under $100 in 2026: https://shopforher.org/best-gifts-under-100/
 - Viral gifts for her in 2026: https://shopforher.org/viral-gifts-for-her/

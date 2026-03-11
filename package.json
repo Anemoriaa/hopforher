@@ -13,6 +13,7 @@
     "build": "npm run build -w @giftsher/web",
     "build:web": "npm run build -w @giftsher/web",
     "build:admin": "npm run build -w @giftsher/admin",
+    "seo:ops": "node ./apps/web/scripts/seo-ops-report.mjs",
     "preview": "npm run preview -w @giftsher/web",
     "preview:web": "npm run preview -w @giftsher/web",
     "preview:admin": "npm run preview -w @giftsher/admin",
