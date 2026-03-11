@@ -183,16 +183,7 @@
     }
   },
   "ops": {
-    "guidesNeedingEditorialRefresh": [
-      {
-        "slug": "birthday-gifts-for-girlfriend",
-        "pageUrl": "https://shopforher.org/birthday-gifts-for-girlfriend/"
-      },
-      {
-        "slug": "date-night-gifts-for-her",
-        "pageUrl": "https://shopforher.org/date-night-gifts-for-her/"
-      }
-    ],
+    "guidesNeedingEditorialRefresh": [],
     "searchSuppressedGuides": [
       {
         "slug": "birthday-gifts-for-girlfriend",
@@ -765,6 +756,7 @@
           "priceBands": [
             "under-100",
             "under-150",
+            "under-25",
             "under-50"
           ]
         }
@@ -777,7 +769,7 @@
           "gucci-flora-gorgeous-magnolia",
           "sol-de-janeiro",
           "panluca-statement-necklace",
-          "laneige-set"
+          "posadina-phone-charm"
         ],
         "relatedGuideSlugs": [
           "gifts-for-girlfriend",
@@ -786,7 +778,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1652,7 +1644,7 @@
           "priceBands": [
             "over-150",
             "under-100",
-            "under-150",
+            "under-50",
             "under-75"
           ]
         }
@@ -1661,11 +1653,11 @@
         "featuredGiftId": "projector",
         "productIds": [
           "projector",
-          "mini-photo-printer",
           "cashmere-robe",
           "candle-warmer",
-          "digital-frame",
-          "luxury-throw"
+          "luxury-throw",
+          "marc-jacobs-perfect-absolute",
+          "prettygarden-one-shoulder-maxi"
         ],
         "relatedGuideSlugs": [
           "anniversary-gifts-for-her",
@@ -1674,7 +1666,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -2945,7 +2937,6 @@
         "guideSlugs": [
           "gifts-for-wife",
           "anniversary-gifts-for-her",
-          "date-night-gifts-for-her",
           "looks-expensive-gifts-for-her"
         ],
         "hotStorySlugs": [
@@ -3011,8 +3002,7 @@
           "birthday-gifts-for-girlfriend",
           "best-gifts-under-100",
           "viral-gifts-for-her",
-          "new-relationship-gifts-for-her",
-          "date-night-gifts-for-her"
+          "new-relationship-gifts-for-her"
         ],
         "hotStorySlugs": [
           "viral-gifts-for-girlfriend",
@@ -4105,7 +4095,6 @@
       },
       "entities": {
         "guideSlugs": [
-          "birthday-gifts-for-girlfriend",
           "best-gifts-under-75",
           "best-gifts-under-100",
           "viral-gifts-for-her",
@@ -4555,6 +4544,7 @@
       },
       "entities": {
         "guideSlugs": [
+          "birthday-gifts-for-girlfriend",
           "daily-use-gifts-for-her"
         ],
         "hotStorySlugs": []
@@ -5133,7 +5123,9 @@
         "checkout": "offsite"
       },
       "entities": {
-        "guideSlugs": [],
+        "guideSlugs": [
+          "date-night-gifts-for-her"
+        ],
         "hotStorySlugs": []
       }
     },
@@ -5457,6 +5449,7 @@
       "entities": {
         "guideSlugs": [
           "luxury-gifts-for-her",
+          "date-night-gifts-for-her",
           "looks-expensive-gifts-for-her"
         ],
         "hotStorySlugs": []

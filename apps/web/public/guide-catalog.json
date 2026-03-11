@@ -1002,6 +1002,7 @@
           "priceBands": [
             "under-100",
             "under-150",
+            "under-25",
             "under-50"
           ]
         }
@@ -1150,13 +1151,13 @@
           "searchIndexable": true
         },
         {
-          "id": "laneige-set",
-          "slug": "laneige-midnight-minis-lip-set",
-          "name": "LANEIGE Midnight Minis Lip Set",
-          "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
-          "price": "$20 - $28",
-          "badge": "small luxury",
-          "bestFor": "girlfriend / stocking / add-on",
+          "id": "posadina-phone-charm",
+          "slug": "posadina-natural-stone-phone-charm",
+          "name": "Posadina Natural Stone Phone Charm",
+          "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
+          "price": "$14.99 - $17.99",
+          "badge": "daily charm",
+          "bestFor": "girlfriend / wife / small add-on",
           "searchIndexable": true
         }
       ],
@@ -1210,7 +1211,7 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "sol-de-janeiro",
@@ -1218,31 +1219,17 @@
             "name": "Sol de Janeiro Bum Bum Jet Set",
             "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
             "guideCount": 2
+          },
+          {
+            "id": "posadina-phone-charm",
+            "slug": "posadina-natural-stone-phone-charm",
+            "name": "Posadina Natural Stone Phone Charm",
+            "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
+            "guideCount": 1
           }
         ],
         "overusedProducts": [],
         "relatedGuideOverlap": [
-          {
-            "slug": "best-gifts-under-100",
-            "label": "Best gifts under $100",
-            "h1": "Best gifts for her under $100 in 2026",
-            "url": "https://shopforher.org/best-gifts-under-100/",
-            "sharedCount": 2,
-            "sharedItems": [
-              {
-                "id": "mini-photo-printer",
-                "name": "Mini Photo Printer",
-                "slug": "mini-photo-printer",
-                "url": "https://shopforher.org/gift/mini-photo-printer/"
-              },
-              {
-                "id": "laneige-set",
-                "name": "LANEIGE Midnight Minis Lip Set",
-                "slug": "laneige-midnight-minis-lip-set",
-                "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/"
-              }
-            ]
-          },
           {
             "slug": "gifts-for-girlfriend",
             "label": "Gifts for girlfriend",
@@ -1282,6 +1269,21 @@
                 "name": "PanLuca Statement Necklace",
                 "slug": "panluca-statement-necklace",
                 "url": "https://shopforher.org/gift/panluca-statement-necklace/"
+              }
+            ]
+          },
+          {
+            "slug": "best-gifts-under-100",
+            "label": "Best gifts under $100",
+            "h1": "Best gifts for her under $100 in 2026",
+            "url": "https://shopforher.org/best-gifts-under-100/",
+            "sharedCount": 1,
+            "sharedItems": [
+              {
+                "id": "mini-photo-printer",
+                "name": "Mini Photo Printer",
+                "slug": "mini-photo-printer",
+                "url": "https://shopforher.org/gift/mini-photo-printer/"
               }
             ]
           }
@@ -4926,7 +4928,7 @@
           "priceBands": [
             "over-150",
             "under-100",
-            "under-150",
+            "under-50",
             "under-75"
           ]
         }
@@ -4950,7 +4952,7 @@
         },
         {
           "title": "Pairing strengthens the gift",
-          "body": "The projector, robe, candle warmer, and frame all work better when they connect to the plan rather than sitting alone."
+          "body": "The projector, robe, fragrance, and candle warmer all work better when they connect to the plan rather than sitting alone."
         }
       ],
       "bestFits": [
@@ -4974,6 +4976,13 @@
           "body": "This is the cleaner answer when the date-night gift should support atmosphere without becoming the whole event.",
           "giftSlug": "candle-warmer-lamp",
           "giftUrl": "https://shopforher.org/gift/candle-warmer-lamp/"
+        },
+        {
+          "title": "A polished getting-ready gift with stronger night-out energy",
+          "giftId": "marc-jacobs-perfect-absolute",
+          "body": "Use this when you want the date-night gift to feel more dressed-up and less homebound than a pure comfort pick.",
+          "giftSlug": "marc-jacobs-perfect-absolute",
+          "giftUrl": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/"
         }
       ],
       "pickLanes": [
@@ -4993,10 +5002,10 @@
         },
         {
           "title": "Best premium reveal",
-          "giftId": "cashmere-robe",
-          "body": "The cleaner answer when you want the date-night gift to feel softer, more luxurious, and clearly intentional.",
-          "giftSlug": "cashmere-feel-robe",
-          "giftUrl": "https://shopforher.org/gift/cashmere-feel-robe/"
+          "giftId": "marc-jacobs-perfect-absolute",
+          "body": "The cleaner answer when you want the gift to feel more dressed-up, polished, and clearly date-oriented.",
+          "giftSlug": "marc-jacobs-perfect-absolute",
+          "giftUrl": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/"
         }
       ],
       "avoidNotes": [
@@ -5016,7 +5025,7 @@
         },
         {
           "question": "What is the safest date-night gift on this page?",
-          "answer": "The projector and mini photo printer are strong because they feel shareable and create an immediate experience together."
+          "answer": "The projector and candle warmer are strong because they make the night feel different right away without forcing a bigger relationship signal."
         },
         {
           "question": "When should I choose anniversary gifts instead of date-night gifts?",
@@ -5032,16 +5041,6 @@
           "price": "$89 - $189",
           "badge": "date-night",
           "bestFor": "wife / girlfriend / date nights",
-          "searchIndexable": true
-        },
-        {
-          "id": "mini-photo-printer",
-          "slug": "mini-photo-printer",
-          "name": "Mini Photo Printer",
-          "url": "https://shopforher.org/gift/mini-photo-printer/",
-          "price": "$69 - $129",
-          "badge": "viral",
-          "bestFor": "girlfriend / anniversary / travel",
           "searchIndexable": true
         },
         {
@@ -5065,16 +5064,6 @@
           "searchIndexable": true
         },
         {
-          "id": "digital-frame",
-          "slug": "digital-picture-frame",
-          "name": "Digital Picture Frame",
-          "url": "https://shopforher.org/gift/digital-picture-frame/",
-          "price": "$129 - $179",
-          "badge": "wife-safe",
-          "bestFor": "wife / anniversary / home",
-          "searchIndexable": true
-        },
-        {
           "id": "luxury-throw",
           "slug": "luxury-throw-blanket",
           "name": "Luxury Throw Blanket",
@@ -5082,6 +5071,26 @@
           "price": "$39 - $89",
           "badge": "comfort hit",
           "bestFor": "girlfriend / wife / apartment",
+          "searchIndexable": true
+        },
+        {
+          "id": "marc-jacobs-perfect-absolute",
+          "slug": "marc-jacobs-perfect-absolute",
+          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+          "price": "$99.00 - $165.00",
+          "badge": "designer",
+          "bestFor": "girlfriend / wife / fragrance",
+          "searchIndexable": true
+        },
+        {
+          "id": "prettygarden-one-shoulder-maxi",
+          "slug": "prettygarden-one-shoulder-maxi-dress",
+          "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+          "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+          "price": "$39.99",
+          "badge": "cocktail",
+          "bestFor": "girlfriend / wife / party season",
           "searchIndexable": true
         }
       ],
@@ -5125,17 +5134,17 @@
           "guideCount": 2
         },
         {
-          "id": "kirundo-pleated-maxi-dress",
-          "slug": "kirundo-pleated-a-line-maxi-dress",
-          "name": "KIRUNDO Pleated A-Line Maxi Dress",
-          "url": "https://shopforher.org/gift/kirundo-pleated-a-line-maxi-dress/",
-          "badge": "spring dress",
-          "bestFor": "wife / girlfriend / spring events",
+          "id": "easter-gift-basket",
+          "slug": "easter-gift-basket-with-ribbons",
+          "name": "Easter Gift Basket with Ribbons",
+          "url": "https://shopforher.org/gift/easter-gift-basket-with-ribbons/",
+          "badge": "gift-ready",
+          "bestFor": "Easter gift setup / add-on",
           "guideCount": 0
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "candle-warmer",
@@ -5143,6 +5152,20 @@
             "name": "Candle Warmer Lamp",
             "url": "https://shopforher.org/gift/candle-warmer-lamp/",
             "guideCount": 4
+          },
+          {
+            "id": "marc-jacobs-perfect-absolute",
+            "slug": "marc-jacobs-perfect-absolute",
+            "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+            "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+            "guideCount": 2
+          },
+          {
+            "id": "prettygarden-one-shoulder-maxi",
+            "slug": "prettygarden-one-shoulder-maxi-dress",
+            "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+            "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+            "guideCount": 0
           }
         ],
         "overusedProducts": [],
@@ -5152,7 +5175,7 @@
             "label": "Anniversary gifts",
             "h1": "Best anniversary gifts for her in 2026",
             "url": "https://shopforher.org/anniversary-gifts-for-her/",
-            "sharedCount": 4,
+            "sharedCount": 2,
             "sharedItems": [
               {
                 "id": "projector",
@@ -5161,22 +5184,10 @@
                 "url": "https://shopforher.org/gift/portable-projector/"
               },
               {
-                "id": "mini-photo-printer",
-                "name": "Mini Photo Printer",
-                "slug": "mini-photo-printer",
-                "url": "https://shopforher.org/gift/mini-photo-printer/"
-              },
-              {
                 "id": "cashmere-robe",
                 "name": "Cashmere-Feel Robe",
                 "slug": "cashmere-feel-robe",
                 "url": "https://shopforher.org/gift/cashmere-feel-robe/"
-              },
-              {
-                "id": "digital-frame",
-                "name": "Digital Picture Frame",
-                "slug": "digital-picture-frame",
-                "url": "https://shopforher.org/gift/digital-picture-frame/"
               }
             ]
           },
@@ -5198,21 +5209,6 @@
                 "name": "Luxury Throw Blanket",
                 "slug": "luxury-throw-blanket",
                 "url": "https://shopforher.org/gift/luxury-throw-blanket/"
-              }
-            ]
-          },
-          {
-            "slug": "gifts-for-wife",
-            "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
-            "url": "https://shopforher.org/gifts-for-wife/",
-            "sharedCount": 1,
-            "sharedItems": [
-              {
-                "id": "digital-frame",
-                "name": "Digital Picture Frame",
-                "slug": "digital-picture-frame",
-                "url": "https://shopforher.org/gift/digital-picture-frame/"
               }
             ]
           }

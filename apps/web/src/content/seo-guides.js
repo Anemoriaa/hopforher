@@ -685,7 +685,7 @@ export const seoGuides = [
         body: "The cleaner answer when recognizable branding and a stronger reveal matter more than utility.",
       },
     ],
-    itemIds: ["mini-photo-printer", "jewelry-case", "gucci-flora-gorgeous-magnolia", "sol-de-janeiro", "panluca-statement-necklace", "laneige-set"],
+    itemIds: ["mini-photo-printer", "jewelry-case", "gucci-flora-gorgeous-magnolia", "sol-de-janeiro", "panluca-statement-necklace", "posadina-phone-charm"],
     related: ["gifts-for-girlfriend", "best-gifts-under-100", "looks-expensive-gifts-for-her"],
   },
   {
@@ -1668,7 +1668,7 @@ export const seoGuides = [
       },
       {
         title: "Pairing strengthens the gift",
-        body: "The projector, robe, candle warmer, and frame all work better when they connect to the plan rather than sitting alone.",
+        body: "The projector, robe, fragrance, and candle warmer all work better when they connect to the plan rather than sitting alone.",
       },
     ],
     faqs: [
@@ -1678,7 +1678,7 @@ export const seoGuides = [
       },
       {
         q: "What is the safest date-night gift on this page?",
-        a: "The projector and mini photo printer are strong because they feel shareable and create an immediate experience together.",
+        a: "The projector and candle warmer are strong because they make the night feel different right away without forcing a bigger relationship signal.",
       },
       {
         q: "When should I choose anniversary gifts instead of date-night gifts?",
@@ -1700,6 +1700,11 @@ export const seoGuides = [
         title: "A low-pressure mood-setting add-on",
         giftId: "candle-warmer",
         body: "This is the cleaner answer when the date-night gift should support atmosphere without becoming the whole event.",
+      },
+      {
+        title: "A polished getting-ready gift with stronger night-out energy",
+        giftId: "marc-jacobs-perfect-absolute",
+        body: "Use this when you want the date-night gift to feel more dressed-up and less homebound than a pure comfort pick.",
       },
     ],
     avoidNotes: [
@@ -1725,11 +1730,11 @@ export const seoGuides = [
       },
       {
         title: "Best premium reveal",
-        giftId: "cashmere-robe",
-        body: "The cleaner answer when you want the date-night gift to feel softer, more luxurious, and clearly intentional.",
+        giftId: "marc-jacobs-perfect-absolute",
+        body: "The cleaner answer when you want the gift to feel more dressed-up, polished, and clearly date-oriented.",
       },
     ],
-    itemIds: ["projector", "mini-photo-printer", "cashmere-robe", "candle-warmer", "digital-frame", "luxury-throw"],
+    itemIds: ["projector", "cashmere-robe", "candle-warmer", "luxury-throw", "marc-jacobs-perfect-absolute", "prettygarden-one-shoulder-maxi"],
     related: ["anniversary-gifts-for-her", "cozy-home-gifts-for-her", "gifts-for-wife"],
   },
   {
