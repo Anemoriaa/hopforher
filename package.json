@@ -1,6 +1,7 @@
 {
   "name": "giftsher-monorepo",
   "private": true,
+  "type": "module",
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -15,6 +16,7 @@
     "preview": "npm run preview -w @giftsher/web",
     "preview:web": "npm run preview -w @giftsher/web",
     "preview:admin": "npm run preview -w @giftsher/admin",
+    "test:smoke": "node --test tests/smoke/*.test.mjs",
     "start": "npm run dev"
   }
 }

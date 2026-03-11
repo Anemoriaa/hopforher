@@ -492,6 +492,238 @@ function rankGiftMatches(gifts, filters) {
   return [...source].sort((a, b) => scoreGift(b, filters) - scoreGift(a, filters));
 }
 
+function getGiftImageUrl(gift) {
+  return gift?.imageUrl || gift?.image || "/logo1.png";
+}
+
+function getGiftHeroImageUrl(gift) {
+  return getGiftImageList(gift)[0] || getGiftImageUrl(gift);
+}
+
+function getGiftImageStyleVars(gift) {
+  const productShot = gift?.imageLayout === "product";
+
+  return {
+    "--gift-image-fit": gift?.imageFit || (productShot ? "contain" : "cover"),
+    "--gift-image-position": gift?.imagePosition || "center center",
+    "--gift-image-bg": gift?.imageBackground || (productShot ? "#f5f3ee" : "#ececec"),
+  };
+}
+
+function getGiftImageFrameProps(gift, baseClassName) {
+  const productShot = gift?.imageLayout === "product";
+
+  return {
+    className: classNames(baseClassName, productShot && "is-product-shot"),
+    style: getGiftImageStyleVars(gift),
+  };
+}
+
+function AnimatedBentoCard({
+  gift,
+  index,
+  options,
+  isSaved,
+  onToggleSaved,
+  onOpenPreview,
+  getGiftCommerceRel,
+  getAffiliateAnchorData,
+  getGiftCommerceAriaLabel,
+}) {
+  const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "0px 0px -50px 0px" });
+  const { eyebrow = gift.badge, deck = gift.hook, imageOnly = false } = options;
+  const minimalMotion = options.motion === "minimal";
+  const delayClass = minimalMotion ? "" : index % 3 === 1 ? "delay-100" : index % 3 === 2 ? "delay-200" : "";
+
+  return (
+    <article
+      ref={ref}
+      role="listitem"
+      className={classNames(
+        "gs-bento-card",
+        imageOnly && "is-image-only",
+        minimalMotion && "is-minimal-motion",
+        inView && (minimalMotion ? "animate-fade-soft" : "animate-fade-up"),
+        delayClass
+      )}
+    >
+      {imageOnly ? (
+        <button
+          type="button"
+          className="gs-bento-image-hit"
+          onClick={() => onOpenPreview(gift)}
+          aria-label={`Preview ${gift.name}`}
+        >
+          <div {...getGiftImageFrameProps(gift, "gs-bento-image-wrap")}>
+            <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
+          </div>
+        </button>
+      ) : (
+        <>
+          <div {...getGiftImageFrameProps(gift, "gs-bento-image-wrap")}>
+            <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
+          </div>
+          <div className="gs-bento-content">
+            <div className="gs-bento-copy">
+              {eyebrow && <p className="gs-overline gs-bento-eyebrow">{eyebrow}</p>}
+              <h3>{gift.name}</h3>
+              {deck ? <p className="gs-bento-deck">{deck}</p> : null}
+            </div>
+            <div className="gs-bento-footer">
+              <div className="gs-product-meta" style={{ marginTop: 0 }}>
+                <span>{gift.priceLabel}</span>
+              </div>
+              <div className="gs-bento-actions">
+                <button
+                  type="button"
+                  className="gs-icon-btn"
+                  onClick={() => onOpenPreview(gift)}
+                  aria-label={`Preview ${gift.name}`}
+                >
+                  <Play />
+                </button>
+                <button
+                  type="button"
+                  className={classNames("gs-icon-btn", isSaved && "is-active")}
+                  onClick={() => onToggleSaved(gift.id)}
+                  aria-pressed={isSaved}
+                  aria-label={isSaved ? `Remove ${gift.name} from saved picks` : `Save ${gift.name}`}
+                >
+                  {isSaved ? <BookmarkCheck /> : <Bookmark />}
+                </button>
+                <a
+                  className="gs-icon-btn"
+                  href={buildAffiliateLink(gift)}
+                  target="_blank"
+                  rel={getGiftCommerceRel(gift)}
+                  {...getAffiliateAnchorData(gift, "bento-card-icon")}
+                  aria-label={getGiftCommerceAriaLabel(gift)}
+                >
+                  <ArrowUpRight />
+                </a>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+    </article>
+  );
+}
+
+function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
+  const media = useMemo(() => {
+    const mediaItems = buildGiftPreviewMedia(gift);
+
+    return mediaItems.find((candidate) => candidate.id === item.mediaId) || getPrimaryHotVideoMedia(gift);
+  }, [gift, item.mediaId]);
+  const posterUrl = media?.nativePosterUrl || media?.posterUrl || getGiftImageUrl(gift);
+  const embedUrl =
+    shouldLoadEmbed && media?.provider === "tiktok"
+      ? buildTikTokPlayerUrl(media.videoId, {
+          autoplay: 0,
+          controls: 0,
+          description: 0,
+          music_info: 0,
+          rel: 0,
+        }) || media?.embedUrl || ""
+      : "";
+  const [embedLoaded, setEmbedLoaded] = useState(false);
+
+  useEffect(() => {
+    setEmbedLoaded(false);
+  }, [embedUrl]);
+
+  return (
+    <div className="gs-hot-feed-media">
+      <div className="gs-hot-feed-video-placeholder" aria-hidden={embedUrl && embedLoaded ? "true" : undefined}>
+        {posterUrl ? <img src={posterUrl} alt="" className="gs-hot-feed-poster" loading="lazy" /> : null}
+        <span className="gs-hot-feed-video-placeholder-scrim" aria-hidden="true" />
+        <span>Open video</span>
+      </div>
+
+      {embedUrl ? (
+        <iframe
+          src={embedUrl}
+          title={media?.title || `${gift.name} TikTok video`}
+          className="gs-hot-feed-embed"
+          loading="lazy"
+          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+          onLoad={() => setEmbedLoaded(true)}
+        />
+      ) : null}
+
+      {(item.mediaLabel || item.durationLabel) ? (
+        <div className="gs-hot-feed-media-badges" aria-hidden="true">
+          <span className="gs-hot-feed-floating-chip">
+            <Play size={12} />
+            <span>Watch</span>
+          </span>
+          {item.mediaLabel ? <span className="gs-hot-feed-floating-chip">{item.mediaLabel}</span> : null}
+          {item.durationLabel ? <span className="gs-hot-feed-floating-chip">{item.durationLabel}</span> : null}
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function AnimatedHotCard({ item, index, onOpenHotPreview }) {
+  const { ref, inView } = useInView({ triggerOnce: false, rootMargin: "180px 0px 180px 0px" });
+  const [hasEntered, setHasEntered] = useState(false);
+  const gift = item.gift;
+  const delayClass = index % 3 === 1 ? "delay-100" : index % 3 === 2 ? "delay-200" : "";
+  const storyHeight = getHotStoryHeight(gift.id, item.id);
+
+  useEffect(() => {
+    if (inView) {
+      setHasEntered(true);
+    }
+  }, [inView]);
+
+  return (
+    <article
+      ref={ref}
+      role="listitem"
+      className={classNames(
+        "gs-hot-feed-card",
+        hasEntered && "animate-fade-up",
+        delayClass
+      )}
+      style={{
+        "--story-accent-from": gift.accentFrom,
+        "--story-accent-to": gift.accentTo,
+        "--hot-story-height": `${storyHeight}px`,
+      }}
+    >
+      <button
+        type="button"
+        className="gs-hot-feed-hit"
+        onClick={() => onOpenHotPreview(item)}
+        aria-label={`Open ${gift.name} video full screen`}
+      >
+        <HotFeedMedia item={item} gift={gift} shouldLoadEmbed={inView || hasEntered} />
+        <div className="gs-hot-feed-body">
+          <div className="gs-hot-feed-chip-row">
+            <span className="gs-hot-feed-chip">{item.label}</span>
+            {item.heat && <span className="gs-hot-feed-chip is-heat">{item.heat}</span>}
+          </div>
+          <h3>{gift.name}</h3>
+          <p>{gift.why || gift.hook}</p>
+          <div className="gs-hot-feed-meta">
+            <div className="gs-hot-feed-source">
+              <span className="gs-hot-feed-source-mark">TT</span>
+              <span className="gs-hot-feed-source-label">{item.sourceLabel}</span>
+            </div>
+            <div className="gs-hot-feed-meta-tags">
+              <span>{gift.badge}</span>
+              <span>{gift.priceLabel}</span>
+            </div>
+          </div>
+        </div>
+      </button>
+    </article>
+  );
+}
+
 export default function App() {
   const touchRef = useRef({ x: 0, y: 0 });
   const tabRefs = useRef([]);
@@ -631,7 +863,7 @@ export default function App() {
   useEffect(() => {
     setGeoState((current) => {
       const nextLabel =
-        current.status === "unsupported"
+        current.status === "unsupported" || current.status === "unavailable"
           ? t("plans.locationUnavailable")
           : current.status === "loading"
             ? t("plans.locating")
@@ -1236,24 +1468,27 @@ export default function App() {
     }, { provider });
 
     if (latitude === null || longitude === null) {
-      const blocked = geoState.status === "denied" || geoState.status === "unsupported";
+      const fallbackReady =
+        geoState.status === "denied" || geoState.status === "unsupported" || geoState.status === "unavailable";
 
       setDateResults({
         provider,
-        status: geoState.status === "loading" ? "loading" : blocked ? "ready" : "idle",
-        mode: blocked ? "fallback" : "idle",
+        status: geoState.status === "loading" ? "loading" : fallbackReady ? "ready" : "idle",
+        mode: fallbackReady ? "fallback" : "idle",
         areaLabel: geoState.label,
         note:
           geoState.status === "denied"
             ? t("plans.locationBlockedNote")
             : geoState.status === "unsupported"
               ? t("plans.locationUnsupportedNote")
+              : geoState.status === "unavailable"
+                ? t("plans.locationUnavailableNote")
               : geoState.status === "loading"
-                ? t("plans.locatingNote")
-                : t("plans.useLocationNote"),
+                  ? t("plans.locatingNote")
+                  : t("plans.useLocationNote"),
         sourceLabel: getDateSpotPoweredLabel(provider),
         searchUrl,
-        spots: blocked
+        spots: fallbackReady
           ? buildFallbackDateSpots(
               { partySize: dateSearch.partySize, dateTime: dateSearch.dateTime },
               { provider }
@@ -1494,33 +1729,6 @@ export default function App() {
     setSlide(activeSlide - 1);
   }
 
-  function getGiftImageUrl(gift) {
-    return gift?.imageUrl || gift?.image || "/logo1.png";
-  }
-
-  function getGiftHeroImageUrl(gift) {
-    return getGiftImageList(gift)[0] || getGiftImageUrl(gift);
-  }
-
-  function getGiftImageStyleVars(gift) {
-    const productShot = gift?.imageLayout === "product";
-
-    return {
-      "--gift-image-fit": gift?.imageFit || (productShot ? "contain" : "cover"),
-      "--gift-image-position": gift?.imagePosition || "center center",
-      "--gift-image-bg": gift?.imageBackground || (productShot ? "#f5f3ee" : "#ececec"),
-    };
-  }
-
-  function getGiftImageFrameProps(gift, baseClassName) {
-    const productShot = gift?.imageLayout === "product";
-
-    return {
-      className: classNames(baseClassName, productShot && "is-product-shot"),
-      style: getGiftImageStyleVars(gift),
-    };
-  }
-
   function getGiftCommerceSource(gift) {
     return seoCatalogById.get(gift.id) || gift;
   }
@@ -1675,8 +1883,14 @@ export default function App() {
           },
         });
       },
-      () => {
-        setGeoState({ status: "denied", label: t("plans.locationBlocked"), coords: null });
+      (error) => {
+        const permissionDenied = error?.code === 1 || error?.code === error?.PERMISSION_DENIED;
+
+        setGeoState({
+          status: permissionDenied ? "denied" : "unavailable",
+          label: permissionDenied ? t("plans.locationBlocked") : t("plans.locationUnavailable"),
+          coords: null,
+        });
       },
       {
         enableHighAccuracy: false,
@@ -1686,203 +1900,20 @@ export default function App() {
     );
   }
 
-  function AnimatedBentoCard({ gift, index, options, savedIds, toggleSaved, openPreview }) {
-    const { ref, inView } = useInView({ triggerOnce: true, rootMargin: "0px 0px -50px 0px" });
-    const isSaved = savedIds.includes(gift.id);
-    const { eyebrow = gift.badge, deck = gift.hook, imageOnly = false } = options;
-    const minimalMotion = options.motion === "minimal";
-    const delayClass = minimalMotion ? "" : index % 3 === 1 ? "delay-100" : index % 3 === 2 ? "delay-200" : "";
-
-    return (
-      <article 
-        ref={ref} 
-        role="listitem"
-        className={classNames(
-          "gs-bento-card",
-          imageOnly && "is-image-only",
-          minimalMotion && "is-minimal-motion",
-          inView && (minimalMotion ? "animate-fade-soft" : "animate-fade-up"),
-          delayClass
-        )}
-      >
-        {imageOnly ? (
-          <button
-            type="button"
-            className="gs-bento-image-hit"
-            onClick={() => openPreview(gift)}
-            aria-label={`Preview ${gift.name}`}
-          >
-            <div {...getGiftImageFrameProps(gift, "gs-bento-image-wrap")}>
-              <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
-            </div>
-          </button>
-        ) : (
-          <>
-            <div {...getGiftImageFrameProps(gift, "gs-bento-image-wrap")}>
-              <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
-            </div>
-            <div className="gs-bento-content">
-              <div className="gs-bento-copy">
-                {eyebrow && <p className="gs-overline gs-bento-eyebrow">{eyebrow}</p>}
-                <h3>{gift.name}</h3>
-                {deck ? <p className="gs-bento-deck">{deck}</p> : null}
-              </div>
-              <div className="gs-bento-footer">
-                 <div className="gs-product-meta" style={{ marginTop: 0 }}>
-                   <span>{gift.priceLabel}</span>
-                 </div>
-                 <div className="gs-bento-actions">
-                    <button
-                      type="button"
-                      className="gs-icon-btn"
-                      onClick={() => openPreview(gift)}
-                      aria-label={`Preview ${gift.name}`}
-                    >
-                      <Play />
-                    </button>
-                    <button
-                      type="button"
-                      className={classNames("gs-icon-btn", isSaved && "is-active")}
-                      onClick={() => toggleSaved(gift.id)}
-                      aria-pressed={isSaved}
-                      aria-label={isSaved ? `Remove ${gift.name} from saved picks` : `Save ${gift.name}`}
-                    >
-                      {isSaved ? <BookmarkCheck /> : <Bookmark />}
-                    </button>
-                    <a
-                      className="gs-icon-btn"
-                      href={buildAffiliateLink(gift)}
-                      target="_blank"
-                      rel={getGiftCommerceRel(gift)}
-                      {...getAffiliateAnchorData(gift, "bento-card-icon")}
-                      aria-label={getGiftCommerceAriaLabel(gift)}
-                    >
-                      <ArrowUpRight />
-                    </a>
-                 </div>
-              </div>
-            </div>
-          </>
-        )}
-      </article>
-    );
-  }
-
   function renderBentoCard(gift, index, options = {}) {
-    return <AnimatedBentoCard key={`${gift.id}-bento-${index}`} gift={gift} index={index} options={options} savedIds={savedIds} toggleSaved={toggleSaved} openPreview={openPreview} />;
-  }
-
-  function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
-    const media = useMemo(() => {
-      const mediaItems = buildGiftPreviewMedia(gift);
-
-      return mediaItems.find((candidate) => candidate.id === item.mediaId) || getPrimaryHotVideoMedia(gift);
-    }, [gift, item.mediaId]);
-    const posterUrl = media?.nativePosterUrl || media?.posterUrl || getGiftImageUrl(gift);
-    const embedUrl =
-      shouldLoadEmbed && media?.provider === "tiktok"
-        ? buildTikTokPlayerUrl(media.videoId, {
-            autoplay: 0,
-            controls: 0,
-            description: 0,
-            music_info: 0,
-            rel: 0,
-          }) || media?.embedUrl || ""
-        : "";
-    const [embedLoaded, setEmbedLoaded] = useState(false);
-
-    useEffect(() => {
-      setEmbedLoaded(false);
-    }, [embedUrl]);
-
     return (
-      <div className="gs-hot-feed-media">
-        <div className="gs-hot-feed-video-placeholder" aria-hidden={embedUrl && embedLoaded ? "true" : undefined}>
-          {posterUrl ? <img src={posterUrl} alt="" className="gs-hot-feed-poster" loading="lazy" /> : null}
-          <span className="gs-hot-feed-video-placeholder-scrim" aria-hidden="true" />
-          <span>Open video</span>
-        </div>
-
-        {embedUrl ? (
-          <iframe
-            src={embedUrl}
-            title={media?.title || `${gift.name} TikTok video`}
-            className="gs-hot-feed-embed"
-            loading="lazy"
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            onLoad={() => setEmbedLoaded(true)}
-          />
-        ) : null}
-
-        {(item.mediaLabel || item.durationLabel) ? (
-          <div className="gs-hot-feed-media-badges" aria-hidden="true">
-            <span className="gs-hot-feed-floating-chip">
-              <Play size={12} />
-              <span>Watch</span>
-            </span>
-            {item.mediaLabel ? <span className="gs-hot-feed-floating-chip">{item.mediaLabel}</span> : null}
-            {item.durationLabel ? <span className="gs-hot-feed-floating-chip">{item.durationLabel}</span> : null}
-          </div>
-        ) : null}
-      </div>
-    );
-  }
-
-  function AnimatedHotCard({ item, index, openPreview }) {
-    const { ref, inView } = useInView({ triggerOnce: false, rootMargin: "180px 0px 180px 0px" });
-    const [hasEntered, setHasEntered] = useState(false);
-    const gift = item.gift;
-    const delayClass = index % 3 === 1 ? "delay-100" : index % 3 === 2 ? "delay-200" : "";
-    const storyHeight = getHotStoryHeight(gift.id, item.id);
-
-    useEffect(() => {
-      if (inView) {
-        setHasEntered(true);
-      }
-    }, [inView]);
-
-    return (
-      <article
-        ref={ref}
-        role="listitem"
-        className={classNames(
-          "gs-hot-feed-card",
-          hasEntered && "animate-fade-up",
-          delayClass
-        )}
-        style={{
-          "--story-accent-from": gift.accentFrom,
-          "--story-accent-to": gift.accentTo,
-          "--hot-story-height": `${storyHeight}px`,
-        }}
-      >
-        <button
-          type="button"
-          className="gs-hot-feed-hit"
-          onClick={() => openHotPreview(item)}
-          aria-label={`Open ${gift.name} video full screen`}
-        >
-          <HotFeedMedia item={item} gift={gift} shouldLoadEmbed={inView || hasEntered} />
-          <div className="gs-hot-feed-body">
-            <div className="gs-hot-feed-chip-row">
-              <span className="gs-hot-feed-chip">{item.label}</span>
-              {item.heat && <span className="gs-hot-feed-chip is-heat">{item.heat}</span>}
-            </div>
-            <h3>{gift.name}</h3>
-            <p>{gift.why || gift.hook}</p>
-            <div className="gs-hot-feed-meta">
-              <div className="gs-hot-feed-source">
-                <span className="gs-hot-feed-source-mark">TT</span>
-                <span className="gs-hot-feed-source-label">{item.sourceLabel}</span>
-              </div>
-              <div className="gs-hot-feed-meta-tags">
-                <span>{gift.badge}</span>
-                <span>{gift.priceLabel}</span>
-              </div>
-            </div>
-          </div>
-        </button>
-      </article>
+      <AnimatedBentoCard
+        key={`${gift.id}-bento-${index}`}
+        gift={gift}
+        index={index}
+        options={options}
+        isSaved={savedIds.includes(gift.id)}
+        onToggleSaved={toggleSaved}
+        onOpenPreview={openPreview}
+        getGiftCommerceRel={getGiftCommerceRel}
+        getAffiliateAnchorData={getAffiliateAnchorData}
+        getGiftCommerceAriaLabel={getGiftCommerceAriaLabel}
+      />
     );
   }
 
@@ -2689,7 +2720,7 @@ export default function App() {
                       aria-label="Hot gift stories"
                     >
                       {buildLoopedHotStories(videoStories, leadingHotFeedCycle, hotFeedRotationOffset).map((item, index) => (
-                        <AnimatedHotCard key={item.instanceId} item={item} index={index} openPreview={openPreview} />
+                        <AnimatedHotCard key={item.instanceId} item={item} index={index} onOpenHotPreview={openHotPreview} />
                       ))}
                     </Masonry>
                   </section>
@@ -2732,7 +2763,7 @@ export default function App() {
                       aria-label={`More hot gift stories batch ${cycleIndex + 1}`}
                     >
                       {buildLoopedHotStories(videoStories, cycleIndex, hotFeedRotationOffset).map((item, index) => (
-                        <AnimatedHotCard key={item.instanceId} item={item} index={index} openPreview={openPreview} />
+                        <AnimatedHotCard key={item.instanceId} item={item} index={index} onOpenHotPreview={openHotPreview} />
                       ))}
                     </Masonry>
                   </section>
@@ -2809,7 +2840,7 @@ export default function App() {
                     </div>
                     <a
                       className="gs-date-status-link"
-                      href={dateResults.searchUrl}
+                      href={activeDateSecondaryUrl}
                       target="_blank"
                       rel="noreferrer"
                       aria-label={`${activeDateSecondaryLabel} for ${dateResults.areaLabel || t("plans.yourArea")}`}

@@ -129,20 +129,30 @@ function withAffiliateTag(urlValue, tag) {
   return url.toString();
 }
 
+function isAmazonUrl(urlValue) {
+  try {
+    return /(^|\.)amazon\./i.test(new URL(urlValue).hostname);
+  } catch (error) {
+    return false;
+  }
+}
+
 export function buildAffiliateLink(gift) {
   const liveAffiliateConfig = readLiveCatalog().affiliateConfig || baseAffiliateConfig;
   const productUrl = merchantProductUrl(gift);
 
   if (gift.sourceProductUrl) {
-    return productUrl;
+    return isAmazonUrl(productUrl) ? withAffiliateTag(productUrl, liveAffiliateConfig.tag) : productUrl;
   }
 
   if (gift.affiliateUrl) {
-    return withAffiliateTag(gift.affiliateUrl, liveAffiliateConfig.tag);
+    return isAmazonUrl(gift.affiliateUrl)
+      ? withAffiliateTag(gift.affiliateUrl, liveAffiliateConfig.tag)
+      : gift.affiliateUrl;
   }
 
   if (productUrl) {
-    return withAffiliateTag(productUrl, liveAffiliateConfig.tag);
+    return isAmazonUrl(productUrl) ? withAffiliateTag(productUrl, liveAffiliateConfig.tag) : productUrl;
   }
 
   const url = new URL(liveAffiliateConfig.baseUrl);

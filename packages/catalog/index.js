@@ -1,6 +1,6 @@
 import "./gifts.js";
 
-const catalog = window.GiftsherCatalog || {
+const catalog = globalThis.GiftsherCatalog || {
   affiliateConfig: {
     baseUrl: "https://www.amazon.com/s",
     merchantName: "Amazon",

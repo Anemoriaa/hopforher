@@ -57,17 +57,26 @@ function toNumber(value) {
   return null;
 }
 
+function toBoundedInteger(value, min, max, fallback) {
+  const parsed = toNumber(value);
+
+  if (parsed === null) {
+    return fallback;
+  }
+
+  return Math.min(max, Math.max(min, Math.round(parsed)));
+}
+
 function getSearchParams(url) {
   const latitude = toNumber(url.searchParams.get("latitude"));
   const longitude = toNumber(url.searchParams.get("longitude"));
-  const partySize = Math.min(
+  const partySize = toBoundedInteger(
+    url.searchParams.get("partySize"),
+    1,
     12,
-    Math.max(1, Number(url.searchParams.get("partySize")) || DEFAULT_DATE_PARTY_SIZE)
+    DEFAULT_DATE_PARTY_SIZE
   );
-  const limit = Math.min(
-    12,
-    Math.max(1, Number(url.searchParams.get("limit")) || DEFAULT_DATE_SPOT_LIMIT)
-  );
+  const limit = toBoundedInteger(url.searchParams.get("limit"), 1, 12, DEFAULT_DATE_SPOT_LIMIT);
 
   return {
     latitude,
@@ -406,6 +415,16 @@ async function loadOpenTableResults(context, search, areaLabel) {
       provider,
       "unconfigured",
       translateUi("server.openTableUnconfigured", locales),
+      areaLabel
+    );
+  }
+
+  if (search.latitude === null || search.longitude === null) {
+    return buildFallbackResponse(
+      search,
+      provider,
+      "idle",
+      translateUi("server.locationRequired", locales),
       areaLabel
     );
   }

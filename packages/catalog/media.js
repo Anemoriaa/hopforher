@@ -547,10 +547,14 @@ export function getProductMedia(id) {
 export function applyProductMedia(gift = {}) {
   const media = getProductMedia(gift.id);
   const imageUrl = media.imageUrl || gift.imageUrl || gift.image || "";
-  const galleryImages = uniqueUrls([...(gift.galleryImages || []), ...(media.galleryImages || [])]).filter(
+  const giftGalleryImages = Array.isArray(gift.galleryImages) ? gift.galleryImages : [];
+  const mediaGalleryImages = Array.isArray(media.galleryImages) ? media.galleryImages : [];
+  const giftShortVideos = Array.isArray(gift.shortVideos) ? gift.shortVideos : [];
+  const mediaShortVideos = Array.isArray(media.shortVideos) ? media.shortVideos : [];
+  const galleryImages = uniqueUrls([...giftGalleryImages, ...mediaGalleryImages]).filter(
     (value) => value !== imageUrl
   );
-  const shortVideos = uniqueShortVideos([...(gift.shortVideos || []), ...(media.shortVideos || [])]);
+  const shortVideos = uniqueShortVideos([...giftShortVideos, ...mediaShortVideos]);
 
   return {
     ...gift,

@@ -127,7 +127,7 @@ export default function App() {
     if (selectedGift && selectedId !== selectedGift.id) {
       setSelectedId(selectedGift.id);
     }
-  }, [selectedGift?.id]);
+  }, [selectedGift, selectedId]);
 
   const under100Count = catalogGifts.filter((gift) => gift.priceValue <= 100).length;
   const premiumCount = catalogGifts.filter((gift) => gift.priceValue > 100).length;

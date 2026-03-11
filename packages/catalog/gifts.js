@@ -498,7 +498,7 @@ import { importedCatalogItems } from "./imported-items.js";
     ...importedCatalogItems
   ];
 
-  window.GiftsherCatalog = {
+  globalThis.GiftsherCatalog = {
     affiliateConfig,
     tabs,
     gifts
