@@ -1517,7 +1517,7 @@ function renderHotStoryAngleSection(story, items, relatedGuides) {
   const leadGift = items[0] || null;
   const leadGuide = relatedGuides[0] || null;
   const trendRead = leadGift
-    ? `${story.description} ${leadGift.name} shows the lane well because ${leadGift.why}`
+    ? `${story.description} ${leadGift.name} is a clean example of the lane: ${leadGift.hook} ${leadGift.why}`
     : story.description;
   const firstClick = leadGift
     ? `${leadGift.name} is the first product to open if you want the quickest read on this trend. ${leadGift.hook}`
@@ -2635,6 +2635,51 @@ function renderProductIndex(freshness = lastmodPlaceholder) {
 </html>`;
 }
 
+function buildStaticDateSpotMapsUrl(city, spot) {
+  const url = new URL("https://www.google.com/maps/search/");
+  url.searchParams.set("api", "1");
+  url.searchParams.set("query", [spot.name, spot.type, spot.area, city.city].filter(Boolean).join(", "));
+  return url.toString();
+}
+
+function hasSpecificDateSpotBookingUrl(spot) {
+  if (!spot?.bookingUrl) {
+    return false;
+  }
+
+  try {
+    const url = new URL(spot.bookingUrl);
+    const isOpenTable = url.hostname === "www.opentable.com" || url.hostname === "opentable.com";
+    const normalizedPath = url.pathname.replace(/\/+$/, "") || "/";
+
+    if (!isOpenTable) {
+      return true;
+    }
+
+    if ((normalizedPath === "/" || normalizedPath === "/nearby") && !url.search) {
+      return false;
+    }
+
+    return true;
+  } catch {
+    return true;
+  }
+}
+
+function resolveStaticDateSpotAction(city, spot) {
+  if (hasSpecificDateSpotBookingUrl(spot)) {
+    return {
+      href: spot.bookingUrl,
+      label: "Open booking",
+    };
+  }
+
+  return {
+    href: buildStaticDateSpotMapsUrl(city, spot),
+    label: "Open in Maps",
+  };
+}
+
 function renderGuideIndex(freshness = lastmodPlaceholder) {
   const groups = [
     ["relationship", "Relationship guides"],
@@ -2863,19 +2908,21 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
         <h1>${escapeHtml(city.h1)}</h1>
         <p class="discovery-intro">${escapeHtml(city.intro)}</p>
         <div class="discovery-meta">
-          <span>Booking path</span>
+          <span>Maps or booking handoff</span>
           <span>Updated ${escapeHtml(freshness.displayDate)}</span>
         </div>
       </section>
       <section class="discovery-section">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Places</p>
-          <h2>Simple booking options</h2>
+          <h2>Simple date options</h2>
         </div>
         <ol class="discovery-list">
           ${city.spots
-            .map(
-              (spot, index) => `<li class="discovery-item">
+            .map((spot, index) => {
+              const action = resolveStaticDateSpotAction(city, spot);
+
+              return `<li class="discovery-item">
             <div class="discovery-item-head">
               <span class="discovery-rank">${String(index + 1).padStart(2, "0")}</span>
               <div>
@@ -2885,10 +2932,10 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
             </div>
             <p class="discovery-copy">${escapeHtml(spot.note)}</p>
             <div class="discovery-actions">
-              <a class="discovery-btn" href="${spot.bookingUrl}" target="_blank" rel="noreferrer">Book with OpenTable</a>
+              <a class="discovery-btn" href="${escapeHtml(action.href)}" target="_blank" rel="noreferrer">${escapeHtml(action.label)}</a>
             </div>
-          </li>`
-            )
+          </li>`;
+            })
             .join("")}
         </ol>
       </section>
@@ -3445,11 +3492,11 @@ function renderSiteMapPage(freshness = lastmodPlaceholder) {
     {
       kicker: "Products",
       title: "Indexable product pages",
-      links: indexableSeoCatalog.map((gift) => ({
+      links: [{ href: "/gift/", label: "Product pages index", meta: "Index" }].concat(indexableSeoCatalog.map((gift) => ({
         href: `/gift/${gift.slug}/`,
         label: gift.name,
         meta: gift.badge,
-      })),
+      }))),
     },
   ];
   const linkedCount = sections.reduce((total, section) => total + section.links.length, 0);
@@ -3578,6 +3625,7 @@ function writeGuidePages() {
 function writeProductPages() {
   const giftDir = path.join(publicDir, "gift");
   ensureDir(giftDir);
+  writeResolvedHtml(path.join(giftDir, "index.html"), `${siteUrl}/gift/`, (freshness) => renderProductIndex(freshness));
 
   seoCatalog.forEach((gift) => {
     const productDir = path.join(giftDir, gift.slug);
@@ -3895,6 +3943,7 @@ function writeSitemaps() {
     "/",
     "/guides/",
     "/hot/",
+    "/gift/",
     "/dates/",
     "/site-map.html",
     seoSite.aboutPath,
@@ -3947,8 +3996,11 @@ function writeLlmsFiles() {
     "",
     `> ${seoSite.description}`,
     "",
-    "## Main guide index",
+    "## Main discovery indexes",
     `- ${siteUrl}/guides/`,
+    `- ${siteUrl}/hot/`,
+    `- ${siteUrl}/gift/`,
+    `- ${siteUrl}/dates/`,
     `- ${siteUrl}/site-map.html`,
     `- ${siteUrl}/feed.xml`,
     `- ${siteUrl}/guide-catalog.json`,
@@ -4004,6 +4056,10 @@ function writeLlmsFiles() {
     `Base URL: ${siteUrl}/`,
     `Updated: ${freshness.isoDate}`,
     "",
+    `- Guides index: ${siteUrl}/guides/`,
+    `- Hot index: ${siteUrl}/hot/`,
+    `- Products index: ${siteUrl}/gift/`,
+    `- Plans index: ${siteUrl}/dates/`,
     `- About: ${siteUrl}${seoSite.aboutPath}`,
     `- Editorial policy: ${siteUrl}${seoSite.editorialPath}`,
     `- Contact: ${siteUrl}${seoSite.contactPath}`,

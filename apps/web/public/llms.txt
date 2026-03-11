@@ -2,8 +2,11 @@
 
 > Sharper gift picks for men buying for her.
 
-## Main guide index
+## Main discovery indexes
 - https://shopforher.org/guides/
+- https://shopforher.org/hot/
+- https://shopforher.org/gift/
+- https://shopforher.org/dates/
 - https://shopforher.org/site-map.html
 - https://shopforher.org/feed.xml
 - https://shopforher.org/guide-catalog.json

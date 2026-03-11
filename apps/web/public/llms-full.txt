@@ -3,6 +3,10 @@
 Base URL: https://shopforher.org/
 Updated: 2026-03-09
 
+- Guides index: https://shopforher.org/guides/
+- Hot index: https://shopforher.org/hot/
+- Products index: https://shopforher.org/gift/
+- Plans index: https://shopforher.org/dates/
 - About: https://shopforher.org/about.html
 - Editorial policy: https://shopforher.org/editorial-policy.html
 - Contact: https://shopforher.org/contact.html

@@ -495,6 +495,7 @@ function rankGiftMatches(gifts, filters) {
 export default function App() {
   const touchRef = useRef({ x: 0, y: 0 });
   const tabRefs = useRef([]);
+  const slideScrollRefs = useRef([]);
   const decisionPanelRef = useRef(null);
   const topPicksRef = useRef(null);
   const hotScrollRef = useRef(null);
@@ -1141,6 +1142,16 @@ export default function App() {
   }, [activeSlide, datesSlideIndex, geoState.status]);
 
   useEffect(() => {
+    const frameId = window.requestAnimationFrame(() => {
+      slideScrollRefs.current[activeSlide]?.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+    };
+  }, [activeSlide]);
+
+  useEffect(() => {
     hotFeedCanAppendRef.current = true;
 
     if (!videoStories.length) {
@@ -1349,6 +1360,14 @@ export default function App() {
 
   function setTabRef(index, node) {
     tabRefs.current[index] = node;
+  }
+
+  function setSlideScrollRef(index, node) {
+    slideScrollRefs.current[index] = node;
+
+    if (index === 1) {
+      hotScrollRef.current = node;
+    }
   }
 
   function focusSlideTab(index) {
@@ -2107,7 +2126,7 @@ export default function App() {
               aria-hidden={activeSlide !== 0}
               tabIndex={activeSlide === 0 ? 0 : -1}
             >
-              <div className="gs-slide-scroll">
+              <div className="gs-slide-scroll" ref={(node) => setSlideScrollRef(0, node)}>
                 <section className="gs-popular-hero gs-home-hero">
                   <div className="gs-popular-hero-copy gs-home-hero-copy">
                     <div className="gs-home-hero-head">
@@ -2640,7 +2659,7 @@ export default function App() {
               aria-hidden={activeSlide !== 1}
               tabIndex={activeSlide === 1 ? 0 : -1}
             >
-              <div className="gs-slide-scroll" ref={hotScrollRef}>
+              <div className="gs-slide-scroll" ref={(node) => setSlideScrollRef(1, node)}>
                 <div className="gs-hot-feed-toolbar">
                   <div className="gs-parallax-copy">
                     <p className="gs-overline">{t("hot.overline")}</p>
@@ -2731,7 +2750,7 @@ export default function App() {
               aria-hidden={activeSlide !== 2}
               tabIndex={activeSlide === 2 ? 0 : -1}
             >
-              <div className="gs-slide-scroll">
+              <div className="gs-slide-scroll" ref={(node) => setSlideScrollRef(2, node)}>
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">{t("plans.overline")}</p>
                   <h2>{t("plans.title")}</h2>
@@ -2947,7 +2966,7 @@ export default function App() {
               aria-hidden={activeSlide !== savedSlideIndex}
               tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
             >
-              <div className="gs-slide-scroll">
+              <div className="gs-slide-scroll" ref={(node) => setSlideScrollRef(savedSlideIndex, node)}>
                 <div className="gs-parallax-copy">
                   <p className="gs-overline">{t("saved.overline")}</p>
                   <h2>{t("saved.title")}</h2>

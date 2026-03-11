@@ -52,19 +52,19 @@
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/dates/chicago/": {
-    "hash": "71524e3022214a855c92538a33933d33aa8930333d3c36f1af52312ec0354552",
+    "hash": "13f304433cf3fef5b4838ca0692d3c79454338f1350b327d36660381b0b9d9b5",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/dates/los-angeles/": {
-    "hash": "0b504c57dbdad79d9c237c39e2aa009f02d308cc58cb337969bfc145013e7e26",
+    "hash": "25f287736cbb626808a9ceede0e8a2f8a84e9a902f06333e904654f94f640438",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/dates/miami/": {
-    "hash": "c9cf43f3abe4a073fe6111a1f2b0e0e63d953448db8e47c27780d034b2a20e16",
+    "hash": "f6cea309a0bd978d4d6d1b802c07adde6230411e87b36e6411ab6aa9bff2c947",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/dates/new-york/": {
-    "hash": "6d895eece2e6ba1084a51f7b53749daf0669d72541752289b250ee9e678a268e",
+    "hash": "e2842cf10e54a6a407f85e51101458ed7c4364463290503d4f980ac382b9e548",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/editorial-policy.html": {
@@ -73,6 +73,10 @@
   },
   "https://shopforher.org/feed.xml": {
     "hash": "d46e45bc3eecdf39145e82954e4c51ace4fc195af2ed26e6c5f6d09b659e12c7",
+    "lastmod": "2026-03-09"
+  },
+  "https://shopforher.org/gift/": {
+    "hash": "6b8155b12092b822398b3f81ca61a00038f6ebcd23a01dfe236e9bcf2976eadf",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/gift/artificial-black-olive-tree/": {
@@ -308,35 +312,35 @@
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/hot/anniversary-gifts-trending-now/": {
-    "hash": "44f2e3f841109357119d4efacf1b6d80b02f87b5f3155e713bed9fcacec856f8",
+    "hash": "0f3d798918ebf6018986731add6dd7846dd5b2a325d417b8753f0072d9952a3a",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/hot/cozy-gifts-trending-now/": {
-    "hash": "7603557f9872f38350826155d84461591afbae5fa68943370c707ad0690c315e",
+    "hash": "f811196eef36df82e0b51002effcf358e2bb3a80d83e3218ed8e17d7959a961e",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/hot/looks-expensive-gifts-going-viral/": {
-    "hash": "277d7191fbc65596c64c192bba9dfc5db52d8e831653b8af7f49169f9178daba",
+    "hash": "879cac652817c29b6cd8d1f2b7071bdfef1da0812d886d402f9be1e5c2f34f03",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/hot/new-relationship-gifts-trending-now/": {
-    "hash": "cae4eb330b81334de56913fa9e70c2b865626c03613b2acfccd197bba603a838",
+    "hash": "7dfb26f1f0ac00304709340d5e1d3227a2ac565f18525c77c17a1f867da55414",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/hot/useful-gifts-women-actually-use/": {
-    "hash": "821ad95cc980b7e280cae9b174fb6841459b13bab77b1b5aea2695d00d224995",
+    "hash": "734737a44566088a266ec36c686018f898ad075670ea22dd53e555fa8320da4b",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/hot/viral-gifts-for-girlfriend/": {
-    "hash": "8e1a8a317f8a691aa91566e8f9e7870d6d2b1f8d87d66a9111c051657b6c34ac",
+    "hash": "efc1e2961830b4b71c7dc93476a28577ec57801c0c668f53aff5521afec84baf",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/hot/viral-gifts-for-wife/": {
-    "hash": "0e7bff533d7c45b0616f205bb2bc9d49b612f6223835ed3b59846838a3380922",
+    "hash": "1f63fc0680f183a55cd008a3b23314df4efd8825ee25fcd9a87c658844c04cb6",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/hot/viral-gifts-under-100/": {
-    "hash": "c343a7e2c1116367fc21829ea85c6aa34635936e220816269b3a86140e07fb22",
+    "hash": "fc4721acd4884ff95a75c8bf288e5ec762486a3600963fd68635023e10a6a69c",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/last-minute-gifts-for-her/": {
@@ -344,11 +348,11 @@
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/llms-full.txt": {
-    "hash": "73249de16b0423b46b84bfd6c8fca5d4543f380a67e1b163db05014071fca2de",
+    "hash": "5ce9af875edec02000fa875ad3a05cf8f4fb5c8fcb8fdbcd4c25a51b8f665f36",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/llms.txt": {
-    "hash": "5faf4314799016b9435f737c8bdae1d682fd4f1acc84622bdf0995d5e761abd3",
+    "hash": "26ee105e97d7297d12871c71d23140b5d792930c1c31d88cd435e8b5499e4eea",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/looks-expensive-gifts-for-her/": {
@@ -372,7 +376,7 @@
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/site-map.html": {
-    "hash": "abdfc81e2889b94fd1c3c394136eedaedd0b22fea1835196abc1a20f54db0504",
+    "hash": "5a90724319202120357c09d2d7c29504220e96635d1a9f0bf5c55ac5f16c4663",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/sitemap-dates.xml": {
@@ -388,7 +392,7 @@
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/sitemap-pages.xml": {
-    "hash": "aa587ba3656920393245103be89f0ca2ef079d0fb239eb4e6ec8ccd7d6d4d4e4",
+    "hash": "0859efcdc66d668ddee4159b39be09d8155af1b12ba353e31382ad8b901dfb39",
     "lastmod": "2026-03-09"
   },
   "https://shopforher.org/sitemap-products.xml": {

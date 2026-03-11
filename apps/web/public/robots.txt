@@ -28,3 +28,8 @@ Allow: /
 # https://shopforher.org/product-catalog.json
 
 Sitemap: https://shopforher.org/sitemap.xml
+Sitemap: https://shopforher.org/sitemap-pages.xml
+Sitemap: https://shopforher.org/sitemap-guides.xml
+Sitemap: https://shopforher.org/sitemap-hot.xml
+Sitemap: https://shopforher.org/sitemap-dates.xml
+Sitemap: https://shopforher.org/sitemap-products.xml
