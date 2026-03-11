@@ -380,7 +380,7 @@
           "priceBands": [
             "over-150",
             "under-150",
-            "under-75"
+            "under-50"
           ]
         }
       },
@@ -518,13 +518,13 @@
           "searchIndexable": true
         },
         {
-          "id": "black-olive-tree",
-          "slug": "artificial-black-olive-tree",
-          "name": "Artificial Black Olive Tree",
-          "url": "https://shopforher.org/gift/artificial-black-olive-tree/",
-          "price": "$49.99 - $69.99",
-          "badge": "olive tree",
-          "bestFor": "wife / home decor / office",
+          "id": "miyuki-rustic-vase",
+          "slug": "miyuki-rustic-terracotta-vase",
+          "name": "MIYUKI Rustic Terracotta Vase",
+          "url": "https://shopforher.org/gift/miyuki-rustic-terracotta-vase/",
+          "price": "$34.99",
+          "badge": "ceramic",
+          "bestFor": "wife / home decor / shelf styling",
           "searchIndexable": true
         },
         {
@@ -588,7 +588,7 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "walking-pad",
@@ -605,11 +605,11 @@
             "guideCount": 4
           },
           {
-            "id": "black-olive-tree",
-            "slug": "artificial-black-olive-tree",
-            "name": "Artificial Black Olive Tree",
-            "url": "https://shopforher.org/gift/artificial-black-olive-tree/",
-            "guideCount": 4
+            "id": "miyuki-rustic-vase",
+            "slug": "miyuki-rustic-terracotta-vase",
+            "name": "MIYUKI Rustic Terracotta Vase",
+            "url": "https://shopforher.org/gift/miyuki-rustic-terracotta-vase/",
+            "guideCount": 3
           }
         ],
         "overusedProducts": [],
@@ -3492,10 +3492,10 @@
           "url": "https://shopforher.org/gifts-for-wife/"
         },
         {
-          "slug": "best-gifts-under-100",
-          "label": "Best gifts under $100",
-          "h1": "Best gifts for her under $100 in 2026",
-          "url": "https://shopforher.org/best-gifts-under-100/"
+          "slug": "daily-use-gifts-for-her",
+          "label": "Daily-use gifts",
+          "h1": "Best daily-use gifts for her in 2026",
+          "url": "https://shopforher.org/daily-use-gifts-for-her/"
         }
       ],
       "exploreProducts": [
@@ -3528,7 +3528,7 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "faux-olive-tree-planter",
@@ -3542,6 +3542,13 @@
             "slug": "cashmere-feel-robe",
             "name": "Cashmere-Feel Robe",
             "url": "https://shopforher.org/gift/cashmere-feel-robe/",
+            "guideCount": 3
+          },
+          {
+            "id": "ugg-slippers",
+            "slug": "koolaburra-ugg-burree-slipper",
+            "name": "Koolaburra by UGG Burree Slipper",
+            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
             "guideCount": 3
           }
         ],
@@ -3569,32 +3576,23 @@
             ]
           },
           {
-            "slug": "best-gifts-under-100",
-            "label": "Best gifts under $100",
-            "h1": "Best gifts for her under $100 in 2026",
-            "url": "https://shopforher.org/best-gifts-under-100/",
-            "sharedCount": 1,
-            "sharedItems": [
-              {
-                "id": "ugg-slippers",
-                "name": "Koolaburra by UGG Burree Slipper",
-                "slug": "koolaburra-ugg-burree-slipper",
-                "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/"
-              }
-            ]
-          },
-          {
             "slug": "gifts-for-wife",
             "label": "Gifts for wife",
             "h1": "Best gifts for wives in 2026",
             "url": "https://shopforher.org/gifts-for-wife/",
-            "sharedCount": 1,
+            "sharedCount": 2,
             "sharedItems": [
               {
                 "id": "nespresso-machine",
                 "name": "Nespresso Vertuo Next",
                 "slug": "nespresso-vertuo-next",
                 "url": "https://shopforher.org/gift/nespresso-vertuo-next/"
+              },
+              {
+                "id": "miyuki-rustic-vase",
+                "name": "MIYUKI Rustic Terracotta Vase",
+                "slug": "miyuki-rustic-terracotta-vase",
+                "url": "https://shopforher.org/gift/miyuki-rustic-terracotta-vase/"
               }
             ]
           }
@@ -4494,14 +4492,14 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "black-olive-tree",
             "slug": "artificial-black-olive-tree",
             "name": "Artificial Black Olive Tree",
             "url": "https://shopforher.org/gift/artificial-black-olive-tree/",
-            "guideCount": 4
+            "guideCount": 3
           },
           {
             "id": "rustic-vase-set",
@@ -5777,18 +5775,18 @@
             "guideCount": 2
           },
           {
+            "id": "black-olive-tree",
+            "slug": "artificial-black-olive-tree",
+            "name": "Artificial Black Olive Tree",
+            "url": "https://shopforher.org/gift/artificial-black-olive-tree/",
+            "guideCount": 3
+          },
+          {
             "id": "candle-warmer",
             "slug": "candle-warmer-lamp",
             "name": "Candle Warmer Lamp",
             "url": "https://shopforher.org/gift/candle-warmer-lamp/",
             "guideCount": 4
-          },
-          {
-            "id": "sunrise-alarm",
-            "slug": "sunrise-alarm-clock",
-            "name": "Sunrise Alarm Clock",
-            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 3
           }
         ],
         "overusedProducts": [],
@@ -5822,10 +5820,10 @@
             "sharedCount": 1,
             "sharedItems": [
               {
-                "id": "black-olive-tree",
-                "name": "Artificial Black Olive Tree",
-                "slug": "artificial-black-olive-tree",
-                "url": "https://shopforher.org/gift/artificial-black-olive-tree/"
+                "id": "miyuki-rustic-vase",
+                "name": "MIYUKI Rustic Terracotta Vase",
+                "slug": "miyuki-rustic-terracotta-vase",
+                "url": "https://shopforher.org/gift/miyuki-rustic-terracotta-vase/"
               }
             ]
           }

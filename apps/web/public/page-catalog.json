@@ -185,20 +185,8 @@
   "ops": {
     "guidesNeedingEditorialRefresh": [
       {
-        "slug": "gifts-for-wife",
-        "pageUrl": "https://shopforher.org/gifts-for-wife/"
-      },
-      {
         "slug": "birthday-gifts-for-girlfriend",
         "pageUrl": "https://shopforher.org/birthday-gifts-for-girlfriend/"
-      },
-      {
-        "slug": "cozy-home-gifts-for-her",
-        "pageUrl": "https://shopforher.org/cozy-home-gifts-for-her/"
-      },
-      {
-        "slug": "gifts-for-her-who-has-everything",
-        "pageUrl": "https://shopforher.org/gifts-for-her-who-has-everything/"
       },
       {
         "slug": "date-night-gifts-for-her",
@@ -630,7 +618,7 @@
           "priceBands": [
             "over-150",
             "under-150",
-            "under-75"
+            "under-50"
           ]
         }
       },
@@ -641,7 +629,7 @@
           "walking-pad",
           "vanity-mirror",
           "temperature-mug",
-          "black-olive-tree",
+          "miyuki-rustic-vase",
           "nespresso-machine"
         ],
         "relatedGuideSlugs": [
@@ -651,7 +639,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1313,11 +1301,11 @@
         "relatedGuideSlugs": [
           "gifts-for-homebodies",
           "gifts-for-wife",
-          "best-gifts-under-100"
+          "daily-use-gifts-for-her"
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1540,7 +1528,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -5199,6 +5187,7 @@
       },
       "entities": {
         "guideSlugs": [
+          "gifts-for-wife",
           "cozy-home-gifts-for-her",
           "gifts-for-homebodies"
         ],
@@ -5693,7 +5682,6 @@
       },
       "entities": {
         "guideSlugs": [
-          "gifts-for-wife",
           "gifts-for-her-who-has-everything",
           "amazon-gifts-for-her",
           "gifts-for-homebodies"

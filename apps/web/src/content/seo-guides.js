@@ -511,7 +511,7 @@ export const seoGuides = [
         body: "Choose this when you want the wife gift to feel more substantial and clearly above the routine-gift line.",
       },
     ],
-    itemIds: ["digital-frame", "walking-pad", "vanity-mirror", "temperature-mug", "black-olive-tree", "nespresso-machine"],
+    itemIds: ["digital-frame", "walking-pad", "vanity-mirror", "temperature-mug", "miyuki-rustic-vase", "nespresso-machine"],
     related: ["anniversary-gifts-for-her", "luxury-gifts-for-her", "daily-use-gifts-for-her"],
   },
   {
@@ -1295,7 +1295,7 @@ export const seoGuides = [
       },
     ],
     itemIds: ["luxury-throw", "faux-olive-tree-planter", "cashmere-robe", "ugg-slippers", "nespresso-machine", "miyuki-rustic-vase"],
-    related: ["gifts-for-homebodies", "gifts-for-wife", "best-gifts-under-100"],
+    related: ["gifts-for-homebodies", "gifts-for-wife", "daily-use-gifts-for-her"],
   },
   {
     slug: "tech-gifts-for-her",
