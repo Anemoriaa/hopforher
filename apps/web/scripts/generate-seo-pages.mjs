@@ -1570,7 +1570,7 @@ function renderHotStoryEditorialSection(story, relatedGuides) {
           </article>
           <article class="discovery-faq">
             <h3>How the page is structured</h3>
-            <p>${escapeHtml("Hot pages combine a current trend angle, a short ranked product list, and related evergreen guides so the page can move fast without losing context.")}</p>
+            <p>${escapeHtml("Hot pages combine an editor-tracked current-interest angle, a short ranked product list, and related evergreen guides so the page can move fast without losing context.")}</p>
           </article>
           <article class="discovery-faq">
             <h3>When to skip this lane</h3>
@@ -1581,7 +1581,7 @@ function renderHotStoryEditorialSection(story, relatedGuides) {
             <p>${escapeHtml(priceEstimateNote)}</p>
           </article>
         </div>
-        ${renderTrustResourceLinks("Use the trust pages when you want to verify how the trend page was built or report something that looks stale.")}
+        ${renderTrustResourceLinks("These pages are current-interest editorial reads, not sourced social analytics snapshots. Use the trust pages when you want to verify how the page was built or report something that looks stale.")}
       </section>`;
 }
 
@@ -1664,6 +1664,22 @@ function hotStoryFaqs(story, items, relatedGuides) {
         : "Use this story first when speed and current attention matter more than full evergreen coverage.",
     },
   ];
+}
+
+function hotStoryCardChips(story) {
+  return [
+    "Editor tracked",
+    story.itemIds?.length ? `${story.itemIds.length} pick${story.itemIds.length === 1 ? "" : "s"}` : null,
+    story.relatedGuides?.length ? `${story.relatedGuides.length} guide${story.relatedGuides.length === 1 ? "" : "s"}` : null,
+  ].filter(Boolean);
+}
+
+function hotStoryPagePills(story, items, relatedGuides) {
+  return [
+    story.trendLabel,
+    items.length ? `${items.length} pick${items.length === 1 ? "" : "s"}` : null,
+    relatedGuides.length ? `${relatedGuides.length} guide${relatedGuides.length === 1 ? "" : "s"}` : "Editor tracked",
+  ].filter(Boolean);
 }
 
 function renderFaqSection(sectionId, title, faqs) {
@@ -3094,7 +3110,7 @@ function renderHotIndex(freshness = lastmodPlaceholder) {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Hot gift trends",
-    description: "Trending and viral gift pages for her.",
+    description: "Current-interest gift pages for her built from editor-tracked angles and product patterns.",
     url: `${siteUrl}/hot/`,
     dateModified: freshness.isoDate,
     publisher: siteOrganizationSchema,
@@ -3120,7 +3136,7 @@ function renderHotIndex(freshness = lastmodPlaceholder) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hot gift trends | ShopForHer</title>
-  <meta name="description" content="Trending, viral, and current gift pages for her.">
+  <meta name="description" content="Current-interest gift pages for her built from editor-tracked angles and product patterns.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="${siteUrl}/hot/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -3140,27 +3156,25 @@ function renderHotIndex(freshness = lastmodPlaceholder) {
       <section class="discovery-hero">
         <p class="discovery-kicker">Hot</p>
         <h1>Trending gift pages</h1>
-        <p class="discovery-intro">Real pages for the viral side of ShopForHer: fast-moving picks, cleaner buys, and current angles.</p>
+        <p class="discovery-intro">Editor-tracked current-interest pages for the faster-moving side of ShopForHer: sharper picks, cleaner buys, and live-feeling angles.</p>
         <div class="discovery-meta">
           <span>Updated ${escapeHtml(freshness.displayDate)}</span>
           <span>${seoHotStories.length} stories</span>
+          <span>Editor-tracked, not metric-led</span>
         </div>
       </section>
       <section class="discovery-section">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Feed</p>
-          <h2>Current stories</h2>
+          <h2>Current lanes</h2>
         </div>
         <div class="discovery-hot-story-grid">
           ${seoHotStories
-            .map(
-              (story) => `<a class="discovery-hot-story-card" href="/hot/${story.slug}/">
+            .map((story) => `<a class="discovery-hot-story-card" href="/hot/${story.slug}/">
             <div class="discovery-hot-story-media">
               <img src="${escapeHtml(hotThumbUrl(story))}" alt="${escapeHtml(story.h1)} thumbnail" loading="lazy">
               <div class="discovery-hot-story-chip-row">
-                <span>TikTok</span>
-                <span>${escapeHtml(story.duration)}</span>
-                <span>${escapeHtml(story.views)}</span>
+                ${hotStoryCardChips(story).map((chip) => `<span>${escapeHtml(chip)}</span>`).join("")}
               </div>
             </div>
             <div class="discovery-hot-story-body">
@@ -3175,7 +3189,7 @@ function renderHotIndex(freshness = lastmodPlaceholder) {
       </section>
     </main>
     ${renderDiscoveryFooter({
-      notes: ["Hot pages focus on faster-moving gift angles and trend-shaped buying behavior."],
+      notes: ["Hot pages are editor-tracked current-interest reads, not sourced view-count reports."],
     })}
   </div>
 </body>
@@ -3205,7 +3219,7 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
       kicker: "Story snapshot",
       title: story.h1,
       body: story.description,
-      pills: [story.trendLabel, story.views, story.duration],
+      pills: hotStoryPagePills(story, items, relatedGuides),
       emphasis: true,
       cta: leadGift
         ? `<div class="discovery-actions discovery-actions-rail">
@@ -3377,15 +3391,13 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
         <p class="discovery-intro">${escapeHtml(story.intro)}</p>
         <div class="discovery-meta">
           <span>Updated ${escapeHtml(freshness.displayDate)}</span>
-          <span>${escapeHtml(story.trendLabel)}</span>
-          <span>${escapeHtml(story.views)}</span>
-          <span>${escapeHtml(story.duration)}</span>
+          ${hotStoryPagePills(story, items, relatedGuides).map((pill) => `<span>${escapeHtml(pill)}</span>`).join("")}
         </div>
       </section>
       <div class="discovery-page-main">
         <div class="discovery-page-stack">
           <section class="discovery-poster" id="story-poster">
-        <img src="${escapeHtml(pageImage)}" alt="${escapeHtml(story.h1)} TikTok thumbnail" loading="lazy">
+        <img src="${escapeHtml(pageImage)}" alt="${escapeHtml(story.h1)} story image" loading="lazy">
         <div class="discovery-poster-copy">
           <span>${escapeHtml(story.label)}</span>
           <strong>${escapeHtml(story.trendLabel)}</strong>
