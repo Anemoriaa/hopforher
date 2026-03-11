@@ -79,7 +79,7 @@ const trustPages = [
     description: "What ShopForHer is, who it helps, and how the site is structured.",
     kicker: "About",
     h1: "About ShopForHer",
-    intro: "ShopForHer is a gift-discovery brand built for men who want a cleaner answer fast when buying for her.",
+    intro: "ShopForHer is an independent editorial gift guide and referral site built for men who want a clearer answer when buying for her.",
     schemaType: "AboutPage",
     sections: [
       {
@@ -89,6 +89,22 @@ const trustPages = [
       {
         title: "Who it is for",
         body: "ShopForHer is primarily written for men buying for a girlfriend or wife who want faster confidence, clearer tradeoffs, and a more useful shortlist.",
+      },
+      {
+        title: "Operating model",
+        body: "ShopForHer is an independent editorial publisher. It curates gift guides, product pages, current-interest stories, and date-planning pages, but it does not process checkout, shipping, reservations, or returns.",
+      },
+      {
+        title: "Coverage",
+        body: "Coverage is aimed at U.S. shoppers and English-language readers. The site concentrates on common buying moments such as girlfriend gifts, wife gifts, anniversaries, budgets, and easy date planning.",
+      },
+      {
+        title: "Accountability",
+        body: "Every page links back to the editorial policy and contact page so readers can verify the method or flag a problem. Correction and broken-link reports sent to hello@shopforher.org are reviewed within 3 business days.",
+      },
+      {
+        title: "Commercial model",
+        body: "Some outbound links are affiliate links that may earn a commission. That supports the site, but affiliate relationships do not guarantee inclusion and checkout still happens on the merchant or partner site.",
       },
       {
         title: "How the site is organized",
@@ -114,18 +130,30 @@ const trustPages = [
         body: "We try to avoid cluttered roundups, obvious filler picks, and recommendations that only look good in a search result but are weak when someone actually buys them.",
       },
       {
-        title: "Affiliate disclosure",
-        body: "Some outbound links are paid affiliate links. As an Amazon Associate I earn from qualifying purchases, but that does not change the stated reason a product appears on a page, and checkout still happens on the merchant site.",
-      },
-      {
         id: "editorial-team",
-        title: "Editorial team",
-        body: "ShopForHer Editorial Team writes the guide and product pages. The job of the page author is to make the shortlist clearer, lower-risk, and easier to scan for the intended buyer moment.",
+        title: "Editorial desk",
+        body: "The ShopForHer Editorial Desk writes guide copy, comparisons, and page framing. Its job is to make each page answer a specific buyer moment rather than just chase a broad keyword.",
       },
       {
         id: "commerce-review",
-        title: "Commerce review",
-        body: "ShopForHer Commerce Review checks that the product lane, merchant path, price band, and disclosure notes are clear before a guide or product page is regenerated.",
+        title: "Commerce desk",
+        body: "The ShopForHer Commerce Desk checks merchant paths, price bands, disclosure labels, and whether a product still feels credible enough to stay live on the site.",
+      },
+      {
+        title: "Inclusion standard",
+        body: "A product or page should stay live only when it is easy to understand, clearly giftable, visually credible, and distinct enough to earn its slot instead of repeating another page.",
+      },
+      {
+        title: "Updates and removals",
+        body: "Pages are refreshed when links break, price bands drift too far, a better option replaces the current pick, or a page becomes too repetitive to justify indexing.",
+      },
+      {
+        title: "Corrections standard",
+        body: "Correction emails that include the page URL and the issue are reviewed within 3 business days. Broken links, misleading wording, and stale pricing notes are the highest-priority fixes.",
+      },
+      {
+        title: "Affiliate disclosure",
+        body: "Some outbound links are paid affiliate links. As an Amazon Associate I earn from qualifying purchases, but commercial relationships do not guarantee placement and checkout still happens on the merchant site.",
       },
       {
         title: "Evidence and pricing",
@@ -151,55 +179,116 @@ const trustPages = [
         body: "Reach the site at hello@shopforher.org.",
       },
       {
-        title: "Corrections and updates",
-        body: "If a guide is outdated, a link breaks, or a page is misleading, email the page URL and the issue so it can be reviewed.",
+        title: "Best way to get help",
+        body: "Include the exact page URL, what looks wrong, and any better source link or corrected detail if you have one. That makes broken-link, pricing, and wording reviews faster.",
       },
       {
-        title: "Partnerships",
+        title: "Response standard",
+        body: "Messages are triaged on business days. Correction and broken-link reports are typically reviewed within 3 business days.",
+      },
+      {
+        title: "Corrections and removals",
+        body: "If a product is discontinued, a merchant page breaks, or a claim looks wrong, send the page URL and the issue so the page can be updated or the item removed.",
+      },
+      {
+        title: "Partnerships and media",
         body: "For partnerships, media questions, or brand mentions, include context and the exact page or campaign you are asking about.",
+      },
+      {
+        title: "Business and rights questions",
+        body: "Use the same inbox for affiliate issues, brand safety concerns, asset or rights questions, or other business inquiries tied to ShopForHer pages or creative.",
       },
     ],
   },
 ];
+const correctionResponseWindow = "within 3 business days";
+const correctionContactNote = `Email ${seoSite.contactEmail} with the page URL and the issue. Correction and broken-link reports are reviewed ${correctionResponseWindow}.`;
+const offSiteCheckoutNote = "ShopForHer does not process orders, payments, shipping, reservations, or returns. Checkout and booking happen on the merchant or partner site.";
+const editorialIndependenceNote = "Affiliate links may earn a commission, but affiliate relationships do not guarantee inclusion and do not prevent a product from being removed.";
+const professionalCoverageNote = "Coverage is aimed at U.S. shoppers and English-language readers across gift guides, product pages, current-interest stories, and simple date-planning pages.";
+const editorialPolicyUrl = `${siteUrl}${seoSite.editorialPath}`;
+const aboutPageUrl = `${siteUrl}${seoSite.aboutPath}`;
+const contactPageUrl = `${siteUrl}${seoSite.contactPath}`;
 const siteOrganizationSchema = {
   "@type": "Organization",
+  "@id": `${siteUrl}/#organization`,
   name: seoSite.name,
   url: `${siteUrl}/`,
-  logo: `${siteUrl}/logo1.png`,
+  logo: {
+    "@type": "ImageObject",
+    url: `${siteUrl}/logo1.png`,
+  },
   email: seoSite.contactEmail,
+  description: "Independent editorial gift guide and referral publisher for men shopping for women.",
+  areaServed: "US",
+  knowsAbout: [
+    "Gift guides for girlfriends and wives",
+    "Gift recommendation editing",
+    "Trend-driven gift roundups",
+    "Date-planning editorial pages",
+  ],
+  publishingPrinciples: editorialPolicyUrl,
+  subjectOf: [
+    {
+      "@type": "AboutPage",
+      url: aboutPageUrl,
+    },
+    {
+      "@type": "WebPage",
+      url: editorialPolicyUrl,
+    },
+    {
+      "@type": "ContactPage",
+      url: contactPageUrl,
+    },
+  ],
   contactPoint: [
     {
       "@type": "ContactPoint",
-      contactType: "customer support",
+      contactType: "editorial support",
       email: seoSite.contactEmail,
       url: `${siteUrl}${seoSite.contactPath}`,
+      availableLanguage: ["English"],
+      areaServed: "US",
     },
   ],
 };
+const siteWebsiteSchema = {
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  name: seoSite.name,
+  url: `${siteUrl}/`,
+  description: seoSite.description,
+  inLanguage: "en-US",
+  publisher: {
+    "@id": `${siteUrl}/#organization`,
+  },
+};
 const editorialAuthor = {
-  name: "ShopForHer Editorial Team",
-  title: "Gift recommendation editors",
+  name: "ShopForHer Editorial Desk",
+  title: "Guide writing, comparisons, and page updates",
   url: `${siteUrl}${seoSite.editorialPath}#editorial-team`,
 };
 const editorialReviewer = {
-  name: "ShopForHer Commerce Review",
-  title: "Commerce review and quality checks",
+  name: "ShopForHer Commerce Desk",
+  title: "Merchant path, price-band, and disclosure review",
   url: `${siteUrl}${seoSite.editorialPath}#commerce-review`,
 };
 const editorialAuthorSchema = {
   "@type": "Organization",
+  "@id": `${siteUrl}/#editorial-desk`,
   name: editorialAuthor.name,
   url: editorialAuthor.url,
+  description: editorialAuthor.title,
 };
 const editorialReviewerSchema = {
   "@type": "Organization",
+  "@id": `${siteUrl}/#commerce-desk`,
   name: editorialReviewer.name,
   url: editorialReviewer.url,
+  description: editorialReviewer.title,
 };
 const priceEstimateNote = "Price labels reflect recent observed ranges and final pricing can change on the merchant site.";
-const editorialPolicyUrl = `${siteUrl}${seoSite.editorialPath}`;
-const aboutPageUrl = `${siteUrl}/about.html`;
-const contactPageUrl = `${siteUrl}${seoSite.contactPath}`;
 const trustResourceLinks = [
   {
     href: seoSite.editorialPath,
@@ -838,6 +927,13 @@ function jsonLdScript(data) {
   return `<script type="application/ld+json">${JSON.stringify(data)}</script>`;
 }
 
+function renderSiteIdentityJsonLd() {
+  return jsonLdScript({
+    "@context": "https://schema.org",
+    "@graph": [siteOrganizationSchema, siteWebsiteSchema],
+  });
+}
+
 function buildBreadcrumbSchema(items = []) {
   return {
     "@context": "https://schema.org",
@@ -1053,6 +1149,7 @@ function pageTrustSchemaFields() {
   return {
     isAccessibleForFree: true,
     publishingPrinciples: editorialPolicyUrl,
+    maintainer: siteOrganizationSchema,
   };
 }
 
@@ -1076,6 +1173,7 @@ function renderGuideMethodSection(guide) {
     ["How we picked these", guide.selectionMethod || "This page is curated around fit, buying confidence, and how safely each gift matches the page promise."],
     ["Use this page when", guide.bestUseCase || "Use this page when the page title closely matches the actual occasion, budget, or relationship stage you are buying for."],
     ["Skip this page when", guide.avoidWhen || "Skip this page when a different page on the site matches your moment or budget more directly."],
+    ["Corrections and updates", correctionContactNote],
     ["Pricing note", priceEstimateNote],
   ];
 
@@ -1187,6 +1285,8 @@ function renderProductEditorialSection(gift) {
           ? `This page links directly to the ${merchantName(gift)} product page and checkout still happens off-site.`
           : "This page links out to a stable merchant listing and all checkout still happens off-site.",
     ],
+    ["Commercial policy", editorialIndependenceNote],
+    ["Corrections and removals", correctionContactNote],
     ["Pricing note", priceEstimateNote],
   ];
 
@@ -1573,8 +1673,20 @@ function renderHotStoryEditorialSection(story, relatedGuides) {
             <p>${escapeHtml("Hot pages combine an editor-tracked current-interest angle, a short ranked product list, and related evergreen guides so the page can move fast without losing context.")}</p>
           </article>
           <article class="discovery-faq">
+            <h3>Refresh standard</h3>
+            <p>${escapeHtml("These pages stay live only while the angle still feels current and the linked product lane remains credible enough to justify the story.")}</p>
+          </article>
+          <article class="discovery-faq">
             <h3>When to skip this lane</h3>
             <p>${escapeHtml(skipLaneCopy)}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>Corrections and updates</h3>
+            <p>${escapeHtml(correctionContactNote)}</p>
+          </article>
+          <article class="discovery-faq">
+            <h3>Commercial policy</h3>
+            <p>${escapeHtml(editorialIndependenceNote)}</p>
           </article>
           <article class="discovery-faq">
             <h3>Pricing note</h3>
@@ -1891,6 +2003,7 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
+  ${renderSiteIdentityJsonLd()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(itemListSchema)}
   ${jsonLdScript(breadcrumbSchema)}
@@ -2273,6 +2386,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
+  ${renderSiteIdentityJsonLd()}
   ${jsonLdScript(productSchema)}
   ${jsonLdScript(productPageSchema)}
   ${jsonLdScript(faqSchema)}
@@ -2555,6 +2669,7 @@ function renderProductIndex(freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
+  ${renderSiteIdentityJsonLd()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(itemListSchema)}
   ${jsonLdScript(breadcrumbSchema)}
@@ -2772,6 +2887,7 @@ function renderGuideIndex(freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
+  ${renderSiteIdentityJsonLd()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(itemListSchema)}
   ${jsonLdScript(breadcrumbSchema)}
@@ -2859,6 +2975,7 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
+  ${renderSiteIdentityJsonLd()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(itemListSchema)}
   ${jsonLdScript(breadcrumbSchema)}
@@ -2981,6 +3098,7 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
+  ${renderSiteIdentityJsonLd()}
   ${jsonLdScript(localBusinessSchema)}
   ${jsonLdScript(breadcrumbSchema)}
   ${faqSchema ? jsonLdScript(faqSchema) : ""}
@@ -3087,6 +3205,20 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
               <p class="discovery-kicker">Trust</p>
               <h2>How these pages work</h2>
             </div>
+            <div class="discovery-faqs">
+              <article class="discovery-faq">
+                <h3>Planning scope</h3>
+                <p>${escapeHtml("These are neighborhood-led editorial planning pages, not live ranked venue lists or booking inventory feeds.")}</p>
+              </article>
+              <article class="discovery-faq">
+                <h3>Booking model</h3>
+                <p>${escapeHtml(offSiteCheckoutNote)}</p>
+              </article>
+              <article class="discovery-faq">
+                <h3>Corrections and updates</h3>
+                <p>${escapeHtml(correctionContactNote)}</p>
+              </article>
+            </div>
             ${renderTrustResourceLinks("These are neighborhood-led planning pages, not live ranked venue lists. Use the trust pages if you want the site background, methodology, or correction route.")}
           </section>
         </div>
@@ -3142,6 +3274,7 @@ function renderHotIndex(freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
+  ${renderSiteIdentityJsonLd()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(itemListSchema)}
   ${jsonLdScript(breadcrumbSchema)}
@@ -3371,6 +3504,7 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
+  ${renderSiteIdentityJsonLd()}
   ${jsonLdScript(collectionPageSchema)}
   ${jsonLdScript(articleSchema)}
   ${jsonLdScript(itemListSchema)}
@@ -3534,6 +3668,7 @@ function renderTrustPage(page, freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
+  ${renderSiteIdentityJsonLd()}
   ${jsonLdScript(pageSchema)}
   ${jsonLdScript(breadcrumbSchema)}
 </head>
@@ -3578,7 +3713,7 @@ function renderTrustPage(page, freshness = lastmodPlaceholder) {
       </section>
     </main>
     ${renderDiscoveryFooter({
-      notes: ["These pages exist so users, search engines, and AI assistants can understand the site and how it operates."],
+      notes: [professionalCoverageNote, "These pages exist so users, search engines, and AI assistants can understand the site and how it operates."],
     })}
   </div>
 </body>
@@ -3684,6 +3819,7 @@ function renderSiteMapPage(freshness = lastmodPlaceholder) {
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
+  ${renderSiteIdentityJsonLd()}
   ${jsonLdScript(pageSchema)}
   ${jsonLdScript(itemListSchema)}
   ${jsonLdScript(breadcrumbSchema)}
