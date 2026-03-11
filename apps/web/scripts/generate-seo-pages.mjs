@@ -2642,6 +2642,19 @@ function buildStaticDateSpotMapsUrl(city, spot) {
   return url.toString();
 }
 
+function uniqueDateCityAreas(city) {
+  return [...new Set((city?.spots || []).map((spot) => spot.area).filter(Boolean))];
+}
+
+function dateCityIndexMeta(city) {
+  const areaCount = uniqueDateCityAreas(city).length;
+
+  return [
+    city?.spots?.length ? `${city.spots.length} format${city.spots.length === 1 ? "" : "s"}` : null,
+    areaCount ? `${areaCount} neighborhood${areaCount === 1 ? "" : "s"}` : null,
+  ].filter(Boolean).join(" · ");
+}
+
 function hasSpecificDateSpotBookingUrl(spot) {
   if (!spot?.bookingUrl) {
     return false;
@@ -2677,6 +2690,25 @@ function resolveStaticDateSpotAction(city, spot) {
   return {
     href: buildStaticDateSpotMapsUrl(city, spot),
     label: "Open in Maps",
+  };
+}
+
+function buildDateCityFaqSchema(city) {
+  if (!city?.faqs?.length) {
+    return null;
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: city.faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.a,
+      },
+    })),
   };
 }
 
@@ -2779,7 +2811,7 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Date spots",
-    description: "City date pages with simple booking paths.",
+    description: "Neighborhood-led city date pages with cleaner planning paths for dinner, drinks, and follow-up moves.",
     url: `${siteUrl}/dates/`,
     dateModified: freshness.isoDate,
     publisher: siteOrganizationSchema,
@@ -2805,7 +2837,7 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Date spots | ShopForHer</title>
-  <meta name="description" content="Simple city date pages with clean booking paths.">
+  <meta name="description" content="Neighborhood-led city date pages with cleaner planning paths for dinner, drinks, and follow-up moves.">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="${siteUrl}/dates/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -2825,10 +2857,11 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
       <section class="discovery-hero">
         <p class="discovery-kicker">Plans</p>
         <h1>Date spots</h1>
-        <p class="discovery-intro">City pages for dinner, drinks, and easier date-night booking paths.</p>
+        <p class="discovery-intro">Neighborhood-led city pages for dinner, drinks, and lower-friction date-night planning.</p>
         <div class="discovery-meta">
           <span>Updated ${escapeHtml(freshness.displayDate)}</span>
           <span>${seoDateCities.length} cities</span>
+          <span>Planning pages, not live inventory</span>
         </div>
       </section>
       <section class="discovery-section">
@@ -2840,7 +2873,7 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
           ${seoDateCities
             .map(
               (city) => `<a class="discovery-related-link" href="/dates/${city.slug}/">
-            <span>City</span>
+            <span>${escapeHtml(dateCityIndexMeta(city) || "City page")}</span>
             <strong>${escapeHtml(city.city)}</strong>
           </a>`
             )
@@ -2849,7 +2882,7 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
       </section>
     </main>
     ${renderDiscoveryFooter({
-      notes: ["Plan pages summarize cleaner date-night lanes and hand off to external booking or map destinations."],
+      notes: ["Plan pages summarize cleaner neighborhood lanes and hand off to external booking or map destinations."],
       includeAffiliateDisclosure: false,
     })}
   </div>
@@ -2859,6 +2892,45 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
 
 function renderDateCityPage(city, freshness = lastmodPlaceholder) {
   const canonical = `${siteUrl}/dates/${city.slug}/`;
+  const areaCount = uniqueDateCityAreas(city).length;
+  const faqSchema = buildDateCityFaqSchema(city);
+  const relatedCities = seoDateCities.filter((entry) => entry.slug !== city.slug);
+  const cityRail = renderPageRail([
+    {
+      kicker: "City snapshot",
+      title: `${city.city} date lanes`,
+      body: city.positioning || city.description,
+      pills: [
+        `Updated ${freshness.displayDate}`,
+        `${city.spots.length} format${city.spots.length === 1 ? "" : "s"}`,
+        `${areaCount} neighborhood${areaCount === 1 ? "" : "s"}`,
+      ],
+      emphasis: true,
+    },
+    {
+      kicker: "Quick jumps",
+      title: "What to read first",
+      body: "Start with the date format, then use the neighborhood read and planning notes to tighten the plan.",
+      links: [
+        { href: "#date-spots", label: "Simple date options", meta: `${city.spots.length} plan shape${city.spots.length === 1 ? "" : "s"}` },
+        ...(city.lanes?.length ? [{ href: "#date-lanes", label: "Neighborhood reads", meta: `${city.lanes.length} lane${city.lanes.length === 1 ? "" : "s"}` }] : []),
+        ...(city.planningTips?.length ? [{ href: "#date-tips", label: "Keep the plan easy", meta: `${city.planningTips.length} planning note${city.planningTips.length === 1 ? "" : "s"}` }] : []),
+        ...(city.faqs?.length ? [{ href: "#date-faq", label: "Quick answers", meta: `${city.faqs.length} FAQ${city.faqs.length === 1 ? "" : "s"}` }] : []),
+      ],
+    },
+    relatedCities.length
+      ? {
+          kicker: "Other cities",
+          title: "Browse other city pages",
+          body: "Move here if the plan changed cities or you want a different neighborhood read.",
+          links: relatedCities.map((entry) => ({
+            href: `/dates/${entry.slug}/`,
+            label: entry.city,
+            meta: dateCityIndexMeta(entry) || "City page",
+          })),
+        }
+      : null,
+  ]);
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
@@ -2872,6 +2944,7 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
       "@type": "Place",
       name: city.city,
     },
+    ...pageTrustSchemaFields(),
   };
 
   const breadcrumbSchema = buildBreadcrumbSchema([
@@ -2894,6 +2967,7 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
   ${attributionScriptTag()}
   ${jsonLdScript(localBusinessSchema)}
   ${jsonLdScript(breadcrumbSchema)}
+  ${faqSchema ? jsonLdScript(faqSchema) : ""}
 </head>
 <body>
   <div class="discovery-shell">
@@ -2908,21 +2982,26 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
         <h1>${escapeHtml(city.h1)}</h1>
         <p class="discovery-intro">${escapeHtml(city.intro)}</p>
         <div class="discovery-meta">
-          <span>Maps or booking handoff</span>
           <span>Updated ${escapeHtml(freshness.displayDate)}</span>
+          <span>${city.spots.length} plan format${city.spots.length === 1 ? "" : "s"}</span>
+          <span>${areaCount} neighborhood${areaCount === 1 ? "" : "s"}</span>
+          <span>Maps or booking handoff</span>
         </div>
       </section>
-      <section class="discovery-section">
-        <div class="discovery-section-head">
-          <p class="discovery-kicker">Places</p>
-          <h2>Simple date options</h2>
-        </div>
-        <ol class="discovery-list">
-          ${city.spots
-            .map((spot, index) => {
-              const action = resolveStaticDateSpotAction(city, spot);
+      <div class="discovery-page-main">
+        <div class="discovery-page-stack">
+          <section class="discovery-section" id="date-spots">
+            <div class="discovery-section-head">
+              <p class="discovery-kicker">Places</p>
+              <h2>Simple date options</h2>
+            </div>
+            <p class="discovery-section-note">${escapeHtml(city.positioning || "Use these as planning lanes to narrow the neighborhood and format before you book.")}</p>
+            <ol class="discovery-list">
+              ${city.spots
+                .map((spot, index) => {
+                  const action = resolveStaticDateSpotAction(city, spot);
 
-              return `<li class="discovery-item">
+                  return `<li class="discovery-item">
             <div class="discovery-item-head">
               <span class="discovery-rank">${String(index + 1).padStart(2, "0")}</span>
               <div>
@@ -2935,13 +3014,74 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
               <a class="discovery-btn" href="${escapeHtml(action.href)}" target="_blank" rel="noreferrer">${escapeHtml(action.label)}</a>
             </div>
           </li>`;
-            })
-            .join("")}
-        </ol>
-      </section>
+                })
+                .join("")}
+            </ol>
+          </section>
+          ${
+            city.lanes?.length
+              ? `<section class="discovery-section" id="date-lanes">
+            <div class="discovery-section-head">
+              <p class="discovery-kicker">Neighborhoods</p>
+              <h2>Which lane fits the night</h2>
+            </div>
+            <p class="discovery-section-note">Use this section when the real decision is not the exact venue yet. It helps narrow the right area and tone first.</p>
+            <ol class="discovery-list">
+              ${city.lanes
+                .map(
+                  (lane, index) => `<li class="discovery-item">
+                <div class="discovery-item-head">
+                  <span class="discovery-rank">${String(index + 1).padStart(2, "0")}</span>
+                  <div>
+                    <h3>${escapeHtml(lane.title)}</h3>
+                    <p class="discovery-price">${escapeHtml(lane.area)} · ${escapeHtml(lane.bestFor)}</p>
+                  </div>
+                </div>
+                <p class="discovery-copy">${escapeHtml(lane.note)}</p>
+              </li>`
+                )
+                .join("")}
+            </ol>
+          </section>`
+              : ""
+          }
+          ${
+            city.planningTips?.length
+              ? `<section class="discovery-section" id="date-tips">
+            <div class="discovery-section-head">
+              <p class="discovery-kicker">Game plan</p>
+              <h2>How to keep the plan easy</h2>
+            </div>
+            <div class="discovery-faqs">
+              ${city.planningTips
+                .map(
+                  (tip) => `<article class="discovery-faq">
+                <h3>${escapeHtml(tip.title)}</h3>
+                <p>${escapeHtml(tip.body)}</p>
+              </article>`
+                )
+                .join("")}
+            </div>
+          </section>`
+              : ""
+          }
+          ${renderFaqSection("date-faq", "Quick answers", city.faqs || [])}
+          <section class="discovery-section" id="date-trust">
+            <div class="discovery-section-head">
+              <p class="discovery-kicker">Trust</p>
+              <h2>How these pages work</h2>
+            </div>
+            ${renderTrustResourceLinks("These are neighborhood-led planning pages, not live ranked venue lists. Use the trust pages if you want the site background, methodology, or correction route.")}
+          </section>
+        </div>
+        ${cityRail}
+      </div>
     </main>
     ${renderDiscoveryFooter({
-      notes: ["Reservation availability and checkout happen on the destination booking or map partner site."],
+      notes: [
+        "These plan pages are neighborhood-led editorial starting points, not real-time inventory.",
+        "Reservation availability and checkout happen on the destination booking or map partner site.",
+      ],
       includeAffiliateDisclosure: false,
     })}
   </div>
