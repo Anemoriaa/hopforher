@@ -211,43 +211,50 @@
         "id": "roseseek-crochet-lace-pants",
         "slug": "roseseek-crochet-lace-cover-up-pants",
         "pageUrl": "https://shopforher.org/gift/roseseek-crochet-lace-cover-up-pants/",
-        "reason": "merchant-search-fallback"
+        "reason": "merchant-search-fallback",
+        "query": "RoseSeek Women's Crochet Lace Pants Ruffle Layered Elastic Waist Mesh Bathing Suit Cover Up Beach Pants"
       },
       {
         "id": "mchic-beaded-choker",
         "slug": "mchic-colorful-beaded-choker",
         "pageUrl": "https://shopforher.org/gift/mchic-colorful-beaded-choker/",
-        "reason": "merchant-search-fallback"
+        "reason": "merchant-search-fallback",
+        "query": "Mchic Colorful Beaded Choker Necklace for Women Boho Large Square Acrylic Beaded Necklace Stainless Steel Adjustable Surfer Beach Strand Necklces Summer Handmade Jewelry Gift for Women"
       },
       {
         "id": "easter-bunny-porch-decor",
         "slug": "large-easter-bunny-porch-decor",
         "pageUrl": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
-        "reason": "merchant-search-fallback"
+        "reason": "merchant-search-fallback",
+        "query": "Easter Bunny Decor, Large Bunnies Statue Outdoor Porch Decor"
       },
       {
         "id": "oliker-speckled-eggs",
         "slug": "oliker-speckled-eggs",
         "pageUrl": "https://shopforher.org/gift/oliker-speckled-eggs/",
-        "reason": "merchant-search-fallback"
+        "reason": "merchant-search-fallback",
+        "query": "OLIKER 24 Pcs Easter Speckled Eggs, 2.4in 4 Colors Plastic Speckled Eggs and Vase Filler Faux Chicken Eggs for Easter Decorations Basket Filler Vase Decorating"
       },
       {
         "id": "ceramic-floor-vase",
         "slug": "large-ceramic-floor-vase",
         "pageUrl": "https://shopforher.org/gift/large-ceramic-floor-vase/",
-        "reason": "merchant-search-fallback"
+        "reason": "merchant-search-fallback",
+        "query": "Ceramic Vase - Large Tall Floor Vase for Centerpieces"
       },
       {
         "id": "ninehaoou-scroll-vase",
         "slug": "ninehaoou-scroll-vase",
         "pageUrl": "https://shopforher.org/gift/ninehaoou-scroll-vase/",
-        "reason": "merchant-search-fallback"
+        "reason": "merchant-search-fallback",
+        "query": "Ninehaoou Ceramic Scroll Vase 5.1 Inch Rustic Plant Pots Flower Pot for Indoor Plants Home Kitchen Decor Farmhouse Antique Decorative Gifts"
       },
       {
         "id": "artificial-olive-tree-1026",
         "slug": "artificial-olive-tree-1026",
         "pageUrl": "https://shopforher.org/gift/artificial-olive-tree-1026/",
-        "reason": "merchant-search-fallback"
+        "reason": "merchant-search-fallback",
+        "query": "Artificial Olive Tree1026 7+8"
       }
     ]
   },
@@ -2808,6 +2815,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "silk-pillowcase",
         "guideSlugs": [
           "gifts-for-girlfriend",
           "anniversary-gifts-for-her",
@@ -2874,6 +2882,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "temperature-mug",
         "guideSlugs": [
           "gifts-for-wife",
           "practical-gifts-for-her",
@@ -2934,6 +2943,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "digital-frame",
         "guideSlugs": [
           "gifts-for-wife",
           "anniversary-gifts-for-her",
@@ -2996,6 +3006,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "mini-photo-printer",
         "guideSlugs": [
           "gifts-for-girlfriend",
           "anniversary-gifts-for-her",
@@ -3062,6 +3073,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "sunrise-alarm",
         "guideSlugs": [
           "gifts-for-girlfriend",
           "new-relationship-gifts-for-her",
@@ -3125,6 +3137,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "luxury-throw",
         "guideSlugs": [
           "cozy-home-gifts-for-her",
           "new-relationship-gifts-for-her",
@@ -3188,6 +3201,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "walking-pad",
         "guideSlugs": [
           "gifts-for-wife",
           "practical-gifts-for-her",
@@ -3248,6 +3262,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "earbuds",
         "guideSlugs": [
           "gifts-for-girlfriend",
           "best-gifts-under-100",
@@ -3310,6 +3325,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "projector",
         "guideSlugs": [
           "anniversary-gifts-for-her",
           "tech-gifts-for-her",
@@ -3370,6 +3386,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "magsafe-stand",
         "guideSlugs": [
           "practical-gifts-for-her",
           "tech-gifts-for-her",
@@ -3433,6 +3450,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "jewelry-case",
         "guideSlugs": [
           "gifts-for-girlfriend",
           "anniversary-gifts-for-her",
@@ -3495,6 +3513,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "candle-warmer",
         "guideSlugs": [
           "gifts-for-girlfriend",
           "best-gifts-under-75",
@@ -3558,6 +3577,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "vanity-mirror",
         "guideSlugs": [
           "gifts-for-wife",
           "birthday-gifts-for-wife",
@@ -3619,6 +3639,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "cashmere-robe",
         "guideSlugs": [
           "anniversary-gifts-for-her",
           "cozy-home-gifts-for-her",
@@ -3683,6 +3704,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "kindle-paperwhite",
         "guideSlugs": [
           "birthday-gifts-for-wife",
           "luxury-gifts-for-her",
@@ -3742,6 +3764,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "ninja-creami",
         "guideSlugs": [
           "birthday-gifts-for-wife",
           "viral-gifts-for-her",
@@ -3800,6 +3823,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "nespresso-machine",
         "guideSlugs": [
           "gifts-for-wife",
           "luxury-gifts-for-her",
@@ -3859,6 +3883,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "owala-bottle",
         "guideSlugs": [
           "best-gifts-under-75",
           "best-gifts-under-100",
@@ -3918,6 +3943,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "theragun-relief",
         "guideSlugs": [
           "luxury-gifts-for-her",
           "practical-gifts-for-her",
@@ -3977,6 +4003,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "ugg-slippers",
         "guideSlugs": [
           "best-gifts-under-75",
           "best-gifts-under-100",
@@ -4034,6 +4061,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "stanley-quencher",
         "guideSlugs": [
           "best-gifts-under-75",
           "best-gifts-under-100",
@@ -4094,6 +4122,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "laneige-set",
         "guideSlugs": [
           "best-gifts-under-75",
           "best-gifts-under-100",
@@ -4153,6 +4182,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "bose-speaker",
         "guideSlugs": [
           "luxury-gifts-for-her",
           "practical-gifts-for-her",
@@ -4211,6 +4241,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "sol-de-janeiro",
         "guideSlugs": [
           "birthday-gifts-for-girlfriend",
           "viral-gifts-for-her",
@@ -4269,6 +4300,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "saodimallsu-crochet-coverup-set",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4322,6 +4354,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "roseseek-crochet-lace-pants",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4375,6 +4408,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "saodimallsu-crochet-cardigan-dress",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4428,6 +4462,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "sheer-crochet-poncho-top",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4483,6 +4518,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "panluca-statement-necklace",
         "guideSlugs": [
           "birthday-gifts-for-girlfriend",
           "birthday-gifts-for-wife",
@@ -4543,6 +4579,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "posadina-phone-charm",
         "guideSlugs": [
           "birthday-gifts-for-girlfriend",
           "daily-use-gifts-for-her"
@@ -4601,6 +4638,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "mchic-beaded-choker",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4654,6 +4692,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "boxwood-bunny-topiary",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4707,6 +4746,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "lenox-bunny-candy-dish",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4758,6 +4798,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "easter-bunny-porch-decor",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4807,6 +4848,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "oliker-speckled-eggs",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4856,6 +4898,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "easter-gift-basket",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4907,6 +4950,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "oneida-bunny-hop-plates",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -4962,6 +5006,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "satin-halter-maxi-dress",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -5016,6 +5061,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "soly-hux-ruffle-maxi-dress",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -5070,6 +5116,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "kirundo-pleated-maxi-dress",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -5123,6 +5170,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "prettygarden-one-shoulder-maxi",
         "guideSlugs": [
           "date-night-gifts-for-her"
         ],
@@ -5178,6 +5226,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "miyuki-rustic-vase",
         "guideSlugs": [
           "gifts-for-wife",
           "cozy-home-gifts-for-her",
@@ -5235,6 +5284,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "ceramic-floor-vase",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -5288,6 +5338,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "rustic-vase-set",
         "guideSlugs": [
           "gifts-for-her-who-has-everything",
           "gifts-for-homebodies"
@@ -5342,6 +5393,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "ninehaoou-scroll-vase",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -5394,6 +5446,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "hugo-boss-bottled-beyond",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -5447,6 +5500,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "marc-jacobs-perfect-absolute",
         "guideSlugs": [
           "luxury-gifts-for-her",
           "date-night-gifts-for-her",
@@ -5506,6 +5560,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "gucci-flora-gorgeous-magnolia",
         "guideSlugs": [
           "birthday-gifts-for-girlfriend",
           "birthday-gifts-for-wife",
@@ -5565,6 +5620,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "artificial-olive-tree-1026",
         "guideSlugs": [],
         "hotStorySlugs": []
       }
@@ -5618,6 +5674,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "faux-olive-tree-planter",
         "guideSlugs": [
           "birthday-gifts-for-wife",
           "cozy-home-gifts-for-her",
@@ -5674,6 +5731,7 @@
         "checkout": "offsite"
       },
       "entities": {
+        "catalogGiftId": "black-olive-tree",
         "guideSlugs": [
           "gifts-for-her-who-has-everything",
           "amazon-gifts-for-her",

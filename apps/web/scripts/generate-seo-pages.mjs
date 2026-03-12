@@ -4026,6 +4026,7 @@ function buildProductCatalogEntries() {
       slug: gift.slug,
       name: gift.name,
       brand: gift.brand || null,
+      searchQuery: gift.query,
       pageUrl: productUrl(gift),
       affiliateUrl: affiliateUrl(gift),
       merchantName: merchantName(gift),
@@ -4627,6 +4628,7 @@ function buildPageCatalogEntries(guideCatalogEntries = buildGuideCatalogEntries(
       checkout: product.checkout,
     },
     entities: {
+      catalogGiftId: product.id,
       guideSlugs: seoGuides.filter((guide) => guide.itemIds.includes(product.id)).map((guide) => guide.slug),
       hotStorySlugs: seoHotStories.filter((story) => story.itemIds.includes(product.id)).map((story) => story.slug),
     },
@@ -4690,6 +4692,7 @@ function buildPageCatalogOps(guideCatalogEntries = buildGuideCatalogEntries(), p
         slug: product.slug,
         pageUrl: product.pageUrl,
         reason: product.indexStatus,
+        query: product.searchQuery,
       })),
   };
 }

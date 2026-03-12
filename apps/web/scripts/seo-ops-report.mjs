@@ -78,7 +78,8 @@ const lines = [
   "## Merchant-Path Gaps",
   ...renderEntries(
     ops.productsMissingDirectMerchantPath,
-    (product) => `- ${product.slug} [${product.reason}] (${product.pageUrl})`
+    (product) =>
+      `- ${product.slug} [${product.reason}] · catalog:${product.id}${product.query ? ` · query: ${product.query}` : ""} (${product.pageUrl})`
   ),
   "",
   "## Suggested Next Actions",
