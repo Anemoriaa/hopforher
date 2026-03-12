@@ -85,8 +85,8 @@
   ],
   "summary": {
     "totalPages": 92,
-    "searchIndexablePages": 81,
-    "blockedPages": 11,
+    "searchIndexablePages": 82,
+    "blockedPages": 10,
     "byPageType": {
       "date-city": 4,
       "guide": 20,
@@ -220,13 +220,6 @@
         "pageUrl": "https://shopforher.org/gift/mchic-colorful-beaded-choker/",
         "reason": "merchant-search-fallback",
         "query": "Mchic Colorful Beaded Choker Necklace for Women Boho Large Square Acrylic Beaded Necklace Stainless Steel Adjustable Surfer Beach Strand Necklces Summer Handmade Jewelry Gift for Women"
-      },
-      {
-        "id": "easter-bunny-porch-decor",
-        "slug": "large-easter-bunny-porch-decor",
-        "pageUrl": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
-        "reason": "merchant-search-fallback",
-        "query": "Easter Bunny Decor, Large Bunnies Statue Outdoor Porch Decor"
       },
       {
         "id": "oliker-speckled-eggs",
@@ -4762,8 +4755,8 @@
       "h1": "Large Easter Bunny Porch Decor",
       "description": "Fits when she likes exterior seasonal decor and you want something more visible than tabletop pieces.",
       "updatedAt": "2026-03-09",
-      "searchIndexable": false,
-      "indexStatus": "merchant-search-fallback",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
       "taxonomy": {
         "primary": {
           "relationshipTags": [
@@ -4788,13 +4781,13 @@
         },
         "coverage": {
           "merchantTypes": [
-            "amazon-search"
+            "direct-merchant-url"
           ]
         }
       },
       "commerce": {
-        "merchantName": "Amazon",
-        "merchantPathType": "amazon-search",
+        "merchantName": "Walmart",
+        "merchantPathType": "direct-merchant-url",
         "checkout": "offsite"
       },
       "entities": {

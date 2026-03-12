@@ -213,6 +213,7 @@ export const importedCatalogItems = [
     relationships: ["wife", "anniversary", "anyone"],
     intents: ["cozy", "thoughtful"],
     tabs: ["cozy-home", "under-100"],
+    sourceProductUrl: "https://www.walmart.com/ip/19338462416",
     query: "Easter Bunny Decor, Large Bunnies Statue Outdoor Porch Decor",
     baseScore: 71,
   }),

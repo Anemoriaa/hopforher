@@ -26,16 +26,20 @@ test("page catalog stays aligned with the current SEO inventory", () => {
 test("page catalog exposes guide and product taxonomy fields", () => {
   const girlfriendGuide = pageCatalog.pages.find((page) => page.id === "guide:gifts-for-girlfriend");
   const silkProduct = pageCatalog.pages.find((page) => page.id === "product:mulberry-silk-pillowcase-set");
+  const bunnyProduct = pageCatalog.pages.find((page) => page.id === "product:large-easter-bunny-porch-decor");
   const merchantGap = pageCatalog.ops.productsMissingDirectMerchantPath.find((product) => product.slug === "oliker-speckled-eggs");
 
   assert.ok(girlfriendGuide, "expected girlfriend guide entry");
   assert.ok(silkProduct, "expected silk pillowcase product entry");
+  assert.ok(bunnyProduct, "expected bunny porch product entry");
   assert.ok(merchantGap, "expected merchant gap entry");
   assert.ok(girlfriendGuide.taxonomy.primary.relationships.includes("girlfriend"));
   assert.ok(girlfriendGuide.taxonomy.coverage.relationshipTags.includes("girlfriend"));
   assert.ok(silkProduct.taxonomy.primary.intentTags.includes("thoughtful"));
   assert.ok(silkProduct.taxonomy.primary.tabTags.includes("looks-expensive"));
   assert.ok(silkProduct.taxonomy.primary.priceBands.includes("under-100"));
+  assert.equal(bunnyProduct.searchIndexable, true);
+  assert.equal(bunnyProduct.commerce.merchantName, "Walmart");
   assert.equal(silkProduct.entities.catalogGiftId, "silk-pillowcase");
   assert.equal(merchantGap.id, "oliker-speckled-eggs");
   assert.match(merchantGap.query, /OLIKER 24 Pcs Easter Speckled Eggs/);

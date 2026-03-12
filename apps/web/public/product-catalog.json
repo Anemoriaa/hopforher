@@ -2709,9 +2709,9 @@
       "searchQuery": "Easter Bunny Decor, Large Bunnies Statue Outdoor Porch Decor",
       "pageUrl": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
       "affiliateUrl": "https://www.amazon.com/s?k=Easter+Bunny+Decor%2C+Large+Bunnies+Statue+Outdoor+Porch+Decor&tag=shopforher0b7-20",
-      "merchantName": "Amazon",
-      "merchantProductUrl": null,
-      "affiliatePathType": "amazon-search",
+      "merchantName": "Walmart",
+      "merchantProductUrl": "https://www.walmart.com/ip/19338462416",
+      "affiliatePathType": "direct-merchant-url",
       "checkout": "offsite",
       "price": {
         "currency": "USD",
@@ -2766,12 +2766,12 @@
         },
         "coverage": {
           "merchantTypes": [
-            "amazon-search"
+            "direct-merchant-url"
           ]
         }
       },
-      "searchIndexable": false,
-      "indexStatus": "merchant-search-fallback",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
       "updatedAt": "2026-03-09"
     },
     {
