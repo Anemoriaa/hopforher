@@ -2097,31 +2097,30 @@ export const featuredSeoGuides = [
 ].map((slug) => seoGuides.find((guide) => guide.slug === slug)).filter(Boolean);
 
 export const heroSeoProducts = [
-  "kindle-paperwhite",
+  "digital-frame",
   "ninja-creami",
   "owala-bottle",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const weeklyTopSeoProducts = [
   "silk-pillowcase",
-  "earbuds",
   "mini-photo-printer",
-  "jewelry-case",
   "owala-bottle",
-  "gucci-flora-gorgeous-magnolia",
+  "sol-de-janeiro",
+  "laneige-set",
+  "candle-warmer",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const featuredSeoProducts = [
+  "digital-frame",
   "kindle-paperwhite",
   "ninja-creami",
-  "owala-bottle",
+  "silk-pillowcase",
+  "luxury-throw",
   "marc-jacobs-perfect-absolute",
-  "gucci-flora-gorgeous-magnolia",
-  "posadina-phone-charm",
-  "rustic-vase-set",
-  "soly-hux-ruffle-maxi-dress",
-  "laneige-set",
+  "owala-bottle",
   "sol-de-janeiro",
+  "candle-warmer",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const seoDateCities = [
