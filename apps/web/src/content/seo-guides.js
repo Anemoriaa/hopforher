@@ -2098,20 +2098,20 @@ export const featuredSeoGuides = [
 
 export const heroSeoProducts = [
   "kindle-paperwhite",
-  "bose-speaker",
-  "theragun-relief",
+  "ninja-creami",
+  "owala-bottle",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const featuredSeoProducts = [
   "kindle-paperwhite",
   "ninja-creami",
-  "nespresso-machine",
   "owala-bottle",
-  "theragun-relief",
-  "ugg-slippers",
-  "stanley-quencher",
+  "marc-jacobs-perfect-absolute",
+  "gucci-flora-gorgeous-magnolia",
+  "posadina-phone-charm",
+  "rustic-vase-set",
+  "soly-hux-ruffle-maxi-dress",
   "laneige-set",
-  "bose-speaker",
   "sol-de-janeiro",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
