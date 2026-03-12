@@ -103,7 +103,7 @@ export const defaultFilters = {
   search: "",
 };
 
-const storageKey = "giftsher-shortlist";
+const storageKey = "shopforher-shortlist";
 
 export function loadSaved() {
   try {
