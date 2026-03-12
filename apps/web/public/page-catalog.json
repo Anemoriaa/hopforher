@@ -4264,7 +4264,7 @@
         }
       },
       "commerce": {
-        "merchantName": "Amazon",
+        "merchantName": "Giftpals",
         "merchantPathType": "direct-merchant-url",
         "checkout": "offsite"
       },
@@ -4370,7 +4370,7 @@
         }
       },
       "commerce": {
-        "merchantName": "Amazon",
+        "merchantName": "Giftpals",
         "merchantPathType": "direct-merchant-url",
         "checkout": "offsite"
       },

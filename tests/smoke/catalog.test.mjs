@@ -1,7 +1,9 @@
 import assert from "node:assert/strict";
+import fs from "node:fs";
 import test from "node:test";
 import { seoCatalog } from "../../apps/web/src/content/seo-guides.js";
 import { buildAffiliateLink } from "../../apps/web/src/lib/catalog.js";
+import { resolveGiftMerchantName } from "../../apps/web/src/lib/affiliate.js";
 import { importedCatalogItems } from "../../packages/catalog/imported-items.js";
 import { gifts } from "../../packages/catalog/index.js";
 
@@ -26,4 +28,21 @@ test("direct merchant URLs stay unchanged", () => {
   const url = new URL(buildAffiliateLink(gift));
   assert.equal(url.hostname, "soldejaneiro.com");
   assert.equal(url.searchParams.get("tag"), null);
+});
+
+test("merchant names are inferred from direct merchant hosts when missing", () => {
+  const gift = importedCatalogItems.find((item) => item.id === "saodimallsu-crochet-coverup-set");
+  assert.ok(gift, "expected Giftpals direct merchant fixture");
+
+  assert.equal(resolveGiftMerchantName(gift), "Giftpals");
+});
+
+test("generated direct merchant pages keep the inferred merchant label", () => {
+  const html = fs.readFileSync(
+    new URL("../../apps/web/public/gift/saodimallsu-crochet-cover-up-set/index.html", import.meta.url),
+    "utf8"
+  );
+
+  assert.match(html, /<strong>Giftpals<\/strong>/);
+  assert.match(html, /data-affiliate-merchant="Giftpals"/);
 });

@@ -8,6 +8,7 @@ import {
   AMAZON_PAID_LINK_NOTE,
   DIRECT_MERCHANT_LINK_NOTE,
   buildAffiliateDataAttributes,
+  resolveGiftMerchantName,
 } from "../src/lib/affiliate.js";
 
 const rootDir = process.cwd();
@@ -433,7 +434,7 @@ function merchantProductUrl(gift) {
 }
 
 function merchantName(gift) {
-  return gift.merchantName || "Amazon";
+  return resolveGiftMerchantName(gift, "Amazon");
 }
 
 function usesAffiliateSearchFallback(gift) {
