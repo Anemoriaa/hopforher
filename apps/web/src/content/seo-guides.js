@@ -2102,6 +2102,15 @@ export const heroSeoProducts = [
   "owala-bottle",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
+export const weeklyTopSeoProducts = [
+  "silk-pillowcase",
+  "earbuds",
+  "mini-photo-printer",
+  "jewelry-case",
+  "owala-bottle",
+  "gucci-flora-gorgeous-magnolia",
+].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
+
 export const featuredSeoProducts = [
   "kindle-paperwhite",
   "ninja-creami",

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play, RefreshCw } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
-import { featuredSeoGuides, featuredSeoProducts, heroSeoProducts, seoCatalog, seoDateCities, seoHotStories, seoSite } from "./content/seo-guides.js";
+import { featuredSeoGuides, featuredSeoProducts, heroSeoProducts, weeklyTopSeoProducts, seoCatalog, seoDateCities, seoHotStories, seoSite } from "./content/seo-guides.js";
 import {
   buildAffiliateLink,
   classNames,
@@ -1073,6 +1073,13 @@ export default function App() {
     () =>
       featuredSeoProducts
         .map((featuredGift) => gifts.find((gift) => gift.id === featuredGift.id))
+        .filter(Boolean),
+    [gifts]
+  );
+  const weeklyTopCatalogProducts = useMemo(
+    () =>
+      weeklyTopSeoProducts
+        .map((weeklyGift) => gifts.find((gift) => gift.id === weeklyGift.id))
         .filter(Boolean),
     [gifts]
   );
@@ -2549,7 +2556,7 @@ export default function App() {
                     })}
                   </p>
                   <div className="gs-bento-grid gs-popular-grid" role="list" aria-label={t("home.topPicksTitle")}>
-                    {topPicks.slice(0, 6).map((gift, index) =>
+                    {(weeklyTopCatalogProducts.length ? weeklyTopCatalogProducts : topPicks.slice(0, 6)).map((gift, index) =>
                       renderBentoCard(gift, index + 1, {
                         motion: "minimal",
                         imageOnly: true,
@@ -2567,7 +2574,7 @@ export default function App() {
                   </p>
                   <div className="gs-bento-grid gs-popular-grid" role="list" aria-label="New exact product picks">
                     {featuredCatalogProducts.map((gift, index) =>
-                      renderBentoCard(gift, topPicks.length + index + 1, {
+                      renderBentoCard(gift, (weeklyTopCatalogProducts.length || topPicks.length) + index + 1, {
                         motion: "minimal",
                         imageOnly: true,
                       })
