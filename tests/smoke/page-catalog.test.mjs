@@ -43,5 +43,6 @@ test("page catalog exposes guide and product taxonomy fields", () => {
   assert.equal(silkProduct.entities.catalogGiftId, "silk-pillowcase");
   assert.equal(merchantGap.id, "oliker-speckled-eggs");
   assert.match(merchantGap.query, /OLIKER 24 Pcs Easter Speckled Eggs/);
+  assert.ok(merchantGap.imageHosts.includes("i5.walmartimages.com"));
   assert.ok(Array.isArray(pageCatalog.ops.productsMissingDirectMerchantPath));
 });

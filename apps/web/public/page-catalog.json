@@ -212,42 +212,63 @@
         "slug": "roseseek-crochet-lace-cover-up-pants",
         "pageUrl": "https://shopforher.org/gift/roseseek-crochet-lace-cover-up-pants/",
         "reason": "merchant-search-fallback",
-        "query": "RoseSeek Women's Crochet Lace Pants Ruffle Layered Elastic Waist Mesh Bathing Suit Cover Up Beach Pants"
+        "query": "RoseSeek Women's Crochet Lace Pants Ruffle Layered Elastic Waist Mesh Bathing Suit Cover Up Beach Pants",
+        "imageHosts": [
+          "images-na.ssl-images-amazon.com"
+        ]
       },
       {
         "id": "mchic-beaded-choker",
         "slug": "mchic-colorful-beaded-choker",
         "pageUrl": "https://shopforher.org/gift/mchic-colorful-beaded-choker/",
         "reason": "merchant-search-fallback",
-        "query": "Mchic Colorful Beaded Choker Necklace for Women Boho Large Square Acrylic Beaded Necklace Stainless Steel Adjustable Surfer Beach Strand Necklces Summer Handmade Jewelry Gift for Women"
+        "query": "Mchic Colorful Beaded Choker Necklace for Women Boho Large Square Acrylic Beaded Necklace Stainless Steel Adjustable Surfer Beach Strand Necklces Summer Handmade Jewelry Gift for Women",
+        "imageHosts": [
+          "i.etsystatic.com"
+        ]
       },
       {
         "id": "oliker-speckled-eggs",
         "slug": "oliker-speckled-eggs",
         "pageUrl": "https://shopforher.org/gift/oliker-speckled-eggs/",
         "reason": "merchant-search-fallback",
-        "query": "OLIKER 24 Pcs Easter Speckled Eggs, 2.4in 4 Colors Plastic Speckled Eggs and Vase Filler Faux Chicken Eggs for Easter Decorations Basket Filler Vase Decorating"
+        "query": "OLIKER 24 Pcs Easter Speckled Eggs, 2.4in 4 Colors Plastic Speckled Eggs and Vase Filler Faux Chicken Eggs for Easter Decorations Basket Filler Vase Decorating",
+        "imageHosts": [
+          "i5.walmartimages.com",
+          "images-na.ssl-images-amazon.com"
+        ]
       },
       {
         "id": "ceramic-floor-vase",
         "slug": "large-ceramic-floor-vase",
         "pageUrl": "https://shopforher.org/gift/large-ceramic-floor-vase/",
         "reason": "merchant-search-fallback",
-        "query": "Ceramic Vase - Large Tall Floor Vase for Centerpieces"
+        "query": "Ceramic Vase - Large Tall Floor Vase for Centerpieces",
+        "imageHosts": [
+          "m.media-amazon.com"
+        ]
       },
       {
         "id": "ninehaoou-scroll-vase",
         "slug": "ninehaoou-scroll-vase",
         "pageUrl": "https://shopforher.org/gift/ninehaoou-scroll-vase/",
         "reason": "merchant-search-fallback",
-        "query": "Ninehaoou Ceramic Scroll Vase 5.1 Inch Rustic Plant Pots Flower Pot for Indoor Plants Home Kitchen Decor Farmhouse Antique Decorative Gifts"
+        "query": "Ninehaoou Ceramic Scroll Vase 5.1 Inch Rustic Plant Pots Flower Pot for Indoor Plants Home Kitchen Decor Farmhouse Antique Decorative Gifts",
+        "imageHosts": [
+          "images-na.ssl-images-amazon.com",
+          "m.media-amazon.com"
+        ]
       },
       {
         "id": "artificial-olive-tree-1026",
         "slug": "artificial-olive-tree-1026",
         "pageUrl": "https://shopforher.org/gift/artificial-olive-tree-1026/",
         "reason": "merchant-search-fallback",
-        "query": "Artificial Olive Tree1026 7+8"
+        "query": "Artificial Olive Tree1026 7+8",
+        "imageHosts": [
+          "images-na.ssl-images-amazon.com",
+          "m.media-amazon.com"
+        ]
       }
     ]
   },

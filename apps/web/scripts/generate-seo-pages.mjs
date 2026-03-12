@@ -4670,6 +4670,14 @@ function buildPageCatalogSummary(pages = []) {
   };
 }
 
+function hostnameForUrl(urlValue) {
+  try {
+    return new URL(urlValue).hostname;
+  } catch (error) {
+    return "";
+  }
+}
+
 function buildPageCatalogOps(guideCatalogEntries = buildGuideCatalogEntries(), productCatalogEntries = buildProductCatalogEntries()) {
   return {
     guidesNeedingEditorialRefresh: guideCatalogEntries
@@ -4693,6 +4701,7 @@ function buildPageCatalogOps(guideCatalogEntries = buildGuideCatalogEntries(), p
         pageUrl: product.pageUrl,
         reason: product.indexStatus,
         query: product.searchQuery,
+        imageHosts: uniqueSortedStrings([product.image, ...(product.additionalImages || [])].map(hostnameForUrl).filter(Boolean)),
       })),
   };
 }

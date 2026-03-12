@@ -79,7 +79,9 @@ const lines = [
   ...renderEntries(
     ops.productsMissingDirectMerchantPath,
     (product) =>
-      `- ${product.slug} [${product.reason}] · catalog:${product.id}${product.query ? ` · query: ${product.query}` : ""} (${product.pageUrl})`
+      `- ${product.slug} [${product.reason}] · catalog:${product.id}${product.query ? ` · query: ${product.query}` : ""}${
+        product.imageHosts?.length ? ` · image-hosts: ${product.imageHosts.join(", ")}` : ""
+      } (${product.pageUrl})`
   ),
   "",
   "## Suggested Next Actions",
