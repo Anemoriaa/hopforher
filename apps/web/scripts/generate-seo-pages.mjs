@@ -3922,6 +3922,11 @@ function writeProductPages() {
   });
 }
 
+function writeProductRedirects() {
+  const lines = seoCatalog.map((gift) => `/${gift.slug} /gift/${gift.slug}/ 301`);
+  fs.writeFileSync(path.join(publicDir, "_redirects"), `${lines.join("\n")}\n`);
+}
+
 function writeDatePages() {
   const datesDir = path.join(publicDir, "dates");
   ensureDir(datesDir);
@@ -4970,6 +4975,7 @@ writeSiteMapPage();
 writeGuidePages();
 writeHotPages();
 writeProductPages();
+writeProductRedirects();
 writeDatePages();
 writeFeed();
 writeGuideCatalog();
