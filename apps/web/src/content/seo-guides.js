@@ -2121,9 +2121,9 @@ export const featuredSeoProducts = [
   "magsafe-stand",
   "candle-warmer",
   "panluca-statement-necklace",
-  "posadina-phone-charm",
-  "gucci-flora-gorgeous-magnolia",
-  "hugo-boss-bottled-beyond",
+  "prettygarden-one-shoulder-maxi",
+  "satin-halter-maxi-dress",
+  "kirundo-pleated-maxi-dress",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const librarySeoProducts = [
@@ -2139,8 +2139,8 @@ export const librarySeoProducts = [
   "sunrise-alarm",
   "luxury-throw",
   "magsafe-stand",
-  "candle-warmer",
-  "gucci-flora-gorgeous-magnolia",
+  "prettygarden-one-shoulder-maxi",
+  "satin-halter-maxi-dress",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const seoDateCities = [
