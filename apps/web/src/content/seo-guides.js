@@ -2103,8 +2103,8 @@ export const heroSeoProducts = [
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const weeklyTopSeoProducts = [
+  "digital-frame",
   "silk-pillowcase",
-  "mini-photo-printer",
   "owala-bottle",
   "sol-de-janeiro",
   "laneige-set",
@@ -2116,7 +2116,7 @@ export const featuredSeoProducts = [
   "kindle-paperwhite",
   "ninja-creami",
   "silk-pillowcase",
-  "luxury-throw",
+  "faux-olive-tree-planter",
   "marc-jacobs-perfect-absolute",
   "owala-bottle",
   "sol-de-janeiro",
