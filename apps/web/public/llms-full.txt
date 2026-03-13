@@ -17,10 +17,11 @@ Updated: 2026-03-09
 - Product catalog: https://shopforher.org/product-catalog.json
 - llms.txt: https://shopforher.org/llms.txt
 - llms-full.txt: https://shopforher.org/llms-full.txt
-- Best gifts for girlfriends in 2026: https://shopforher.org/gifts-for-girlfriend/
-- Best gifts for wives in 2026: https://shopforher.org/gifts-for-wife/
+- Best gifts for girlfriend in 2026: https://shopforher.org/gifts-for-girlfriend/
+- Best gifts for wife in 2026: https://shopforher.org/gifts-for-wife/
 - Best anniversary gifts for her in 2026: https://shopforher.org/anniversary-gifts-for-her/
-- Best birthday gifts for wives in 2026: https://shopforher.org/birthday-gifts-for-wife/
+- Best birthday gifts for girlfriend in 2026: https://shopforher.org/birthday-gifts-for-girlfriend/
+- Best birthday gifts for wife in 2026: https://shopforher.org/birthday-gifts-for-wife/
 - Best gifts for her under $75 in 2026: https://shopforher.org/best-gifts-under-75/
 - Best gifts for her under $100 in 2026: https://shopforher.org/best-gifts-under-100/
 - Viral gifts for her in 2026: https://shopforher.org/viral-gifts-for-her/
@@ -29,6 +30,8 @@ Updated: 2026-03-09
 - Cozy home gifts for her in 2026: https://shopforher.org/cozy-home-gifts-for-her/
 - Tech gifts for her in 2026: https://shopforher.org/tech-gifts-for-her/
 - Best gifts for her who has everything in 2026: https://shopforher.org/gifts-for-her-who-has-everything/
+- Best last-minute gifts for her in 2026: https://shopforher.org/last-minute-gifts-for-her/
+- Best date night gifts for her in 2026: https://shopforher.org/date-night-gifts-for-her/
 - Best Amazon gifts for her in 2026: https://shopforher.org/amazon-gifts-for-her/
 - Best gifts for homebodies in 2026: https://shopforher.org/gifts-for-homebodies/
 - Best daily-use gifts for her in 2026: https://shopforher.org/daily-use-gifts-for-her/

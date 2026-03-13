@@ -14,9 +14,9 @@
       "slug": "gifts-for-girlfriend",
       "pageUrl": "https://shopforher.org/gifts-for-girlfriend/",
       "pageArchetype": "gift-guide",
-      "title": "Best gifts for girlfriends in 2026 | ShopForHer",
-      "h1": "Best gifts for girlfriends in 2026",
-      "description": "Low-risk, popular gifts for men buying for a girlfriend right now.",
+      "title": "Best gifts for girlfriend in 2026 | ShopForHer",
+      "h1": "Best gifts for girlfriend in 2026",
+      "description": "Gift ideas for your girlfriend that feel thoughtful, attractive, and easy to buy without overthinking it.",
       "intro": "Start with clean picks that feel current, easy to receive, and fast to buy.",
       "group": "relationship",
       "groupLabel": "Relationship",
@@ -232,24 +232,6 @@
       ],
       "exploreProducts": [
         {
-          "id": "sol-de-janeiro",
-          "slug": "sol-de-janeiro-bum-bum-jet-set",
-          "name": "Sol de Janeiro Bum Bum Jet Set",
-          "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
-          "badge": "viral",
-          "bestFor": "girlfriend / wife / beauty",
-          "guideCount": 2
-        },
-        {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
-        },
-        {
           "id": "sheer-crochet-poncho-top",
           "slug": "sheer-crochet-poncho-top",
           "name": "Sheer Crochet Poncho Top",
@@ -257,31 +239,49 @@
           "badge": "light layer",
           "bestFor": "girlfriend / wife / warm weather",
           "guideCount": 0
+        },
+        {
+          "id": "rustic-vase-set",
+          "slug": "rustic-vase-set-of-3",
+          "name": "Rustic Vase Set of 3",
+          "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+          "badge": "vase set",
+          "bestFor": "wife / apartment / shelf styling",
+          "guideCount": 2
+        },
+        {
+          "id": "lenox-bunny-candy-dish",
+          "slug": "lenox-wicker-creek-bunny-candy-dish",
+          "name": "Lenox Wicker Creek Bunny Candy Dish",
+          "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+          "badge": "tabletop",
+          "bestFor": "wife / host gift / spring table",
+          "guideCount": 0
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": false,
+        "needsEditorialRefresh": true,
         "distinctiveProducts": [
-          {
-            "id": "silk-pillowcase",
-            "slug": "mulberry-silk-pillowcase-set",
-            "name": "Mulberry Silk Pillowcase Set",
-            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
-            "guideCount": 3
-          },
-          {
-            "id": "jewelry-case",
-            "slug": "structured-jewelry-case",
-            "name": "Structured Jewelry Case",
-            "url": "https://shopforher.org/gift/structured-jewelry-case/",
-            "guideCount": 3
-          },
           {
             "id": "sunrise-alarm",
             "slug": "sunrise-alarm-clock",
             "name": "Sunrise Alarm Clock",
             "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
             "guideCount": 3
+          },
+          {
+            "id": "silk-pillowcase",
+            "slug": "mulberry-silk-pillowcase-set",
+            "name": "Mulberry Silk Pillowcase Set",
+            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+            "guideCount": 4
+          },
+          {
+            "id": "jewelry-case",
+            "slug": "structured-jewelry-case",
+            "name": "Structured Jewelry Case",
+            "url": "https://shopforher.org/gift/structured-jewelry-case/",
+            "guideCount": 4
           }
         ],
         "overusedProducts": [],
@@ -312,32 +312,66 @@
                 "url": "https://shopforher.org/gift/candle-warmer-lamp/"
               }
             ]
-          },
-          {
-            "slug": "viral-gifts-for-her",
-            "label": "Viral gifts",
-            "h1": "Viral gifts for her in 2026",
-            "url": "https://shopforher.org/viral-gifts-for-her/",
-            "sharedCount": 1,
-            "sharedItems": [
-              {
-                "id": "mini-photo-printer",
-                "name": "Mini Photo Printer",
-                "slug": "mini-photo-printer",
-                "url": "https://shopforher.org/gift/mini-photo-printer/"
-              }
-            ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "candle-warmer",
+              "slug": "candle-warmer-lamp",
+              "name": "Candle Warmer Lamp",
+              "url": "https://shopforher.org/gift/candle-warmer-lamp/",
+              "guideCount": 4
+            },
+            {
+              "id": "mini-photo-printer",
+              "slug": "mini-photo-printer",
+              "name": "Mini Photo Printer",
+              "url": "https://shopforher.org/gift/mini-photo-printer/",
+              "guideCount": 4
+            },
+            {
+              "id": "earbuds",
+              "slug": "noise-canceling-earbuds",
+              "name": "Noise-Canceling Earbuds",
+              "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
+              "guideCount": 3
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "sheer-crochet-poncho-top",
+              "slug": "sheer-crochet-poncho-top",
+              "name": "Sheer Crochet Poncho Top",
+              "url": "https://shopforher.org/gift/sheer-crochet-poncho-top/",
+              "guideCount": 0
+            },
+            {
+              "id": "rustic-vase-set",
+              "slug": "rustic-vase-set-of-3",
+              "name": "Rustic Vase Set of 3",
+              "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+              "guideCount": 2
+            },
+            {
+              "id": "lenox-bunny-candy-dish",
+              "slug": "lenox-wicker-creek-bunny-candy-dish",
+              "name": "Lenox Wicker Creek Bunny Candy Dish",
+              "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
       "slug": "gifts-for-wife",
       "pageUrl": "https://shopforher.org/gifts-for-wife/",
       "pageArchetype": "gift-guide",
-      "title": "Best gifts for wives in 2026 | ShopForHer",
-      "h1": "Best gifts for wives in 2026",
-      "description": "Higher-confidence gift picks for wives, with stronger quality and daily-use upside.",
+      "title": "Best gifts for wife in 2026 | ShopForHer",
+      "h1": "Best gifts for wife in 2026",
+      "description": "Gift ideas for your wife that feel polished, useful, and worth spending real money on.",
       "intro": "These are the better answers when you want something polished, useful, and easy to stand behind.",
       "group": "relationship",
       "groupLabel": "Relationship",
@@ -349,7 +383,6 @@
           "occasions": [],
           "budgetBands": [],
           "angles": [
-            "daily-use",
             "practical"
           ],
           "guideGroups": [
@@ -578,13 +611,13 @@
           "guideCount": 0
         },
         {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
+          "id": "oneida-bunny-hop-plates",
+          "slug": "oneida-bunny-hop-dinner-plates",
+          "name": "Oneida Bunny Hop Dinner Plates",
+          "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+          "badge": "serveware",
+          "bestFor": "wife / host gift / Easter brunch",
+          "guideCount": 0
         }
       ],
       "uniqueness": {
@@ -602,7 +635,7 @@
             "slug": "led-vanity-mirror",
             "name": "LED Vanity Mirror",
             "url": "https://shopforher.org/gift/led-vanity-mirror/",
-            "guideCount": 4
+            "guideCount": 3
           },
           {
             "id": "miyuki-rustic-vase",
@@ -659,7 +692,56 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "nespresso-machine",
+              "slug": "nespresso-vertuo-next",
+              "name": "Nespresso Vertuo Next",
+              "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
+              "guideCount": 4
+            },
+            {
+              "id": "digital-frame",
+              "slug": "digital-picture-frame",
+              "name": "Digital Picture Frame",
+              "url": "https://shopforher.org/gift/digital-picture-frame/",
+              "guideCount": 4
+            },
+            {
+              "id": "temperature-mug",
+              "slug": "temperature-control-mug",
+              "name": "Temperature-Control Mug",
+              "url": "https://shopforher.org/gift/temperature-control-mug/",
+              "guideCount": 3
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            },
+            {
+              "id": "hugo-boss-bottled-beyond",
+              "slug": "hugo-boss-bottled-beyond",
+              "name": "Hugo Boss Bottled Beyond Eau de Parfum",
+              "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
+              "guideCount": 0
+            },
+            {
+              "id": "oneida-bunny-hop-plates",
+              "slug": "oneida-bunny-hop-dinner-plates",
+              "name": "Oneida Bunny Hop Dinner Plates",
+              "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -668,7 +750,7 @@
       "pageArchetype": "gift-guide",
       "title": "Best anniversary gifts for her in 2026 | ShopForHer",
       "h1": "Best anniversary gifts for her in 2026",
-      "description": "Sharper anniversary gifts that feel intentional without getting cheesy.",
+      "description": "Anniversary gift ideas for her that feel romantic, intentional, and more memorable than a routine buy.",
       "intro": "The cleanest anniversary picks usually feel personal, premium, or experience-driven.",
       "group": "moments",
       "groupLabel": "Moment",
@@ -709,7 +791,7 @@
           "priceBands": [
             "over-150",
             "under-100",
-            "under-150"
+            "under-50"
           ]
         }
       },
@@ -837,16 +919,6 @@
           "searchIndexable": true
         },
         {
-          "id": "silk-pillowcase",
-          "slug": "mulberry-silk-pillowcase-set",
-          "name": "Mulberry Silk Pillowcase Set",
-          "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
-          "price": "$49 - $79",
-          "badge": "easy yes",
-          "bestFor": "girlfriend / wife / new relationship",
-          "searchIndexable": true
-        },
-        {
           "id": "jewelry-case",
           "slug": "structured-jewelry-case",
           "name": "Structured Jewelry Case",
@@ -857,13 +929,23 @@
           "searchIndexable": true
         },
         {
-          "id": "mini-photo-printer",
-          "slug": "mini-photo-printer",
-          "name": "Mini Photo Printer",
-          "url": "https://shopforher.org/gift/mini-photo-printer/",
-          "price": "$69 - $129",
-          "badge": "viral",
-          "bestFor": "girlfriend / anniversary / travel",
+          "id": "silk-pillowcase",
+          "slug": "mulberry-silk-pillowcase-set",
+          "name": "Mulberry Silk Pillowcase Set",
+          "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+          "price": "$49 - $79",
+          "badge": "easy yes",
+          "bestFor": "girlfriend / wife / new relationship",
+          "searchIndexable": true
+        },
+        {
+          "id": "satin-halter-maxi-dress",
+          "slug": "satin-halter-backless-maxi-dress",
+          "name": "Satin Halter Backless Maxi Dress",
+          "url": "https://shopforher.org/gift/satin-halter-backless-maxi-dress/",
+          "price": "$49.99",
+          "badge": "wedding guest",
+          "bestFor": "girlfriend / wife / wedding guest season",
           "searchIndexable": true
         }
       ],
@@ -871,8 +953,14 @@
         {
           "slug": "gifts-for-wife",
           "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
+          "h1": "Best gifts for wife in 2026",
           "url": "https://shopforher.org/gifts-for-wife/"
+        },
+        {
+          "slug": "date-night-gifts-for-her",
+          "label": "Date-night gifts",
+          "h1": "Best date night gifts for her in 2026",
+          "url": "https://shopforher.org/date-night-gifts-for-her/"
         },
         {
           "slug": "luxury-gifts-for-her",
@@ -883,24 +971,6 @@
       ],
       "exploreProducts": [
         {
-          "id": "luxury-throw",
-          "slug": "luxury-throw-blanket",
-          "name": "Luxury Throw Blanket",
-          "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-          "badge": "comfort hit",
-          "bestFor": "girlfriend / wife / apartment",
-          "guideCount": 2
-        },
-        {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
-        },
-        {
           "id": "boxwood-bunny-topiary",
           "slug": "boxwood-bunny-topiary",
           "name": "Boxwood Bunny Topiary",
@@ -908,23 +978,34 @@
           "badge": "seasonal",
           "bestFor": "wife / spring decorating / porch",
           "guideCount": 0
+        },
+        {
+          "id": "kirundo-pleated-maxi-dress",
+          "slug": "kirundo-pleated-a-line-maxi-dress",
+          "name": "KIRUNDO Pleated A-Line Maxi Dress",
+          "url": "https://shopforher.org/gift/kirundo-pleated-a-line-maxi-dress/",
+          "badge": "spring dress",
+          "bestFor": "wife / girlfriend / spring events",
+          "guideCount": 0
+        },
+        {
+          "id": "oneida-bunny-hop-plates",
+          "slug": "oneida-bunny-hop-dinner-plates",
+          "name": "Oneida Bunny Hop Dinner Plates",
+          "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+          "badge": "serveware",
+          "bestFor": "wife / host gift / Easter brunch",
+          "guideCount": 0
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": false,
+        "needsEditorialRefresh": true,
         "distinctiveProducts": [
           {
-            "id": "projector",
-            "slug": "portable-projector",
-            "name": "Portable Projector",
-            "url": "https://shopforher.org/gift/portable-projector/",
-            "guideCount": 3
-          },
-          {
-            "id": "cashmere-robe",
-            "slug": "cashmere-feel-robe",
-            "name": "Cashmere-Feel Robe",
-            "url": "https://shopforher.org/gift/cashmere-feel-robe/",
+            "id": "satin-halter-maxi-dress",
+            "slug": "satin-halter-backless-maxi-dress",
+            "name": "Satin Halter Backless Maxi Dress",
+            "url": "https://shopforher.org/gift/satin-halter-backless-maxi-dress/",
             "guideCount": 3
           },
           {
@@ -932,15 +1013,43 @@
             "slug": "mulberry-silk-pillowcase-set",
             "name": "Mulberry Silk Pillowcase Set",
             "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
-            "guideCount": 3
+            "guideCount": 4
+          },
+          {
+            "id": "jewelry-case",
+            "slug": "structured-jewelry-case",
+            "name": "Structured Jewelry Case",
+            "url": "https://shopforher.org/gift/structured-jewelry-case/",
+            "guideCount": 4
           }
         ],
         "overusedProducts": [],
         "relatedGuideOverlap": [
           {
+            "slug": "date-night-gifts-for-her",
+            "label": "Date-night gifts",
+            "h1": "Best date night gifts for her in 2026",
+            "url": "https://shopforher.org/date-night-gifts-for-her/",
+            "sharedCount": 2,
+            "sharedItems": [
+              {
+                "id": "projector",
+                "name": "Portable Projector",
+                "slug": "portable-projector",
+                "url": "https://shopforher.org/gift/portable-projector/"
+              },
+              {
+                "id": "cashmere-robe",
+                "name": "Cashmere-Feel Robe",
+                "slug": "cashmere-feel-robe",
+                "url": "https://shopforher.org/gift/cashmere-feel-robe/"
+              }
+            ]
+          },
+          {
             "slug": "gifts-for-wife",
             "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
+            "h1": "Best gifts for wife in 2026",
             "url": "https://shopforher.org/gifts-for-wife/",
             "sharedCount": 1,
             "sharedItems": [
@@ -952,16 +1061,65 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "projector",
+              "slug": "portable-projector",
+              "name": "Portable Projector",
+              "url": "https://shopforher.org/gift/portable-projector/",
+              "guideCount": 4
+            },
+            {
+              "id": "digital-frame",
+              "slug": "digital-picture-frame",
+              "name": "Digital Picture Frame",
+              "url": "https://shopforher.org/gift/digital-picture-frame/",
+              "guideCount": 4
+            },
+            {
+              "id": "cashmere-robe",
+              "slug": "cashmere-feel-robe",
+              "name": "Cashmere-Feel Robe",
+              "url": "https://shopforher.org/gift/cashmere-feel-robe/",
+              "guideCount": 3
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            },
+            {
+              "id": "kirundo-pleated-maxi-dress",
+              "slug": "kirundo-pleated-a-line-maxi-dress",
+              "name": "KIRUNDO Pleated A-Line Maxi Dress",
+              "url": "https://shopforher.org/gift/kirundo-pleated-a-line-maxi-dress/",
+              "guideCount": 0
+            },
+            {
+              "id": "oneida-bunny-hop-plates",
+              "slug": "oneida-bunny-hop-dinner-plates",
+              "name": "Oneida Bunny Hop Dinner Plates",
+              "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
       "slug": "birthday-gifts-for-girlfriend",
       "pageUrl": "https://shopforher.org/birthday-gifts-for-girlfriend/",
       "pageArchetype": "gift-guide",
-      "title": "Best birthday gifts for girlfriends in 2026 | ShopForHer",
-      "h1": "Best birthday gifts for girlfriends in 2026",
-      "description": "Birthday gifts for girlfriends that feel current, giftable, and easy to buy fast.",
+      "title": "Best birthday gifts for girlfriend in 2026 | ShopForHer",
+      "h1": "Best birthday gifts for girlfriend in 2026",
+      "description": "Birthday gift ideas for your girlfriend that feel fun, current, and clearly chosen instead of last-minute.",
       "intro": "Use this lane when you want a present that feels current, visibly giftable, and easier to open than to explain.",
       "group": "moments",
       "groupLabel": "Moment",
@@ -971,7 +1129,8 @@
             "girlfriend"
           ],
           "occasions": [
-            "birthday"
+            "birthday",
+            "last-minute"
           ],
           "budgetBands": [],
           "angles": [],
@@ -1000,18 +1159,18 @@
             "under-100"
           ],
           "priceBands": [
+            "over-150",
             "under-100",
-            "under-150",
             "under-25",
             "under-50"
           ]
         }
       },
-      "searchIndexable": false,
-      "indexStatus": "overlap-suppressed",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
       "updatedAt": "2026-03-09",
-      "featuredGiftId": "mini-photo-printer",
-      "featuredGiftUrl": "https://shopforher.org/gift/mini-photo-printer/",
+      "featuredGiftId": "prettygarden-one-shoulder-maxi",
+      "featuredGiftUrl": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
       "selectionMethod": "This page keeps the birthday lane lighter and more present-ready, with picks that feel current, branded, or visually strong without getting too serious too soon.",
       "bestUseCase": "Use this when you want a cleaner birthday answer for a girlfriend that still feels fun and current.",
       "avoidWhen": "Skip this page if the relationship is long-term enough that you really need a stronger wife-level or anniversary-style move.",
@@ -1031,18 +1190,18 @@
       ],
       "bestFits": [
         {
-          "title": "A playful gift that still feels obviously birthday-ready",
-          "giftId": "mini-photo-printer",
-          "body": "Best when you want the present to feel current, visual, and easy to enjoy right away.",
-          "giftSlug": "mini-photo-printer",
-          "giftUrl": "https://shopforher.org/gift/mini-photo-printer/"
+          "title": "A visibly birthday-ready pick with more party energy",
+          "giftId": "prettygarden-one-shoulder-maxi",
+          "body": "Best when you want the present to feel current, fun, and more like a real birthday reveal than a default safe buy.",
+          "giftSlug": "prettygarden-one-shoulder-maxi-dress",
+          "giftUrl": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/"
         },
         {
-          "title": "A cleaner beauty or fragrance lane with more polish",
-          "giftId": "gucci-flora-gorgeous-magnolia",
-          "body": "Use this when she likes branded beauty gifts and you want something that feels more elevated than a random add-on.",
-          "giftSlug": "gucci-flora-gorgeous-magnolia",
-          "giftUrl": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/"
+          "title": "A cleaner beauty lane with current brand pull",
+          "giftId": "sol-de-janeiro",
+          "body": "Use this when she likes recognizable beauty gifts and you want something playful without overcommitting the moment.",
+          "giftSlug": "sol-de-janeiro-bum-bum-jet-set",
+          "giftUrl": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/"
         },
         {
           "title": "A polished accessory lane with easy presentation",
@@ -1055,10 +1214,10 @@
       "pickLanes": [
         {
           "title": "Best fun pick",
-          "giftId": "mini-photo-printer",
+          "giftId": "prettygarden-one-shoulder-maxi",
           "body": "The easiest answer when you want the gift to feel lively, current, and obviously birthday-friendly.",
-          "giftSlug": "mini-photo-printer",
-          "giftUrl": "https://shopforher.org/gift/mini-photo-printer/"
+          "giftSlug": "prettygarden-one-shoulder-maxi-dress",
+          "giftUrl": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/"
         },
         {
           "title": "Best polished pick",
@@ -1069,10 +1228,10 @@
         },
         {
           "title": "Best beauty-brand pick",
-          "giftId": "gucci-flora-gorgeous-magnolia",
-          "body": "The cleaner answer when recognizable branding and a stronger reveal matter more than utility.",
-          "giftSlug": "gucci-flora-gorgeous-magnolia",
-          "giftUrl": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/"
+          "giftId": "sol-de-janeiro",
+          "body": "The cleaner answer when recognizable beauty branding and a stronger reveal matter more than pure utility.",
+          "giftSlug": "sol-de-janeiro-bum-bum-jet-set",
+          "giftUrl": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/"
         }
       ],
       "avoidNotes": [
@@ -1088,7 +1247,7 @@
       "faqs": [
         {
           "question": "What is the easiest birthday gift for a girlfriend to get right?",
-          "answer": "The mini photo printer and jewelry case are still the strongest first picks because they feel current, easy to open, and clearly chosen as a gift."
+          "answer": "The jewelry case and Sol de Janeiro set are strong first picks because they feel current, visibly giftable, and easy to like without getting too serious."
         },
         {
           "question": "Should a girlfriend birthday gift be more fun than practical?",
@@ -1101,13 +1260,13 @@
       ],
       "products": [
         {
-          "id": "mini-photo-printer",
-          "slug": "mini-photo-printer",
-          "name": "Mini Photo Printer",
-          "url": "https://shopforher.org/gift/mini-photo-printer/",
-          "price": "$69 - $129",
-          "badge": "viral",
-          "bestFor": "girlfriend / anniversary / travel",
+          "id": "prettygarden-one-shoulder-maxi",
+          "slug": "prettygarden-one-shoulder-maxi-dress",
+          "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+          "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+          "price": "$39.99",
+          "badge": "cocktail",
+          "bestFor": "girlfriend / wife / party season",
           "searchIndexable": true
         },
         {
@@ -1121,13 +1280,23 @@
           "searchIndexable": true
         },
         {
-          "id": "gucci-flora-gorgeous-magnolia",
-          "slug": "gucci-flora-gorgeous-magnolia",
-          "name": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
-          "url": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/",
-          "price": "$45.89",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / beauty",
+          "id": "posadina-phone-charm",
+          "slug": "posadina-natural-stone-phone-charm",
+          "name": "Posadina Natural Stone Phone Charm",
+          "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
+          "price": "$14.99 - $17.99",
+          "badge": "daily charm",
+          "bestFor": "girlfriend / wife / small add-on",
+          "searchIndexable": true
+        },
+        {
+          "id": "satin-halter-maxi-dress",
+          "slug": "satin-halter-backless-maxi-dress",
+          "name": "Satin Halter Backless Maxi Dress",
+          "url": "https://shopforher.org/gift/satin-halter-backless-maxi-dress/",
+          "price": "$49.99",
+          "badge": "wedding guest",
+          "bestFor": "girlfriend / wife / wedding guest season",
           "searchIndexable": true
         },
         {
@@ -1141,23 +1310,13 @@
           "searchIndexable": true
         },
         {
-          "id": "panluca-statement-necklace",
-          "slug": "panluca-statement-necklace",
-          "name": "PanLuca Statement Necklace",
-          "url": "https://shopforher.org/gift/panluca-statement-necklace/",
-          "price": "$33.99",
-          "badge": "statement",
-          "bestFor": "girlfriend / wife / statement jewelry",
-          "searchIndexable": true
-        },
-        {
-          "id": "posadina-phone-charm",
-          "slug": "posadina-natural-stone-phone-charm",
-          "name": "Posadina Natural Stone Phone Charm",
-          "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
-          "price": "$14.99 - $17.99",
-          "badge": "daily charm",
-          "bestFor": "girlfriend / wife / small add-on",
+          "id": "bose-speaker",
+          "slug": "bose-soundlink-flex-2nd-gen",
+          "name": "Bose SoundLink Flex (2nd Gen)",
+          "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+          "price": "$129 - $159",
+          "badge": "daily win",
+          "bestFor": "girlfriend / wife / travel",
           "searchIndexable": true
         }
       ],
@@ -1165,7 +1324,7 @@
         {
           "slug": "gifts-for-girlfriend",
           "label": "Gifts for girlfriend",
-          "h1": "Best gifts for girlfriends in 2026",
+          "h1": "Best gifts for girlfriend in 2026",
           "url": "https://shopforher.org/gifts-for-girlfriend/"
         },
         {
@@ -1183,13 +1342,13 @@
       ],
       "exploreProducts": [
         {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
+          "id": "lenox-bunny-candy-dish",
+          "slug": "lenox-wicker-creek-bunny-candy-dish",
+          "name": "Lenox Wicker Creek Bunny Candy Dish",
+          "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+          "badge": "tabletop",
+          "bestFor": "wife / host gift / spring table",
+          "guideCount": 0
         },
         {
           "id": "saodimallsu-crochet-cardigan-dress",
@@ -1201,12 +1360,12 @@
           "guideCount": 0
         },
         {
-          "id": "lenox-bunny-candy-dish",
-          "slug": "lenox-wicker-creek-bunny-candy-dish",
-          "name": "Lenox Wicker Creek Bunny Candy Dish",
-          "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
-          "badge": "tabletop",
-          "bestFor": "wife / host gift / spring table",
+          "id": "sheer-crochet-poncho-top",
+          "slug": "sheer-crochet-poncho-top",
+          "name": "Sheer Crochet Poncho Top",
+          "url": "https://shopforher.org/gift/sheer-crochet-poncho-top/",
+          "badge": "light layer",
+          "bestFor": "girlfriend / wife / warm weather",
           "guideCount": 0
         }
       ],
@@ -1214,18 +1373,25 @@
         "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
-            "id": "sol-de-janeiro",
-            "slug": "sol-de-janeiro-bum-bum-jet-set",
-            "name": "Sol de Janeiro Bum Bum Jet Set",
-            "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
-            "guideCount": 2
+            "id": "bose-speaker",
+            "slug": "bose-soundlink-flex-2nd-gen",
+            "name": "Bose SoundLink Flex (2nd Gen)",
+            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+            "guideCount": 3
           },
           {
             "id": "posadina-phone-charm",
             "slug": "posadina-natural-stone-phone-charm",
             "name": "Posadina Natural Stone Phone Charm",
             "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
-            "guideCount": 1
+            "guideCount": 3
+          },
+          {
+            "id": "prettygarden-one-shoulder-maxi",
+            "slug": "prettygarden-one-shoulder-maxi-dress",
+            "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+            "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+            "guideCount": 3
           }
         ],
         "overusedProducts": [],
@@ -1233,16 +1399,10 @@
           {
             "slug": "gifts-for-girlfriend",
             "label": "Gifts for girlfriend",
-            "h1": "Best gifts for girlfriends in 2026",
+            "h1": "Best gifts for girlfriend in 2026",
             "url": "https://shopforher.org/gifts-for-girlfriend/",
-            "sharedCount": 2,
+            "sharedCount": 1,
             "sharedItems": [
-              {
-                "id": "mini-photo-printer",
-                "name": "Mini Photo Printer",
-                "slug": "mini-photo-printer",
-                "url": "https://shopforher.org/gift/mini-photo-printer/"
-              },
               {
                 "id": "jewelry-case",
                 "name": "Structured Jewelry Case",
@@ -1250,53 +1410,66 @@
                 "url": "https://shopforher.org/gift/structured-jewelry-case/"
               }
             ]
-          },
-          {
-            "slug": "looks-expensive-gifts-for-her",
-            "label": "Looks expensive",
-            "h1": "Gifts for her that look expensive in 2026",
-            "url": "https://shopforher.org/looks-expensive-gifts-for-her/",
-            "sharedCount": 2,
-            "sharedItems": [
-              {
-                "id": "gucci-flora-gorgeous-magnolia",
-                "name": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
-                "slug": "gucci-flora-gorgeous-magnolia",
-                "url": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/"
-              },
-              {
-                "id": "panluca-statement-necklace",
-                "name": "PanLuca Statement Necklace",
-                "slug": "panluca-statement-necklace",
-                "url": "https://shopforher.org/gift/panluca-statement-necklace/"
-              }
-            ]
-          },
-          {
-            "slug": "best-gifts-under-100",
-            "label": "Best gifts under $100",
-            "h1": "Best gifts for her under $100 in 2026",
-            "url": "https://shopforher.org/best-gifts-under-100/",
-            "sharedCount": 1,
-            "sharedItems": [
-              {
-                "id": "mini-photo-printer",
-                "name": "Mini Photo Printer",
-                "slug": "mini-photo-printer",
-                "url": "https://shopforher.org/gift/mini-photo-printer/"
-              }
-            ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "jewelry-case",
+              "slug": "structured-jewelry-case",
+              "name": "Structured Jewelry Case",
+              "url": "https://shopforher.org/gift/structured-jewelry-case/",
+              "guideCount": 4
+            },
+            {
+              "id": "sol-de-janeiro",
+              "slug": "sol-de-janeiro-bum-bum-jet-set",
+              "name": "Sol de Janeiro Bum Bum Jet Set",
+              "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
+              "guideCount": 4
+            },
+            {
+              "id": "bose-speaker",
+              "slug": "bose-soundlink-flex-2nd-gen",
+              "name": "Bose SoundLink Flex (2nd Gen)",
+              "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+              "guideCount": 3
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "lenox-bunny-candy-dish",
+              "slug": "lenox-wicker-creek-bunny-candy-dish",
+              "name": "Lenox Wicker Creek Bunny Candy Dish",
+              "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+              "guideCount": 0
+            },
+            {
+              "id": "saodimallsu-crochet-cardigan-dress",
+              "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+              "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+              "guideCount": 0
+            },
+            {
+              "id": "sheer-crochet-poncho-top",
+              "slug": "sheer-crochet-poncho-top",
+              "name": "Sheer Crochet Poncho Top",
+              "url": "https://shopforher.org/gift/sheer-crochet-poncho-top/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
       "slug": "birthday-gifts-for-wife",
       "pageUrl": "https://shopforher.org/birthday-gifts-for-wife/",
       "pageArchetype": "gift-guide",
-      "title": "Best birthday gifts for wives in 2026 | ShopForHer",
-      "h1": "Best birthday gifts for wives in 2026",
-      "description": "Birthday gifts for wives that feel more substantial, polished, and worth opening.",
+      "title": "Best birthday gifts for wife in 2026 | ShopForHer",
+      "h1": "Best birthday gifts for wife in 2026",
+      "description": "Birthday gift ideas for your wife that feel special, polished, and better than another practical default.",
       "intro": "This page stays on gifts with stronger birthday reveal value, cleaner design, and enough presence to feel worth opening.",
       "group": "moments",
       "groupLabel": "Moment",
@@ -1309,7 +1482,9 @@
             "birthday"
           ],
           "budgetBands": [],
-          "angles": [],
+          "angles": [
+            "practical"
+          ],
           "guideGroups": [
             "moments"
           ]
@@ -1501,7 +1676,7 @@
         {
           "slug": "gifts-for-wife",
           "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
+          "h1": "Best gifts for wife in 2026",
           "url": "https://shopforher.org/gifts-for-wife/"
         },
         {
@@ -1519,15 +1694,6 @@
       ],
       "exploreProducts": [
         {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
-        },
-        {
           "id": "boxwood-bunny-topiary",
           "slug": "boxwood-bunny-topiary",
           "name": "Boxwood Bunny Topiary",
@@ -1544,18 +1710,20 @@
           "badge": "fragrance",
           "bestFor": "wife / premium gift / fragrance",
           "guideCount": 0
+        },
+        {
+          "id": "easter-bunny-porch-decor",
+          "slug": "large-easter-bunny-porch-decor",
+          "name": "Large Easter Bunny Porch Decor",
+          "url": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
+          "badge": "porch decor",
+          "bestFor": "wife / porch decorating / seasonal home",
+          "guideCount": 0
         }
       ],
       "uniqueness": {
         "needsEditorialRefresh": false,
         "distinctiveProducts": [
-          {
-            "id": "faux-olive-tree-planter",
-            "slug": "faux-olive-tree-planter",
-            "name": "Tall Faux Olive Tree with Planter",
-            "url": "https://shopforher.org/gift/faux-olive-tree-planter/",
-            "guideCount": 4
-          },
           {
             "id": "ninja-creami",
             "slug": "ninja-creami-deluxe",
@@ -1568,6 +1736,13 @@
             "slug": "panluca-statement-necklace",
             "name": "PanLuca Statement Necklace",
             "url": "https://shopforher.org/gift/panluca-statement-necklace/",
+            "guideCount": 3
+          },
+          {
+            "id": "faux-olive-tree-planter",
+            "slug": "faux-olive-tree-planter",
+            "name": "Tall Faux Olive Tree with Planter",
+            "url": "https://shopforher.org/gift/faux-olive-tree-planter/",
             "guideCount": 3
           }
         ],
@@ -1597,7 +1772,7 @@
           {
             "slug": "gifts-for-wife",
             "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
+            "h1": "Best gifts for wife in 2026",
             "url": "https://shopforher.org/gifts-for-wife/",
             "sharedCount": 1,
             "sharedItems": [
@@ -1609,7 +1784,56 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "kindle-paperwhite",
+              "slug": "kindle-paperwhite-signature-edition",
+              "name": "Kindle Paperwhite Signature Edition",
+              "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
+              "guideCount": 4
+            },
+            {
+              "id": "gucci-flora-gorgeous-magnolia",
+              "slug": "gucci-flora-gorgeous-magnolia",
+              "name": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
+              "url": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/",
+              "guideCount": 4
+            },
+            {
+              "id": "vanity-mirror",
+              "slug": "led-vanity-mirror",
+              "name": "LED Vanity Mirror",
+              "url": "https://shopforher.org/gift/led-vanity-mirror/",
+              "guideCount": 3
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            },
+            {
+              "id": "hugo-boss-bottled-beyond",
+              "slug": "hugo-boss-bottled-beyond",
+              "name": "Hugo Boss Bottled Beyond Eau de Parfum",
+              "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
+              "guideCount": 0
+            },
+            {
+              "id": "easter-bunny-porch-decor",
+              "slug": "large-easter-bunny-porch-decor",
+              "name": "Large Easter Bunny Porch Decor",
+              "url": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -1829,8 +2053,14 @@
         {
           "slug": "gifts-for-girlfriend",
           "label": "Gifts for girlfriend",
-          "h1": "Best gifts for girlfriends in 2026",
+          "h1": "Best gifts for girlfriend in 2026",
           "url": "https://shopforher.org/gifts-for-girlfriend/"
+        },
+        {
+          "slug": "last-minute-gifts-for-her",
+          "label": "Last-minute gifts",
+          "h1": "Best last-minute gifts for her in 2026",
+          "url": "https://shopforher.org/last-minute-gifts-for-her/"
         }
       ],
       "exploreProducts": [
@@ -1873,17 +2103,17 @@
             "guideCount": 3
           },
           {
-            "id": "laneige-set",
-            "slug": "laneige-midnight-minis-lip-set",
-            "name": "LANEIGE Midnight Minis Lip Set",
-            "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
+            "id": "owala-bottle",
+            "slug": "owala-freesip-sway-bottle",
+            "name": "Owala FreeSip Sway Bottle",
+            "url": "https://shopforher.org/gift/owala-freesip-sway-bottle/",
             "guideCount": 3
           },
           {
-            "id": "silk-pillowcase",
-            "slug": "mulberry-silk-pillowcase-set",
-            "name": "Mulberry Silk Pillowcase Set",
-            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+            "id": "stanley-quencher",
+            "slug": "stanley-quencher-h2o-flowstate",
+            "name": "Stanley Quencher H2.0 FlowState",
+            "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
             "guideCount": 3
           }
         ],
@@ -1931,7 +2161,7 @@
           {
             "slug": "gifts-for-girlfriend",
             "label": "Gifts for girlfriend",
-            "h1": "Best gifts for girlfriends in 2026",
+            "h1": "Best gifts for girlfriend in 2026",
             "url": "https://shopforher.org/gifts-for-girlfriend/",
             "sharedCount": 2,
             "sharedItems": [
@@ -1948,8 +2178,72 @@
                 "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/"
               }
             ]
+          },
+          {
+            "slug": "last-minute-gifts-for-her",
+            "label": "Last-minute gifts",
+            "h1": "Best last-minute gifts for her in 2026",
+            "url": "https://shopforher.org/last-minute-gifts-for-her/",
+            "sharedCount": 1,
+            "sharedItems": [
+              {
+                "id": "laneige-set",
+                "name": "LANEIGE Midnight Minis Lip Set",
+                "slug": "laneige-midnight-minis-lip-set",
+                "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/"
+              }
+            ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "silk-pillowcase",
+              "slug": "mulberry-silk-pillowcase-set",
+              "name": "Mulberry Silk Pillowcase Set",
+              "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+              "guideCount": 4
+            },
+            {
+              "id": "laneige-set",
+              "slug": "laneige-midnight-minis-lip-set",
+              "name": "LANEIGE Midnight Minis Lip Set",
+              "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
+              "guideCount": 4
+            },
+            {
+              "id": "candle-warmer",
+              "slug": "candle-warmer-lamp",
+              "name": "Candle Warmer Lamp",
+              "url": "https://shopforher.org/gift/candle-warmer-lamp/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "easter-gift-basket",
+              "slug": "easter-gift-basket-with-ribbons",
+              "name": "Easter Gift Basket with Ribbons",
+              "url": "https://shopforher.org/gift/easter-gift-basket-with-ribbons/",
+              "guideCount": 0
+            },
+            {
+              "id": "rustic-vase-set",
+              "slug": "rustic-vase-set-of-3",
+              "name": "Rustic Vase Set of 3",
+              "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+              "guideCount": 2
+            },
+            {
+              "id": "lenox-bunny-candy-dish",
+              "slug": "lenox-wicker-creek-bunny-candy-dish",
+              "name": "Lenox Wicker Creek Bunny Candy Dish",
+              "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -2175,7 +2469,7 @@
         {
           "slug": "gifts-for-girlfriend",
           "label": "Gifts for girlfriend",
-          "h1": "Best gifts for girlfriends in 2026",
+          "h1": "Best gifts for girlfriend in 2026",
           "url": "https://shopforher.org/gifts-for-girlfriend/"
         },
         {
@@ -2202,15 +2496,6 @@
           "guideCount": 0
         },
         {
-          "id": "sol-de-janeiro",
-          "slug": "sol-de-janeiro-bum-bum-jet-set",
-          "name": "Sol de Janeiro Bum Bum Jet Set",
-          "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
-          "badge": "viral",
-          "bestFor": "girlfriend / wife / beauty",
-          "guideCount": 2
-        },
-        {
           "id": "saodimallsu-crochet-cardigan-dress",
           "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
           "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
@@ -2218,6 +2503,15 @@
           "badge": "vacation layer",
           "bestFor": "girlfriend / wife / resort trip",
           "guideCount": 0
+        },
+        {
+          "id": "rustic-vase-set",
+          "slug": "rustic-vase-set-of-3",
+          "name": "Rustic Vase Set of 3",
+          "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+          "badge": "vase set",
+          "bestFor": "wife / apartment / shelf styling",
+          "guideCount": 2
         }
       ],
       "uniqueness": {
@@ -2231,17 +2525,17 @@
             "guideCount": 3
           },
           {
-            "id": "laneige-set",
-            "slug": "laneige-midnight-minis-lip-set",
-            "name": "LANEIGE Midnight Minis Lip Set",
-            "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
-            "guideCount": 3
-          },
-          {
             "id": "earbuds",
             "slug": "noise-canceling-earbuds",
             "name": "Noise-Canceling Earbuds",
             "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
+            "guideCount": 3
+          },
+          {
+            "id": "owala-bottle",
+            "slug": "owala-freesip-sway-bottle",
+            "name": "Owala FreeSip Sway Bottle",
+            "url": "https://shopforher.org/gift/owala-freesip-sway-bottle/",
             "guideCount": 3
           }
         ],
@@ -2289,7 +2583,7 @@
           {
             "slug": "gifts-for-girlfriend",
             "label": "Gifts for girlfriend",
-            "h1": "Best gifts for girlfriends in 2026",
+            "h1": "Best gifts for girlfriend in 2026",
             "url": "https://shopforher.org/gifts-for-girlfriend/",
             "sharedCount": 3,
             "sharedItems": [
@@ -2312,8 +2606,72 @@
                 "url": "https://shopforher.org/gift/candle-warmer-lamp/"
               }
             ]
+          },
+          {
+            "slug": "amazon-gifts-for-her",
+            "label": "Amazon gifts",
+            "h1": "Best Amazon gifts for her in 2026",
+            "url": "https://shopforher.org/amazon-gifts-for-her/",
+            "sharedCount": 1,
+            "sharedItems": [
+              {
+                "id": "mini-photo-printer",
+                "name": "Mini Photo Printer",
+                "slug": "mini-photo-printer",
+                "url": "https://shopforher.org/gift/mini-photo-printer/"
+              }
+            ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "candle-warmer",
+              "slug": "candle-warmer-lamp",
+              "name": "Candle Warmer Lamp",
+              "url": "https://shopforher.org/gift/candle-warmer-lamp/",
+              "guideCount": 4
+            },
+            {
+              "id": "laneige-set",
+              "slug": "laneige-midnight-minis-lip-set",
+              "name": "LANEIGE Midnight Minis Lip Set",
+              "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
+              "guideCount": 4
+            },
+            {
+              "id": "mini-photo-printer",
+              "slug": "mini-photo-printer",
+              "name": "Mini Photo Printer",
+              "url": "https://shopforher.org/gift/mini-photo-printer/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "saodimallsu-crochet-coverup-set",
+              "slug": "saodimallsu-crochet-cover-up-set",
+              "name": "Saodimallsu Crochet Swim Cover Up Set",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+              "guideCount": 0
+            },
+            {
+              "id": "saodimallsu-crochet-cardigan-dress",
+              "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+              "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+              "guideCount": 0
+            },
+            {
+              "id": "rustic-vase-set",
+              "slug": "rustic-vase-set-of-3",
+              "name": "Rustic Vase Set of 3",
+              "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+              "guideCount": 2
+            }
+          ]
+        }
       }
     },
     {
@@ -2322,7 +2680,7 @@
       "pageArchetype": "gift-guide",
       "title": "Viral gifts for her in 2026 | ShopForHer",
       "h1": "Viral gifts for her in 2026",
-      "description": "Current, shareable, high-click gift ideas for her.",
+      "description": "Trending gift ideas for her that feel current, recognizable, and easy to click when you need a fast win.",
       "intro": "Use this page when you want something that already feels current online and easy to justify in real life.",
       "group": "angle",
       "groupLabel": "Angle",
@@ -2360,7 +2718,6 @@
           ],
           "priceBands": [
             "over-150",
-            "under-150",
             "under-50"
           ]
         }
@@ -2368,8 +2725,8 @@
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "updatedAt": "2026-03-09",
-      "featuredGiftId": "ninja-creami",
-      "featuredGiftUrl": "https://shopforher.org/gift/ninja-creami-deluxe/",
+      "featuredGiftId": "prettygarden-one-shoulder-maxi",
+      "featuredGiftUrl": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
       "selectionMethod": "This page favors gifts that are already circulating online but still survive the reality check of being useful, presentable, and broadly giftable.",
       "bestUseCase": "Use this when you want the gift to feel current now, not merely safe or timeless.",
       "avoidWhen": "Skip this page if you are trying to avoid trend-sensitive picks or you need a more relationship-specific lane first.",
@@ -2389,11 +2746,11 @@
       ],
       "bestFits": [
         {
-          "title": "Mainstream products she already recognizes online",
-          "giftId": "stanley-quencher",
-          "body": "Best when you want the gift to feel current immediately without needing a lot of explanation.",
-          "giftSlug": "stanley-quencher-h2o-flowstate",
-          "giftUrl": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/"
+          "title": "Trendy fashion gifts with obvious social energy",
+          "giftId": "prettygarden-one-shoulder-maxi",
+          "body": "Best when you want the gift to look current immediately and feel like something she has already seen online.",
+          "giftSlug": "prettygarden-one-shoulder-maxi-dress",
+          "giftUrl": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/"
         },
         {
           "title": "Beauty-category gifts with fast trend recognition",
@@ -2413,17 +2770,17 @@
       "pickLanes": [
         {
           "title": "Lower spend",
-          "giftId": "sol-de-janeiro",
+          "giftId": "laneige-set",
           "body": "The easiest smaller viral pick when you want trend energy without turning the gift into a bigger purchase.",
-          "giftSlug": "sol-de-janeiro-bum-bum-jet-set",
-          "giftUrl": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/"
+          "giftSlug": "laneige-midnight-minis-lip-set",
+          "giftUrl": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/"
         },
         {
           "title": "Safest mainstream pick",
-          "giftId": "stanley-quencher",
-          "body": "Use this when you want the most instantly recognizable viral gift with an obvious everyday role.",
-          "giftSlug": "stanley-quencher-h2o-flowstate",
-          "giftUrl": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/"
+          "giftId": "owala-bottle",
+          "body": "Use this when you want a recognizable viral gift with an obvious everyday role and less hype risk than a novelty buy.",
+          "giftSlug": "owala-freesip-sway-bottle",
+          "giftUrl": "https://shopforher.org/gift/owala-freesip-sway-bottle/"
         },
         {
           "title": "Best bigger trend gift",
@@ -2450,7 +2807,7 @@
         },
         {
           "question": "What is the safest viral gift on this page?",
-          "answer": "The Stanley, Sol de Janeiro set, and mini photo printer are easy first answers because they feel current and still have obvious everyday use or shareability."
+          "answer": "The Sol de Janeiro set, Owala bottle, and Ninja CREAMi are easy first answers because they feel current and still have obvious everyday use or strong recognition."
         },
         {
           "question": "When should I avoid the viral lane?",
@@ -2459,6 +2816,16 @@
       ],
       "products": [
         {
+          "id": "prettygarden-one-shoulder-maxi",
+          "slug": "prettygarden-one-shoulder-maxi-dress",
+          "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+          "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+          "price": "$39.99",
+          "badge": "cocktail",
+          "bestFor": "girlfriend / wife / party season",
+          "searchIndexable": true
+        },
+        {
           "id": "ninja-creami",
           "slug": "ninja-creami-deluxe",
           "name": "Ninja CREAMi Deluxe",
@@ -2466,16 +2833,6 @@
           "price": "$179 - $229",
           "badge": "viral",
           "bestFor": "girlfriend / wife / kitchen",
-          "searchIndexable": true
-        },
-        {
-          "id": "sol-de-janeiro",
-          "slug": "sol-de-janeiro-bum-bum-jet-set",
-          "name": "Sol de Janeiro Bum Bum Jet Set",
-          "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
-          "price": "$28 - $36",
-          "badge": "viral",
-          "bestFor": "girlfriend / wife / beauty",
           "searchIndexable": true
         },
         {
@@ -2489,13 +2846,23 @@
           "searchIndexable": true
         },
         {
-          "id": "stanley-quencher",
-          "slug": "stanley-quencher-h2o-flowstate",
-          "name": "Stanley Quencher H2.0 FlowState",
-          "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
-          "price": "$35 - $50",
+          "id": "sol-de-janeiro",
+          "slug": "sol-de-janeiro-bum-bum-jet-set",
+          "name": "Sol de Janeiro Bum Bum Jet Set",
+          "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
+          "price": "$28 - $36",
           "badge": "viral",
-          "bestFor": "girlfriend / wife / daily carry",
+          "bestFor": "girlfriend / wife / beauty",
+          "searchIndexable": true
+        },
+        {
+          "id": "satin-halter-maxi-dress",
+          "slug": "satin-halter-backless-maxi-dress",
+          "name": "Satin Halter Backless Maxi Dress",
+          "url": "https://shopforher.org/gift/satin-halter-backless-maxi-dress/",
+          "price": "$49.99",
+          "badge": "wedding guest",
+          "bestFor": "girlfriend / wife / wedding guest season",
           "searchIndexable": true
         },
         {
@@ -2507,23 +2874,13 @@
           "badge": "small luxury",
           "bestFor": "girlfriend / stocking / add-on",
           "searchIndexable": true
-        },
-        {
-          "id": "mini-photo-printer",
-          "slug": "mini-photo-printer",
-          "name": "Mini Photo Printer",
-          "url": "https://shopforher.org/gift/mini-photo-printer/",
-          "price": "$69 - $129",
-          "badge": "viral",
-          "bestFor": "girlfriend / anniversary / travel",
-          "searchIndexable": true
         }
       ],
       "relatedGuides": [
         {
           "slug": "gifts-for-girlfriend",
           "label": "Gifts for girlfriend",
-          "h1": "Best gifts for girlfriends in 2026",
+          "h1": "Best gifts for girlfriend in 2026",
           "url": "https://shopforher.org/gifts-for-girlfriend/"
         },
         {
@@ -2550,6 +2907,15 @@
           "guideCount": 0
         },
         {
+          "id": "rustic-vase-set",
+          "slug": "rustic-vase-set-of-3",
+          "name": "Rustic Vase Set of 3",
+          "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+          "badge": "vase set",
+          "bestFor": "wife / apartment / shelf styling",
+          "guideCount": 2
+        },
+        {
           "id": "sheer-crochet-poncho-top",
           "slug": "sheer-crochet-poncho-top",
           "name": "Sheer Crochet Poncho Top",
@@ -2557,27 +2923,11 @@
           "badge": "light layer",
           "bestFor": "girlfriend / wife / warm weather",
           "guideCount": 0
-        },
-        {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
         }
       ],
       "uniqueness": {
         "needsEditorialRefresh": false,
         "distinctiveProducts": [
-          {
-            "id": "sol-de-janeiro",
-            "slug": "sol-de-janeiro-bum-bum-jet-set",
-            "name": "Sol de Janeiro Bum Bum Jet Set",
-            "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
-            "guideCount": 2
-          },
           {
             "id": "owala-bottle",
             "slug": "owala-freesip-sway-bottle",
@@ -2586,11 +2936,18 @@
             "guideCount": 3
           },
           {
-            "id": "stanley-quencher",
-            "slug": "stanley-quencher-h2o-flowstate",
-            "name": "Stanley Quencher H2.0 FlowState",
-            "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
-            "guideCount": 4
+            "id": "prettygarden-one-shoulder-maxi",
+            "slug": "prettygarden-one-shoulder-maxi-dress",
+            "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+            "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+            "guideCount": 3
+          },
+          {
+            "id": "satin-halter-maxi-dress",
+            "slug": "satin-halter-backless-maxi-dress",
+            "name": "Satin Halter Backless Maxi Dress",
+            "url": "https://shopforher.org/gift/satin-halter-backless-maxi-dress/",
+            "guideCount": 3
           }
         ],
         "overusedProducts": [],
@@ -2609,23 +2966,57 @@
                 "url": "https://shopforher.org/gift/ninja-creami-deluxe/"
               }
             ]
-          },
-          {
-            "slug": "gifts-for-girlfriend",
-            "label": "Gifts for girlfriend",
-            "h1": "Best gifts for girlfriends in 2026",
-            "url": "https://shopforher.org/gifts-for-girlfriend/",
-            "sharedCount": 1,
-            "sharedItems": [
-              {
-                "id": "mini-photo-printer",
-                "name": "Mini Photo Printer",
-                "slug": "mini-photo-printer",
-                "url": "https://shopforher.org/gift/mini-photo-printer/"
-              }
-            ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "ninja-creami",
+              "slug": "ninja-creami-deluxe",
+              "name": "Ninja CREAMi Deluxe",
+              "url": "https://shopforher.org/gift/ninja-creami-deluxe/",
+              "guideCount": 3
+            },
+            {
+              "id": "laneige-set",
+              "slug": "laneige-midnight-minis-lip-set",
+              "name": "LANEIGE Midnight Minis Lip Set",
+              "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
+              "guideCount": 4
+            },
+            {
+              "id": "sol-de-janeiro",
+              "slug": "sol-de-janeiro-bum-bum-jet-set",
+              "name": "Sol de Janeiro Bum Bum Jet Set",
+              "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "saodimallsu-crochet-coverup-set",
+              "slug": "saodimallsu-crochet-cover-up-set",
+              "name": "Saodimallsu Crochet Swim Cover Up Set",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+              "guideCount": 0
+            },
+            {
+              "id": "rustic-vase-set",
+              "slug": "rustic-vase-set-of-3",
+              "name": "Rustic Vase Set of 3",
+              "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+              "guideCount": 2
+            },
+            {
+              "id": "sheer-crochet-poncho-top",
+              "slug": "sheer-crochet-poncho-top",
+              "name": "Sheer Crochet Poncho Top",
+              "url": "https://shopforher.org/gift/sheer-crochet-poncho-top/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -2634,7 +3025,7 @@
       "pageArchetype": "gift-guide",
       "title": "Luxury gifts for her in 2026 | ShopForHer",
       "h1": "Luxury gifts for her in 2026",
-      "description": "Cleaner premium gifts for her that read expensive fast.",
+      "description": "Luxury gift ideas for her that feel premium, polished, and clearly more special than a standard pick.",
       "intro": "These picks lean more polished and elevated without turning flashy or random.",
       "group": "angle",
       "groupLabel": "Angle",
@@ -2659,6 +3050,7 @@
             "wife"
           ],
           "intentTags": [
+            "cozy",
             "everyday",
             "looks-expensive",
             "thoughtful",
@@ -2666,6 +3058,7 @@
           ],
           "tabTags": [
             "best-overall",
+            "cozy-home",
             "daily-use",
             "looks-expensive",
             "under-100"
@@ -2780,14 +3173,14 @@
           "searchIndexable": true
         },
         {
-          "id": "bose-speaker",
-          "slug": "bose-soundlink-flex-2nd-gen",
-          "name": "Bose SoundLink Flex (2nd Gen)",
-          "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-          "price": "$129 - $159",
-          "badge": "daily win",
-          "bestFor": "girlfriend / wife / travel",
-          "searchIndexable": true
+          "id": "artificial-olive-tree-1026",
+          "slug": "artificial-olive-tree-1026",
+          "name": "Artificial Olive Tree 1026",
+          "url": "https://shopforher.org/gift/artificial-olive-tree-1026/",
+          "price": "$239.99",
+          "badge": "statement tree",
+          "bestFor": "wife / home refresh / larger spaces",
+          "searchIndexable": false
         },
         {
           "id": "theragun-relief",
@@ -2834,7 +3227,7 @@
         {
           "slug": "gifts-for-wife",
           "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
+          "h1": "Best gifts for wife in 2026",
           "url": "https://shopforher.org/gifts-for-wife/"
         },
         {
@@ -2883,11 +3276,11 @@
         "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 3
+            "id": "artificial-olive-tree-1026",
+            "slug": "artificial-olive-tree-1026",
+            "name": "Artificial Olive Tree 1026",
+            "url": "https://shopforher.org/gift/artificial-olive-tree-1026/",
+            "guideCount": 1
           },
           {
             "id": "theragun-relief",
@@ -2936,7 +3329,7 @@
           {
             "slug": "gifts-for-wife",
             "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
+            "h1": "Best gifts for wife in 2026",
             "url": "https://shopforher.org/gifts-for-wife/",
             "sharedCount": 1,
             "sharedItems": [
@@ -2948,7 +3341,56 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "nespresso-machine",
+              "slug": "nespresso-vertuo-next",
+              "name": "Nespresso Vertuo Next",
+              "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
+              "guideCount": 4
+            },
+            {
+              "id": "gucci-flora-gorgeous-magnolia",
+              "slug": "gucci-flora-gorgeous-magnolia",
+              "name": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
+              "url": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/",
+              "guideCount": 4
+            },
+            {
+              "id": "marc-jacobs-perfect-absolute",
+              "slug": "marc-jacobs-perfect-absolute",
+              "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+              "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "hugo-boss-bottled-beyond",
+              "slug": "hugo-boss-bottled-beyond",
+              "name": "Hugo Boss Bottled Beyond Eau de Parfum",
+              "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
+              "guideCount": 0
+            },
+            {
+              "id": "saodimallsu-crochet-coverup-set",
+              "slug": "saodimallsu-crochet-cover-up-set",
+              "name": "Saodimallsu Crochet Swim Cover Up Set",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+              "guideCount": 0
+            },
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -3170,20 +3612,11 @@
         {
           "slug": "gifts-for-wife",
           "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
+          "h1": "Best gifts for wife in 2026",
           "url": "https://shopforher.org/gifts-for-wife/"
         }
       ],
       "exploreProducts": [
-        {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
-        },
         {
           "id": "saodimallsu-crochet-coverup-set",
           "slug": "saodimallsu-crochet-cover-up-set",
@@ -3194,23 +3627,32 @@
           "guideCount": 0
         },
         {
-          "id": "posadina-phone-charm",
-          "slug": "posadina-natural-stone-phone-charm",
-          "name": "Posadina Natural Stone Phone Charm",
-          "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
-          "badge": "daily charm",
-          "bestFor": "girlfriend / wife / small add-on",
-          "guideCount": 1
+          "id": "boxwood-bunny-topiary",
+          "slug": "boxwood-bunny-topiary",
+          "name": "Boxwood Bunny Topiary",
+          "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+          "badge": "seasonal",
+          "bestFor": "wife / spring decorating / porch",
+          "guideCount": 0
+        },
+        {
+          "id": "rustic-vase-set",
+          "slug": "rustic-vase-set-of-3",
+          "name": "Rustic Vase Set of 3",
+          "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+          "badge": "vase set",
+          "bestFor": "wife / apartment / shelf styling",
+          "guideCount": 2
         }
       ],
       "uniqueness": {
         "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
-            "id": "theragun-relief",
-            "slug": "theragun-relief",
-            "name": "Therabody Theragun Relief",
-            "url": "https://shopforher.org/gift/theragun-relief/",
+            "id": "bose-speaker",
+            "slug": "bose-soundlink-flex-2nd-gen",
+            "name": "Bose SoundLink Flex (2nd Gen)",
+            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
             "guideCount": 3
           },
           {
@@ -3218,13 +3660,13 @@
             "slug": "magsafe-charging-stand",
             "name": "MagSafe Charging Stand",
             "url": "https://shopforher.org/gift/magsafe-charging-stand/",
-            "guideCount": 2
+            "guideCount": 3
           },
           {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+            "id": "theragun-relief",
+            "slug": "theragun-relief",
+            "name": "Therabody Theragun Relief",
+            "url": "https://shopforher.org/gift/theragun-relief/",
             "guideCount": 3
           }
         ],
@@ -3254,7 +3696,7 @@
           {
             "slug": "gifts-for-wife",
             "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
+            "h1": "Best gifts for wife in 2026",
             "url": "https://shopforher.org/gifts-for-wife/",
             "sharedCount": 2,
             "sharedItems": [
@@ -3272,7 +3714,56 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "kindle-paperwhite",
+              "slug": "kindle-paperwhite-signature-edition",
+              "name": "Kindle Paperwhite Signature Edition",
+              "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
+              "guideCount": 4
+            },
+            {
+              "id": "temperature-mug",
+              "slug": "temperature-control-mug",
+              "name": "Temperature-Control Mug",
+              "url": "https://shopforher.org/gift/temperature-control-mug/",
+              "guideCount": 3
+            },
+            {
+              "id": "walking-pad",
+              "slug": "compact-walking-pad",
+              "name": "Compact Walking Pad",
+              "url": "https://shopforher.org/gift/compact-walking-pad/",
+              "guideCount": 3
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "saodimallsu-crochet-coverup-set",
+              "slug": "saodimallsu-crochet-cover-up-set",
+              "name": "Saodimallsu Crochet Swim Cover Up Set",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+              "guideCount": 0
+            },
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            },
+            {
+              "id": "rustic-vase-set",
+              "slug": "rustic-vase-set-of-3",
+              "name": "Rustic Vase Set of 3",
+              "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+              "guideCount": 2
+            }
+          ]
+        }
       }
     },
     {
@@ -3440,13 +3931,13 @@
           "searchIndexable": true
         },
         {
-          "id": "cashmere-robe",
-          "slug": "cashmere-feel-robe",
-          "name": "Cashmere-Feel Robe",
-          "url": "https://shopforher.org/gift/cashmere-feel-robe/",
-          "price": "$109 - $159",
-          "badge": "wife-level",
-          "bestFor": "wife / anniversary / home",
+          "id": "silk-pillowcase",
+          "slug": "mulberry-silk-pillowcase-set",
+          "name": "Mulberry Silk Pillowcase Set",
+          "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+          "price": "$49 - $79",
+          "badge": "easy yes",
+          "bestFor": "girlfriend / wife / new relationship",
           "searchIndexable": true
         },
         {
@@ -3490,7 +3981,7 @@
         {
           "slug": "gifts-for-wife",
           "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
+          "h1": "Best gifts for wife in 2026",
           "url": "https://shopforher.org/gifts-for-wife/"
         },
         {
@@ -3533,25 +4024,25 @@
         "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
-            "id": "faux-olive-tree-planter",
-            "slug": "faux-olive-tree-planter",
-            "name": "Tall Faux Olive Tree with Planter",
-            "url": "https://shopforher.org/gift/faux-olive-tree-planter/",
-            "guideCount": 4
-          },
-          {
-            "id": "cashmere-robe",
-            "slug": "cashmere-feel-robe",
-            "name": "Cashmere-Feel Robe",
-            "url": "https://shopforher.org/gift/cashmere-feel-robe/",
-            "guideCount": 3
-          },
-          {
             "id": "ugg-slippers",
             "slug": "koolaburra-ugg-burree-slipper",
             "name": "Koolaburra by UGG Burree Slipper",
             "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
             "guideCount": 3
+          },
+          {
+            "id": "faux-olive-tree-planter",
+            "slug": "faux-olive-tree-planter",
+            "name": "Tall Faux Olive Tree with Planter",
+            "url": "https://shopforher.org/gift/faux-olive-tree-planter/",
+            "guideCount": 3
+          },
+          {
+            "id": "silk-pillowcase",
+            "slug": "mulberry-silk-pillowcase-set",
+            "name": "Mulberry Silk Pillowcase Set",
+            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+            "guideCount": 4
           }
         ],
         "overusedProducts": [],
@@ -3580,7 +4071,7 @@
           {
             "slug": "gifts-for-wife",
             "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
+            "h1": "Best gifts for wife in 2026",
             "url": "https://shopforher.org/gifts-for-wife/",
             "sharedCount": 2,
             "sharedItems": [
@@ -3598,7 +4089,56 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "nespresso-machine",
+              "slug": "nespresso-vertuo-next",
+              "name": "Nespresso Vertuo Next",
+              "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
+              "guideCount": 4
+            },
+            {
+              "id": "miyuki-rustic-vase",
+              "slug": "miyuki-rustic-terracotta-vase",
+              "name": "MIYUKI Rustic Terracotta Vase",
+              "url": "https://shopforher.org/gift/miyuki-rustic-terracotta-vase/",
+              "guideCount": 3
+            },
+            {
+              "id": "luxury-throw",
+              "slug": "luxury-throw-blanket",
+              "name": "Luxury Throw Blanket",
+              "url": "https://shopforher.org/gift/luxury-throw-blanket/",
+              "guideCount": 3
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            },
+            {
+              "id": "rustic-vase-set",
+              "slug": "rustic-vase-set-of-3",
+              "name": "Rustic Vase Set of 3",
+              "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+              "guideCount": 2
+            },
+            {
+              "id": "lenox-bunny-candy-dish",
+              "slug": "lenox-wicker-creek-bunny-candy-dish",
+              "name": "Lenox Wicker Creek Bunny Candy Dish",
+              "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -3684,11 +4224,11 @@
           "giftUrl": "https://shopforher.org/gift/magsafe-charging-stand/"
         },
         {
-          "title": "A reliable everyday device she will actually use",
-          "giftId": "earbuds",
-          "body": "Use this when the safest path is strong day-to-day utility with very little learning curve.",
-          "giftSlug": "noise-canceling-earbuds",
-          "giftUrl": "https://shopforher.org/gift/noise-canceling-earbuds/"
+          "title": "A smart home-tech gift with low learning curve",
+          "giftId": "digital-frame",
+          "body": "Use this when the safest path is a polished device that feels personal quickly without a fussy setup.",
+          "giftSlug": "digital-picture-frame",
+          "giftUrl": "https://shopforher.org/gift/digital-picture-frame/"
         },
         {
           "title": "A more memorable device with shared payoff",
@@ -3707,11 +4247,11 @@
           "giftUrl": "https://shopforher.org/gift/magsafe-charging-stand/"
         },
         {
-          "title": "Best everyday tech pick",
-          "giftId": "earbuds",
-          "body": "Use this when the gift should fit quickly into commuting, work, travel, or daily downtime.",
-          "giftSlug": "noise-canceling-earbuds",
-          "giftUrl": "https://shopforher.org/gift/noise-canceling-earbuds/"
+          "title": "Best home-tech pick",
+          "giftId": "digital-frame",
+          "body": "Use this when the gift should feel personal, polished, and easy to appreciate without a long setup.",
+          "giftSlug": "digital-picture-frame",
+          "giftUrl": "https://shopforher.org/gift/digital-picture-frame/"
         },
         {
           "title": "Best bigger device",
@@ -3734,7 +4274,7 @@
       "faqs": [
         {
           "question": "What is the safest tech gift on this page?",
-          "answer": "The earbuds and MagSafe stand are strong because they are easy to understand, easy to use, and hard to regret."
+          "answer": "The MagSafe stand and digital frame are strong because they are easy to understand, easy to use, and hard to regret."
         },
         {
           "question": "Can wellness gear count as a tech gift?",
@@ -3767,13 +4307,13 @@
           "searchIndexable": true
         },
         {
-          "id": "vanity-mirror",
-          "slug": "led-vanity-mirror",
-          "name": "LED Vanity Mirror",
-          "url": "https://shopforher.org/gift/led-vanity-mirror/",
-          "price": "$89 - $139",
-          "badge": "setup upgrade",
-          "bestFor": "wife / girlfriend / beauty setup",
+          "id": "digital-frame",
+          "slug": "digital-picture-frame",
+          "name": "Digital Picture Frame",
+          "url": "https://shopforher.org/gift/digital-picture-frame/",
+          "price": "$129 - $179",
+          "badge": "wife-safe",
+          "bestFor": "wife / anniversary / home",
           "searchIndexable": true
         },
         {
@@ -3797,13 +4337,13 @@
           "searchIndexable": true
         },
         {
-          "id": "earbuds",
-          "slug": "noise-canceling-earbuds",
-          "name": "Noise-Canceling Earbuds",
-          "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
-          "price": "$49 - $159",
-          "badge": "daily win",
-          "bestFor": "girlfriend / wife / commute",
+          "id": "mini-photo-printer",
+          "slug": "mini-photo-printer",
+          "name": "Mini Photo Printer",
+          "url": "https://shopforher.org/gift/mini-photo-printer/",
+          "price": "$69 - $129",
+          "badge": "viral",
+          "bestFor": "girlfriend / anniversary / travel",
           "searchIndexable": true
         }
       ],
@@ -3815,10 +4355,10 @@
           "url": "https://shopforher.org/viral-gifts-for-her/"
         },
         {
-          "slug": "practical-gifts-for-her",
-          "label": "Practical gifts",
-          "h1": "Practical gifts for her in 2026",
-          "url": "https://shopforher.org/practical-gifts-for-her/"
+          "slug": "gifts-for-wife",
+          "label": "Gifts for wife",
+          "h1": "Best gifts for wife in 2026",
+          "url": "https://shopforher.org/gifts-for-wife/"
         },
         {
           "slug": "daily-use-gifts-for-her",
@@ -3838,57 +4378,57 @@
           "guideCount": 2
         },
         {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
+          "id": "oneida-bunny-hop-plates",
+          "slug": "oneida-bunny-hop-dinner-plates",
+          "name": "Oneida Bunny Hop Dinner Plates",
+          "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+          "badge": "serveware",
+          "bestFor": "wife / host gift / Easter brunch",
+          "guideCount": 0
         },
         {
-          "id": "sol-de-janeiro",
-          "slug": "sol-de-janeiro-bum-bum-jet-set",
-          "name": "Sol de Janeiro Bum Bum Jet Set",
-          "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
-          "badge": "viral",
-          "bestFor": "girlfriend / wife / beauty",
-          "guideCount": 2
+          "id": "kirundo-pleated-maxi-dress",
+          "slug": "kirundo-pleated-a-line-maxi-dress",
+          "name": "KIRUNDO Pleated A-Line Maxi Dress",
+          "url": "https://shopforher.org/gift/kirundo-pleated-a-line-maxi-dress/",
+          "badge": "spring dress",
+          "bestFor": "wife / girlfriend / spring events",
+          "guideCount": 0
         }
       ],
       "uniqueness": {
         "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
-            "id": "projector",
-            "slug": "portable-projector",
-            "name": "Portable Projector",
-            "url": "https://shopforher.org/gift/portable-projector/",
+            "id": "magsafe-stand",
+            "slug": "magsafe-charging-stand",
+            "name": "MagSafe Charging Stand",
+            "url": "https://shopforher.org/gift/magsafe-charging-stand/",
             "guideCount": 3
           },
           {
-            "id": "vanity-mirror",
-            "slug": "led-vanity-mirror",
-            "name": "LED Vanity Mirror",
-            "url": "https://shopforher.org/gift/led-vanity-mirror/",
+            "id": "theragun-relief",
+            "slug": "theragun-relief",
+            "name": "Therabody Theragun Relief",
+            "url": "https://shopforher.org/gift/theragun-relief/",
+            "guideCount": 3
+          },
+          {
+            "id": "mini-photo-printer",
+            "slug": "mini-photo-printer",
+            "name": "Mini Photo Printer",
+            "url": "https://shopforher.org/gift/mini-photo-printer/",
             "guideCount": 4
-          },
-          {
-            "id": "earbuds",
-            "slug": "noise-canceling-earbuds",
-            "name": "Noise-Canceling Earbuds",
-            "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
-            "guideCount": 3
           }
         ],
         "overusedProducts": [],
         "relatedGuideOverlap": [
           {
-            "slug": "practical-gifts-for-her",
-            "label": "Practical gifts",
-            "h1": "Practical gifts for her in 2026",
-            "url": "https://shopforher.org/practical-gifts-for-her/",
-            "sharedCount": 3,
+            "slug": "gifts-for-wife",
+            "label": "Gifts for wife",
+            "h1": "Best gifts for wife in 2026",
+            "url": "https://shopforher.org/gifts-for-wife/",
+            "sharedCount": 2,
             "sharedItems": [
               {
                 "id": "walking-pad",
@@ -3897,20 +4437,63 @@
                 "url": "https://shopforher.org/gift/compact-walking-pad/"
               },
               {
-                "id": "theragun-relief",
-                "name": "Therabody Theragun Relief",
-                "slug": "theragun-relief",
-                "url": "https://shopforher.org/gift/theragun-relief/"
-              },
-              {
-                "id": "magsafe-stand",
-                "name": "MagSafe Charging Stand",
-                "slug": "magsafe-charging-stand",
-                "url": "https://shopforher.org/gift/magsafe-charging-stand/"
+                "id": "digital-frame",
+                "name": "Digital Picture Frame",
+                "slug": "digital-picture-frame",
+                "url": "https://shopforher.org/gift/digital-picture-frame/"
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "digital-frame",
+              "slug": "digital-picture-frame",
+              "name": "Digital Picture Frame",
+              "url": "https://shopforher.org/gift/digital-picture-frame/",
+              "guideCount": 4
+            },
+            {
+              "id": "walking-pad",
+              "slug": "compact-walking-pad",
+              "name": "Compact Walking Pad",
+              "url": "https://shopforher.org/gift/compact-walking-pad/",
+              "guideCount": 3
+            },
+            {
+              "id": "mini-photo-printer",
+              "slug": "mini-photo-printer",
+              "name": "Mini Photo Printer",
+              "url": "https://shopforher.org/gift/mini-photo-printer/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "rustic-vase-set",
+              "slug": "rustic-vase-set-of-3",
+              "name": "Rustic Vase Set of 3",
+              "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+              "guideCount": 2
+            },
+            {
+              "id": "oneida-bunny-hop-plates",
+              "slug": "oneida-bunny-hop-dinner-plates",
+              "name": "Oneida Bunny Hop Dinner Plates",
+              "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+              "guideCount": 0
+            },
+            {
+              "id": "kirundo-pleated-maxi-dress",
+              "slug": "kirundo-pleated-a-line-maxi-dress",
+              "name": "KIRUNDO Pleated A-Line Maxi Dress",
+              "url": "https://shopforher.org/gift/kirundo-pleated-a-line-maxi-dress/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -4122,7 +4705,7 @@
         {
           "slug": "gifts-for-girlfriend",
           "label": "Gifts for girlfriend",
-          "h1": "Best gifts for girlfriends in 2026",
+          "h1": "Best gifts for girlfriend in 2026",
           "url": "https://shopforher.org/gifts-for-girlfriend/"
         },
         {
@@ -4130,6 +4713,12 @@
           "label": "Best gifts under $75",
           "h1": "Best gifts for her under $75 in 2026",
           "url": "https://shopforher.org/best-gifts-under-75/"
+        },
+        {
+          "slug": "last-minute-gifts-for-her",
+          "label": "Last-minute gifts",
+          "h1": "Best last-minute gifts for her in 2026",
+          "url": "https://shopforher.org/last-minute-gifts-for-her/"
         }
       ],
       "exploreProducts": [
@@ -4143,15 +4732,6 @@
           "guideCount": 2
         },
         {
-          "id": "sol-de-janeiro",
-          "slug": "sol-de-janeiro-bum-bum-jet-set",
-          "name": "Sol de Janeiro Bum Bum Jet Set",
-          "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
-          "badge": "viral",
-          "bestFor": "girlfriend / wife / beauty",
-          "guideCount": 2
-        },
-        {
           "id": "kirundo-pleated-maxi-dress",
           "slug": "kirundo-pleated-a-line-maxi-dress",
           "name": "KIRUNDO Pleated A-Line Maxi Dress",
@@ -4159,24 +4739,26 @@
           "badge": "spring dress",
           "bestFor": "wife / girlfriend / spring events",
           "guideCount": 0
+        },
+        {
+          "id": "saodimallsu-crochet-coverup-set",
+          "slug": "saodimallsu-crochet-cover-up-set",
+          "name": "Saodimallsu Crochet Swim Cover Up Set",
+          "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+          "badge": "beach set",
+          "bestFor": "girlfriend / wife / beach trip",
+          "guideCount": 0
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": false,
+        "needsEditorialRefresh": true,
         "distinctiveProducts": [
           {
             "id": "luxury-throw",
             "slug": "luxury-throw-blanket",
             "name": "Luxury Throw Blanket",
             "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-            "guideCount": 2
-          },
-          {
-            "id": "magsafe-stand",
-            "slug": "magsafe-charging-stand",
-            "name": "MagSafe Charging Stand",
-            "url": "https://shopforher.org/gift/magsafe-charging-stand/",
-            "guideCount": 2
+            "guideCount": 3
           }
         ],
         "overusedProducts": [],
@@ -4184,7 +4766,7 @@
           {
             "slug": "gifts-for-girlfriend",
             "label": "Gifts for girlfriend",
-            "h1": "Best gifts for girlfriends in 2026",
+            "h1": "Best gifts for girlfriend in 2026",
             "url": "https://shopforher.org/gifts-for-girlfriend/",
             "sharedCount": 4,
             "sharedItems": [
@@ -4234,8 +4816,72 @@
                 "url": "https://shopforher.org/gift/candle-warmer-lamp/"
               }
             ]
+          },
+          {
+            "slug": "last-minute-gifts-for-her",
+            "label": "Last-minute gifts",
+            "h1": "Best last-minute gifts for her in 2026",
+            "url": "https://shopforher.org/last-minute-gifts-for-her/",
+            "sharedCount": 1,
+            "sharedItems": [
+              {
+                "id": "magsafe-stand",
+                "name": "MagSafe Charging Stand",
+                "slug": "magsafe-charging-stand",
+                "url": "https://shopforher.org/gift/magsafe-charging-stand/"
+              }
+            ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "candle-warmer",
+              "slug": "candle-warmer-lamp",
+              "name": "Candle Warmer Lamp",
+              "url": "https://shopforher.org/gift/candle-warmer-lamp/",
+              "guideCount": 4
+            },
+            {
+              "id": "mini-photo-printer",
+              "slug": "mini-photo-printer",
+              "name": "Mini Photo Printer",
+              "url": "https://shopforher.org/gift/mini-photo-printer/",
+              "guideCount": 4
+            },
+            {
+              "id": "silk-pillowcase",
+              "slug": "mulberry-silk-pillowcase-set",
+              "name": "Mulberry Silk Pillowcase Set",
+              "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "rustic-vase-set",
+              "slug": "rustic-vase-set-of-3",
+              "name": "Rustic Vase Set of 3",
+              "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+              "guideCount": 2
+            },
+            {
+              "id": "kirundo-pleated-maxi-dress",
+              "slug": "kirundo-pleated-a-line-maxi-dress",
+              "name": "KIRUNDO Pleated A-Line Maxi Dress",
+              "url": "https://shopforher.org/gift/kirundo-pleated-a-line-maxi-dress/",
+              "guideCount": 0
+            },
+            {
+              "id": "saodimallsu-crochet-coverup-set",
+              "slug": "saodimallsu-crochet-cover-up-set",
+              "name": "Saodimallsu Crochet Swim Cover Up Set",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -4497,13 +5143,6 @@
         "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
-            "id": "black-olive-tree",
-            "slug": "artificial-black-olive-tree",
-            "name": "Artificial Black Olive Tree",
-            "url": "https://shopforher.org/gift/artificial-black-olive-tree/",
-            "guideCount": 3
-          },
-          {
             "id": "rustic-vase-set",
             "slug": "rustic-vase-set-of-3",
             "name": "Rustic Vase Set of 3",
@@ -4511,11 +5150,18 @@
             "guideCount": 2
           },
           {
-            "id": "faux-olive-tree-planter",
-            "slug": "faux-olive-tree-planter",
-            "name": "Tall Faux Olive Tree with Planter",
-            "url": "https://shopforher.org/gift/faux-olive-tree-planter/",
-            "guideCount": 4
+            "id": "black-olive-tree",
+            "slug": "artificial-black-olive-tree",
+            "name": "Artificial Black Olive Tree",
+            "url": "https://shopforher.org/gift/artificial-black-olive-tree/",
+            "guideCount": 3
+          },
+          {
+            "id": "vanity-mirror",
+            "slug": "led-vanity-mirror",
+            "name": "LED Vanity Mirror",
+            "url": "https://shopforher.org/gift/led-vanity-mirror/",
+            "guideCount": 3
           }
         ],
         "overusedProducts": [],
@@ -4546,23 +5192,66 @@
             "label": "Tech gifts",
             "h1": "Tech gifts for her in 2026",
             "url": "https://shopforher.org/tech-gifts-for-her/",
-            "sharedCount": 2,
+            "sharedCount": 1,
             "sharedItems": [
               {
                 "id": "projector",
                 "name": "Portable Projector",
                 "slug": "portable-projector",
                 "url": "https://shopforher.org/gift/portable-projector/"
-              },
-              {
-                "id": "vanity-mirror",
-                "name": "LED Vanity Mirror",
-                "slug": "led-vanity-mirror",
-                "url": "https://shopforher.org/gift/led-vanity-mirror/"
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "jewelry-case",
+              "slug": "structured-jewelry-case",
+              "name": "Structured Jewelry Case",
+              "url": "https://shopforher.org/gift/structured-jewelry-case/",
+              "guideCount": 4
+            },
+            {
+              "id": "projector",
+              "slug": "portable-projector",
+              "name": "Portable Projector",
+              "url": "https://shopforher.org/gift/portable-projector/",
+              "guideCount": 4
+            },
+            {
+              "id": "vanity-mirror",
+              "slug": "led-vanity-mirror",
+              "name": "LED Vanity Mirror",
+              "url": "https://shopforher.org/gift/led-vanity-mirror/",
+              "guideCount": 3
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            },
+            {
+              "id": "saodimallsu-crochet-coverup-set",
+              "slug": "saodimallsu-crochet-cover-up-set",
+              "name": "Saodimallsu Crochet Swim Cover Up Set",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+              "guideCount": 0
+            },
+            {
+              "id": "lenox-bunny-candy-dish",
+              "slug": "lenox-wicker-creek-bunny-candy-dish",
+              "name": "Lenox Wicker Creek Bunny Candy Dish",
+              "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -4571,7 +5260,7 @@
       "pageArchetype": "gift-guide",
       "title": "Best last-minute gifts for her in 2026 | ShopForHer",
       "h1": "Best last-minute gifts for her in 2026",
-      "description": "Fast, low-friction gifts for her when you need a strong answer quickly.",
+      "description": "Last-minute gift ideas for her that still feel polished, useful, and safe to buy fast.",
       "intro": "These are the picks that make sense when the main requirement is speed without looking careless.",
       "group": "moments",
       "groupLabel": "Moment",
@@ -4582,20 +5271,22 @@
             "last-minute"
           ],
           "budgetBands": [],
-          "angles": [],
+          "angles": [
+            "practical"
+          ],
           "guideGroups": [
             "moments"
           ]
         },
         "coverage": {
           "relationshipTags": [
+            "anniversary",
             "anyone",
             "girlfriend",
             "new-relationship",
             "wife"
           ],
           "intentTags": [
-            "cozy",
             "everyday",
             "looks-expensive",
             "thoughtful",
@@ -4603,7 +5294,6 @@
           ],
           "tabTags": [
             "best-overall",
-            "cozy-home",
             "daily-use",
             "looks-expensive",
             "under-100"
@@ -4611,15 +5301,16 @@
           "priceBands": [
             "over-150",
             "under-100",
+            "under-25",
             "under-50"
           ]
         }
       },
-      "searchIndexable": false,
-      "indexStatus": "overlap-suppressed",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
       "updatedAt": "2026-03-09",
-      "featuredGiftId": "magsafe-stand",
-      "featuredGiftUrl": "https://shopforher.org/gift/magsafe-charging-stand/",
+      "featuredGiftId": "laneige-set",
+      "featuredGiftUrl": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
       "selectionMethod": "This page filters toward gifts that are easy to understand, fast to buy, and still polished enough that the rush does not show.",
       "bestUseCase": "Use this when timing is the real constraint and you need the shortest path to a respectable gift.",
       "avoidWhen": "Skip this page if the occasion is bigger and you still have enough time to choose a more tailored or premium answer.",
@@ -4640,10 +5331,10 @@
       "bestFits": [
         {
           "title": "A simple practical gift that still looks intentional",
-          "giftId": "stanley-quencher",
-          "body": "Best when you need the product to make sense on sight and feel current enough that the rush does not show.",
-          "giftSlug": "stanley-quencher-h2o-flowstate",
-          "giftUrl": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/"
+          "giftId": "magsafe-stand",
+          "body": "Best when you need the product to make sense on sight and feel clean enough that the rush does not show.",
+          "giftSlug": "magsafe-charging-stand",
+          "giftUrl": "https://shopforher.org/gift/magsafe-charging-stand/"
         },
         {
           "title": "A polished smaller gift you can buy fast",
@@ -4653,11 +5344,11 @@
           "giftUrl": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/"
         },
         {
-          "title": "A calmer home-comfort lane with very low friction",
-          "giftId": "luxury-throw",
-          "body": "This is the easy answer when you want the gift to feel softer and more elevated than a generic practical product.",
-          "giftSlug": "luxury-throw-blanket",
-          "giftUrl": "https://shopforher.org/gift/luxury-throw-blanket/"
+          "title": "A beauty pick with faster recognition and low friction",
+          "giftId": "sol-de-janeiro",
+          "body": "This is the easy answer when you want something current, feminine, and easy to justify without a long explanation.",
+          "giftSlug": "sol-de-janeiro-bum-bum-jet-set",
+          "giftUrl": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/"
         }
       ],
       "pickLanes": [
@@ -4670,17 +5361,17 @@
         },
         {
           "title": "Safest practical pick",
-          "giftId": "stanley-quencher",
+          "giftId": "magsafe-stand",
           "body": "Use this when the goal is recognizable, useful, and easy to buy without overthinking the decision.",
-          "giftSlug": "stanley-quencher-h2o-flowstate",
-          "giftUrl": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/"
+          "giftSlug": "magsafe-charging-stand",
+          "giftUrl": "https://shopforher.org/gift/magsafe-charging-stand/"
         },
         {
-          "title": "Best softer pick",
-          "giftId": "luxury-throw",
-          "body": "The cleaner answer when you want last-minute speed without making the gift feel overly utilitarian.",
-          "giftSlug": "luxury-throw-blanket",
-          "giftUrl": "https://shopforher.org/gift/luxury-throw-blanket/"
+          "title": "Best beauty pick",
+          "giftId": "sol-de-janeiro",
+          "body": "The cleaner answer when you want last-minute speed without making the gift feel cold or overly utilitarian.",
+          "giftSlug": "sol-de-janeiro-bum-bum-jet-set",
+          "giftUrl": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/"
         }
       ],
       "avoidNotes": [
@@ -4696,7 +5387,7 @@
       "faqs": [
         {
           "question": "What is the safest last-minute gift for her?",
-          "answer": "The MagSafe stand, Stanley, and luxury throw are strong because they are easy to understand quickly and still feel giftable."
+          "answer": "The MagSafe stand, LANEIGE set, and Sol de Janeiro set are strong because they are easy to recognize quickly and still feel present-ready."
         },
         {
           "question": "Can a last-minute gift still look thoughtful?",
@@ -4709,16 +5400,6 @@
       ],
       "products": [
         {
-          "id": "magsafe-stand",
-          "slug": "magsafe-charging-stand",
-          "name": "MagSafe Charging Stand",
-          "url": "https://shopforher.org/gift/magsafe-charging-stand/",
-          "price": "$29 - $79",
-          "badge": "clean desk",
-          "bestFor": "girlfriend / wife / desk setup",
-          "searchIndexable": true
-        },
-        {
           "id": "laneige-set",
           "slug": "laneige-midnight-minis-lip-set",
           "name": "LANEIGE Midnight Minis Lip Set",
@@ -4729,13 +5410,33 @@
           "searchIndexable": true
         },
         {
-          "id": "stanley-quencher",
-          "slug": "stanley-quencher-h2o-flowstate",
-          "name": "Stanley Quencher H2.0 FlowState",
-          "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
-          "price": "$35 - $50",
+          "id": "magsafe-stand",
+          "slug": "magsafe-charging-stand",
+          "name": "MagSafe Charging Stand",
+          "url": "https://shopforher.org/gift/magsafe-charging-stand/",
+          "price": "$29 - $79",
+          "badge": "clean desk",
+          "bestFor": "girlfriend / wife / desk setup",
+          "searchIndexable": true
+        },
+        {
+          "id": "sol-de-janeiro",
+          "slug": "sol-de-janeiro-bum-bum-jet-set",
+          "name": "Sol de Janeiro Bum Bum Jet Set",
+          "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
+          "price": "$28 - $36",
           "badge": "viral",
-          "bestFor": "girlfriend / wife / daily carry",
+          "bestFor": "girlfriend / wife / beauty",
+          "searchIndexable": true
+        },
+        {
+          "id": "posadina-phone-charm",
+          "slug": "posadina-natural-stone-phone-charm",
+          "name": "Posadina Natural Stone Phone Charm",
+          "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
+          "price": "$14.99 - $17.99",
+          "badge": "daily charm",
+          "bestFor": "girlfriend / wife / small add-on",
           "searchIndexable": true
         },
         {
@@ -4749,23 +5450,13 @@
           "searchIndexable": true
         },
         {
-          "id": "owala-bottle",
-          "slug": "owala-freesip-sway-bottle",
-          "name": "Owala FreeSip Sway Bottle",
-          "url": "https://shopforher.org/gift/owala-freesip-sway-bottle/",
-          "price": "$35 - $45",
-          "badge": "viral",
-          "bestFor": "girlfriend / wife / gym bag",
-          "searchIndexable": true
-        },
-        {
-          "id": "luxury-throw",
-          "slug": "luxury-throw-blanket",
-          "name": "Luxury Throw Blanket",
-          "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-          "price": "$39 - $89",
-          "badge": "comfort hit",
-          "bestFor": "girlfriend / wife / apartment",
+          "id": "marc-jacobs-perfect-absolute",
+          "slug": "marc-jacobs-perfect-absolute",
+          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+          "price": "$99.00 - $165.00",
+          "badge": "designer",
+          "bestFor": "girlfriend / wife / fragrance",
           "searchIndexable": true
         }
       ],
@@ -4785,36 +5476,36 @@
         {
           "slug": "gifts-for-girlfriend",
           "label": "Gifts for girlfriend",
-          "h1": "Best gifts for girlfriends in 2026",
+          "h1": "Best gifts for girlfriend in 2026",
           "url": "https://shopforher.org/gifts-for-girlfriend/"
         }
       ],
       "exploreProducts": [
         {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
-        },
-        {
-          "id": "lenox-bunny-candy-dish",
-          "slug": "lenox-wicker-creek-bunny-candy-dish",
-          "name": "Lenox Wicker Creek Bunny Candy Dish",
-          "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
-          "badge": "tabletop",
-          "bestFor": "wife / host gift / spring table",
+          "id": "saodimallsu-crochet-cardigan-dress",
+          "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+          "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+          "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+          "badge": "vacation layer",
+          "bestFor": "girlfriend / wife / resort trip",
           "guideCount": 0
         },
         {
-          "id": "easter-gift-basket",
-          "slug": "easter-gift-basket-with-ribbons",
-          "name": "Easter Gift Basket with Ribbons",
-          "url": "https://shopforher.org/gift/easter-gift-basket-with-ribbons/",
-          "badge": "gift-ready",
-          "bestFor": "Easter gift setup / add-on",
+          "id": "oneida-bunny-hop-plates",
+          "slug": "oneida-bunny-hop-dinner-plates",
+          "name": "Oneida Bunny Hop Dinner Plates",
+          "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+          "badge": "serveware",
+          "bestFor": "wife / host gift / Easter brunch",
+          "guideCount": 0
+        },
+        {
+          "id": "saodimallsu-crochet-coverup-set",
+          "slug": "saodimallsu-crochet-cover-up-set",
+          "name": "Saodimallsu Crochet Swim Cover Up Set",
+          "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+          "badge": "beach set",
+          "bestFor": "girlfriend / wife / beach trip",
           "guideCount": 0
         }
       ],
@@ -4826,14 +5517,21 @@
             "slug": "magsafe-charging-stand",
             "name": "MagSafe Charging Stand",
             "url": "https://shopforher.org/gift/magsafe-charging-stand/",
-            "guideCount": 2
+            "guideCount": 3
           },
           {
-            "id": "luxury-throw",
-            "slug": "luxury-throw-blanket",
-            "name": "Luxury Throw Blanket",
-            "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-            "guideCount": 2
+            "id": "posadina-phone-charm",
+            "slug": "posadina-natural-stone-phone-charm",
+            "name": "Posadina Natural Stone Phone Charm",
+            "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
+            "guideCount": 3
+          },
+          {
+            "id": "marc-jacobs-perfect-absolute",
+            "slug": "marc-jacobs-perfect-absolute",
+            "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+            "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+            "guideCount": 4
           }
         ],
         "overusedProducts": [],
@@ -4843,32 +5541,20 @@
             "label": "Best gifts under $75",
             "h1": "Best gifts for her under $75 in 2026",
             "url": "https://shopforher.org/best-gifts-under-75/",
-            "sharedCount": 3,
+            "sharedCount": 1,
             "sharedItems": [
               {
                 "id": "laneige-set",
                 "name": "LANEIGE Midnight Minis Lip Set",
                 "slug": "laneige-midnight-minis-lip-set",
                 "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/"
-              },
-              {
-                "id": "stanley-quencher",
-                "name": "Stanley Quencher H2.0 FlowState",
-                "slug": "stanley-quencher-h2o-flowstate",
-                "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/"
-              },
-              {
-                "id": "owala-bottle",
-                "name": "Owala FreeSip Sway Bottle",
-                "slug": "owala-freesip-sway-bottle",
-                "url": "https://shopforher.org/gift/owala-freesip-sway-bottle/"
               }
             ]
           },
           {
             "slug": "gifts-for-girlfriend",
             "label": "Gifts for girlfriend",
-            "h1": "Best gifts for girlfriends in 2026",
+            "h1": "Best gifts for girlfriend in 2026",
             "url": "https://shopforher.org/gifts-for-girlfriend/",
             "sharedCount": 1,
             "sharedItems": [
@@ -4880,16 +5566,65 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "laneige-set",
+              "slug": "laneige-midnight-minis-lip-set",
+              "name": "LANEIGE Midnight Minis Lip Set",
+              "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
+              "guideCount": 4
+            },
+            {
+              "id": "earbuds",
+              "slug": "noise-canceling-earbuds",
+              "name": "Noise-Canceling Earbuds",
+              "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
+              "guideCount": 3
+            },
+            {
+              "id": "marc-jacobs-perfect-absolute",
+              "slug": "marc-jacobs-perfect-absolute",
+              "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+              "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "saodimallsu-crochet-cardigan-dress",
+              "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+              "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+              "guideCount": 0
+            },
+            {
+              "id": "oneida-bunny-hop-plates",
+              "slug": "oneida-bunny-hop-dinner-plates",
+              "name": "Oneida Bunny Hop Dinner Plates",
+              "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+              "guideCount": 0
+            },
+            {
+              "id": "saodimallsu-crochet-coverup-set",
+              "slug": "saodimallsu-crochet-cover-up-set",
+              "name": "Saodimallsu Crochet Swim Cover Up Set",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
       "slug": "date-night-gifts-for-her",
       "pageUrl": "https://shopforher.org/date-night-gifts-for-her/",
       "pageArchetype": "gift-guide",
-      "title": "Best date-night gifts for her in 2026 | ShopForHer",
-      "h1": "Best date-night gifts for her in 2026",
-      "description": "Gift ideas that pair well with a date and feel more memorable than a basic object.",
+      "title": "Best date night gifts for her in 2026 | ShopForHer",
+      "h1": "Best date night gifts for her in 2026",
+      "description": "Date night gift ideas for her that feel romantic, experience-friendly, and more memorable than a standard pick.",
       "intro": "This page leans toward gifts that create a shared night, a softer mood, or a stronger reveal.",
       "group": "moments",
       "groupLabel": "Moment",
@@ -4933,8 +5668,8 @@
           ]
         }
       },
-      "searchIndexable": false,
-      "indexStatus": "overlap-suppressed",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
       "updatedAt": "2026-03-09",
       "featuredGiftId": "projector",
       "featuredGiftUrl": "https://shopforher.org/gift/portable-projector/",
@@ -4952,7 +5687,7 @@
         },
         {
           "title": "Pairing strengthens the gift",
-          "body": "The projector, robe, fragrance, and candle warmer all work better when they connect to the plan rather than sitting alone."
+          "body": "The projector, robe, fragrance, and dressed-up fashion picks all work better when they connect to the plan rather than sitting alone."
         }
       ],
       "bestFits": [
@@ -4971,11 +5706,11 @@
           "giftUrl": "https://shopforher.org/gift/cashmere-feel-robe/"
         },
         {
-          "title": "A low-pressure mood-setting add-on",
-          "giftId": "candle-warmer",
-          "body": "This is the cleaner answer when the date-night gift should support atmosphere without becoming the whole event.",
-          "giftSlug": "candle-warmer-lamp",
-          "giftUrl": "https://shopforher.org/gift/candle-warmer-lamp/"
+          "title": "A date-ready fashion pick with obvious night-out energy",
+          "giftId": "prettygarden-one-shoulder-maxi",
+          "body": "This is the cleaner answer when you want the gift to feel more dressed-up, current, and tied to the night itself.",
+          "giftSlug": "prettygarden-one-shoulder-maxi-dress",
+          "giftUrl": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/"
         },
         {
           "title": "A polished getting-ready gift with stronger night-out energy",
@@ -4987,18 +5722,18 @@
       ],
       "pickLanes": [
         {
-          "title": "Best cozy pick",
-          "giftId": "candle-warmer",
-          "body": "The easiest answer when you want a lower-pressure date-night gift that still improves the mood fast.",
-          "giftSlug": "candle-warmer-lamp",
-          "giftUrl": "https://shopforher.org/gift/candle-warmer-lamp/"
-        },
-        {
           "title": "Best shared experience",
           "giftId": "projector",
           "body": "Use this when the gift should become part of the date itself and feel more memorable than a basic object.",
           "giftSlug": "portable-projector",
           "giftUrl": "https://shopforher.org/gift/portable-projector/"
+        },
+        {
+          "title": "Best cozy pick",
+          "giftId": "luxury-throw",
+          "body": "The easiest answer when you want a lower-pressure date-night gift that still softens the mood fast.",
+          "giftSlug": "luxury-throw-blanket",
+          "giftUrl": "https://shopforher.org/gift/luxury-throw-blanket/"
         },
         {
           "title": "Best premium reveal",
@@ -5025,7 +5760,7 @@
         },
         {
           "question": "What is the safest date-night gift on this page?",
-          "answer": "The projector and candle warmer are strong because they make the night feel different right away without forcing a bigger relationship signal."
+          "answer": "The projector and Marc Jacobs fragrance are strong because they make the night feel more intentional right away without forcing a bigger relationship signal."
         },
         {
           "question": "When should I choose anniversary gifts instead of date-night gifts?",
@@ -5054,16 +5789,6 @@
           "searchIndexable": true
         },
         {
-          "id": "candle-warmer",
-          "slug": "candle-warmer-lamp",
-          "name": "Candle Warmer Lamp",
-          "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-          "price": "$32 - $56",
-          "badge": "cozy",
-          "bestFor": "girlfriend / wife / apartment",
-          "searchIndexable": true
-        },
-        {
           "id": "luxury-throw",
           "slug": "luxury-throw-blanket",
           "name": "Luxury Throw Blanket",
@@ -5071,6 +5796,16 @@
           "price": "$39 - $89",
           "badge": "comfort hit",
           "bestFor": "girlfriend / wife / apartment",
+          "searchIndexable": true
+        },
+        {
+          "id": "prettygarden-one-shoulder-maxi",
+          "slug": "prettygarden-one-shoulder-maxi-dress",
+          "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+          "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+          "price": "$39.99",
+          "badge": "cocktail",
+          "bestFor": "girlfriend / wife / party season",
           "searchIndexable": true
         },
         {
@@ -5084,13 +5819,13 @@
           "searchIndexable": true
         },
         {
-          "id": "prettygarden-one-shoulder-maxi",
-          "slug": "prettygarden-one-shoulder-maxi-dress",
-          "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
-          "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
-          "price": "$39.99",
-          "badge": "cocktail",
-          "bestFor": "girlfriend / wife / party season",
+          "id": "soly-hux-ruffle-maxi-dress",
+          "slug": "soly-hux-ruffle-layered-halter-maxi-dress",
+          "name": "SOLY HUX Ruffle Layered Halter Maxi Dress",
+          "url": "https://shopforher.org/gift/soly-hux-ruffle-layered-halter-maxi-dress/",
+          "price": "$71.99 - $73.99",
+          "badge": "dressy",
+          "bestFor": "girlfriend / wife / summer events",
           "searchIndexable": true
         }
       ],
@@ -5110,11 +5845,20 @@
         {
           "slug": "gifts-for-wife",
           "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
+          "h1": "Best gifts for wife in 2026",
           "url": "https://shopforher.org/gifts-for-wife/"
         }
       ],
       "exploreProducts": [
+        {
+          "id": "oneida-bunny-hop-plates",
+          "slug": "oneida-bunny-hop-dinner-plates",
+          "name": "Oneida Bunny Hop Dinner Plates",
+          "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+          "badge": "serveware",
+          "bestFor": "wife / host gift / Easter brunch",
+          "guideCount": 0
+        },
         {
           "id": "saodimallsu-crochet-coverup-set",
           "slug": "saodimallsu-crochet-cover-up-set",
@@ -5125,21 +5869,12 @@
           "guideCount": 0
         },
         {
-          "id": "rustic-vase-set",
-          "slug": "rustic-vase-set-of-3",
-          "name": "Rustic Vase Set of 3",
-          "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
-          "badge": "vase set",
-          "bestFor": "wife / apartment / shelf styling",
-          "guideCount": 2
-        },
-        {
-          "id": "easter-gift-basket",
-          "slug": "easter-gift-basket-with-ribbons",
-          "name": "Easter Gift Basket with Ribbons",
-          "url": "https://shopforher.org/gift/easter-gift-basket-with-ribbons/",
-          "badge": "gift-ready",
-          "bestFor": "Easter gift setup / add-on",
+          "id": "boxwood-bunny-topiary",
+          "slug": "boxwood-bunny-topiary",
+          "name": "Boxwood Bunny Topiary",
+          "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+          "badge": "seasonal",
+          "bestFor": "wife / spring decorating / porch",
           "guideCount": 0
         }
       ],
@@ -5147,25 +5882,25 @@
         "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
-            "id": "candle-warmer",
-            "slug": "candle-warmer-lamp",
-            "name": "Candle Warmer Lamp",
-            "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 4
-          },
-          {
-            "id": "marc-jacobs-perfect-absolute",
-            "slug": "marc-jacobs-perfect-absolute",
-            "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-            "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-            "guideCount": 2
+            "id": "soly-hux-ruffle-maxi-dress",
+            "slug": "soly-hux-ruffle-layered-halter-maxi-dress",
+            "name": "SOLY HUX Ruffle Layered Halter Maxi Dress",
+            "url": "https://shopforher.org/gift/soly-hux-ruffle-layered-halter-maxi-dress/",
+            "guideCount": 1
           },
           {
             "id": "prettygarden-one-shoulder-maxi",
             "slug": "prettygarden-one-shoulder-maxi-dress",
             "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
             "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
-            "guideCount": 0
+            "guideCount": 3
+          },
+          {
+            "id": "marc-jacobs-perfect-absolute",
+            "slug": "marc-jacobs-perfect-absolute",
+            "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+            "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+            "guideCount": 4
           }
         ],
         "overusedProducts": [],
@@ -5196,14 +5931,8 @@
             "label": "Cozy home gifts",
             "h1": "Cozy home gifts for her in 2026",
             "url": "https://shopforher.org/cozy-home-gifts-for-her/",
-            "sharedCount": 2,
+            "sharedCount": 1,
             "sharedItems": [
-              {
-                "id": "cashmere-robe",
-                "name": "Cashmere-Feel Robe",
-                "slug": "cashmere-feel-robe",
-                "url": "https://shopforher.org/gift/cashmere-feel-robe/"
-              },
               {
                 "id": "luxury-throw",
                 "name": "Luxury Throw Blanket",
@@ -5212,7 +5941,56 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "projector",
+              "slug": "portable-projector",
+              "name": "Portable Projector",
+              "url": "https://shopforher.org/gift/portable-projector/",
+              "guideCount": 4
+            },
+            {
+              "id": "luxury-throw",
+              "slug": "luxury-throw-blanket",
+              "name": "Luxury Throw Blanket",
+              "url": "https://shopforher.org/gift/luxury-throw-blanket/",
+              "guideCount": 3
+            },
+            {
+              "id": "cashmere-robe",
+              "slug": "cashmere-feel-robe",
+              "name": "Cashmere-Feel Robe",
+              "url": "https://shopforher.org/gift/cashmere-feel-robe/",
+              "guideCount": 3
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "oneida-bunny-hop-plates",
+              "slug": "oneida-bunny-hop-dinner-plates",
+              "name": "Oneida Bunny Hop Dinner Plates",
+              "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+              "guideCount": 0
+            },
+            {
+              "id": "saodimallsu-crochet-coverup-set",
+              "slug": "saodimallsu-crochet-cover-up-set",
+              "name": "Saodimallsu Crochet Swim Cover Up Set",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+              "guideCount": 0
+            },
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -5412,17 +6190,23 @@
           "searchIndexable": true
         },
         {
-          "id": "faux-olive-tree-planter",
-          "slug": "faux-olive-tree-planter",
-          "name": "Tall Faux Olive Tree with Planter",
-          "url": "https://shopforher.org/gift/faux-olive-tree-planter/",
-          "price": "$65.99 - $103.99",
-          "badge": "olive tree",
-          "bestFor": "wife / apartment / living room",
+          "id": "mini-photo-printer",
+          "slug": "mini-photo-printer",
+          "name": "Mini Photo Printer",
+          "url": "https://shopforher.org/gift/mini-photo-printer/",
+          "price": "$69 - $129",
+          "badge": "viral",
+          "bestFor": "girlfriend / anniversary / travel",
           "searchIndexable": true
         }
       ],
       "relatedGuides": [
+        {
+          "slug": "last-minute-gifts-for-her",
+          "label": "Last-minute gifts",
+          "h1": "Best last-minute gifts for her in 2026",
+          "url": "https://shopforher.org/last-minute-gifts-for-her/"
+        },
         {
           "slug": "best-gifts-under-100",
           "label": "Best gifts under $100",
@@ -5438,24 +6222,6 @@
       ],
       "exploreProducts": [
         {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
-        },
-        {
-          "id": "sol-de-janeiro",
-          "slug": "sol-de-janeiro-bum-bum-jet-set",
-          "name": "Sol de Janeiro Bum Bum Jet Set",
-          "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
-          "badge": "viral",
-          "bestFor": "girlfriend / wife / beauty",
-          "guideCount": 2
-        },
-        {
           "id": "hugo-boss-bottled-beyond",
           "slug": "hugo-boss-bottled-beyond",
           "name": "Hugo Boss Bottled Beyond Eau de Parfum",
@@ -5463,23 +6229,34 @@
           "badge": "fragrance",
           "bestFor": "wife / premium gift / fragrance",
           "guideCount": 0
+        },
+        {
+          "id": "lenox-bunny-candy-dish",
+          "slug": "lenox-wicker-creek-bunny-candy-dish",
+          "name": "Lenox Wicker Creek Bunny Candy Dish",
+          "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+          "badge": "tabletop",
+          "bestFor": "wife / host gift / spring table",
+          "guideCount": 0
+        },
+        {
+          "id": "boxwood-bunny-topiary",
+          "slug": "boxwood-bunny-topiary",
+          "name": "Boxwood Bunny Topiary",
+          "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+          "badge": "seasonal",
+          "bestFor": "wife / spring decorating / porch",
+          "guideCount": 0
         }
       ],
       "uniqueness": {
         "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
-            "id": "gucci-flora-gorgeous-magnolia",
-            "slug": "gucci-flora-gorgeous-magnolia",
-            "name": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
-            "url": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/",
-            "guideCount": 4
-          },
-          {
-            "id": "panluca-statement-necklace",
-            "slug": "panluca-statement-necklace",
-            "name": "PanLuca Statement Necklace",
-            "url": "https://shopforher.org/gift/panluca-statement-necklace/",
+            "id": "black-olive-tree",
+            "slug": "artificial-black-olive-tree",
+            "name": "Artificial Black Olive Tree",
+            "url": "https://shopforher.org/gift/artificial-black-olive-tree/",
             "guideCount": 3
           },
           {
@@ -5488,10 +6265,32 @@
             "name": "Bose SoundLink Flex (2nd Gen)",
             "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
             "guideCount": 3
+          },
+          {
+            "id": "panluca-statement-necklace",
+            "slug": "panluca-statement-necklace",
+            "name": "PanLuca Statement Necklace",
+            "url": "https://shopforher.org/gift/panluca-statement-necklace/",
+            "guideCount": 3
           }
         ],
         "overusedProducts": [],
         "relatedGuideOverlap": [
+          {
+            "slug": "best-gifts-under-100",
+            "label": "Best gifts under $100",
+            "h1": "Best gifts for her under $100 in 2026",
+            "url": "https://shopforher.org/best-gifts-under-100/",
+            "sharedCount": 1,
+            "sharedItems": [
+              {
+                "id": "mini-photo-printer",
+                "name": "Mini Photo Printer",
+                "slug": "mini-photo-printer",
+                "url": "https://shopforher.org/gift/mini-photo-printer/"
+              }
+            ]
+          },
           {
             "slug": "viral-gifts-for-her",
             "label": "Viral gifts",
@@ -5507,7 +6306,56 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "mini-photo-printer",
+              "slug": "mini-photo-printer",
+              "name": "Mini Photo Printer",
+              "url": "https://shopforher.org/gift/mini-photo-printer/",
+              "guideCount": 4
+            },
+            {
+              "id": "ninja-creami",
+              "slug": "ninja-creami-deluxe",
+              "name": "Ninja CREAMi Deluxe",
+              "url": "https://shopforher.org/gift/ninja-creami-deluxe/",
+              "guideCount": 3
+            },
+            {
+              "id": "gucci-flora-gorgeous-magnolia",
+              "slug": "gucci-flora-gorgeous-magnolia",
+              "name": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
+              "url": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "hugo-boss-bottled-beyond",
+              "slug": "hugo-boss-bottled-beyond",
+              "name": "Hugo Boss Bottled Beyond Eau de Parfum",
+              "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
+              "guideCount": 0
+            },
+            {
+              "id": "lenox-bunny-candy-dish",
+              "slug": "lenox-wicker-creek-bunny-candy-dish",
+              "name": "Lenox Wicker Creek Bunny Candy Dish",
+              "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+              "guideCount": 0
+            },
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -5687,6 +6535,16 @@
           "searchIndexable": true
         },
         {
+          "id": "sunrise-alarm",
+          "slug": "sunrise-alarm-clock",
+          "name": "Sunrise Alarm Clock",
+          "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
+          "price": "$59 - $109",
+          "badge": "smart pick",
+          "bestFor": "girlfriend / wife / home routine",
+          "searchIndexable": true
+        },
+        {
           "id": "black-olive-tree",
           "slug": "artificial-black-olive-tree",
           "name": "Artificial Black Olive Tree",
@@ -5705,16 +6563,6 @@
           "badge": "cozy",
           "bestFor": "girlfriend / wife / apartment",
           "searchIndexable": true
-        },
-        {
-          "id": "sunrise-alarm",
-          "slug": "sunrise-alarm-clock",
-          "name": "Sunrise Alarm Clock",
-          "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-          "price": "$59 - $109",
-          "badge": "smart pick",
-          "bestFor": "girlfriend / wife / home routine",
-          "searchIndexable": true
         }
       ],
       "relatedGuides": [
@@ -5725,9 +6573,15 @@
           "url": "https://shopforher.org/cozy-home-gifts-for-her/"
         },
         {
+          "slug": "date-night-gifts-for-her",
+          "label": "Date-night gifts",
+          "h1": "Best date night gifts for her in 2026",
+          "url": "https://shopforher.org/date-night-gifts-for-her/"
+        },
+        {
           "slug": "gifts-for-wife",
           "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
+          "h1": "Best gifts for wife in 2026",
           "url": "https://shopforher.org/gifts-for-wife/"
         }
       ],
@@ -5778,11 +6632,11 @@
             "guideCount": 3
           },
           {
-            "id": "candle-warmer",
-            "slug": "candle-warmer-lamp",
-            "name": "Candle Warmer Lamp",
-            "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 4
+            "id": "sunrise-alarm",
+            "slug": "sunrise-alarm-clock",
+            "name": "Sunrise Alarm Clock",
+            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
+            "guideCount": 3
           }
         ],
         "overusedProducts": [],
@@ -5809,9 +6663,24 @@
             ]
           },
           {
+            "slug": "date-night-gifts-for-her",
+            "label": "Date-night gifts",
+            "h1": "Best date night gifts for her in 2026",
+            "url": "https://shopforher.org/date-night-gifts-for-her/",
+            "sharedCount": 1,
+            "sharedItems": [
+              {
+                "id": "luxury-throw",
+                "name": "Luxury Throw Blanket",
+                "slug": "luxury-throw-blanket",
+                "url": "https://shopforher.org/gift/luxury-throw-blanket/"
+              }
+            ]
+          },
+          {
             "slug": "gifts-for-wife",
             "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
+            "h1": "Best gifts for wife in 2026",
             "url": "https://shopforher.org/gifts-for-wife/",
             "sharedCount": 1,
             "sharedItems": [
@@ -5823,7 +6692,56 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "miyuki-rustic-vase",
+              "slug": "miyuki-rustic-terracotta-vase",
+              "name": "MIYUKI Rustic Terracotta Vase",
+              "url": "https://shopforher.org/gift/miyuki-rustic-terracotta-vase/",
+              "guideCount": 3
+            },
+            {
+              "id": "luxury-throw",
+              "slug": "luxury-throw-blanket",
+              "name": "Luxury Throw Blanket",
+              "url": "https://shopforher.org/gift/luxury-throw-blanket/",
+              "guideCount": 3
+            },
+            {
+              "id": "candle-warmer",
+              "slug": "candle-warmer-lamp",
+              "name": "Candle Warmer Lamp",
+              "url": "https://shopforher.org/gift/candle-warmer-lamp/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            },
+            {
+              "id": "saodimallsu-crochet-coverup-set",
+              "slug": "saodimallsu-crochet-cover-up-set",
+              "name": "Saodimallsu Crochet Swim Cover Up Set",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+              "guideCount": 0
+            },
+            {
+              "id": "lenox-bunny-candy-dish",
+              "slug": "lenox-wicker-creek-bunny-candy-dish",
+              "name": "Lenox Wicker Creek Bunny Candy Dish",
+              "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -6049,20 +6967,11 @@
         {
           "slug": "gifts-for-wife",
           "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
+          "h1": "Best gifts for wife in 2026",
           "url": "https://shopforher.org/gifts-for-wife/"
         }
       ],
       "exploreProducts": [
-        {
-          "id": "marc-jacobs-perfect-absolute",
-          "slug": "marc-jacobs-perfect-absolute",
-          "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-          "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
-          "badge": "designer",
-          "bestFor": "girlfriend / wife / fragrance",
-          "guideCount": 2
-        },
         {
           "id": "boxwood-bunny-topiary",
           "slug": "boxwood-bunny-topiary",
@@ -6080,6 +6989,15 @@
           "badge": "porch decor",
           "bestFor": "wife / porch decorating / seasonal home",
           "guideCount": 0
+        },
+        {
+          "id": "kirundo-pleated-maxi-dress",
+          "slug": "kirundo-pleated-a-line-maxi-dress",
+          "name": "KIRUNDO Pleated A-Line Maxi Dress",
+          "url": "https://shopforher.org/gift/kirundo-pleated-a-line-maxi-dress/",
+          "badge": "spring dress",
+          "bestFor": "wife / girlfriend / spring events",
+          "guideCount": 0
         }
       ],
       "uniqueness": {
@@ -6090,7 +7008,14 @@
             "slug": "posadina-natural-stone-phone-charm",
             "name": "Posadina Natural Stone Phone Charm",
             "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
-            "guideCount": 1
+            "guideCount": 3
+          },
+          {
+            "id": "stanley-quencher",
+            "slug": "stanley-quencher-h2o-flowstate",
+            "name": "Stanley Quencher H2.0 FlowState",
+            "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
+            "guideCount": 3
           },
           {
             "id": "sunrise-alarm",
@@ -6098,13 +7023,6 @@
             "name": "Sunrise Alarm Clock",
             "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
             "guideCount": 3
-          },
-          {
-            "id": "sol-de-janeiro",
-            "slug": "sol-de-janeiro-bum-bum-jet-set",
-            "name": "Sol de Janeiro Bum Bum Jet Set",
-            "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
-            "guideCount": 2
           }
         ],
         "overusedProducts": [],
@@ -6133,7 +7051,7 @@
           {
             "slug": "gifts-for-wife",
             "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
+            "h1": "Best gifts for wife in 2026",
             "url": "https://shopforher.org/gifts-for-wife/",
             "sharedCount": 1,
             "sharedItems": [
@@ -6145,7 +7063,56 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "kindle-paperwhite",
+              "slug": "kindle-paperwhite-signature-edition",
+              "name": "Kindle Paperwhite Signature Edition",
+              "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
+              "guideCount": 4
+            },
+            {
+              "id": "temperature-mug",
+              "slug": "temperature-control-mug",
+              "name": "Temperature-Control Mug",
+              "url": "https://shopforher.org/gift/temperature-control-mug/",
+              "guideCount": 3
+            },
+            {
+              "id": "sol-de-janeiro",
+              "slug": "sol-de-janeiro-bum-bum-jet-set",
+              "name": "Sol de Janeiro Bum Bum Jet Set",
+              "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            },
+            {
+              "id": "easter-bunny-porch-decor",
+              "slug": "large-easter-bunny-porch-decor",
+              "name": "Large Easter Bunny Porch Decor",
+              "url": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
+              "guideCount": 0
+            },
+            {
+              "id": "kirundo-pleated-maxi-dress",
+              "slug": "kirundo-pleated-a-line-maxi-dress",
+              "name": "KIRUNDO Pleated A-Line Maxi Dress",
+              "url": "https://shopforher.org/gift/kirundo-pleated-a-line-maxi-dress/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     },
     {
@@ -6368,20 +7335,11 @@
         {
           "slug": "gifts-for-girlfriend",
           "label": "Gifts for girlfriend",
-          "h1": "Best gifts for girlfriends in 2026",
+          "h1": "Best gifts for girlfriend in 2026",
           "url": "https://shopforher.org/gifts-for-girlfriend/"
         }
       ],
       "exploreProducts": [
-        {
-          "id": "luxury-throw",
-          "slug": "luxury-throw-blanket",
-          "name": "Luxury Throw Blanket",
-          "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-          "badge": "comfort hit",
-          "bestFor": "girlfriend / wife / apartment",
-          "guideCount": 2
-        },
         {
           "id": "boxwood-bunny-topiary",
           "slug": "boxwood-bunny-topiary",
@@ -6398,6 +7356,15 @@
           "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
           "badge": "fragrance",
           "bestFor": "wife / premium gift / fragrance",
+          "guideCount": 0
+        },
+        {
+          "id": "saodimallsu-crochet-coverup-set",
+          "slug": "saodimallsu-crochet-cover-up-set",
+          "name": "Saodimallsu Crochet Swim Cover Up Set",
+          "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+          "badge": "beach set",
+          "bestFor": "girlfriend / wife / beach trip",
           "guideCount": 0
         }
       ],
@@ -6423,7 +7390,7 @@
             "slug": "digital-picture-frame",
             "name": "Digital Picture Frame",
             "url": "https://shopforher.org/gift/digital-picture-frame/",
-            "guideCount": 3
+            "guideCount": 4
           }
         ],
         "overusedProducts": [],
@@ -6455,7 +7422,56 @@
               }
             ]
           }
-        ]
+        ],
+        "repairPlan": {
+          "hasSuggestions": true,
+          "dropCandidates": [
+            {
+              "id": "gucci-flora-gorgeous-magnolia",
+              "slug": "gucci-flora-gorgeous-magnolia",
+              "name": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
+              "url": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/",
+              "guideCount": 4
+            },
+            {
+              "id": "nespresso-machine",
+              "slug": "nespresso-vertuo-next",
+              "name": "Nespresso Vertuo Next",
+              "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
+              "guideCount": 4
+            },
+            {
+              "id": "marc-jacobs-perfect-absolute",
+              "slug": "marc-jacobs-perfect-absolute",
+              "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+              "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+              "guideCount": 4
+            }
+          ],
+          "addCandidates": [
+            {
+              "id": "boxwood-bunny-topiary",
+              "slug": "boxwood-bunny-topiary",
+              "name": "Boxwood Bunny Topiary",
+              "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+              "guideCount": 0
+            },
+            {
+              "id": "hugo-boss-bottled-beyond",
+              "slug": "hugo-boss-bottled-beyond",
+              "name": "Hugo Boss Bottled Beyond Eau de Parfum",
+              "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
+              "guideCount": 0
+            },
+            {
+              "id": "saodimallsu-crochet-coverup-set",
+              "slug": "saodimallsu-crochet-cover-up-set",
+              "name": "Saodimallsu Crochet Swim Cover Up Set",
+              "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+              "guideCount": 0
+            }
+          ]
+        }
       }
     }
   ]

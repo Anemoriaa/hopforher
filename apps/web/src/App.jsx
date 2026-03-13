@@ -2,7 +2,17 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play, RefreshCw } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
-import { featuredSeoGuides, featuredSeoProducts, heroSeoProducts, weeklyTopSeoProducts, seoCatalog, seoDateCities, seoHotStories, seoSite } from "./content/seo-guides.js";
+import {
+  featuredSeoGuides,
+  featuredSeoProducts,
+  heroSeoProducts,
+  librarySeoProducts,
+  weeklyTopSeoProducts,
+  seoCatalog,
+  seoDateCities,
+  seoHotStories,
+  seoSite,
+} from "./content/seo-guides.js";
 import {
   buildAffiliateLink,
   classNames,
@@ -1090,13 +1100,14 @@ export default function App() {
         .filter(Boolean),
     [gifts]
   );
-  const libraryProducts = useMemo(() => {
-    const merged = [...featuredSeoProducts, ...linkedTopProducts]
-      .filter((gift, index, array) => array.findIndex((item) => item.id === gift.id) === index)
-      .filter((gift) => hasIndexableProductPage(gift));
-
-    return merged.slice(0, 10);
-  }, [linkedTopProducts]);
+  const libraryProducts = useMemo(
+    () =>
+      librarySeoProducts
+        .map((gift) => gifts.find((catalogGift) => catalogGift.id === gift.id))
+        .filter(Boolean)
+        .filter((gift) => hasIndexableProductPage(gift)),
+    [gifts]
+  );
   const popularHeroProducts = heroCatalogProducts.length ? heroCatalogProducts : linkedTopProducts.slice(0, 3);
   const leadRecommendation = topPicks[0] || popularHeroProducts[0] || null;
   const activeGuide = guideByRelationship[activeRelationship.id] || guideByRelationship.girlfriend;

@@ -20,10 +20,7 @@ const catalogById = new Map(seoCatalog.map((gift) => [gift.id, gift]));
 const guideBySlug = new Map(seoGuides.map((guide) => [guide.slug, guide]));
 const giftBySlug = new Map(seoCatalog.map((gift) => [gift.slug, gift]));
 const suppressedGuideSlugs = new Set([
-  "birthday-gifts-for-girlfriend",
   "new-relationship-gifts-for-her",
-  "last-minute-gifts-for-her",
-  "date-night-gifts-for-her",
 ]);
 const lastmodPlaceholder = {
   isoDate: "__LASTMOD_DATE__",
@@ -800,11 +797,8 @@ function guideExpansionProducts(guide, items = guideItems(guide)) {
     .map((entry) => entry.candidate);
 }
 
-function guideOverlapDetails(guide, items = guideItems(guide)) {
-  const relatedGuides = (guide.related || []).map((slug) => guideBySlug.get(slug)).filter(Boolean).filter(isIndexableGuidePage);
-  const relatedItemIds = new Set(relatedGuides.flatMap((entry) => entry.itemIds || []));
-  const uniqueAgainstRelated = items.filter((gift) => !relatedItemIds.has(gift.id));
-  const distinctiveItems = (uniqueAgainstRelated.length ? uniqueAgainstRelated : [...items].sort((left, right) => {
+function sortGuideItemsByReuse(gifts = []) {
+  return [...gifts].sort((left, right) => {
     const reuseDelta = guideUsageCount(left.id) - guideUsageCount(right.id);
 
     if (reuseDelta !== 0) {
@@ -812,7 +806,43 @@ function guideOverlapDetails(guide, items = guideItems(guide)) {
     }
 
     return left.name.localeCompare(right.name);
-  })).slice(0, 3);
+  });
+}
+
+function guideOverlapRepairPlan(guide, items = guideItems(guide)) {
+  const relatedGuides = (guide.related || []).map((slug) => guideBySlug.get(slug)).filter(Boolean).filter(isIndexableGuidePage);
+  const relatedItemIds = new Set(relatedGuides.flatMap((entry) => entry.itemIds || []));
+  const dropCandidates = [...items]
+    .sort((left, right) => {
+      const sharedDelta = Number(relatedItemIds.has(right.id)) - Number(relatedItemIds.has(left.id));
+
+      if (sharedDelta !== 0) {
+        return sharedDelta;
+      }
+
+      const reuseDelta = guideUsageCount(right.id) - guideUsageCount(left.id);
+
+      if (reuseDelta !== 0) {
+        return reuseDelta;
+      }
+
+      return guide.itemIds.indexOf(right.id) - guide.itemIds.indexOf(left.id);
+    })
+    .slice(0, 3);
+  const addCandidates = guideExpansionProducts(guide, items).slice(0, 3);
+
+  return {
+    dropCandidates,
+    addCandidates,
+    hasSuggestions: addCandidates.length > 0,
+  };
+}
+
+function guideOverlapDetails(guide, items = guideItems(guide)) {
+  const relatedGuides = (guide.related || []).map((slug) => guideBySlug.get(slug)).filter(Boolean).filter(isIndexableGuidePage);
+  const relatedItemIds = new Set(relatedGuides.flatMap((entry) => entry.itemIds || []));
+  const uniqueAgainstRelated = items.filter((gift) => !relatedItemIds.has(gift.id));
+  const distinctiveItems = (uniqueAgainstRelated.length ? sortGuideItemsByReuse(uniqueAgainstRelated) : sortGuideItemsByReuse(items)).slice(0, 3);
   const overusedItems = items.filter((gift) => guideUsageCount(gift.id) >= heavyGuideReuseThreshold);
   const topHeavyCount = items.slice(0, 3).filter((gift) => guideUsageCount(gift.id) >= heavyGuideReuseThreshold).length;
   const relatedOverlap = relatedGuides
@@ -1595,7 +1625,7 @@ function renderProductContextSection(gift, matchingGuides) {
         <div class="discovery-faqs">
           <article class="discovery-faq">
             <h3>Best buyer moment</h3>
-            <p>${escapeHtml(`Use ${gift.name} when the buyer moment matches ${gift.bestFor} and you want something that feels ${gift.badge} without needing extra explanation.`)}</p>
+            <p>${escapeHtml(`Choose ${gift.name} when you're shopping for ${humanizeBestFor(gift.bestFor)} and want something that feels ${normalizeBadgeLabel(gift.badge)} without needing a long explanation.`)}</p>
           </article>
           <article class="discovery-faq">
             <h3>Why it reads as a gift</h3>
@@ -1728,6 +1758,47 @@ function guideFaqs(guide, items) {
   ];
 }
 
+function normalizeBadgeLabel(badge) {
+  return String(badge || "gift pick")
+    .replace(/\bpick\s+pick\b/gi, "pick")
+    .trim();
+}
+
+function articleFor(text) {
+  const word = String(text || "").trim().toLowerCase();
+  return /^[aeiou]/.test(word) ? "an" : "a";
+}
+
+function humanizeBestFor(bestFor) {
+  const parts = String(bestFor || "")
+    .split("/")
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+  if (parts.length <= 1) return parts[0] || "her";
+  if (parts.length === 2) return `${parts[0]} or ${parts[1]}`;
+  return `${parts.slice(0, -1).join(", ")}, or ${parts.at(-1)}`;
+}
+
+function buildProductDescription(gift) {
+  return `${gift.hook} ${gift.why}`.replace(/\s+/g, " ").trim();
+}
+
+function primaryAudienceForGift(gift) {
+  const parts = String(gift.bestFor || "")
+    .split("/")
+    .map((part) => part.trim().toLowerCase())
+    .filter(Boolean);
+
+  const preferred = ["girlfriend", "wife", "her", "women", "woman"];
+  return parts.find((part) => preferred.includes(part)) || "her";
+}
+
+function buildProductPageTitle(gift) {
+  const audience = primaryAudienceForGift(gift);
+  return `${gift.name} gift for ${audience} | ShopForHer`;
+}
+
 function productFaqs(gift, matchingGuides) {
   const leadGuide = matchingGuides[0] || null;
   const buyNote = usesAffiliateSearchFallback(gift)
@@ -1735,17 +1806,19 @@ function productFaqs(gift, matchingGuides) {
     : usesDirectMerchantPath(gift)
       ? `This page links directly to the ${merchantName(gift)} product page and checkout still happens on the merchant site.`
       : `This page links out to the ${merchantName(gift)} listing and checkout still happens on the merchant site.`;
+  const badgeLabel = normalizeBadgeLabel(gift.badge);
+  const bestFor = humanizeBestFor(gift.bestFor);
 
   return [
     {
       q: `What kind of gift is ${gift.name}?`,
-      a: `${gift.name} is a ${gift.badge} pick that works best for ${gift.bestFor}. ${gift.why}`,
+      a: `${gift.name} is ${articleFor(badgeLabel)} ${badgeLabel} gift for ${bestFor}. ${gift.why}`,
     },
     {
       q: `When should I choose ${gift.name}?`,
       a: leadGuide
-        ? `${gift.hook} It is strongest when the buyer moment matches ${gift.bestFor} and you want the kind of answer that already fits on ${leadGuide.label.toLowerCase()}.`
-        : `${gift.hook} Use it when the buyer moment matches ${gift.bestFor} and you want a cleaner product-level answer fast.`,
+        ? `${gift.hook} Choose it when you're shopping for ${bestFor} and want a pick that fits naturally with ${leadGuide.label.toLowerCase()}.`
+        : `${gift.hook} Choose it when you're shopping for ${bestFor} and want something easy to buy with confidence.`,
     },
     {
       q: `Where do I buy ${gift.name}?`,
@@ -1855,8 +1928,8 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
       emphasis: true,
       cta: featuredGift
         ? `<div class="discovery-actions discovery-actions-rail">
-        <a class="discovery-text-link" href="/gift/${featuredGift.slug}/">Open top pick</a>
-        ${renderAffiliateAnchor(featuredGift, `guide-${guide.slug}-rail`, "Buy first pick")}
+        <a class="discovery-text-link" href="/gift/${featuredGift.slug}/">See why ${escapeHtml(featuredGift.name)} is the top pick</a>
+        ${renderAffiliateAnchor(featuredGift, `guide-${guide.slug}-rail`, "Buy top pick")}
       </div>
       ${renderPaidLinkNote(featuredGift)}`
         : "",
@@ -2189,8 +2262,8 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
   const matchingHotStories = hotStoriesForGift(gift).slice(0, 6);
   const relatedProducts = relatedProductsForGift(gift);
   const canonical = productUrl(gift);
-  const pageTitle = `${gift.name} | ShopForHer`;
-  const description = `${gift.name} is a ${gift.badge} pick on ShopForHer. ${gift.why}`;
+  const pageTitle = buildProductPageTitle(gift);
+  const description = buildProductDescription(gift);
   const images = productImages(gift);
   const primaryImage = primaryImageUrl(gift);
   const pageImageAlt = `${gift.name} product image`;
@@ -2218,7 +2291,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
         ${renderAffiliateAnchor(gift, `product-${gift.slug}-rail`, "Buy now")}
         ${
           matchingGuides[0]
-            ? `<a class="discovery-text-link" href="/${matchingGuides[0].slug}/">Open best matching guide</a>`
+            ? `<a class="discovery-text-link" href="/${matchingGuides[0].slug}/">See why it ranks in ${escapeHtml(matchingGuides[0].label.toLowerCase())}</a>`
             : ""
         }
       </div>
@@ -2486,7 +2559,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
             ${renderAffiliateAnchor(gift, `product-${gift.slug}-primary`, "Buy now")}
             ${
               matchingGuides[0]
-                ? `<a class="discovery-text-link" href="/${matchingGuides[0].slug}/">See the best matching guide</a>`
+                ? `<a class="discovery-text-link" href="/${matchingGuides[0].slug}/">See why it ranks in ${escapeHtml(matchingGuides[0].label.toLowerCase())}</a>`
                 : ""
             }
             ${renderPaidLinkNote(gift)}
@@ -4279,6 +4352,7 @@ function buildGuideCatalogEntries() {
     const items = guideItems(guide);
     const relatedGuides = (guide.related || []).map((slug) => guideBySlug.get(slug)).filter(Boolean).filter(isIndexableGuidePage);
     const overlap = guideOverlapDetails(guide, items);
+    const repairPlan = guideOverlapRepairPlan(guide, items);
     const indexState = guideIndexState(guide);
 
     return {
@@ -4373,6 +4447,23 @@ function buildGuideCatalogEntries() {
           sharedCount: entry.sharedCount,
           sharedItems: entry.sharedItems,
         })),
+        repairPlan: {
+          hasSuggestions: repairPlan.hasSuggestions,
+          dropCandidates: repairPlan.dropCandidates.map((gift) => ({
+            id: gift.id,
+            slug: gift.slug,
+            name: gift.name,
+            url: productUrl(gift),
+            guideCount: guideUsageCount(gift.id),
+          })),
+          addCandidates: repairPlan.addCandidates.map((gift) => ({
+            id: gift.id,
+            slug: gift.slug,
+            name: gift.name,
+            url: productUrl(gift),
+            guideCount: guideUsageCount(gift.id),
+          })),
+        },
       },
     };
   });
@@ -4405,8 +4496,8 @@ function buildStaticPageCatalogEntries() {
       path: "/",
       pageType: "index",
       pageArchetype: "home-shell",
-      title: "ShopForHer | Popular gifts for her, bought fast",
-      description: "ShopForHer helps men buy the right gift for a girlfriend or wife fast, with popular picks, viral products, and simple date ideas.",
+      title: "Gift ideas for her | ShopForHer",
+      description: "Find gift ideas for your girlfriend or wife, from popular picks and viral products to practical upgrades and occasion-based guides.",
       taxonomy: {
         primary: {
           intents: ["browse"],
@@ -4690,6 +4781,9 @@ function buildPageCatalogOps(guideCatalogEntries = buildGuideCatalogEntries(), p
       .map((guide) => ({
         slug: guide.slug,
         pageUrl: guide.pageUrl,
+        distinctiveProducts: guide.uniqueness.distinctiveProducts,
+        dropCandidates: guide.uniqueness.repairPlan?.dropCandidates || [],
+        addCandidates: guide.uniqueness.repairPlan?.addCandidates || [],
       })),
     searchSuppressedGuides: guideCatalogEntries
       .filter((guide) => !guide.searchIndexable)
