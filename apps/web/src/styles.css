@@ -657,6 +657,10 @@ h2, h3 {
   letter-spacing: -0.02em;
 }
 
+.gs-popular-library-link.is-featured strong {
+  font-size: 1rem;
+}
+
 .gs-popular-library-link.is-all {
   border-bottom: 1px solid var(--border);
 }

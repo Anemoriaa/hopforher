@@ -387,9 +387,9 @@ export const seoGuides = [
         body: "Use this when you want the gift to feel attractive and clearly chosen without crossing into a heavy romantic gesture.",
       },
       {
-        title: "Fun, current gifts she can actually use and share",
-        giftId: "mini-photo-printer",
-        body: "This is the cleaner answer when you want more energy and personality than another safe home object.",
+        title: "A more premium everyday lane with clearer brand pull",
+        giftId: "bose-speaker",
+        body: "This is the cleaner answer when you want more personality and presence than another small home object.",
       },
       {
         title: "A more organized, put-together travel or accessories lane",
@@ -420,11 +420,11 @@ export const seoGuides = [
       },
       {
         title: "Best if you want more personality",
-        giftId: "mini-photo-printer",
-        body: "Use this when the gift should feel more current and fun instead of calm and ultra-safe.",
+        giftId: "bose-speaker",
+        body: "Use this when the gift should feel more current and premium instead of overly safe or forgettable.",
       },
     ],
-    itemIds: ["silk-pillowcase", "mini-photo-printer", "jewelry-case", "earbuds", "candle-warmer", "sunrise-alarm"],
+    itemIds: ["silk-pillowcase", "bose-speaker", "jewelry-case", "panluca-statement-necklace", "posadina-phone-charm", "earbuds"],
     related: ["best-gifts-under-100", "viral-gifts-for-her", "new-relationship-gifts-for-her"],
   },
   {
@@ -543,7 +543,7 @@ export const seoGuides = [
     faqs: [
       {
         q: "Do anniversary gifts need to be sentimental?",
-        a: "Not necessarily, but they should feel intentional. Experience-adjacent and premium home gifts often work better than purely practical ones.",
+        a: "Not necessarily, but they should feel intentional. Experience-shaped, dressed-up, or premium home gifts often work better than purely practical ones.",
       },
       {
         q: "Is a shared-experience gift better than a basic product?",
@@ -566,9 +566,9 @@ export const seoGuides = [
         body: "Use this when the point is to make the night itself stronger instead of only adding another object.",
       },
       {
-        title: "Soft luxury with a calmer, more intimate feel",
-        giftId: "cashmere-robe",
-        body: "This is the cleaner answer when you want warmth, polish, and a stronger sense of occasion.",
+        title: "A dressed-up reveal with more obvious anniversary energy",
+        giftId: "satin-halter-maxi-dress",
+        body: "This is the cleaner answer when you want the gift to feel date-ready and celebratory right away instead of reading like another home upgrade.",
       },
     ],
     avoidNotes: [
@@ -584,8 +584,8 @@ export const seoGuides = [
     pickLanes: [
       {
         title: "Lower spend",
-        giftId: "silk-pillowcase",
-        body: "The cleanest lower-budget answer when you still want softness, polish, and a more premium feel.",
+        giftId: "rustic-vase-set",
+        body: "The cleaner lower-budget answer when you still want the anniversary gift to feel polished, styled, and clearly chosen.",
       },
       {
         title: "Most emotional",
@@ -598,7 +598,7 @@ export const seoGuides = [
         body: "The strongest answer when you want the gift and the date itself to reinforce each other.",
       },
     ],
-    itemIds: ["digital-frame", "projector", "cashmere-robe", "jewelry-case", "silk-pillowcase", "satin-halter-maxi-dress"],
+    itemIds: ["digital-frame", "projector", "cashmere-robe", "satin-halter-maxi-dress", "kirundo-pleated-maxi-dress", "rustic-vase-set"],
     related: ["gifts-for-wife", "date-night-gifts-for-her", "luxury-gifts-for-her"],
   },
   {

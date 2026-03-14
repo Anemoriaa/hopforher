@@ -97,7 +97,7 @@ const quickStartLanes = [
     id: "new-relationship",
     eyebrow: "Lower pressure",
     title: "New relationship",
-    description: "Lower-risk first answer.",
+    description: "Lower-pressure first answer.",
     ctaLabel: "Use",
     guideHref: "/gifts-for-girlfriend/",
     guideLabel: "Guide",
@@ -112,7 +112,7 @@ const quickStartLanes = [
     id: "wife",
     eyebrow: "Higher signal",
     title: "Long-term partner",
-    description: "More quality, more signal.",
+    description: "More quality, stronger signal.",
     ctaLabel: "Use",
     guideHref: "/gifts-for-wife/",
     guideLabel: "Guide",
@@ -127,7 +127,7 @@ const quickStartLanes = [
     id: "last-minute",
     eyebrow: "Fast checkout",
     title: "Last-minute buyer",
-    description: "Fast path, cleaner checkout.",
+    description: "Fast path, cleaner buy.",
     ctaLabel: "Use",
     guideHref: "/amazon-gifts-for-her/",
     guideLabel: "Guide",
@@ -168,25 +168,25 @@ const homepageGuideBuckets = [
     id: "recipient",
     overline: "Recipient",
     title: "Shop by recipient",
-    description: "Start with the relationship first when you want the shortest path to the right shortlist.",
+    description: "Start with the relationship when you want the shortest path to the right shortlist.",
     guides: ["gifts-for-girlfriend", "gifts-for-wife", "anniversary-gifts-for-her"],
     allHref: "/guides/",
-    allLabel: "Browse all gift guides",
+    allLabel: "See all gift guides",
   },
   {
     id: "budget",
     overline: "Budget",
     title: "Shop by budget",
-    description: "Useful when price is fixed and you still want the best-looking answer inside that range.",
+    description: "Use these when price is fixed and presentation still matters.",
     guides: ["best-gifts-under-100", "best-gifts-under-75", "looks-expensive-gifts-for-her"],
     allHref: "/guides/",
-    allLabel: "See every budget guide",
+    allLabel: "See all budget guides",
   },
   {
     id: "trending",
     overline: "Trending",
     title: "Current gift angles",
-    description: "More directional pages when you want what feels current without digging through the full guide library.",
+    description: "Directional pages for what feels current without digging through the full library.",
     guides: ["viral-gifts-for-her", "cozy-gifts-trending-now", "new-relationship-gifts-trending-now"],
     allHref: "/hot/",
     allLabel: "View all trending pages",
@@ -2668,10 +2668,14 @@ export default function App() {
                           <p>{bucket.description}</p>
                         </div>
                         <div className="gs-popular-library-list">
-                          {bucket.guides.map((guide) => (
-                            <a key={guide.slug} href={`/${guide.slug}/`} className="gs-popular-library-link">
+                          {bucket.guides.map((guide, index) => (
+                            <a
+                              key={guide.slug}
+                              href={`/${guide.slug}/`}
+                              className={classNames("gs-popular-library-link", index === 0 && "is-featured")}
+                            >
                               <div>
-                                <span className="gs-seo-guide-eyebrow">{guide.groupLabel}</span>
+                                <span className="gs-seo-guide-eyebrow">{index === 0 ? "Start here" : guide.groupLabel}</span>
                                 <strong>{guide.label}</strong>
                               </div>
                               <ArrowUpRight size={16} />
