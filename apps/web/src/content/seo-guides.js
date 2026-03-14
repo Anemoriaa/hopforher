@@ -2098,32 +2098,26 @@ export const featuredSeoGuides = [
 
 export const heroSeoProducts = [
   "temperature-mug",
-  "theragun-relief",
+  "mini-photo-printer",
   "jewelry-case",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const weeklyTopSeoProducts = [
   "temperature-mug",
   "jewelry-case",
-  "ugg-slippers",
-  "bose-speaker",
-  "nespresso-machine",
-  "kindle-paperwhite",
-  "projector",
-  "stanley-quencher",
+  "mini-photo-printer",
+  "owala-bottle",
+  "laneige-set",
+  "candle-warmer",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const featuredSeoProducts = [
-  "theragun-relief",
-  "sunrise-alarm",
+  "sol-de-janeiro",
   "luxury-throw",
-  "walking-pad",
-  "owala-bottle",
-  "candle-warmer",
-  "panluca-statement-necklace",
-  "prettygarden-one-shoulder-maxi",
-  "satin-halter-maxi-dress",
-  "kirundo-pleated-maxi-dress",
+  "jewelry-case",
+  "theragun-relief",
+  "mini-photo-printer",
+  "ninja-creami",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const librarySeoProducts = [
