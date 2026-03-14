@@ -3,7 +3,6 @@ import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play,
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
 import {
-  featuredSeoGuides,
   featuredSeoProducts,
   heroSeoProducts,
   librarySeoProducts,
@@ -51,8 +50,8 @@ import { applyDocumentLocale, buildLocaleBadge, formatDateForLocales, getLocaleP
 
 const slides = [
   { id: "popular", label: "Popular", number: "01" },
-  { id: "hot", label: "Hot", number: "02" },
-  { id: "guides", label: "Plans", number: "03" },
+  { id: "hot", label: "Trending", number: "02" },
+  { id: "guides", label: "Date ideas", number: "03" },
   { id: "saved", label: "Saved", number: "04" },
 ];
 
@@ -167,6 +166,36 @@ const guideByRelationship = {
     chipLabel: "Low-pressure guide",
   },
 };
+
+const homepageGuideBuckets = [
+  {
+    id: "recipient",
+    overline: "Recipient",
+    title: "Shop by recipient",
+    description: "Start with the relationship first when you want the shortest path to the right shortlist.",
+    guides: ["gifts-for-girlfriend", "gifts-for-wife", "anniversary-gifts-for-her"],
+    allHref: "/guides/",
+    allLabel: "Browse all gift guides",
+  },
+  {
+    id: "budget",
+    overline: "Budget",
+    title: "Shop by budget",
+    description: "Useful when price is fixed and you still want the best-looking answer inside that range.",
+    guides: ["best-gifts-under-100", "best-gifts-under-75", "looks-expensive-gifts-for-her"],
+    allHref: "/guides/",
+    allLabel: "See every budget guide",
+  },
+  {
+    id: "trending",
+    overline: "Trending",
+    title: "Current gift angles",
+    description: "More directional pages when you want what feels current without digging through the full guide library.",
+    guides: ["viral-gifts-for-her", "cozy-gifts-trending-now", "new-relationship-gifts-trending-now"],
+    allHref: "/hot/",
+    allLabel: "View all trending pages",
+  },
+];
 
 const pickerSlides = [
   { id: "start", label: "Start" },
@@ -1115,6 +1144,12 @@ export default function App() {
   const leadRecommendation = topPicks[0] || popularHeroProducts[0] || null;
   const activeGuide = guideByRelationship[activeRelationship.id] || guideByRelationship.girlfriend;
   const activeGuideChipLabel = getGuideText(activeRelationship.id, "chip");
+  const curatedHomepageGuideBuckets = homepageGuideBuckets
+    .map((bucket) => ({
+      ...bucket,
+      guides: bucket.guides.map((slug) => seoSite.slugMap.get(slug)).filter(Boolean),
+    }))
+    .filter((bucket) => bucket.guides.length);
   const pickerResultStep = pickerSlides.length - 1;
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
   const datesSlideIndex = slides.findIndex((slide) => slide.id === "guides");
@@ -2611,7 +2646,7 @@ export default function App() {
                         <p>{t("home.productsBody")}</p>
                       </div>
                       <div className="gs-popular-library-list">
-                        {libraryProducts.map((gift) => (
+                        {libraryProducts.slice(0, 6).map((gift) => (
                           <a key={gift.slug} href={getProductPageHref(gift.slug)} className="gs-popular-library-link">
                             <div>
                               <span className="gs-seo-guide-eyebrow">{gift.badge}</span>
@@ -2622,81 +2657,33 @@ export default function App() {
                         ))}
                       </div>
                     </article>
-                    <article className="gs-popular-library-panel">
-                      <div className="gs-popular-library-head">
-                        <span className="gs-overline">{t("home.guidesOverline")}</span>
-                        <strong>{t("home.guidesTitle")}</strong>
-                        <p>{t("home.guidesBody")}</p>
-                      </div>
-                      <div className="gs-popular-library-list">
-                        {featuredSeoGuides.map((guide) => (
-                          <a key={guide.slug} href={`/${guide.slug}/`} className="gs-popular-library-link">
+                    {curatedHomepageGuideBuckets.map((bucket) => (
+                      <article key={bucket.id} className="gs-popular-library-panel">
+                        <div className="gs-popular-library-head">
+                          <span className="gs-overline">{bucket.overline}</span>
+                          <strong>{bucket.title}</strong>
+                          <p>{bucket.description}</p>
+                        </div>
+                        <div className="gs-popular-library-list">
+                          {bucket.guides.map((guide) => (
+                            <a key={guide.slug} href={`/${guide.slug}/`} className="gs-popular-library-link">
+                              <div>
+                                <span className="gs-seo-guide-eyebrow">{guide.groupLabel}</span>
+                                <strong>{guide.label}</strong>
+                              </div>
+                              <ArrowUpRight size={16} />
+                            </a>
+                          ))}
+                          <a href={bucket.allHref} className="gs-popular-library-link is-all">
                             <div>
-                              <span className="gs-seo-guide-eyebrow">{guide.groupLabel}</span>
-                              <strong>{guide.label}</strong>
+                              <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                              <strong>{bucket.allLabel}</strong>
                             </div>
                             <ArrowUpRight size={16} />
                           </a>
-                        ))}
-                        <a href="/guides/" className="gs-popular-library-link is-all">
-                          <div>
-                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
-                            <strong>{t("home.allGuides")}</strong>
-                          </div>
-                          <ArrowUpRight size={16} />
-                        </a>
-                      </div>
-                    </article>
-                    <article className="gs-popular-library-panel">
-                      <div className="gs-popular-library-head">
-                        <span className="gs-overline">{t("footer.hot")}</span>
-                        <strong>Trending pages</strong>
-                        <p>Open faster-moving gift lanes when you want the current angle before the evergreen guide.</p>
-                      </div>
-                      <div className="gs-popular-library-list">
-                        {seoHotStories.slice(0, 4).map((story) => (
-                          <a key={story.slug} href={`/hot/${story.slug}/`} className="gs-popular-library-link">
-                            <div>
-                              <span className="gs-seo-guide-eyebrow">{story.trendLabel}</span>
-                              <strong>{story.h1}</strong>
-                            </div>
-                            <ArrowUpRight size={16} />
-                          </a>
-                        ))}
-                        <a href="/hot/" className="gs-popular-library-link is-all">
-                          <div>
-                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
-                            <strong>{t("hot.allPages")}</strong>
-                          </div>
-                          <ArrowUpRight size={16} />
-                        </a>
-                      </div>
-                    </article>
-                    <article className="gs-popular-library-panel">
-                      <div className="gs-popular-library-head">
-                        <span className="gs-overline">{t("footer.plans")}</span>
-                        <strong>Date city pages</strong>
-                        <p>Browse city landing pages when the gift search turns into an actual plan.</p>
-                      </div>
-                      <div className="gs-popular-library-list">
-                        {seoDateCities.slice(0, 4).map((city) => (
-                          <a key={city.slug} href={`/dates/${city.slug}/`} className="gs-popular-library-link">
-                            <div>
-                              <span className="gs-seo-guide-eyebrow">{t("plans.overline")}</span>
-                              <strong>{city.city}</strong>
-                            </div>
-                            <ArrowUpRight size={16} />
-                          </a>
-                        ))}
-                        <a href="/dates/" className="gs-popular-library-link is-all">
-                          <div>
-                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
-                            <strong>{t("plans.allDatePages")}</strong>
-                          </div>
-                          <ArrowUpRight size={16} />
-                        </a>
-                      </div>
-                    </article>
+                        </div>
+                      </article>
+                    ))}
                   </div>
                 </section>
                 {renderFooter()}
