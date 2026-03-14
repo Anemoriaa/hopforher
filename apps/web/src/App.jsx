@@ -56,10 +56,6 @@ const slides = [
 ];
 
 const editorialSlides = slides.filter((slide) => slide.id !== "saved");
-const seoCatalogById = new Map(seoCatalog.map((gift) => [gift.id, gift]));
-const indexableSeoGiftIds = new Set(
-  seoCatalog.filter((gift) => gift.sourceProductUrl || gift.affiliateUrl || gift.amazonAsin || gift.asin).map((gift) => gift.id)
-);
 
 const relationshipOptions = [
   { id: "girlfriend", label: "Girlfriend", note: "Lower pressure, cleaner yes, easier first hit." },
@@ -511,8 +507,12 @@ function getProductPageHref(slug) {
   return `/gift/${slug}/`;
 }
 
-function hasIndexableProductPage(gift) {
-  return Boolean(gift?.id && indexableSeoGiftIds.has(gift.id));
+function buildIndexableSeoGiftIds(seoCatalog) {
+  return new Set(
+    seoCatalog
+      .filter((gift) => gift.sourceProductUrl || gift.affiliateUrl || gift.amazonAsin || gift.asin)
+      .map((gift) => gift.id)
+  );
 }
 
 function rankGiftMatches(gifts, filters) {
@@ -816,6 +816,8 @@ export default function App() {
     triggerOnce: false,
     rootMargin: "900px 0px 1200px 0px",
   });
+  const seoCatalogById = useMemo(() => new Map(seoCatalog.map((gift) => [gift.id, gift])), [seoCatalog]);
+  const indexableSeoGiftIds = useMemo(() => buildIndexableSeoGiftIds(seoCatalog), [seoCatalog]);
   const rawPreviewMediaItems = useMemo(() => buildGiftPreviewMedia(previewGift), [previewGift]);
   const previewMediaItems = useMemo(
     () => (previewMode === "hot" ? rawPreviewMediaItems.filter((media) => isTikTokPreviewMedia(media)) : rawPreviewMediaItems),
@@ -1064,7 +1066,8 @@ export default function App() {
   const budgetLabel = t(`budget.${activeBudget.id}`);
   const signalLabel = t(`signal.${activeSignal.id}`);
   const intentLabel = t(`intent.${activeIntent.id}`);
-  const homeUpdatedLabel = formatDateForLocales(`${seoSite.updatedAt}T00:00:00`, localeProfile.locales, {
+  const homeUpdatedSource = seoSite.updatedAt || new Date().toISOString().slice(0, 10);
+  const homeUpdatedLabel = formatDateForLocales(`${homeUpdatedSource}T00:00:00`, localeProfile.locales, {
     month: "long",
     day: "numeric",
     year: "numeric",
@@ -1137,8 +1140,8 @@ export default function App() {
           return catalogGift ? { ...catalogGift, slug: gift.slug } : null;
         })
         .filter(Boolean)
-        .filter((gift) => hasIndexableProductPage(gift)),
-    [gifts]
+        .filter((gift) => gift?.id && indexableSeoGiftIds.has(gift.id)),
+    [gifts, indexableSeoGiftIds]
   );
   const popularHeroProducts = heroCatalogProducts.length ? heroCatalogProducts : linkedTopProducts.slice(0, 3);
   const leadRecommendation = topPicks[0] || popularHeroProducts[0] || null;
