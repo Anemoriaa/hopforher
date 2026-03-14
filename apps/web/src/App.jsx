@@ -188,7 +188,7 @@ const homepageGuideBuckets = [
     overline: "Trending",
     title: "Current gift angles",
     description: "Directional pages for what feels current without digging through the full library.",
-    guides: ["viral-gifts-for-her", "cozy-gifts-trending-now", "new-relationship-gifts-trending-now"],
+    guides: ["viral-gifts-for-her", "date-night-gifts-for-her", "last-minute-gifts-for-her"],
     allHref: "/hot/",
     allLabel: "View all trending pages",
   },
@@ -1145,6 +1145,15 @@ export default function App() {
         .filter((gift) => gift?.id && indexableSeoGiftIds.has(gift.id)),
     [gifts, indexableSeoGiftIds]
   );
+  const compactBrowseProducts = useMemo(() => {
+    const excludedIds = new Set([
+      ...weeklyTopCatalogProducts.map((gift) => gift.id),
+      ...featuredCatalogProducts.map((gift) => gift.id),
+      ...heroCatalogProducts.map((gift) => gift.id),
+    ]);
+
+    return libraryProducts.filter((gift) => !excludedIds.has(gift.id)).slice(0, 8);
+  }, [libraryProducts, weeklyTopCatalogProducts, featuredCatalogProducts, heroCatalogProducts]);
   const popularHeroProducts = heroCatalogProducts.length ? heroCatalogProducts : linkedTopProducts.slice(0, 3);
   const leadRecommendation = topPicks[0] || popularHeroProducts[0] || null;
   const activeGuide = guideByRelationship[activeRelationship.id] || guideByRelationship.girlfriend;
@@ -2635,33 +2644,34 @@ export default function App() {
                     )}
                   </div>
                 </section>
+                {compactBrowseProducts.length ? (
+                  <section className="gs-product-list">
+                    <div className="gs-section-head">
+                      <p className="gs-overline">More to browse</p>
+                      <h3>More popular picks</h3>
+                    </div>
+                    <p className="gs-popular-library-note">
+                      More exact products on screen, without pushing the page into clutter.
+                    </p>
+                    <div className="gs-bento-grid gs-popular-grid gs-popular-grid-compact" role="list" aria-label="More popular products">
+                      {compactBrowseProducts.map((gift, index) =>
+                        renderBentoCard(gift, featuredCatalogProducts.length + weeklyTopCatalogProducts.length + index + 1, {
+                          motion: "minimal",
+                          imageOnly: true,
+                        })
+                      )}
+                    </div>
+                  </section>
+                ) : null}
                 <section className="gs-popular-library" aria-label="Popular page organization">
                   <div className="gs-section-head">
-                    <p className="gs-overline">{t("home.continueOverline")}</p>
-                    <h3>{t("home.continueTitle")}</h3>
+                    <p className="gs-overline">Keep browsing</p>
+                    <h3>Shop cleaner categories</h3>
                   </div>
                   <p className="gs-popular-library-note">
-                    {t("home.continueNote")}
+                    Use exact products when one already looks right. Use the guide buckets when you want to narrow the lane first.
                   </p>
-                  <div className="gs-popular-library-grid">
-                    <article className="gs-popular-library-panel">
-                      <div className="gs-popular-library-head">
-                        <span className="gs-overline">{t("home.productsOverline")}</span>
-                        <strong>{t("home.productsTitle")}</strong>
-                        <p>{t("home.productsBody")}</p>
-                      </div>
-                      <div className="gs-popular-library-list">
-                        {libraryProducts.slice(0, 6).map((gift) => (
-                          <a key={gift.slug} href={getProductPageHref(gift.slug)} className="gs-popular-library-link">
-                            <div>
-                              <span className="gs-seo-guide-eyebrow">{gift.badge}</span>
-                              <strong>{gift.name}</strong>
-                            </div>
-                            <ArrowUpRight size={16} />
-                          </a>
-                        ))}
-                      </div>
-                    </article>
+                  <div className="gs-popular-library-grid gs-popular-guides-grid">
                     {curatedHomepageGuideBuckets.map((bucket) => (
                       <article key={bucket.id} className="gs-popular-library-panel">
                         <div className="gs-popular-library-head">
@@ -2693,6 +2703,24 @@ export default function App() {
                         </div>
                       </article>
                     ))}
+                    <article className="gs-popular-library-panel is-compact-products">
+                      <div className="gs-popular-library-head">
+                        <span className="gs-overline">Products</span>
+                        <strong>More exact product pages</strong>
+                        <p>Fast paths when you already want the item, price range, and merchant route.</p>
+                      </div>
+                      <div className="gs-popular-library-list is-two-column">
+                        {libraryProducts.slice(0, 12).map((gift) => (
+                          <a key={gift.slug} href={getProductPageHref(gift.slug)} className="gs-popular-library-link">
+                            <div>
+                              <span className="gs-seo-guide-eyebrow">{gift.badge}</span>
+                              <strong>{gift.name}</strong>
+                            </div>
+                            <ArrowUpRight size={16} />
+                          </a>
+                        ))}
+                      </div>
+                    </article>
                   </div>
                 </section>
                 {renderFooter()}
