@@ -9,6 +9,7 @@ import {
   weeklyTopSeoProducts,
   seoCatalog,
   seoDateCities,
+  seoGuides,
   seoHotStories,
   seoSite,
 } from "./content/seo-guides.js";
@@ -817,6 +818,7 @@ export default function App() {
     rootMargin: "900px 0px 1200px 0px",
   });
   const seoCatalogById = useMemo(() => new Map(seoCatalog.map((gift) => [gift.id, gift])), [seoCatalog]);
+  const seoGuidesBySlug = useMemo(() => new Map(seoGuides.map((guide) => [guide.slug, guide])), []);
   const indexableSeoGiftIds = useMemo(() => buildIndexableSeoGiftIds(seoCatalog), [seoCatalog]);
   const rawPreviewMediaItems = useMemo(() => buildGiftPreviewMedia(previewGift), [previewGift]);
   const previewMediaItems = useMemo(
@@ -1150,7 +1152,7 @@ export default function App() {
   const curatedHomepageGuideBuckets = homepageGuideBuckets
     .map((bucket) => ({
       ...bucket,
-      guides: bucket.guides.map((slug) => seoSite.slugMap.get(slug)).filter(Boolean),
+      guides: bucket.guides.map((slug) => seoGuidesBySlug.get(slug)).filter(Boolean),
     }))
     .filter((bucket) => bucket.guides.length);
   const pickerResultStep = pickerSlides.length - 1;
