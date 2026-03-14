@@ -322,6 +322,7 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "looks-expensive", "daily-use"],
       query: "Kindle Paperwhite Signature Edition gift for her",
       amazonAsin: "B0DC85J75V",
+      sourceProductUrl: "https://www.amazon.com/dp/B0DC85J75V",
       baseScore: 92,
       accentFrom: "#c4dcff",
       accentTo: "#386897"
@@ -383,6 +384,7 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["under-100", "daily-use", "best-overall"],
       query: "Owala FreeSip Sway bottle gift for her",
       amazonAsin: "B0FJZDV6BH",
+      sourceProductUrl: "https://www.amazon.com/dp/B0FJZDV6BH",
       baseScore: 87,
       accentFrom: "#c7ddff",
       accentTo: "#4a739f"
@@ -403,6 +405,7 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "daily-use", "looks-expensive"],
       query: "Theragun Relief gift for her",
       amazonAsin: "B0CNS894RH",
+      sourceProductUrl: "https://www.amazon.com/dp/B0CNS894RH",
       baseScore: 89,
       accentFrom: "#bdd8ff",
       accentTo: "#426d9a"

@@ -1103,7 +1103,10 @@ export default function App() {
   const libraryProducts = useMemo(
     () =>
       librarySeoProducts
-        .map((gift) => gifts.find((catalogGift) => catalogGift.id === gift.id))
+        .map((gift) => {
+          const catalogGift = gifts.find((candidate) => candidate.id === gift.id);
+          return catalogGift ? { ...catalogGift, slug: gift.slug } : null;
+        })
         .filter(Boolean)
         .filter((gift) => hasIndexableProductPage(gift)),
     [gifts]

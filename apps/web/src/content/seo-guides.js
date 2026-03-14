@@ -2098,7 +2098,7 @@ export const featuredSeoGuides = [
 
 export const heroSeoProducts = [
   "temperature-mug",
-  "cashmere-robe",
+  "theragun-relief",
   "jewelry-case",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
@@ -2108,17 +2108,17 @@ export const weeklyTopSeoProducts = [
   "ugg-slippers",
   "bose-speaker",
   "nespresso-machine",
-  "vanity-mirror",
+  "kindle-paperwhite",
   "projector",
   "stanley-quencher",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const featuredSeoProducts = [
-  "cashmere-robe",
+  "theragun-relief",
   "sunrise-alarm",
   "luxury-throw",
   "walking-pad",
-  "magsafe-stand",
+  "owala-bottle",
   "candle-warmer",
   "panluca-statement-necklace",
   "prettygarden-one-shoulder-maxi",
@@ -2129,16 +2129,16 @@ export const featuredSeoProducts = [
 export const librarySeoProducts = [
   "temperature-mug",
   "jewelry-case",
-  "cashmere-robe",
+  "theragun-relief",
   "ugg-slippers",
   "bose-speaker",
   "nespresso-machine",
-  "vanity-mirror",
+  "kindle-paperwhite",
   "projector",
   "stanley-quencher",
   "sunrise-alarm",
   "luxury-throw",
-  "magsafe-stand",
+  "owala-bottle",
   "prettygarden-one-shoulder-maxi",
   "satin-halter-maxi-dress",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
