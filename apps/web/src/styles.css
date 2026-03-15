@@ -884,6 +884,43 @@ h2, h3 {
   object-fit: cover;
   object-position: center center;
   mix-blend-mode: multiply;
+  opacity: 0.9;
+  -webkit-mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.55) 8%,
+      rgba(0, 0, 0, 0.92) 18%,
+      rgba(0, 0, 0, 0.92) 82%,
+      rgba(0, 0, 0, 0.55) 92%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.82) 18%,
+      rgba(0, 0, 0, 0.95) 50%,
+      rgba(0, 0, 0, 0.82) 82%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.55) 8%,
+      rgba(0, 0, 0, 0.92) 18%,
+      rgba(0, 0, 0, 0.92) 82%,
+      rgba(0, 0, 0, 0.55) 92%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.82) 18%,
+      rgba(0, 0, 0, 0.95) 50%,
+      rgba(0, 0, 0, 0.82) 82%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .gs-popular-hero-image {
@@ -892,6 +929,7 @@ h2, h3 {
 
 .gs-popular-library-image {
   min-height: 72px;
+  opacity: 0.82;
 }
 
 .gs-popular-hero-visual::after {
@@ -1014,6 +1052,41 @@ h2, h3 {
 
   .gs-popular-hero-image {
     min-height: 170px;
+    opacity: 0.84;
+    -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.45) 6%,
+        rgba(0, 0, 0, 0.9) 16%,
+        rgba(0, 0, 0, 0.9) 84%,
+        rgba(0, 0, 0, 0.45) 94%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.7) 16%,
+        rgba(0, 0, 0, 0.92) 50%,
+        rgba(0, 0, 0, 0.7) 84%,
+        rgba(0, 0, 0, 0) 100%
+      );
+    mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.45) 6%,
+        rgba(0, 0, 0, 0.9) 16%,
+        rgba(0, 0, 0, 0.9) 84%,
+        rgba(0, 0, 0, 0.45) 94%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.7) 16%,
+        rgba(0, 0, 0, 0.92) 50%,
+        rgba(0, 0, 0, 0.7) 84%,
+        rgba(0, 0, 0, 0) 100%
+      );
   }
 
   .gs-popular-library-artband,
