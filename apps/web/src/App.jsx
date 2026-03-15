@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, BookOpen, Bookmark, BookmarkCheck, MapPin, Pause, Play, RefreshCw } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BookOpen, Bookmark, BookmarkCheck, Gift, MapPin, Pause, Play, RefreshCw } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
 import { featuredSeoGuides, featuredSeoProducts, heroSeoProducts, seoCatalog, seoDateCities, seoGuides, seoHotStories, seoSite } from "./content/seo-guides.js";
@@ -2299,12 +2299,16 @@ export default function App() {
     return [...leadMeta, spot.availabilityLabel].filter(Boolean).join(" · ");
   }
 
+  const surfaceSwitchHref = homeSurface.id === "books" ? "/" : "/booksforher/";
+  const surfaceSwitchLabel = homeSurface.id === "books" ? t("nav.shop") : t("nav.books");
+  const SurfaceSwitchIcon = homeSurface.id === "books" ? Gift : BookOpen;
+
   return (
     <div className={classNames("gs-slider-app", homeSurface.appClassName)}>
       <div className="gs-phone-frame">
         <header className="gs-header">
           <div className="gs-navbar">
-            <a href="/" className="gs-brand" aria-label={homeSurface.brandHomeAria}>
+            <a href={homeSurface.brandHref} className="gs-brand" aria-label={homeSurface.brandHomeAria}>
               <span className="gs-brand-mark">
                 <img src="/logo1.png" alt="ShopForHer" className="gs-logo" />
               </span>
@@ -2318,14 +2322,13 @@ export default function App() {
             <nav className="gs-header-tabs" aria-label={t("nav.sectionsAria")}>
               <div className="gs-header-tabs-inner" role="tablist" aria-label={t("nav.sectionsAria")}>
                 <a
-                  href="/booksforher/"
-                  className={classNames("gs-surface-switch", homeSurface.id === "books" && "is-active")}
-                  aria-label={t("nav.books")}
-                  aria-current={homeSurface.id === "books" ? "page" : undefined}
-                  title={t("nav.books")}
+                  href={surfaceSwitchHref}
+                  className="gs-surface-switch"
+                  aria-label={surfaceSwitchLabel}
+                  title={surfaceSwitchLabel}
                 >
-                  <BookOpen size={16} aria-hidden="true" />
-                  <span className="gs-visually-hidden">{t("nav.books")}</span>
+                  <SurfaceSwitchIcon size={16} aria-hidden="true" />
+                  <span className="gs-visually-hidden">{surfaceSwitchLabel}</span>
                 </a>
                 {editorialSlides.map((slide, index) => (
                   <button

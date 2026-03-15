@@ -45,6 +45,7 @@ const surfaceBuilders = {
     return {
       id: "default",
       appClassName: "",
+      brandHref: "/",
       brandHomeAria: t("brand.homeAria"),
       brandContext: null,
       hero: {
@@ -73,18 +74,16 @@ const surfaceBuilders = {
     return {
       id: "books",
       appClassName: "surface-books",
-      brandHomeAria: "ShopForHer home",
-      brandContext: {
-        eyebrow: "Preview",
-        title: "Books edit",
-      },
+      brandHref: "/booksforher/",
+      brandHomeAria: "BooksForHer home",
+      brandContext: null,
       hero: {
         overline: "Reading lane",
         title: "Book gifts for her, without the generic book blog feel.",
         lede: "Same fast-buying shell, retuned for Kindle, boxed sets, and cozy reading upgrades that still feel clearly chosen.",
         primaryCta: "Start with reader-safe picks",
         secondaryCta: "See the shortlist",
-        summary: `Books-forward surface preview inside ShopForHer. Reading-first picks updated ${updatedLabel}.`,
+        summary: `Reading-first picks inside ShopForHer. Updated ${updatedLabel}.`,
         openHotAria: t("home.openHotAria"),
         openHotLabel: t("home.openHotLabel"),
       },
