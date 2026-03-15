@@ -2766,21 +2766,19 @@ export const featuredSeoGuides = [
 
 export const heroSeoProducts = [
   "kindle-paperwhite",
-  "bose-speaker",
-  "theragun-relief",
+  "ninja-creami",
+  "silk-pillowcase",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const featuredSeoProducts = [
-  "boxwood-bunny-topiary",
-  "lenox-bunny-candy-dish",
-  "kindle-paperwhite",
-  "ninja-creami",
-  "nespresso-machine",
-  "owala-bottle",
-  "theragun-relief",
-  "ugg-slippers",
-  "bose-speaker",
   "sol-de-janeiro",
+  "luxury-throw",
+  "ugg-slippers",
+  "kindle-paperwhite",
+  "nespresso-machine",
+  "digital-frame",
+  "theragun-relief",
+  "empyrean-box-set",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const seoDateCities = [
