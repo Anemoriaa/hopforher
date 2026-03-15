@@ -2554,27 +2554,19 @@ export default function App() {
                       <ArrowRight size={14} />
                     </button>
                   </div>
-                  <div className="gs-popular-hero-visual">
-                    <div className="gs-popular-hero-stack">
-                      {popularHeroProducts.map((gift, index) => (
-                        <a
-                          key={gift.slug || gift.id}
-                          href={buildAffiliateLink(gift)}
-                          target="_blank"
-                          rel={getGiftCommerceRel(gift)}
-                          {...getAffiliateAnchorData(gift, `popular-hero-card-${index + 1}`)}
-                          aria-label={getGiftCommerceAriaLabel(gift)}
-                          {...getGiftImageFrameProps(gift, `gs-popular-hero-card is-layer-${index + 1}`)}
-                        >
-                          <img src={getGiftHeroImageUrl(gift)} alt={gift.name} loading="lazy" />
-                          <span className="gs-popular-hero-card-copy">
-                            <span className="gs-popular-hero-card-badge">{gift.badge}</span>
-                            <strong>{gift.name}</strong>
-                            <span>{gift.priceLabel}</span>
-                          </span>
-                        </a>
-                      ))}
-                    </div>
+                  <div
+                    className="gs-popular-hero-visual is-image-surface"
+                    aria-hidden="true"
+                    style={{
+                      transform: `translate3d(0, ${heroParallax * -10}px, 0)`,
+                    }}
+                  >
+                    <img
+                      src="/brand-art/homepage-hero-whiteflush-a-v2.png"
+                      alt=""
+                      className="gs-popular-hero-image"
+                      loading="lazy"
+                    />
                   </div>
                 </section>
 
@@ -2938,6 +2930,20 @@ export default function App() {
                   <p className="gs-popular-library-note">
                     {activeContinueSection.note}
                   </p>
+                  <div
+                    className="gs-popular-library-artband is-image-surface"
+                    aria-hidden="true"
+                    style={{
+                      transform: `translate3d(0, ${heroParallax * -6}px, 0)`,
+                    }}
+                  >
+                    <img
+                      src="/brand-art/homepage-divider-whiteflush-b-v2.png"
+                      alt=""
+                      className="gs-popular-library-image"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="gs-popular-library-grid">
                     <article className="gs-popular-library-panel">
                       <div className="gs-popular-library-head">
