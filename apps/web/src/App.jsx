@@ -2277,7 +2277,17 @@ export default function App() {
             </a>
             <nav className="gs-header-tabs" aria-label={t("nav.sectionsAria")}>
               <div className="gs-header-tabs-inner" role="tablist" aria-label={t("nav.sectionsAria")}>
-                {editorialSlides.map((slide, index) => [
+                <a
+                  href="/booksforher/"
+                  className={classNames("gs-surface-switch", homeSurface.id === "books" && "is-active")}
+                  aria-label={t("nav.books")}
+                  aria-current={homeSurface.id === "books" ? "page" : undefined}
+                  title={t("nav.books")}
+                >
+                  <BookOpen size={16} aria-hidden="true" />
+                  <span className="gs-visually-hidden">{t("nav.books")}</span>
+                </a>
+                {editorialSlides.map((slide, index) => (
                   <button
                     key={slide.id}
                     ref={(node) => setTabRef(index, node)}
@@ -2305,21 +2315,8 @@ export default function App() {
                       </>
                     ) : null}
                     <span className="gs-site-link-label">{getSlideLabel(slide.id)}</span>
-                  </button>,
-                  slide.id === "popular" ? (
-                    <a
-                      key="books-surface-switch"
-                      href="/booksforher/"
-                      className={classNames("gs-surface-switch", homeSurface.id === "books" && "is-active")}
-                      aria-label={t("nav.books")}
-                      aria-current={homeSurface.id === "books" ? "page" : undefined}
-                      title={t("nav.books")}
-                    >
-                      <BookOpen size={16} aria-hidden="true" />
-                      <span className="gs-visually-hidden">{t("nav.books")}</span>
-                    </a>
-                  ) : null,
-                ])}
+                  </button>
+                ))}
                 <button
                   ref={(node) => setTabRef(savedSlideIndex, node)}
                   id="tab-saved"
