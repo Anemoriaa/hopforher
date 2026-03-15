@@ -23,3 +23,15 @@ test("homepage shell hides when the interactive app marks itself mounted", () =>
   assert.match(appSource, /document\.body\.dataset\.appMounted = "true";/);
   assert.match(indexHtml, /body\[data-app-mounted="true"\] #seo-home-shell/);
 });
+
+test("homepage art parallax is declared before it is used", () => {
+  const parallaxDeclarationIndex = appSource.indexOf('const [heroParallax, setHeroParallax] = useState(0);');
+  const heroUsageIndex = appSource.indexOf("${heroParallax * -10}px");
+  const dividerUsageIndex = appSource.indexOf("${heroParallax * -6}px");
+
+  assert.notEqual(parallaxDeclarationIndex, -1, "expected hero parallax state declaration");
+  assert.notEqual(heroUsageIndex, -1, "expected hero art parallax usage");
+  assert.notEqual(dividerUsageIndex, -1, "expected divider parallax usage");
+  assert.ok(parallaxDeclarationIndex < heroUsageIndex, "hero parallax state must be declared before hero usage");
+  assert.ok(parallaxDeclarationIndex < dividerUsageIndex, "hero parallax state must be declared before divider usage");
+});

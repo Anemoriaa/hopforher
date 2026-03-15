@@ -815,6 +815,7 @@ export default function App() {
   const [pickerStep, setPickerStep] = useState(0);
   const [hotFeedCycles, setHotFeedCycles] = useState([]);
   const [hotFeedRotationOffset, setHotFeedRotationOffset] = useState(0);
+  const [heroParallax, setHeroParallax] = useState(0);
   const { ref: hotFeedSentinelRef, inView: hotFeedSentinelInView } = useInView({
     triggerOnce: false,
     rootMargin: "900px 0px 1200px 0px",
@@ -1754,6 +1755,16 @@ export default function App() {
       setActiveDateSpotId(dateResults.spots[0].id);
     }
   }, [activeDateSpotId, dateResults.spots]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHeroParallax(Math.min(window.scrollY / 520, 1));
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const latitude = geoState.coords?.latitude ?? null;
