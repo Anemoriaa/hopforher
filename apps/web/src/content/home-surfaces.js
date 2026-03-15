@@ -73,7 +73,7 @@ const surfaceBuilders = {
     return {
       id: "books",
       appClassName: "surface-books",
-      brandHomeAria: "BooksForHer preview home",
+      brandHomeAria: "ShopForHer home",
       brandContext: {
         eyebrow: "Preview",
         title: "Books edit",

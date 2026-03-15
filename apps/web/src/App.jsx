@@ -1,19 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Menu, Pause, Play, RefreshCw, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, BookOpen, Bookmark, BookmarkCheck, MapPin, Pause, Play, RefreshCw } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
-import {
-  featuredSeoGuides,
-  featuredSeoProducts,
-  heroSeoProducts,
-  librarySeoProducts,
-  weeklyTopSeoProducts,
-  seoCatalog,
-  seoDateCities,
-  seoGuides,
-  seoHotStories,
-  seoSite,
-} from "./content/seo-guides.js";
+import { featuredSeoGuides, featuredSeoProducts, heroSeoProducts, seoCatalog, seoDateCities, seoGuides, seoHotStories, seoSite } from "./content/seo-guides.js";
 import {
   buildAffiliateLink,
   classNames,
@@ -53,8 +42,8 @@ import { getHomeSurfaceMeta, resolveHomeSurface } from "./content/home-surfaces.
 
 const slides = [
   { id: "popular", label: "Popular", number: "01" },
-  { id: "hot", label: "Trending", number: "02" },
-  { id: "guides", label: "Date ideas", number: "03" },
+  { id: "hot", label: "Hot", number: "02" },
+  { id: "guides", label: "Dates", number: "03" },
   { id: "saved", label: "Saved", number: "04" },
 ];
 
@@ -100,7 +89,7 @@ const defaultQuickStartLanes = [
     id: "new-relationship",
     eyebrow: "Lower pressure",
     title: "New relationship",
-    description: "Lower-pressure first answer.",
+    description: "Lower-risk first answer.",
     ctaLabel: "Use",
     guideHref: "/gifts-for-girlfriend/",
     guideLabel: "Guide",
@@ -115,7 +104,7 @@ const defaultQuickStartLanes = [
     id: "wife",
     eyebrow: "Higher signal",
     title: "Long-term partner",
-    description: "More quality, stronger signal.",
+    description: "More quality, more signal.",
     ctaLabel: "Use",
     guideHref: "/gifts-for-wife/",
     guideLabel: "Guide",
@@ -130,7 +119,7 @@ const defaultQuickStartLanes = [
     id: "last-minute",
     eyebrow: "Fast checkout",
     title: "Last-minute buyer",
-    description: "Fast path, cleaner buy.",
+    description: "Fast path, cleaner checkout.",
     ctaLabel: "Use",
     guideHref: "/amazon-gifts-for-her/",
     guideLabel: "Guide",
@@ -165,36 +154,6 @@ const guideByRelationship = {
     chipLabel: "Low-pressure guide",
   },
 };
-
-const homepageGuideBuckets = [
-  {
-    id: "recipient",
-    overline: "Recipient",
-    title: "Shop by recipient",
-    description: "Start with the relationship when you want the shortest path to the right shortlist.",
-    guides: ["gifts-for-girlfriend", "gifts-for-wife", "anniversary-gifts-for-her"],
-    allHref: "/guides/",
-    allLabel: "See all gift guides",
-  },
-  {
-    id: "budget",
-    overline: "Budget",
-    title: "Shop by budget",
-    description: "Use these when price is fixed and presentation still matters.",
-    guides: ["best-gifts-under-100", "best-gifts-under-75", "looks-expensive-gifts-for-her"],
-    allHref: "/guides/",
-    allLabel: "See all budget guides",
-  },
-  {
-    id: "trending",
-    overline: "Trending",
-    title: "Current gift angles",
-    description: "Directional pages for what feels current without digging through the full library.",
-    guides: ["viral-gifts-for-her", "date-night-gifts-for-her", "last-minute-gifts-for-her"],
-    allHref: "/hot/",
-    allLabel: "View all trending pages",
-  },
-];
 
 const pickerSlides = [
   { id: "start", label: "Start" },
@@ -781,7 +740,6 @@ export default function App() {
   const initialDateTime = getDefaultDateTimeInput();
   const [catalog, setCatalog] = useState(() => readLiveCatalog());
   const [activeSlide, setActiveSlide] = useState(0);
-  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
   const [savedIds, setSavedIds] = useState(() => loadSaved());
   const [previewGift, setPreviewGift] = useState(null);
   const [previewMode, setPreviewMode] = useState("default");
@@ -816,7 +774,6 @@ export default function App() {
   const [pickerStep, setPickerStep] = useState(0);
   const [hotFeedCycles, setHotFeedCycles] = useState([]);
   const [hotFeedRotationOffset, setHotFeedRotationOffset] = useState(0);
-  const [heroParallax, setHeroParallax] = useState(0);
   const { ref: hotFeedSentinelRef, inView: hotFeedSentinelInView } = useInView({
     triggerOnce: false,
     rootMargin: "900px 0px 1200px 0px",
@@ -948,21 +905,6 @@ export default function App() {
     updateMeta('meta[name="twitter:description"]', "content", homeSurfaceMeta.socialDescription);
     updateMeta('link[rel="canonical"]', "href", homeSurfaceMeta.canonicalUrl);
   }, [homeSurfaceMeta]);
-
-  useEffect(() => {
-    if (!isNavMenuOpen || typeof window === "undefined") {
-      return undefined;
-    }
-
-    function handleWindowKeydown(event) {
-      if (event.key === "Escape") {
-        setIsNavMenuOpen(false);
-      }
-    }
-
-    window.addEventListener("keydown", handleWindowKeydown);
-    return () => window.removeEventListener("keydown", handleWindowKeydown);
-  }, [isNavMenuOpen]);
 
   useEffect(() => {
     setGeoState((current) => {
@@ -1148,24 +1090,7 @@ export default function App() {
     speedLabel: t("picker.needSpeed"),
     quickStartAriaLabel: "Audience quick starts",
   };
-  const getSlideLabel = (slideId) => t(`nav.${slideId === "guides" ? "plans" : slideId}`);
-  const siteSections = useMemo(
-    () => [
-      {
-        id: "shop",
-        label: t("nav.shop"),
-        href: "/",
-        isActive: homeSurface.id !== "books",
-      },
-      {
-        id: "books",
-        label: t("nav.books"),
-        href: "/booksforher/",
-        isActive: homeSurface.id === "books",
-      },
-    ],
-    [homeSurface.id, t]
-  );
+  const getSlideLabel = (slideId) => t(`nav.${slideId === "guides" ? "dates" : slideId}`);
   const getRelationshipLabel = (relationshipId) => t(`relationship.${relationshipId}`);
   const getBudgetLabel = (budgetId) => t(`budget.${budgetId}`);
   const getSignalLabel = (signalId) => t(`signal.${signalId}`);
@@ -1211,13 +1136,6 @@ export default function App() {
         .filter(Boolean),
     [gifts]
   );
-  const weeklyTopCatalogProducts = useMemo(
-    () =>
-      weeklyTopSeoProducts
-        .map((weeklyGift) => gifts.find((gift) => gift.id === weeklyGift.id))
-        .filter(Boolean),
-    [gifts]
-  );
   const activeQuickStartLanes = homeSurface.quickStartLanes || defaultQuickStartLanes;
   const getQuickStartLaneText = (lane, field) => {
     if (homeSurface.quickStartLanes) {
@@ -1245,39 +1163,24 @@ export default function App() {
     return selected.length ? selected : heroCatalogProducts;
   }, [gifts, heroCatalogProducts, homeSurface.heroProductIds]);
   const libraryProducts = useMemo(() => {
-    return librarySeoProducts
-      .map((gift) => {
-        const catalogGift = gifts.find((candidate) => candidate.id === gift.id);
-        return catalogGift ? { ...catalogGift, slug: gift.slug } : null;
-      })
-      .filter(Boolean)
+    const merged = [...featuredSeoProducts, ...linkedTopProducts]
+      .filter((gift, index, array) => array.findIndex((item) => item.id === gift.id) === index)
       .filter((gift) => gift?.id && indexableSeoGiftIds.has(gift.id));
-  }, [gifts, indexableSeoGiftIds]);
-  const compactBrowseProducts = useMemo(() => {
-    if (homeSurface.id === "books") {
-      return [];
-    }
 
-    const excludedIds = new Set([
-      ...weeklyTopCatalogProducts.map((gift) => gift.id),
-      ...featuredCatalogProducts.map((gift) => gift.id),
-      ...heroCatalogProducts.map((gift) => gift.id),
-    ]);
-
-    return libraryProducts.filter((gift) => !excludedIds.has(gift.id)).slice(0, 8);
-  }, [homeSurface.id, libraryProducts, weeklyTopCatalogProducts, featuredCatalogProducts, heroCatalogProducts]);
+    return merged.slice(0, 10);
+  }, [featuredSeoProducts, indexableSeoGiftIds, linkedTopProducts]);
   const popularHeroProducts = surfaceHeroProducts.length ? surfaceHeroProducts : linkedTopProducts.slice(0, 3);
   const surfaceTopPicks = useMemo(() => {
     if (!Array.isArray(homeSurface.topPickIds) || !homeSurface.topPickIds.length) {
-      return weeklyTopCatalogProducts.length ? weeklyTopCatalogProducts : topPicks.slice(0, 6);
+      return topPicks.slice(0, 6);
     }
 
     const selected = homeSurface.topPickIds
       .map((giftId) => liveGiftById.get(giftId))
       .filter(Boolean);
 
-    return selected.length ? selected : weeklyTopCatalogProducts.length ? weeklyTopCatalogProducts : topPicks.slice(0, 6);
-  }, [homeSurface.topPickIds, liveGiftById, topPicks, weeklyTopCatalogProducts]);
+    return selected.length ? selected : topPicks.slice(0, 6);
+  }, [homeSurface.topPickIds, liveGiftById, topPicks]);
   const surfaceFeaturedProducts = useMemo(() => {
     if (!Array.isArray(homeSurface.featuredProductIds) || !homeSurface.featuredProductIds.length) {
       return featuredCatalogProducts;
@@ -1369,17 +1272,9 @@ export default function App() {
   }, [homeSurface.topPickIds, popularHeroProducts, rankedMatches, surfaceTopPicks, topPicks]);
   const activeGuide = guideByRelationship[activeRelationship.id] || guideByRelationship.girlfriend;
   const activeGuideChipLabel = getGuideText(activeRelationship.id, "chip");
-  const curatedHomepageGuideBuckets = homepageGuideBuckets
-    .map((bucket) => ({
-      ...bucket,
-      guides: bucket.guides.map((slug) => seoGuideBySlug.get(slug)).filter(Boolean),
-    }))
-    .filter((bucket) => bucket.guides.length);
   const pickerResultStep = pickerSlides.length - 1;
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
   const datesSlideIndex = slides.findIndex((slide) => slide.id === "guides");
-  const activeSiteSection = siteSections.find((section) => section.isActive) || siteSections[0];
-  const activeSlideLabel = getSlideLabel(slides[activeSlide]?.id || slides[0].id);
   const savedGifts = useMemo(
     () => gifts.filter((gift) => savedIds.includes(gift.id)),
     [gifts, savedIds]
@@ -1738,16 +1633,6 @@ export default function App() {
       setActiveDateSpotId(dateResults.spots[0].id);
     }
   }, [activeDateSpotId, dateResults.spots]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setHeroParallax(Math.min(window.scrollY / 520, 1));
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   useEffect(() => {
     const latitude = geoState.coords?.latitude ?? null;
@@ -2379,103 +2264,82 @@ export default function App() {
       <div className="gs-phone-frame">
         <header className="gs-header">
           <div className="gs-navbar">
-            <div className="gs-navbar-top">
-              <a href="/" className="gs-brand" aria-label={homeSurface.brandHomeAria}>
-                <span className="gs-brand-mark">
-                  <img src="/logo1.png" alt="ShopForHer" className="gs-logo" />
+            <a href="/" className="gs-brand" aria-label={homeSurface.brandHomeAria}>
+              <span className="gs-brand-mark">
+                <img src="/logo1.png" alt="ShopForHer" className="gs-logo" />
+              </span>
+              {homeSurface.brandContext ? (
+                <span className="gs-brand-context" aria-hidden="true">
+                  <span className="gs-brand-context-eyebrow">{homeSurface.brandContext.eyebrow}</span>
+                  <span className="gs-brand-context-title">{homeSurface.brandContext.title}</span>
                 </span>
-                {homeSurface.brandContext ? (
-                  <span className="gs-brand-context" aria-hidden="true">
-                    <span className="gs-brand-context-eyebrow">{homeSurface.brandContext.eyebrow}</span>
-                    <span className="gs-brand-context-title">{homeSurface.brandContext.title}</span>
-                  </span>
-                ) : null}
-              </a>
-              <button
-                type="button"
-                className={classNames("gs-nav-menu-toggle", isNavMenuOpen && "is-open")}
-                onClick={() => setIsNavMenuOpen((current) => !current)}
-                aria-expanded={isNavMenuOpen}
-                aria-controls="gs-header-sections"
-                aria-label={isNavMenuOpen ? t("nav.closeSections") : t("nav.openSections")}
-              >
-                <span className="gs-nav-menu-toggle-copy">
-                  <span className="gs-nav-menu-toggle-eyebrow">{activeSiteSection?.label}</span>
-                  <span className="gs-nav-menu-toggle-label">{activeSlideLabel}</span>
-                </span>
-                {isNavMenuOpen ? <X size={16} aria-hidden="true" /> : <Menu size={16} aria-hidden="true" />}
-              </button>
-            </div>
-            <div id="gs-header-sections" className="gs-navbar-sections">
-              <nav className="gs-site-sections" aria-label={t("nav.siteAria")}>
-                {siteSections.map((section) => (
-                  <a
-                    key={section.id}
-                    href={section.href}
-                    className={classNames("gs-nav-section-link", section.isActive && "is-active")}
-                    aria-current={section.isActive ? "page" : undefined}
-                    onClick={() => setIsNavMenuOpen(false)}
-                  >
-                    {section.label}
-                  </a>
-                ))}
-              </nav>
-              <nav
-                className={classNames("gs-header-tabs", isNavMenuOpen && "is-open")}
-                aria-label={t("nav.sectionsAria")}
-              >
-                <div className="gs-header-tabs-inner" role="tablist" aria-label={t("nav.sectionsAria")}>
-                  {editorialSlides.map((slide, index) => (
-                    <button
-                      key={slide.id}
-                      ref={(node) => setTabRef(index, node)}
-                      id={`tab-${slide.id}`}
-                      role="tab"
-                      type="button"
-                      className={classNames(
-                        "gs-site-link",
-                        slide.id === "popular" && "has-locale-badge",
-                        activeSlide === index && "is-active"
-                      )}
-                      onClick={() => setSlide(index)}
-                      onKeyDown={(event) => onTabKeyDown(event, index)}
-                      aria-selected={activeSlide === index}
-                      aria-controls={`panel-${slide.id}`}
-                      tabIndex={activeSlide === index ? 0 : -1}
-                      title={slide.id === "popular" ? popularLocaleBadge.title : undefined}
-                    >
-                      {slide.id === "popular" ? (
-                        <>
-                          <span className="gs-site-link-badge" aria-hidden="true">
-                            {popularLocaleBadge.emoji}
-                          </span>
-                          <span className="gs-visually-hidden">{popularLocaleBadge.screenReaderLabel}</span>
-                        </>
-                      ) : null}
-                      <span className="gs-site-link-label">{getSlideLabel(slide.id)}</span>
-                    </button>
-                  ))}
+              ) : null}
+            </a>
+            <nav className="gs-header-tabs" aria-label={t("nav.sectionsAria")}>
+              <div className="gs-header-tabs-inner" role="tablist" aria-label={t("nav.sectionsAria")}>
+                {editorialSlides.map((slide, index) => [
                   <button
-                    ref={(node) => setTabRef(savedSlideIndex, node)}
-                    id="tab-saved"
+                    key={slide.id}
+                    ref={(node) => setTabRef(index, node)}
+                    id={`tab-${slide.id}`}
                     role="tab"
                     type="button"
-                    className={classNames("gs-nav-save", activeSlide === savedSlideIndex && "is-active")}
-                    onClick={() => setSlide(savedSlideIndex)}
-                    onKeyDown={(event) => onTabKeyDown(event, savedSlideIndex)}
-                    aria-selected={activeSlide === savedSlideIndex}
-                    aria-controls="panel-saved"
-                    tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
+                    className={classNames(
+                      "gs-site-link",
+                      slide.id === "popular" && "has-locale-badge",
+                      activeSlide === index && "is-active"
+                    )}
+                    onClick={() => setSlide(index)}
+                    onKeyDown={(event) => onTabKeyDown(event, index)}
+                    aria-selected={activeSlide === index}
+                    aria-controls={`panel-${slide.id}`}
+                    tabIndex={activeSlide === index ? 0 : -1}
+                    title={slide.id === "popular" ? popularLocaleBadge.title : undefined}
                   >
-                    {t("nav.saved")}
-                    <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
-                      <span className="gs-visually-hidden">{`${t("nav.savedCountSr")} `}</span>
-                      {savedGifts.length}
-                    </span>
-                  </button>
-                </div>
-              </nav>
-            </div>
+                    {slide.id === "popular" ? (
+                      <>
+                        <span className="gs-site-link-badge" aria-hidden="true">
+                          {popularLocaleBadge.emoji}
+                        </span>
+                        <span className="gs-visually-hidden">{popularLocaleBadge.screenReaderLabel}</span>
+                      </>
+                    ) : null}
+                    <span className="gs-site-link-label">{getSlideLabel(slide.id)}</span>
+                  </button>,
+                  slide.id === "popular" ? (
+                    <a
+                      key="books-surface-switch"
+                      href="/booksforher/"
+                      className={classNames("gs-surface-switch", homeSurface.id === "books" && "is-active")}
+                      aria-label={t("nav.books")}
+                      aria-current={homeSurface.id === "books" ? "page" : undefined}
+                      title={t("nav.books")}
+                    >
+                      <BookOpen size={16} aria-hidden="true" />
+                      <span className="gs-visually-hidden">{t("nav.books")}</span>
+                    </a>
+                  ) : null,
+                ])}
+                <button
+                  ref={(node) => setTabRef(savedSlideIndex, node)}
+                  id="tab-saved"
+                  role="tab"
+                  type="button"
+                  className={classNames("gs-nav-save", activeSlide === savedSlideIndex && "is-active")}
+                  onClick={() => setSlide(savedSlideIndex)}
+                  onKeyDown={(event) => onTabKeyDown(event, savedSlideIndex)}
+                  aria-selected={activeSlide === savedSlideIndex}
+                  aria-controls="panel-saved"
+                  tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
+                >
+                  {t("nav.saved")}
+                  <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
+                    <span className="gs-visually-hidden">{`${t("nav.savedCountSr")} `}</span>
+                    {savedGifts.length}
+                  </span>
+                </button>
+              </div>
+            </nav>
           </div>
         </header>
 
@@ -2530,19 +2394,27 @@ export default function App() {
                       <ArrowRight size={14} />
                     </button>
                   </div>
-                  <div
-                    className="gs-popular-hero-visual is-image-surface"
-                    aria-hidden="true"
-                    style={{
-                      transform: `translate3d(0, ${heroParallax * -10}px, 0)`,
-                    }}
-                  >
-                    <img
-                      src="/brand-art/homepage-hero-whiteflush-a.png"
-                      alt=""
-                      className="gs-popular-hero-image"
-                      loading="lazy"
-                    />
+                  <div className="gs-popular-hero-visual">
+                    <div className="gs-popular-hero-stack">
+                      {popularHeroProducts.map((gift, index) => (
+                        <a
+                          key={gift.slug || gift.id}
+                          href={buildAffiliateLink(gift)}
+                          target="_blank"
+                          rel={getGiftCommerceRel(gift)}
+                          {...getAffiliateAnchorData(gift, `popular-hero-card-${index + 1}`)}
+                          aria-label={getGiftCommerceAriaLabel(gift)}
+                          {...getGiftImageFrameProps(gift, `gs-popular-hero-card is-layer-${index + 1}`)}
+                        >
+                          <img src={getGiftHeroImageUrl(gift)} alt={gift.name} loading="lazy" />
+                          <span className="gs-popular-hero-card-copy">
+                            <span className="gs-popular-hero-card-badge">{gift.badge}</span>
+                            <strong>{gift.name}</strong>
+                            <span>{gift.priceLabel}</span>
+                          </span>
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </section>
 
@@ -2898,25 +2770,6 @@ export default function App() {
                     )}
                   </div>
                 </section>
-                {compactBrowseProducts.length ? (
-                  <section className="gs-product-list">
-                    <div className="gs-section-head">
-                      <p className="gs-overline">More to browse</p>
-                      <h3>More popular picks</h3>
-                    </div>
-                    <p className="gs-popular-library-note">
-                      More exact products on screen, without pushing the page into clutter.
-                    </p>
-                    <div className="gs-bento-grid gs-popular-grid gs-popular-grid-compact" role="list" aria-label="More popular products">
-                      {compactBrowseProducts.map((gift, index) =>
-                        renderBentoCard(gift, surfaceFeaturedProducts.length + surfaceTopPicks.length + index + 1, {
-                          motion: "minimal",
-                          imageOnly: true,
-                        })
-                      )}
-                    </div>
-                  </section>
-                ) : null}
                 <section className="gs-popular-library" aria-label="Popular page organization">
                   <div className="gs-section-head">
                     <p className="gs-overline">{activeContinueSection.overline}</p>
@@ -2925,53 +2778,8 @@ export default function App() {
                   <p className="gs-popular-library-note">
                     {activeContinueSection.note}
                   </p>
-                  <div
-                    className="gs-popular-library-artband is-image-surface"
-                    aria-hidden="true"
-                    style={{
-                      transform: `translate3d(0, ${heroParallax * -6}px, 0)`,
-                    }}
-                  >
-                    <img
-                      src="/brand-art/homepage-divider-whiteflush-b.png"
-                      alt=""
-                      className="gs-popular-library-image"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="gs-popular-library-grid gs-popular-guides-grid">
-                    {curatedHomepageGuideBuckets.map((bucket) => (
-                      <article key={bucket.id} className="gs-popular-library-panel">
-                        <div className="gs-popular-library-head">
-                          <span className="gs-overline">{bucket.overline}</span>
-                          <strong>{bucket.title}</strong>
-                          <p>{bucket.description}</p>
-                        </div>
-                        <div className="gs-popular-library-list">
-                          {bucket.guides.map((guide, index) => (
-                            <a
-                              key={guide.slug}
-                              href={`/${guide.slug}/`}
-                              className={classNames("gs-popular-library-link", index === 0 && "is-featured")}
-                            >
-                              <div>
-                                <span className="gs-seo-guide-eyebrow">{index === 0 ? "Start here" : guide.groupLabel}</span>
-                                <strong>{guide.label}</strong>
-                              </div>
-                              <ArrowUpRight size={16} />
-                            </a>
-                          ))}
-                          <a href={bucket.allHref} className="gs-popular-library-link is-all">
-                            <div>
-                              <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
-                              <strong>{bucket.allLabel}</strong>
-                            </div>
-                            <ArrowUpRight size={16} />
-                          </a>
-                        </div>
-                      </article>
-                    ))}
-                    <article className="gs-popular-library-panel is-compact-products">
+                  <div className="gs-popular-library-grid">
+                    <article className="gs-popular-library-panel">
                       <div className="gs-popular-library-head">
                         <span className="gs-overline">{activeContinueSection.products.overline}</span>
                         <strong>{activeContinueSection.products.title}</strong>
