@@ -1768,7 +1768,6 @@ export default function App() {
 
   function setSlide(index) {
     const nextIndex = Math.max(0, Math.min(slides.length - 1, index));
-    setIsNavMenuOpen(false);
     setActiveSlide(nextIndex);
   }
 
