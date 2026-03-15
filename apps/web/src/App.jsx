@@ -2659,6 +2659,14 @@ export default function App() {
                   <p className="gs-popular-library-note">
                     Use exact products when one already looks right. Use the guide buckets when you want to narrow the lane first.
                   </p>
+                  <div className="gs-popular-library-artband" aria-hidden="true">
+                    <img
+                      src="/brand-art/homepage-clusters-merch.png"
+                      alt=""
+                      className="gs-popular-library-art"
+                      loading="lazy"
+                    />
+                  </div>
                   <div className="gs-popular-library-grid gs-popular-guides-grid">
                     {curatedHomepageGuideBuckets.map((bucket) => (
                       <article key={bucket.id} className="gs-popular-library-panel">

@@ -601,9 +601,66 @@ h2, h3 {
   color: var(--text-soft);
 }
 
+.gs-popular-library-artband {
+  position: relative;
+  margin-top: 2px;
+  padding: 10px 0 2px;
+  overflow: hidden;
+}
+
+.gs-popular-library-artband::before {
+  content: "";
+  position: absolute;
+  inset: 10px 0 0;
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 55%),
+    linear-gradient(180deg, rgba(255, 248, 241, 0.72), rgba(255, 255, 255, 0.18));
+  pointer-events: none;
+}
+
+.gs-popular-library-art {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(100%, 920px);
+  margin: 0 auto;
+  height: auto;
+  filter: drop-shadow(0 18px 34px rgba(70, 50, 30, 0.08));
+}
+
 .gs-popular-library-grid {
   display: grid;
   gap: 12px;
+}
+
+@media (max-width: 639px) {
+  .gs-popular-library-artband {
+    padding-top: 0;
+  }
+}
+
+@media (min-width: 960px) {
+  .gs-popular-library-art {
+    width: min(100%, 980px);
+  }
+}
+
+@media (hover: hover) {
+  .gs-popular-library-art {
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+
+  .gs-popular-library-art:hover {
+    transform: translateY(-1px);
+    filter: drop-shadow(0 22px 38px rgba(70, 50, 30, 0.1));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gs-popular-library-art {
+    transition: none;
+  }
 }
 
 .gs-popular-library-panel {
