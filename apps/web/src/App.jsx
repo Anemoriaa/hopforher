@@ -2267,7 +2267,7 @@ export default function App() {
                   <div className="gs-popular-hero-visual">
                     <div className="gs-popular-hero-art-shell">
                       <img
-                        src="/brand-art/homepage-hero-merch-line.png"
+                        src="/brand-art/homepage-hero-merch-line-v2.png"
                         alt="Curated premium gifts including a jewelry case, mug, candle warmer lamp, silk accessory, slippers, picture frame, and projector."
                         className="gs-popular-hero-art"
                         loading="lazy"
@@ -2661,7 +2661,7 @@ export default function App() {
                   </p>
                   <div className="gs-popular-library-artband" aria-hidden="true">
                     <img
-                      src="/brand-art/homepage-clusters-merch.png"
+                      src="/brand-art/homepage-clusters-merch-v2.png"
                       alt=""
                       className="gs-popular-library-art"
                       loading="lazy"
