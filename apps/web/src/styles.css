@@ -603,6 +603,17 @@ h2, h3 {
   color: var(--text-soft);
 }
 
+.gs-popular-library-artband {
+  position: relative;
+  margin-top: 0;
+  padding: 0;
+  overflow: visible;
+  border-radius: 0;
+  min-height: 72px;
+  background: transparent;
+  box-shadow: none;
+}
+
 .gs-popular-library-grid {
   display: grid;
   gap: 12px;
@@ -696,28 +707,11 @@ h2, h3 {
 }
 
 .gs-home-hero {
-  position: relative;
-  overflow: hidden;
   gap: 24px;
-  padding-top: 20px;
-  padding-bottom: 18px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0) 42%),
-    linear-gradient(180deg, #ffffff 0%, #f5f3ee 100%);
-  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
 }
 
 .gs-home-hero-copy {
   gap: 18px;
-}
-
-.gs-home-hero::after {
-  content: "";
-  position: absolute;
-  inset: auto -24px 0;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(17, 17, 17, 0), rgba(17, 17, 17, 0.16), rgba(17, 17, 17, 0));
-  pointer-events: none;
 }
 
 .gs-home-hero-head {
@@ -796,16 +790,94 @@ h2, h3 {
 
 .gs-popular-hero-visual {
   position: relative;
-  min-height: 350px;
+  min-height: 200px;
+  display: flex;
+  align-items: stretch;
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.gs-popular-hero-visual.is-image-surface,
+.gs-popular-library-artband.is-image-surface {
+  will-change: transform;
 }
 
 .gs-popular-hero-visual::before {
   content: "";
   position: absolute;
-  inset: 16px 10px 0;
-  border-radius: 32px;
-  background: radial-gradient(circle at 24% 30%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 58%);
+  inset: 12% 8% 12% 8%;
+  background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.62), rgba(255,255,255,0) 68%);
+  filter: blur(24px);
   pointer-events: none;
+}
+
+.gs-popular-hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: -6% -4% -10% -4%;
+  background:
+    radial-gradient(circle at 68% 26%, rgba(215, 195, 184, 0.22), transparent 28%),
+    radial-gradient(circle at 18% 78%, rgba(226, 213, 205, 0.18), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0));
+  pointer-events: none;
+}
+
+.gs-popular-hero-image,
+.gs-popular-library-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+  -webkit-mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.55) 8%,
+      rgba(0, 0, 0, 0.92) 18%,
+      rgba(0, 0, 0, 0.92) 82%,
+      rgba(0, 0, 0, 0.55) 92%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.82) 18%,
+      rgba(0, 0, 0, 0.95) 50%,
+      rgba(0, 0, 0, 0.82) 82%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.55) 8%,
+      rgba(0, 0, 0, 0.92) 18%,
+      rgba(0, 0, 0, 0.92) 82%,
+      rgba(0, 0, 0, 0.55) 92%,
+      rgba(0, 0, 0, 0) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.82) 18%,
+      rgba(0, 0, 0, 0.95) 50%,
+      rgba(0, 0, 0, 0.82) 82%,
+      rgba(0, 0, 0, 0) 100%
+    );
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.gs-popular-hero-image {
+  min-height: 200px;
+}
+
+.gs-popular-library-image {
+  min-height: 72px;
+  opacity: 0.82;
 }
 
 .gs-popular-hero-stack {
@@ -813,121 +885,6 @@ h2, h3 {
   min-height: 350px;
   overflow: visible;
   isolation: isolate;
-}
-
-.gs-popular-hero-card {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: none;
-  background: var(--gift-image-bg, transparent);
-  border-radius: 26px;
-  color: var(--text);
-  text-decoration: none;
-  box-shadow: none;
-  --hero-image-scale: 1;
-  --hero-card-padding: 10px;
-}
-
-.gs-popular-hero-card::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 52%;
-  background: linear-gradient(180deg, rgba(15, 15, 15, 0), rgba(15, 15, 15, 0.78));
-  pointer-events: none;
-}
-
-.gs-popular-hero-card.is-product-shot {
-  padding: 0;
-  background: transparent;
-}
-
-.gs-popular-hero-card img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: var(--gift-image-fit, cover);
-  object-position: var(--gift-image-position, center center);
-  transform: scale(var(--hero-image-scale));
-  transform-origin: center center;
-  filter: drop-shadow(0 18px 34px rgba(17, 17, 17, 0.12));
-  box-shadow: none;
-}
-
-.gs-popular-hero-card-copy {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-  display: grid;
-  gap: 4px;
-  padding: 16px 16px 15px;
-  color: #fff;
-}
-
-.gs-popular-hero-card-badge,
-.gs-popular-hero-card-copy span:last-child {
-  font-family: var(--font-display);
-  font-size: 0.58rem;
-  font-weight: 800;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-}
-
-.gs-popular-hero-card-badge {
-  width: fit-content;
-  padding: 5px 8px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(10px);
-}
-
-.gs-popular-hero-card-copy strong {
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-}
-
-.gs-popular-hero-card-copy span:last-child {
-  color: rgba(255, 255, 255, 0.84);
-}
-
-.gs-popular-hero-card.is-layer-1 {
-  top: 10px;
-  left: 0;
-  width: 59%;
-  height: 238px;
-  z-index: 2;
-  --hero-image-scale: 1.04;
-  transform: rotate(-5deg);
-  animation: gs-parallax-float-a 14s ease-in-out infinite;
-}
-
-.gs-popular-hero-card.is-layer-2 {
-  top: 38px;
-  right: 4px;
-  width: 40%;
-  height: 216px;
-  z-index: 3;
-  --hero-image-scale: 1.06;
-  transform: rotate(4deg);
-  animation: gs-parallax-float-b 16s ease-in-out infinite;
-}
-
-.gs-popular-hero-card.is-layer-3 {
-  right: 20px;
-  bottom: 0;
-  width: 54%;
-  height: 188px;
-  z-index: 1;
-  --hero-image-scale: 1.05;
-  transform: rotate(-3deg);
-  animation: gs-parallax-float-c 18s ease-in-out infinite;
 }
 
 .gs-popular-grid {
@@ -962,37 +919,88 @@ h2, h3 {
   margin-bottom: 4px;
 }
 
+@media (max-width: 639px) {
+  .gs-popular-hero {
+    margin: 0 -24px;
+    padding: 0 24px 6px;
+    gap: 12px;
+  }
+
+  .gs-popular-hero-copy {
+    gap: 16px;
+  }
+
+  .gs-popular-hero-visual {
+    min-height: 170px;
+    margin: 0 -24px;
+  }
+
+  .gs-popular-hero-image {
+    min-height: 170px;
+    opacity: 0.84;
+    -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.45) 6%,
+        rgba(0, 0, 0, 0.9) 16%,
+        rgba(0, 0, 0, 0.9) 84%,
+        rgba(0, 0, 0, 0.45) 94%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.7) 16%,
+        rgba(0, 0, 0, 0.92) 50%,
+        rgba(0, 0, 0, 0.7) 84%,
+        rgba(0, 0, 0, 0) 100%
+      );
+    mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.45) 6%,
+        rgba(0, 0, 0, 0.9) 16%,
+        rgba(0, 0, 0, 0.9) 84%,
+        rgba(0, 0, 0, 0.45) 94%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.7) 16%,
+        rgba(0, 0, 0, 0.92) 50%,
+        rgba(0, 0, 0, 0.7) 84%,
+        rgba(0, 0, 0, 0) 100%
+      );
+  }
+
+  .gs-popular-library-artband,
+  .gs-popular-library-image {
+    min-height: 60px;
+  }
+
+  .gs-popular-hero-visual::after {
+    inset: -10% -8% -14% -8%;
+    background:
+      radial-gradient(circle at 72% 24%, rgba(215, 195, 184, 0.18), transparent 30%),
+      radial-gradient(circle at 14% 82%, rgba(226, 213, 205, 0.15), transparent 32%),
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+  }
+
+  .gs-popular-hero-visual::before {
+    inset: 8% 2% 10% 2%;
+    filter: blur(18px);
+  }
+}
+
 @media (min-width: 640px) {
   .gs-popular-hero {
     grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
     align-items: end;
   }
 
-  .gs-popular-hero-visual,
-  .gs-popular-hero-stack {
+  .gs-popular-hero-visual {
     min-height: 392px;
-  }
-
-  .gs-popular-hero-card.is-layer-1 {
-    height: 252px;
-  }
-
-  .gs-popular-hero-card.is-layer-2 {
-    top: 34px;
-    height: 228px;
-  }
-
-  .gs-popular-hero-card.is-layer-3 {
-    right: 24px;
-    height: 196px;
-  }
-
-  .gs-popular-hero-card-copy {
-    padding: 18px;
-  }
-
-  .gs-popular-hero-card-copy strong {
-    font-size: 0.98rem;
   }
 
   .gs-popular-grid {
