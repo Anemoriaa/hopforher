@@ -2276,23 +2276,18 @@ export default function App() {
                     </button>
                   </div>
                   <div
-                    className="gs-popular-hero-visual"
+                    className="gs-popular-hero-visual is-image-surface"
                     aria-hidden="true"
                     style={{
-                      "--hero-parallax-a": `${heroParallax * -18}px`,
-                      "--hero-parallax-b": `${heroParallax * 26}px`,
-                      "--hero-parallax-c": `${heroParallax * -10}px`,
-                      "--hero-parallax-line": `${heroParallax * 14}px`,
+                      transform: `translate3d(0, ${heroParallax * -10}px, 0)`,
                     }}
                   >
-                    <div className="gs-popular-hero-bleed">
-                      <span className="gs-popular-hero-orb is-orb-1" />
-                      <span className="gs-popular-hero-orb is-orb-2" />
-                      <span className="gs-popular-hero-orb is-orb-3" />
-                      <span className="gs-popular-hero-line is-line-1" />
-                      <span className="gs-popular-hero-line is-line-2" />
-                      <span className="gs-popular-hero-line is-line-3" />
-                    </div>
+                    <img
+                      src="/brand-art/homepage-hero-whiteflush-a.png"
+                      alt=""
+                      className="gs-popular-hero-image"
+                      loading="lazy"
+                    />
                   </div>
                 </section>
 
@@ -2679,12 +2674,19 @@ export default function App() {
                   <p className="gs-popular-library-note">
                     Use exact products when one already looks right. Use the guide buckets when you want to narrow the lane first.
                   </p>
-                  <div className="gs-popular-library-artband" aria-hidden="true">
-                    <div className="gs-popular-library-bleed">
-                      <span className="gs-popular-library-wave is-wave-1" />
-                      <span className="gs-popular-library-wave is-wave-2" />
-                      <span className="gs-popular-library-wave is-wave-3" />
-                    </div>
+                  <div
+                    className="gs-popular-library-artband is-image-surface"
+                    aria-hidden="true"
+                    style={{
+                      transform: `translate3d(0, ${heroParallax * -6}px, 0)`,
+                    }}
+                  >
+                    <img
+                      src="/brand-art/homepage-divider-whiteflush-b.png"
+                      alt=""
+                      className="gs-popular-library-image"
+                      loading="lazy"
+                    />
                   </div>
                   <div className="gs-popular-library-grid gs-popular-guides-grid">
                     {curatedHomepageGuideBuckets.map((bucket) => (

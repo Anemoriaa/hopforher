@@ -607,7 +607,7 @@ h2, h3 {
   padding: 0;
   overflow: visible;
   border-radius: 0;
-  min-height: 140px;
+  min-height: 72px;
   background: transparent;
   box-shadow: none;
 }
@@ -862,13 +862,36 @@ h2, h3 {
 
 .gs-popular-hero-visual {
   position: relative;
-  min-height: 280px;
+  min-height: 200px;
   display: flex;
   align-items: stretch;
   overflow: visible;
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+}
+
+.gs-popular-hero-visual.is-image-surface,
+.gs-popular-library-artband.is-image-surface {
+  will-change: transform;
+}
+
+.gs-popular-hero-image,
+.gs-popular-library-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  mix-blend-mode: multiply;
+}
+
+.gs-popular-hero-image {
+  min-height: 200px;
+}
+
+.gs-popular-library-image {
+  min-height: 72px;
 }
 
 .gs-popular-hero-visual::after {
@@ -984,9 +1007,18 @@ h2, h3 {
 
   .gs-popular-hero-visual,
   .gs-popular-hero-bleed {
-    min-height: 220px;
+    min-height: 170px;
     border-radius: 0;
     margin: 0 -24px;
+  }
+
+  .gs-popular-hero-image {
+    min-height: 170px;
+  }
+
+  .gs-popular-library-artband,
+  .gs-popular-library-image {
+    min-height: 60px;
   }
 
   .gs-popular-hero-visual::after {
@@ -1069,8 +1101,14 @@ h2, h3 {
 
 @media (min-width: 960px) {
   .gs-popular-hero-visual,
-  .gs-popular-hero-bleed {
-    min-height: 340px;
+  .gs-popular-hero-bleed,
+  .gs-popular-hero-image {
+    min-height: 220px;
+  }
+
+  .gs-popular-library-artband,
+  .gs-popular-library-image {
+    min-height: 84px;
   }
 }
 
