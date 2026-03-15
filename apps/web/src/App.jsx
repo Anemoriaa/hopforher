@@ -813,6 +813,7 @@ export default function App() {
   const [pickerStep, setPickerStep] = useState(0);
   const [hotFeedCycles, setHotFeedCycles] = useState([]);
   const [hotFeedRotationOffset, setHotFeedRotationOffset] = useState(0);
+  const [heroParallax, setHeroParallax] = useState(0);
   const { ref: hotFeedSentinelRef, inView: hotFeedSentinelInView } = useInView({
     triggerOnce: false,
     rootMargin: "900px 0px 1200px 0px",
@@ -1525,6 +1526,16 @@ export default function App() {
       setActiveDateSpotId(dateResults.spots[0].id);
     }
   }, [activeDateSpotId, dateResults.spots]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHeroParallax(Math.min(window.scrollY / 520, 1));
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const latitude = geoState.coords?.latitude ?? null;
@@ -2264,7 +2275,16 @@ export default function App() {
                       <ArrowRight size={14} />
                     </button>
                   </div>
-                  <div className="gs-popular-hero-visual" aria-hidden="true">
+                  <div
+                    className="gs-popular-hero-visual"
+                    aria-hidden="true"
+                    style={{
+                      "--hero-parallax-a": `${heroParallax * -18}px`,
+                      "--hero-parallax-b": `${heroParallax * 26}px`,
+                      "--hero-parallax-c": `${heroParallax * -10}px`,
+                      "--hero-parallax-line": `${heroParallax * 14}px`,
+                    }}
+                  >
                     <div className="gs-popular-hero-bleed">
                       <span className="gs-popular-hero-orb is-orb-1" />
                       <span className="gs-popular-hero-orb is-orb-2" />

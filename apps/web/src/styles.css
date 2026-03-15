@@ -862,7 +862,7 @@ h2, h3 {
 
 .gs-popular-hero-visual {
   position: relative;
-  min-height: 350px;
+  min-height: 280px;
   display: flex;
   align-items: stretch;
   overflow: visible;
@@ -894,7 +894,7 @@ h2, h3 {
 .gs-popular-hero-bleed {
   position: relative;
   flex: 1;
-  min-height: 350px;
+  min-height: 280px;
   isolation: isolate;
 }
 
@@ -907,13 +907,13 @@ h2, h3 {
 .gs-popular-hero-orb {
   border-radius: 999px;
   filter: blur(2px);
-  opacity: 0.95;
+  opacity: 0.78;
 }
 
 .gs-popular-hero-orb.is-orb-1 {
   width: 58%;
   height: 58%;
-  top: -8%;
+  top: calc(-8% + var(--hero-parallax-a));
   right: -6%;
   background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.82), rgba(222, 204, 191, 0.78) 55%, rgba(193, 166, 146, 0.42) 100%);
 }
@@ -921,7 +921,7 @@ h2, h3 {
 .gs-popular-hero-orb.is-orb-2 {
   width: 46%;
   height: 46%;
-  bottom: 10%;
+  bottom: calc(10% + var(--hero-parallax-b));
   left: -8%;
   background: radial-gradient(circle at 45% 45%, rgba(245, 233, 226, 0.92), rgba(215, 190, 177, 0.72) 62%, rgba(187, 157, 139, 0.32) 100%);
 }
@@ -929,7 +929,7 @@ h2, h3 {
 .gs-popular-hero-orb.is-orb-3 {
   width: 30%;
   height: 30%;
-  top: 36%;
+  top: calc(36% + var(--hero-parallax-c));
   right: 18%;
   background: radial-gradient(circle at 45% 45%, rgba(255,255,255,0.78), rgba(231, 216, 206, 0.68) 58%, rgba(204, 179, 162, 0.28) 100%);
 }
@@ -937,13 +937,13 @@ h2, h3 {
 .gs-popular-hero-line {
   border-radius: 999px;
   transform-origin: center center;
-  opacity: 0.72;
+  opacity: 0.42;
 }
 
 .gs-popular-hero-line.is-line-1 {
   width: 82%;
   height: 1px;
-  top: 32%;
+  top: calc(32% + var(--hero-parallax-line));
   left: 10%;
   transform: rotate(-14deg);
   background: linear-gradient(90deg, rgba(255,255,255,0), rgba(167, 135, 116, 0.28), rgba(255,255,255,0));
@@ -952,7 +952,7 @@ h2, h3 {
 .gs-popular-hero-line.is-line-2 {
   width: 72%;
   height: 1px;
-  top: 58%;
+  top: calc(58% + calc(var(--hero-parallax-line) * -0.7));
   left: 2%;
   transform: rotate(18deg);
   background: linear-gradient(90deg, rgba(255,255,255,0), rgba(153, 121, 103, 0.22), rgba(255,255,255,0));
@@ -984,7 +984,7 @@ h2, h3 {
 
   .gs-popular-hero-visual,
   .gs-popular-hero-bleed {
-    min-height: 300px;
+    min-height: 220px;
     border-radius: 0;
     margin: 0 -24px;
   }
@@ -1070,7 +1070,7 @@ h2, h3 {
 @media (min-width: 960px) {
   .gs-popular-hero-visual,
   .gs-popular-hero-bleed {
-    min-height: 410px;
+    min-height: 340px;
   }
 }
 
