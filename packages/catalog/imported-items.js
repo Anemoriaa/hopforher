@@ -233,6 +233,8 @@ export const importedCatalogItems = [
     relationships: ["anyone"],
     intents: ["cozy", "thoughtful"],
     tabs: ["cozy-home", "under-100"],
+    amazonAsin: "B0DSBGK88Q",
+    sourceProductUrl: "https://www.amazon.com/dp/B0DSBGK88Q",
     query:
       "OLIKER 24 Pcs Easter Speckled Eggs, 2.4in 4 Colors Plastic Speckled Eggs and Vase Filler Faux Chicken Eggs for Easter Decorations Basket Filler Vase Decorating",
     baseScore: 68,

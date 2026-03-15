@@ -17,21 +17,24 @@ test("page catalog stays aligned with the current SEO inventory", () => {
   assert.equal(counts.get("hot-story"), seoHotStories.length);
   assert.equal(counts.get("date-city"), seoDateCities.length);
   assert.equal(counts.get("product"), seoCatalog.length);
-  assert.equal(counts.get("index"), 6);
+  assert.equal(counts.get("index"), 7);
   assert.equal(counts.get("trust"), 3);
   assert.equal(pageCatalog.summary.totalPages, pageCatalog.pages.length);
   assert.equal(pageCatalog.summary.byPageType.guide, seoGuides.length);
+  assert.equal(pageCatalog.summary.byPageType.index, 7);
 });
 
 test("page catalog exposes guide and product taxonomy fields", () => {
   const girlfriendGuide = pageCatalog.pages.find((page) => page.id === "guide:gifts-for-girlfriend");
   const silkProduct = pageCatalog.pages.find((page) => page.id === "product:mulberry-silk-pillowcase-set");
   const bunnyProduct = pageCatalog.pages.find((page) => page.id === "product:large-easter-bunny-porch-decor");
-  const merchantGap = pageCatalog.ops.productsMissingDirectMerchantPath.find((product) => product.slug === "oliker-speckled-eggs");
+  const olikerProduct = pageCatalog.pages.find((page) => page.id === "product:oliker-speckled-eggs");
+  const merchantGap = pageCatalog.ops.productsMissingDirectMerchantPath.find((product) => product.slug === "mchic-colorful-beaded-choker");
 
   assert.ok(girlfriendGuide, "expected girlfriend guide entry");
   assert.ok(silkProduct, "expected silk pillowcase product entry");
   assert.ok(bunnyProduct, "expected bunny porch product entry");
+  assert.ok(olikerProduct, "expected OLIKER product entry");
   assert.ok(merchantGap, "expected merchant gap entry");
   assert.ok(girlfriendGuide.taxonomy.primary.relationships.includes("girlfriend"));
   assert.ok(girlfriendGuide.taxonomy.coverage.relationshipTags.includes("girlfriend"));
@@ -39,10 +42,15 @@ test("page catalog exposes guide and product taxonomy fields", () => {
   assert.ok(silkProduct.taxonomy.primary.tabTags.includes("looks-expensive"));
   assert.ok(silkProduct.taxonomy.primary.priceBands.includes("under-100"));
   assert.equal(bunnyProduct.searchIndexable, true);
+  assert.equal(olikerProduct.searchIndexable, true);
   assert.equal(bunnyProduct.commerce.merchantName, "Walmart");
   assert.equal(silkProduct.entities.catalogGiftId, "silk-pillowcase");
-  assert.equal(merchantGap.id, "oliker-speckled-eggs");
-  assert.match(merchantGap.query, /OLIKER 24 Pcs Easter Speckled Eggs/);
-  assert.ok(merchantGap.imageHosts.includes("i5.walmartimages.com"));
+  assert.equal(merchantGap.id, "mchic-beaded-choker");
+  assert.match(merchantGap.query, /Mchic Colorful Beaded Choker Necklace/);
+  assert.ok(merchantGap.imageHosts.includes("i.etsystatic.com"));
+  assert.equal(
+    pageCatalog.ops.productsMissingDirectMerchantPath.some((product) => product.slug === "oliker-speckled-eggs"),
+    false
+  );
   assert.ok(Array.isArray(pageCatalog.ops.productsMissingDirectMerchantPath));
 });

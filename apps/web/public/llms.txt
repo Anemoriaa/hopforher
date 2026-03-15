@@ -40,12 +40,18 @@
 - [Best anniversary gifts for her in 2026](https://shopforher.org/anniversary-gifts-for-her/)
 - [Best birthday gifts for girlfriend in 2026](https://shopforher.org/birthday-gifts-for-girlfriend/)
 - [Best birthday gifts for wife in 2026](https://shopforher.org/birthday-gifts-for-wife/)
+- [Best Easter gifts for wives in 2026](https://shopforher.org/easter-gifts-for-wife/)
+- [Best Mother's Day gifts for wives in 2026](https://shopforher.org/mothers-day-gifts-for-wife/)
 - [Best gifts for her under $75 in 2026](https://shopforher.org/best-gifts-under-75/)
 - [Best gifts for her under $100 in 2026](https://shopforher.org/best-gifts-under-100/)
 - [Viral gifts for her in 2026](https://shopforher.org/viral-gifts-for-her/)
 - [Luxury gifts for her in 2026](https://shopforher.org/luxury-gifts-for-her/)
 - [Practical gifts for her in 2026](https://shopforher.org/practical-gifts-for-her/)
 - [Cozy home gifts for her in 2026](https://shopforher.org/cozy-home-gifts-for-her/)
+- [Book gifts for her in 2026](https://shopforher.org/books-for-her/)
+- [Kindle gifts for her in 2026](https://shopforher.org/kindle-gifts-for-her/)
+- [Cozy gifts for readers in 2026](https://shopforher.org/cozy-gifts-for-readers/)
+- [Book-lover gifts for her in 2026](https://shopforher.org/book-lover-gifts-for-her/)
 - [Tech gifts for her in 2026](https://shopforher.org/tech-gifts-for-her/)
 - [Best gifts for her who has everything in 2026](https://shopforher.org/gifts-for-her-who-has-everything/)
 - [Best last-minute gifts for her in 2026](https://shopforher.org/last-minute-gifts-for-her/)
@@ -56,6 +62,9 @@
 - [Gifts for her that look expensive in 2026](https://shopforher.org/looks-expensive-gifts-for-her/)
 
 ## Hot pages
+- [Easter gifts for wives right now in 2026](https://shopforher.org/hot/easter-gifts-for-wife-right-now/)
+- [Easter hostess gifts right now in 2026](https://shopforher.org/hot/easter-hostess-gifts-right-now/)
+- [Mother's Day gifts for wives right now in 2026](https://shopforher.org/hot/mothers-day-gifts-for-wife-right-now/)
 - [Viral gifts for girlfriends in 2026](https://shopforher.org/hot/viral-gifts-for-girlfriend/)
 - [Viral gifts for wives in 2026](https://shopforher.org/hot/viral-gifts-for-wife/)
 - [Viral gifts for her under $100 in 2026](https://shopforher.org/hot/viral-gifts-under-100/)
@@ -98,6 +107,7 @@
 - [Boxwood Bunny Topiary](https://shopforher.org/gift/boxwood-bunny-topiary/)
 - [Lenox Wicker Creek Bunny Candy Dish](https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/)
 - [Large Easter Bunny Porch Decor](https://shopforher.org/gift/large-easter-bunny-porch-decor/)
+- [OLIKER Speckled Easter Eggs](https://shopforher.org/gift/oliker-speckled-eggs/)
 - [Easter Gift Basket with Ribbons](https://shopforher.org/gift/easter-gift-basket-with-ribbons/)
 - [Oneida Bunny Hop Dinner Plates](https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/)
 - [Satin Halter Backless Maxi Dress](https://shopforher.org/gift/satin-halter-backless-maxi-dress/)
@@ -125,7 +135,7 @@
 - A small set of overlapping guide pages are intentionally kept out of search indexing until they are more distinct.
 - Editorial policy is published on-site.
 - Product catalog JSON includes merchant-path and price-band metadata.
-- Discovery files refreshed: March 9, 2026.
+- Discovery files refreshed: March 12, 2026.
 
 ## Contact
 - hello@shopforher.org

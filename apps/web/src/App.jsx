@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Pause, Play, RefreshCw } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bookmark, BookmarkCheck, MapPin, Menu, Pause, Play, RefreshCw, X } from "lucide-react";
 import { useInView } from "react-intersection-observer";
 import Masonry from "react-masonry-css";
 import {
+  featuredSeoGuides,
   featuredSeoProducts,
   heroSeoProducts,
   librarySeoProducts,
@@ -48,6 +49,7 @@ import {
 } from "./lib/date-spots.js";
 import { createI18n } from "./lib/i18n.js";
 import { applyDocumentLocale, buildLocaleBadge, formatDateForLocales, getLocaleProfile } from "./lib/locale.js";
+import { getHomeSurfaceMeta, resolveHomeSurface } from "./content/home-surfaces.js";
 
 const slides = [
   { id: "popular", label: "Popular", number: "01" },
@@ -93,7 +95,7 @@ const sliderFields = [
   { key: "intent", label: "What should it feel like", options: intentOptions },
 ];
 
-const quickStartLanes = [
+const defaultQuickStartLanes = [
   {
     id: "new-relationship",
     eyebrow: "Lower pressure",
@@ -779,6 +781,7 @@ export default function App() {
   const initialDateTime = getDefaultDateTimeInput();
   const [catalog, setCatalog] = useState(() => readLiveCatalog());
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isNavMenuOpen, setIsNavMenuOpen] = useState(false);
   const [savedIds, setSavedIds] = useState(() => loadSaved());
   const [previewGift, setPreviewGift] = useState(null);
   const [previewMode, setPreviewMode] = useState("default");
@@ -819,7 +822,7 @@ export default function App() {
     rootMargin: "900px 0px 1200px 0px",
   });
   const seoCatalogById = useMemo(() => new Map(seoCatalog.map((gift) => [gift.id, gift])), [seoCatalog]);
-  const seoGuidesBySlug = useMemo(() => new Map(seoGuides.map((guide) => [guide.slug, guide])), []);
+  const seoGuideBySlug = useMemo(() => new Map(seoGuides.map((guide) => [guide.slug, guide])), [seoGuides]);
   const indexableSeoGiftIds = useMemo(() => buildIndexableSeoGiftIds(seoCatalog), [seoCatalog]);
   const rawPreviewMediaItems = useMemo(() => buildGiftPreviewMedia(previewGift), [previewGift]);
   const previewMediaItems = useMemo(
@@ -893,6 +896,7 @@ export default function App() {
   const popularLocaleBadge = useMemo(() => buildLocaleBadge(localeProfile), [localeProfile]);
 
   const { affiliateConfig, gifts } = catalog;
+  const liveGiftById = useMemo(() => new Map(gifts.map((gift) => [gift.id, gift])), [gifts]);
 
   useEffect(() => {
     return subscribeToCatalogUpdates(() => {
@@ -903,6 +907,45 @@ export default function App() {
   useEffect(() => {
     applyDocumentLocale(localeProfile);
   }, [localeProfile]);
+
+  useEffect(() => {
+    if (typeof document === "undefined") {
+      return;
+    }
+
+    document.title = homeSurfaceMeta.title;
+
+    const updateMeta = (selector, attribute, value) => {
+      const node = document.head.querySelector(selector);
+
+      if (node) {
+        node.setAttribute(attribute, value);
+      }
+    };
+
+    updateMeta('meta[name="description"]', "content", homeSurfaceMeta.description);
+    updateMeta('meta[property="og:title"]', "content", homeSurfaceMeta.title);
+    updateMeta('meta[property="og:description"]', "content", homeSurfaceMeta.socialDescription);
+    updateMeta('meta[property="og:url"]', "content", homeSurfaceMeta.canonicalUrl);
+    updateMeta('meta[name="twitter:title"]', "content", homeSurfaceMeta.title);
+    updateMeta('meta[name="twitter:description"]', "content", homeSurfaceMeta.socialDescription);
+    updateMeta('link[rel="canonical"]', "href", homeSurfaceMeta.canonicalUrl);
+  }, [homeSurfaceMeta]);
+
+  useEffect(() => {
+    if (!isNavMenuOpen || typeof window === "undefined") {
+      return undefined;
+    }
+
+    function handleWindowKeydown(event) {
+      if (event.key === "Escape") {
+        setIsNavMenuOpen(false);
+      }
+    }
+
+    window.addEventListener("keydown", handleWindowKeydown);
+    return () => window.removeEventListener("keydown", handleWindowKeydown);
+  }, [isNavMenuOpen]);
 
   useEffect(() => {
     setGeoState((current) => {
@@ -1075,7 +1118,54 @@ export default function App() {
     day: "numeric",
     year: "numeric",
   });
+  const homeSurface = useMemo(
+    () =>
+      resolveHomeSurface({
+        search: typeof window !== "undefined" ? window.location.search : "",
+        pathname: typeof window !== "undefined" ? window.location.pathname : "",
+        t,
+        updatedLabel: homeUpdatedLabel,
+      }),
+    [homeUpdatedLabel, t]
+  );
+  const homeSurfaceMeta = useMemo(() => getHomeSurfaceMeta(homeSurface.id), [homeSurface.id]);
+  const activeDecisionModule = homeSurface.decisionModule || {
+    overline: t("home.moduleOverline"),
+    title: t("home.moduleTitle"),
+    note: t("home.moduleNote"),
+    trustChips: [
+      t("home.trust.lowRisk"),
+      t("home.trust.disclosed"),
+      t("home.trust.updated", { updated: homeUpdatedLabel }),
+    ],
+  };
+  const activePickerIntro = homeSurface.pickerIntro || {
+    eyebrow: t("picker.startEyebrow"),
+    title: t("picker.startTitle"),
+    body: t("picker.startBody"),
+    buildManualLabel: t("picker.buildManually"),
+    speedHref: "/amazon-gifts-for-her/",
+    speedLabel: t("picker.needSpeed"),
+    quickStartAriaLabel: "Audience quick starts",
+  };
   const getSlideLabel = (slideId) => t(`nav.${slideId === "guides" ? "plans" : slideId}`);
+  const siteSections = useMemo(
+    () => [
+      {
+        id: "shop",
+        label: t("nav.shop"),
+        href: "/",
+        isActive: homeSurface.id !== "books",
+      },
+      {
+        id: "books",
+        label: t("nav.books"),
+        href: "/booksforher/",
+        isActive: homeSurface.id === "books",
+      },
+    ],
+    [homeSurface.id, t]
+  );
   const getRelationshipLabel = (relationshipId) => t(`relationship.${relationshipId}`);
   const getBudgetLabel = (budgetId) => t(`budget.${budgetId}`);
   const getSignalLabel = (signalId) => t(`signal.${signalId}`);
@@ -1128,6 +1218,14 @@ export default function App() {
         .filter(Boolean),
     [gifts]
   );
+  const activeQuickStartLanes = homeSurface.quickStartLanes || defaultQuickStartLanes;
+  const getQuickStartLaneText = (lane, field) => {
+    if (homeSurface.quickStartLanes) {
+      return lane[field];
+    }
+
+    return getLaneText(lane.id, field === "guideLabel" ? "guide" : field);
+  };
   const heroCatalogProducts = useMemo(
     () =>
       heroSeoProducts
@@ -1135,18 +1233,31 @@ export default function App() {
         .filter(Boolean),
     [gifts]
   );
-  const libraryProducts = useMemo(
-    () =>
-      librarySeoProducts
-        .map((gift) => {
-          const catalogGift = gifts.find((candidate) => candidate.id === gift.id);
-          return catalogGift ? { ...catalogGift, slug: gift.slug } : null;
-        })
-        .filter(Boolean)
-        .filter((gift) => gift?.id && indexableSeoGiftIds.has(gift.id)),
-    [gifts, indexableSeoGiftIds]
-  );
+  const surfaceHeroProducts = useMemo(() => {
+    if (!Array.isArray(homeSurface.heroProductIds) || !homeSurface.heroProductIds.length) {
+      return heroCatalogProducts;
+    }
+
+    const selected = homeSurface.heroProductIds
+      .map((giftId) => gifts.find((gift) => gift.id === giftId))
+      .filter(Boolean);
+
+    return selected.length ? selected : heroCatalogProducts;
+  }, [gifts, heroCatalogProducts, homeSurface.heroProductIds]);
+  const libraryProducts = useMemo(() => {
+    return librarySeoProducts
+      .map((gift) => {
+        const catalogGift = gifts.find((candidate) => candidate.id === gift.id);
+        return catalogGift ? { ...catalogGift, slug: gift.slug } : null;
+      })
+      .filter(Boolean)
+      .filter((gift) => gift?.id && indexableSeoGiftIds.has(gift.id));
+  }, [gifts, indexableSeoGiftIds]);
   const compactBrowseProducts = useMemo(() => {
+    if (homeSurface.id === "books") {
+      return [];
+    }
+
     const excludedIds = new Set([
       ...weeklyTopCatalogProducts.map((gift) => gift.id),
       ...featuredCatalogProducts.map((gift) => gift.id),
@@ -1154,20 +1265,121 @@ export default function App() {
     ]);
 
     return libraryProducts.filter((gift) => !excludedIds.has(gift.id)).slice(0, 8);
-  }, [libraryProducts, weeklyTopCatalogProducts, featuredCatalogProducts, heroCatalogProducts]);
-  const popularHeroProducts = heroCatalogProducts.length ? heroCatalogProducts : linkedTopProducts.slice(0, 3);
-  const leadRecommendation = topPicks[0] || popularHeroProducts[0] || null;
+  }, [homeSurface.id, libraryProducts, weeklyTopCatalogProducts, featuredCatalogProducts, heroCatalogProducts]);
+  const popularHeroProducts = surfaceHeroProducts.length ? surfaceHeroProducts : linkedTopProducts.slice(0, 3);
+  const surfaceTopPicks = useMemo(() => {
+    if (!Array.isArray(homeSurface.topPickIds) || !homeSurface.topPickIds.length) {
+      return weeklyTopCatalogProducts.length ? weeklyTopCatalogProducts : topPicks.slice(0, 6);
+    }
+
+    const selected = homeSurface.topPickIds
+      .map((giftId) => liveGiftById.get(giftId))
+      .filter(Boolean);
+
+    return selected.length ? selected : weeklyTopCatalogProducts.length ? weeklyTopCatalogProducts : topPicks.slice(0, 6);
+  }, [homeSurface.topPickIds, liveGiftById, topPicks, weeklyTopCatalogProducts]);
+  const surfaceFeaturedProducts = useMemo(() => {
+    if (!Array.isArray(homeSurface.featuredProductIds) || !homeSurface.featuredProductIds.length) {
+      return featuredCatalogProducts;
+    }
+
+    const selected = homeSurface.featuredProductIds
+      .map((giftId) => liveGiftById.get(giftId))
+      .filter(Boolean);
+
+    return selected.length ? selected : featuredCatalogProducts;
+  }, [featuredCatalogProducts, homeSurface.featuredProductIds, liveGiftById]);
+  const surfaceLibraryProducts = useMemo(() => {
+    if (!Array.isArray(homeSurface.libraryProductIds) || !homeSurface.libraryProductIds.length) {
+      return libraryProducts;
+    }
+
+    const selected = homeSurface.libraryProductIds
+      .map((giftId) => {
+        const liveGift = liveGiftById.get(giftId);
+        const seoGift = seoCatalogById.get(giftId);
+
+        return liveGift ? { ...liveGift, slug: seoGift?.slug || liveGift.slug } : null;
+      })
+      .filter(Boolean);
+
+    return selected.length ? selected : libraryProducts;
+  }, [homeSurface.libraryProductIds, libraryProducts, liveGiftById, seoCatalogById]);
+  const surfaceFeaturedGuides = useMemo(() => {
+    if (!Array.isArray(homeSurface.guideSlugs) || !homeSurface.guideSlugs.length) {
+      return featuredSeoGuides;
+    }
+
+    const selected = homeSurface.guideSlugs
+      .map((slug) => seoGuideBySlug.get(slug))
+      .filter(Boolean);
+
+    return selected.length ? selected : featuredSeoGuides;
+  }, [featuredSeoGuides, homeSurface.guideSlugs, seoGuideBySlug]);
+  const activeTopPicksSection = homeSurface.sections?.topPicks || {
+    overline: t("home.topPicksOverline"),
+    title: t("home.topPicksTitle"),
+    note: t("home.topPicksNote", {
+      relationship: relationshipLabel.toLowerCase(),
+      budget: budgetLabel.toLowerCase(),
+      intent: intentLabel.toLowerCase(),
+    }),
+  };
+  const activeFeaturedSection = homeSurface.sections?.featured || {
+    overline: t("home.featuredOverline"),
+    title: t("home.featuredTitle"),
+    note: t("home.featuredNote"),
+    ariaLabel: "New exact product picks",
+  };
+  const activeContinueSection = homeSurface.sections?.continue || {
+    overline: t("home.continueOverline"),
+    title: t("home.continueTitle"),
+    note: t("home.continueNote"),
+    products: {
+      overline: t("home.productsOverline"),
+      title: t("home.productsTitle"),
+      body: t("home.productsBody"),
+    },
+    guides: {
+      overline: t("home.guidesOverline"),
+      title: t("home.guidesTitle"),
+      body: t("home.guidesBody"),
+    },
+    hot: {
+      overline: t("footer.hot"),
+      title: "Trending pages",
+      body: "Open faster-moving gift lanes when you want the current angle before the evergreen guide.",
+    },
+  };
+  const leadRecommendation = useMemo(() => {
+    if (Array.isArray(homeSurface.topPickIds) && homeSurface.topPickIds.length) {
+      const allowedIds = new Set(homeSurface.topPickIds);
+      const matchedSurfacePick = [...rankedMatches, ...topPicks].find((gift) => allowedIds.has(gift.id));
+
+      if (matchedSurfacePick) {
+        return matchedSurfacePick;
+      }
+
+      if (surfaceTopPicks[0]) {
+        return surfaceTopPicks[0];
+      }
+    }
+
+    return topPicks[0] || popularHeroProducts[0] || null;
+  }, [homeSurface.topPickIds, popularHeroProducts, rankedMatches, surfaceTopPicks, topPicks]);
   const activeGuide = guideByRelationship[activeRelationship.id] || guideByRelationship.girlfriend;
   const activeGuideChipLabel = getGuideText(activeRelationship.id, "chip");
   const curatedHomepageGuideBuckets = homepageGuideBuckets
     .map((bucket) => ({
       ...bucket,
-      guides: bucket.guides.map((slug) => seoGuidesBySlug.get(slug)).filter(Boolean),
+      guides: bucket.guides.map((slug) => seoGuideBySlug.get(slug)).filter(Boolean),
     }))
     .filter((bucket) => bucket.guides.length);
   const pickerResultStep = pickerSlides.length - 1;
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
   const datesSlideIndex = slides.findIndex((slide) => slide.id === "guides");
+  const activeSiteSection = siteSections.find((section) => section.isActive) || siteSections[0];
+  const activeSlideLabel = getSlideLabel(slides[activeSlide]?.id || slides[0].id);
   const savedGifts = useMemo(
     () => gifts.filter((gift) => savedIds.includes(gift.id)),
     [gifts, savedIds]
@@ -1671,6 +1883,7 @@ export default function App() {
 
   function setSlide(index) {
     const nextIndex = Math.max(0, Math.min(slides.length - 1, index));
+    setIsNavMenuOpen(false);
     setActiveSlide(nextIndex);
   }
 
@@ -2095,7 +2308,7 @@ export default function App() {
       <footer className="gs-footer">
         <div className="gs-footer-brand">
           <img src="/logo1.png" alt="ShopForHer" className="gs-footer-img" />
-          <p>{t("footer.tagline")}</p>
+          <p>{homeSurface.footerTagline || t("footer.tagline")}</p>
         </div>
         <div className="gs-footer-meta">
           <p className="gs-footer-disclosure">{AMAZON_ASSOCIATE_DISCLOSURE}</p>
@@ -2162,65 +2375,107 @@ export default function App() {
   }
 
   return (
-    <div className="gs-slider-app">
+    <div className={classNames("gs-slider-app", homeSurface.appClassName)}>
       <div className="gs-phone-frame">
         <header className="gs-header">
           <div className="gs-navbar">
-            <a href="/" className="gs-brand" aria-label={t("brand.homeAria")}>
-              <img src="/logo1.png" alt="ShopForHer" className="gs-logo" />
-            </a>
-            <nav className="gs-header-tabs" aria-label={t("nav.giftPagesAria")}>
-              <div className="gs-header-tabs-inner" role="tablist" aria-label={t("nav.giftPagesAria")}>
-                {editorialSlides.map((slide, index) => (
+            <div className="gs-navbar-top">
+              <a href="/" className="gs-brand" aria-label={homeSurface.brandHomeAria}>
+                <span className="gs-brand-mark">
+                  <img src="/logo1.png" alt="ShopForHer" className="gs-logo" />
+                </span>
+                {homeSurface.brandContext ? (
+                  <span className="gs-brand-context" aria-hidden="true">
+                    <span className="gs-brand-context-eyebrow">{homeSurface.brandContext.eyebrow}</span>
+                    <span className="gs-brand-context-title">{homeSurface.brandContext.title}</span>
+                  </span>
+                ) : null}
+              </a>
+              <button
+                type="button"
+                className={classNames("gs-nav-menu-toggle", isNavMenuOpen && "is-open")}
+                onClick={() => setIsNavMenuOpen((current) => !current)}
+                aria-expanded={isNavMenuOpen}
+                aria-controls="gs-header-sections"
+                aria-label={isNavMenuOpen ? t("nav.closeSections") : t("nav.openSections")}
+              >
+                <span className="gs-nav-menu-toggle-copy">
+                  <span className="gs-nav-menu-toggle-eyebrow">{activeSiteSection?.label}</span>
+                  <span className="gs-nav-menu-toggle-label">{activeSlideLabel}</span>
+                </span>
+                {isNavMenuOpen ? <X size={16} aria-hidden="true" /> : <Menu size={16} aria-hidden="true" />}
+              </button>
+            </div>
+            <div id="gs-header-sections" className="gs-navbar-sections">
+              <nav className="gs-site-sections" aria-label={t("nav.siteAria")}>
+                {siteSections.map((section) => (
+                  <a
+                    key={section.id}
+                    href={section.href}
+                    className={classNames("gs-nav-section-link", section.isActive && "is-active")}
+                    aria-current={section.isActive ? "page" : undefined}
+                    onClick={() => setIsNavMenuOpen(false)}
+                  >
+                    {section.label}
+                  </a>
+                ))}
+              </nav>
+              <nav
+                className={classNames("gs-header-tabs", isNavMenuOpen && "is-open")}
+                aria-label={t("nav.sectionsAria")}
+              >
+                <div className="gs-header-tabs-inner" role="tablist" aria-label={t("nav.sectionsAria")}>
+                  {editorialSlides.map((slide, index) => (
+                    <button
+                      key={slide.id}
+                      ref={(node) => setTabRef(index, node)}
+                      id={`tab-${slide.id}`}
+                      role="tab"
+                      type="button"
+                      className={classNames(
+                        "gs-site-link",
+                        slide.id === "popular" && "has-locale-badge",
+                        activeSlide === index && "is-active"
+                      )}
+                      onClick={() => setSlide(index)}
+                      onKeyDown={(event) => onTabKeyDown(event, index)}
+                      aria-selected={activeSlide === index}
+                      aria-controls={`panel-${slide.id}`}
+                      tabIndex={activeSlide === index ? 0 : -1}
+                      title={slide.id === "popular" ? popularLocaleBadge.title : undefined}
+                    >
+                      {slide.id === "popular" ? (
+                        <>
+                          <span className="gs-site-link-badge" aria-hidden="true">
+                            {popularLocaleBadge.emoji}
+                          </span>
+                          <span className="gs-visually-hidden">{popularLocaleBadge.screenReaderLabel}</span>
+                        </>
+                      ) : null}
+                      <span className="gs-site-link-label">{getSlideLabel(slide.id)}</span>
+                    </button>
+                  ))}
                   <button
-                    key={slide.id}
-                    ref={(node) => setTabRef(index, node)}
-                    id={`tab-${slide.id}`}
+                    ref={(node) => setTabRef(savedSlideIndex, node)}
+                    id="tab-saved"
                     role="tab"
                     type="button"
-                    className={classNames(
-                      "gs-site-link",
-                      slide.id === "popular" && "has-locale-badge",
-                      activeSlide === index && "is-active"
-                    )}
-                    onClick={() => setSlide(index)}
-                    onKeyDown={(event) => onTabKeyDown(event, index)}
-                    aria-selected={activeSlide === index}
-                    aria-controls={`panel-${slide.id}`}
-                    tabIndex={activeSlide === index ? 0 : -1}
-                    title={slide.id === "popular" ? popularLocaleBadge.title : undefined}
+                    className={classNames("gs-nav-save", activeSlide === savedSlideIndex && "is-active")}
+                    onClick={() => setSlide(savedSlideIndex)}
+                    onKeyDown={(event) => onTabKeyDown(event, savedSlideIndex)}
+                    aria-selected={activeSlide === savedSlideIndex}
+                    aria-controls="panel-saved"
+                    tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
                   >
-                    {slide.id === "popular" ? (
-                      <>
-                        <span className="gs-site-link-badge" aria-hidden="true">
-                          {popularLocaleBadge.emoji}
-                        </span>
-                        <span className="gs-visually-hidden">{popularLocaleBadge.screenReaderLabel}</span>
-                      </>
-                    ) : null}
-                    <span className="gs-site-link-label">{getSlideLabel(slide.id)}</span>
+                    {t("nav.saved")}
+                    <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
+                      <span className="gs-visually-hidden">{`${t("nav.savedCountSr")} `}</span>
+                      {savedGifts.length}
+                    </span>
                   </button>
-                ))}
-                <button
-                  ref={(node) => setTabRef(savedSlideIndex, node)}
-                  id="tab-saved"
-                  role="tab"
-                  type="button"
-                  className={classNames("gs-nav-save", activeSlide === savedSlideIndex && "is-active")}
-                  onClick={() => setSlide(savedSlideIndex)}
-                  onKeyDown={(event) => onTabKeyDown(event, savedSlideIndex)}
-                  aria-selected={activeSlide === savedSlideIndex}
-                  aria-controls="panel-saved"
-                  tabIndex={activeSlide === savedSlideIndex ? 0 : -1}
-                >
-                  {t("nav.saved")}
-                  <span className="gs-nav-save-count" aria-live="polite" aria-atomic="true">
-                    <span className="gs-visually-hidden">{`${t("nav.savedCountSr")} `}</span>
-                    {savedGifts.length}
-                  </span>
-                </button>
-              </div>
-            </nav>
+                </div>
+              </nav>
+            </div>
           </div>
         </header>
 
@@ -2242,9 +2497,9 @@ export default function App() {
                 <section className="gs-popular-hero gs-home-hero">
                   <div className="gs-popular-hero-copy gs-home-hero-copy">
                     <div className="gs-home-hero-head">
-                      <p className="gs-overline">{t("home.overline")}</p>
-                      <h1>{t("home.title")}</h1>
-                      <p className="gs-home-hero-lede">{t("home.lede")}</p>
+                      <p className="gs-overline">{homeSurface.hero.overline}</p>
+                      <h1>{homeSurface.hero.title}</h1>
+                      <p className="gs-home-hero-lede">{homeSurface.hero.lede}</p>
                     </div>
                     <div className="gs-home-hero-actions">
                       <button
@@ -2252,26 +2507,26 @@ export default function App() {
                         className="gs-primary-btn"
                         onClick={() => scrollToSection(decisionPanelRef)}
                       >
-                        {t("home.startPicker")}
+                        {homeSurface.hero.primaryCta}
                       </button>
                       <button
                         type="button"
                         className="gs-secondary-btn"
                         onClick={() => scrollToSection(topPicksRef)}
                       >
-                        {t("home.seeMostBought")}
+                        {homeSurface.hero.secondaryCta}
                       </button>
                     </div>
                     <p className="gs-home-hero-summary">
-                      {t("home.summary", { updated: homeUpdatedLabel })}
+                      {homeSurface.hero.summary}
                     </p>
                     <button
                       type="button"
                       className="gs-popular-next-indicator"
                       onClick={() => setSlide(1)}
-                      aria-label={t("home.openHotAria")}
+                      aria-label={homeSurface.hero.openHotAria}
                     >
-                      <span>{t("home.openHotLabel")}</span>
+                      <span>{homeSurface.hero.openHotLabel}</span>
                       <ArrowRight size={14} />
                     </button>
                   </div>
@@ -2298,17 +2553,17 @@ export default function App() {
                 >
                   <div className="gs-home-module-head">
                     <div className="gs-home-module-copy">
-                      <p className="gs-overline">{t("home.moduleOverline")}</p>
-                      <h3 id="gs-home-decision-title">{t("home.moduleTitle")}</h3>
-                      <p className="gs-home-section-note">{t("home.moduleNote")}</p>
+                      <p className="gs-overline">{activeDecisionModule.overline}</p>
+                      <h3 id="gs-home-decision-title">{activeDecisionModule.title}</h3>
+                      <p className="gs-home-section-note">{activeDecisionModule.note}</p>
                     </div>
-                    <div className="gs-home-module-meta" aria-label={t("home.moduleOverline")}>
-                      <span className="gs-trust-chip">{t("home.trust.lowRisk")}</span>
-                      <span className="gs-trust-chip">{t("home.trust.disclosed")}</span>
-                      <span className="gs-trust-chip">{t("home.trust.updated", { updated: homeUpdatedLabel })}</span>
+                    <div className="gs-home-module-meta" aria-label={activeDecisionModule.overline}>
+                      {activeDecisionModule.trustChips.map((chip) => (
+                        <span key={chip} className="gs-trust-chip">{chip}</span>
+                      ))}
                     </div>
                   </div>
-                  <div className="gs-home-picker-progress" aria-label={t("home.moduleTitle")}>
+                  <div className="gs-home-picker-progress" aria-label={activeDecisionModule.title}>
                     {pickerSlides.map((slide, index) => (
                       <button
                         key={slide.id}
@@ -2333,17 +2588,17 @@ export default function App() {
                       >
                         <div className="gs-home-picker-panel is-intro">
                           <div className="gs-home-picker-copy">
-                            <span className="gs-seo-guide-eyebrow">{t("picker.startEyebrow")}</span>
-                            <h4>{t("picker.startTitle")}</h4>
-                            <p>{t("picker.startBody")}</p>
+                            <span className="gs-seo-guide-eyebrow">{activePickerIntro.eyebrow}</span>
+                            <h4>{activePickerIntro.title}</h4>
+                            <p>{activePickerIntro.body}</p>
                           </div>
-                          <div className="gs-home-quick-start-row" aria-label="Audience quick starts">
-                            {quickStartLanes.map((lane) => (
+                          <div className="gs-home-quick-start-row" aria-label={activePickerIntro.quickStartAriaLabel}>
+                            {activeQuickStartLanes.map((lane) => (
                               <article key={lane.id} className="gs-home-quick-start-card is-condensed">
                                 <div className="gs-home-quick-start-copy">
-                                  <span className="gs-seo-guide-eyebrow">{getLaneText(lane.id, "eyebrow")}</span>
-                                  <h4>{getLaneText(lane.id, "title")}</h4>
-                                  <p>{getLaneText(lane.id, "description")}</p>
+                                  <span className="gs-seo-guide-eyebrow">{getQuickStartLaneText(lane, "eyebrow")}</span>
+                                  <h4>{getQuickStartLaneText(lane, "title")}</h4>
+                                  <p>{getQuickStartLaneText(lane, "description")}</p>
                                 </div>
                                 <div className="gs-home-quick-start-actions is-inline">
                                   <button
@@ -2351,10 +2606,10 @@ export default function App() {
                                     className="gs-secondary-btn"
                                     onClick={() => applyBriefSelection(lane.selection)}
                                   >
-                                    {getLaneText(lane.id, "cta")}
+                                    {getQuickStartLaneText(lane, "cta")}
                                   </button>
                                   <a href={lane.guideHref} className="gs-home-inline-link">
-                                    {getLaneText(lane.id, "guide")}
+                                    {getQuickStartLaneText(lane, "guideLabel")}
                                   </a>
                                 </div>
                               </article>
@@ -2366,10 +2621,10 @@ export default function App() {
                               className="gs-primary-btn"
                               onClick={() => goToPickerStep(1)}
                             >
-                              {t("picker.buildManually")}
+                              {activePickerIntro.buildManualLabel}
                             </button>
-                            <a href="/amazon-gifts-for-her/" className="gs-home-inline-link">
-                              {t("picker.needSpeed")}
+                            <a href={activePickerIntro.speedHref} className="gs-home-inline-link">
+                              {activePickerIntro.speedLabel}
                             </a>
                           </div>
                         </div>
@@ -2611,18 +2866,14 @@ export default function App() {
 
                 <section ref={topPicksRef} className="gs-product-list">
                   <div className="gs-section-head">
-                    <p className="gs-overline">{t("home.topPicksOverline")}</p>
-                    <h3>{t("home.topPicksTitle")}</h3>
+                    <p className="gs-overline">{activeTopPicksSection.overline}</p>
+                    <h3>{activeTopPicksSection.title}</h3>
                   </div>
                   <p className="gs-popular-library-note">
-                    {t("home.topPicksNote", {
-                      relationship: relationshipLabel.toLowerCase(),
-                      budget: budgetLabel.toLowerCase(),
-                      intent: intentLabel.toLowerCase(),
-                    })}
+                    {activeTopPicksSection.note}
                   </p>
-                  <div className="gs-bento-grid gs-popular-grid" role="list" aria-label={t("home.topPicksTitle")}>
-                    {(weeklyTopCatalogProducts.length ? weeklyTopCatalogProducts : topPicks.slice(0, 6)).map((gift, index) =>
+                  <div className="gs-bento-grid gs-popular-grid" role="list" aria-label={activeTopPicksSection.title}>
+                    {surfaceTopPicks.map((gift, index) =>
                       renderBentoCard(gift, index + 1, {
                         motion: "minimal",
                         imageOnly: true,
@@ -2632,15 +2883,15 @@ export default function App() {
                 </section>
                 <section className="gs-product-list">
                   <div className="gs-section-head">
-                    <p className="gs-overline">{t("home.featuredOverline")}</p>
-                    <h3>{t("home.featuredTitle")}</h3>
+                    <p className="gs-overline">{activeFeaturedSection.overline}</p>
+                    <h3>{activeFeaturedSection.title}</h3>
                   </div>
                   <p className="gs-popular-library-note">
-                    {t("home.featuredNote")}
+                    {activeFeaturedSection.note}
                   </p>
-                  <div className="gs-bento-grid gs-popular-grid" role="list" aria-label="New exact product picks">
-                    {featuredCatalogProducts.map((gift, index) =>
-                      renderBentoCard(gift, (weeklyTopCatalogProducts.length || topPicks.length) + index + 1, {
+                  <div className="gs-bento-grid gs-popular-grid" role="list" aria-label={activeFeaturedSection.ariaLabel}>
+                    {surfaceFeaturedProducts.map((gift, index) =>
+                      renderBentoCard(gift, surfaceTopPicks.length + index + 1, {
                         motion: "minimal",
                         imageOnly: true,
                       })
@@ -2658,7 +2909,7 @@ export default function App() {
                     </p>
                     <div className="gs-bento-grid gs-popular-grid gs-popular-grid-compact" role="list" aria-label="More popular products">
                       {compactBrowseProducts.map((gift, index) =>
-                        renderBentoCard(gift, featuredCatalogProducts.length + weeklyTopCatalogProducts.length + index + 1, {
+                        renderBentoCard(gift, surfaceFeaturedProducts.length + surfaceTopPicks.length + index + 1, {
                           motion: "minimal",
                           imageOnly: true,
                         })
@@ -2668,11 +2919,11 @@ export default function App() {
                 ) : null}
                 <section className="gs-popular-library" aria-label="Popular page organization">
                   <div className="gs-section-head">
-                    <p className="gs-overline">Keep browsing</p>
-                    <h3>Shop cleaner categories</h3>
+                    <p className="gs-overline">{activeContinueSection.overline}</p>
+                    <h3>{activeContinueSection.title}</h3>
                   </div>
                   <p className="gs-popular-library-note">
-                    Use exact products when one already looks right. Use the guide buckets when you want to narrow the lane first.
+                    {activeContinueSection.note}
                   </p>
                   <div
                     className="gs-popular-library-artband is-image-surface"
@@ -2722,12 +2973,12 @@ export default function App() {
                     ))}
                     <article className="gs-popular-library-panel is-compact-products">
                       <div className="gs-popular-library-head">
-                        <span className="gs-overline">Products</span>
-                        <strong>More exact product pages</strong>
-                        <p>Fast paths when you already want the item, price range, and merchant route.</p>
+                        <span className="gs-overline">{activeContinueSection.products.overline}</span>
+                        <strong>{activeContinueSection.products.title}</strong>
+                        <p>{activeContinueSection.products.body}</p>
                       </div>
-                      <div className="gs-popular-library-list is-two-column">
-                        {libraryProducts.slice(0, 12).map((gift) => (
+                      <div className="gs-popular-library-list">
+                        {surfaceLibraryProducts.map((gift) => (
                           <a key={gift.slug} href={getProductPageHref(gift.slug)} className="gs-popular-library-link">
                             <div>
                               <span className="gs-seo-guide-eyebrow">{gift.badge}</span>
@@ -2736,6 +2987,81 @@ export default function App() {
                             <ArrowUpRight size={16} />
                           </a>
                         ))}
+                      </div>
+                    </article>
+                    <article className="gs-popular-library-panel">
+                      <div className="gs-popular-library-head">
+                        <span className="gs-overline">{activeContinueSection.guides.overline}</span>
+                        <strong>{activeContinueSection.guides.title}</strong>
+                        <p>{activeContinueSection.guides.body}</p>
+                      </div>
+                      <div className="gs-popular-library-list">
+                        {surfaceFeaturedGuides.map((guide) => (
+                          <a key={guide.slug} href={`/${guide.slug}/`} className="gs-popular-library-link">
+                            <div>
+                              <span className="gs-seo-guide-eyebrow">{guide.groupLabel}</span>
+                              <strong>{guide.label}</strong>
+                            </div>
+                            <ArrowUpRight size={16} />
+                          </a>
+                        ))}
+                        <a href="/guides/" className="gs-popular-library-link is-all">
+                          <div>
+                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                            <strong>{t("home.allGuides")}</strong>
+                          </div>
+                          <ArrowUpRight size={16} />
+                        </a>
+                      </div>
+                    </article>
+                    <article className="gs-popular-library-panel">
+                      <div className="gs-popular-library-head">
+                        <span className="gs-overline">{activeContinueSection.hot.overline}</span>
+                        <strong>{activeContinueSection.hot.title}</strong>
+                        <p>{activeContinueSection.hot.body}</p>
+                      </div>
+                      <div className="gs-popular-library-list">
+                        {seoHotStories.slice(0, 4).map((story) => (
+                          <a key={story.slug} href={`/hot/${story.slug}/`} className="gs-popular-library-link">
+                            <div>
+                              <span className="gs-seo-guide-eyebrow">{story.trendLabel}</span>
+                              <strong>{story.h1}</strong>
+                            </div>
+                            <ArrowUpRight size={16} />
+                          </a>
+                        ))}
+                        <a href="/hot/" className="gs-popular-library-link is-all">
+                          <div>
+                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                            <strong>{t("hot.allPages")}</strong>
+                          </div>
+                          <ArrowUpRight size={16} />
+                        </a>
+                      </div>
+                    </article>
+                    <article className="gs-popular-library-panel">
+                      <div className="gs-popular-library-head">
+                        <span className="gs-overline">{t("footer.plans")}</span>
+                        <strong>Date city pages</strong>
+                        <p>Browse city landing pages when the gift search turns into an actual plan.</p>
+                      </div>
+                      <div className="gs-popular-library-list">
+                        {seoDateCities.slice(0, 4).map((city) => (
+                          <a key={city.slug} href={`/dates/${city.slug}/`} className="gs-popular-library-link">
+                            <div>
+                              <span className="gs-seo-guide-eyebrow">{t("plans.overline")}</span>
+                              <strong>{city.city}</strong>
+                            </div>
+                            <ArrowUpRight size={16} />
+                          </a>
+                        ))}
+                        <a href="/dates/" className="gs-popular-library-link is-all">
+                          <div>
+                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                            <strong>{t("plans.allDatePages")}</strong>
+                          </div>
+                          <ArrowUpRight size={16} />
+                        </a>
                       </div>
                     </article>
                   </div>

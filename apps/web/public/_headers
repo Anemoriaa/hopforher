@@ -8,6 +8,9 @@
 /product-catalog.json
   X-Robots-Tag: noindex
 
+/page-catalog.json
+  X-Robots-Tag: noindex
+
 /llms.txt
   X-Robots-Tag: noindex
 

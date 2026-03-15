@@ -910,8 +910,143 @@ function logGuideOverlapWarnings() {
   console.warn(`[seo] Most reused guide products: ${topRepeatedProducts}.`);
 }
 
+function productPath(gift) {
+  return `/gift/${gift.slug}/`;
+}
+
 function productUrl(gift) {
-  return `${siteUrl}/gift/${gift.slug}/`;
+  return `${siteUrl}${productPath(gift)}`;
+}
+
+function searchFacingGiftUrl(gift) {
+  if (!gift) {
+    return "";
+  }
+
+  return isIndexableProductPage(gift) ? productUrl(gift) : merchantProductUrl(gift);
+}
+
+function userFacingGiftHref(gift) {
+  if (!gift) {
+    return "";
+  }
+
+  return isIndexableProductPage(gift) ? productPath(gift) : commerceUrl(gift);
+}
+
+function userFacingGiftLinkAttributes(gift) {
+  if (!gift || isIndexableProductPage(gift)) {
+    return "";
+  }
+
+  return ` target="_blank" rel="${escapeHtml(commerceRel(gift))}"`;
+}
+
+function renderUserFacingGiftLink(gift, label = gift?.name || "", className = "discovery-title-link") {
+  if (!gift) {
+    return escapeHtml(label);
+  }
+
+  const href = userFacingGiftHref(gift);
+
+  if (!href) {
+    return escapeHtml(label);
+  }
+
+  return `<a class="${escapeHtml(className)}" href="${escapeHtml(href)}"${userFacingGiftLinkAttributes(gift)}>${escapeHtml(label)}</a>`;
+}
+
+function giftDetailLinkLabel(gift, internalLabel = "View product") {
+  return isIndexableProductPage(gift) ? internalLabel : "Open merchant listing";
+}
+
+function giftBadgeLead(gift) {
+  return gift?.badge ? `the ${gift.badge} lane` : "this lane";
+}
+
+function giftBuyerMomentLead(gift) {
+  return gift?.bestFor ? `the buyer moment looks like ${gift.bestFor}` : "the buyer moment matches the page promise";
+}
+
+function giftBestForSentence(gift, prefix = "Best for") {
+  return gift?.bestFor ? `${prefix} ${gift.bestFor}.` : "";
+}
+
+function guideFeaturedGiftSummary(gift) {
+  return gift?.hook || gift?.why || giftBestForSentence(gift, "Best for");
+}
+
+function guideFirstClickBody(gift) {
+  if (!gift) {
+    return "Start with the first ranked pick on this page when the title matches the exact buyer moment you are trying to solve.";
+  }
+
+  const bestForSentence = giftBestForSentence(gift, "Best for");
+  return `${gift.name} is the fastest first click on this page when you want the cleanest answer without overthinking it.${bestForSentence ? ` ${bestForSentence}` : ""}`;
+}
+
+function guideFrameLead(guide) {
+  switch (guide?.groupLabel) {
+    case "Relationship":
+      return "the relationship stage is the main filter";
+    case "Moment":
+      return "the occasion is the main filter";
+    case "Budget":
+      return "the spend cap is the main filter";
+    case "Angle":
+      return "the buying angle is the main filter";
+    default:
+      return "the page promise is the main filter";
+  }
+}
+
+function guideListCopy(guide, gift) {
+  if (!gift) {
+    return "";
+  }
+
+  return `${gift.hook} It holds up here when ${giftBuyerMomentLead(gift)} and ${guideFrameLead(guide)}.`;
+}
+
+function hotStoryListCopy(story, gift) {
+  if (!gift) {
+    return "";
+  }
+
+  const storyLead = story?.label ? `the ${story.label.toLowerCase()} read is current right now` : "the story angle is current right now";
+  return `${gift.hook} It fits this story when ${giftBuyerMomentLead(gift)} and ${storyLead}.`;
+}
+
+function productMetaDescription(gift) {
+  return [
+    `${gift.name} is featured on ShopForHer.`,
+    gift.hook,
+    giftBestForSentence(gift, "Best for"),
+  ]
+    .filter(Boolean)
+    .join(" ");
+}
+
+function productHeroIntro(gift) {
+  return [gift.hook, giftBestForSentence(gift, "Best for")].filter(Boolean).join(" ");
+}
+
+function productGiftReadCopy(gift) {
+  if (gift?.vibe) {
+    return `The feel here is ${gift.vibe}, which helps it read like a gift instead of a generic purchase. Use it when ${giftBuyerMomentLead(gift)}.`;
+  }
+
+  return `It works best when ${giftBuyerMomentLead(gift)} and the gift should feel intentional without needing extra explanation.`;
+}
+
+function productKindAnswer(gift) {
+  return `${gift.name} sits in ${giftBadgeLead(gift)} on ShopForHer and is strongest when ${giftBuyerMomentLead(gift)}.`;
+}
+
+function productWhenAnswer(gift, leadGuide) {
+  return leadGuide
+    ? `Choose it when ${giftBuyerMomentLead(gift)} and you want the kind of answer that already fits on ${leadGuide.label.toLowerCase()}.`
+    : `Choose it when ${giftBuyerMomentLead(gift)} and you want a cleaner product-level answer than a broader guide.`;
 }
 
 function guideUrl(guide) {
@@ -1261,8 +1396,8 @@ function renderGuideComparisonSection(guide, items = guideItems(guide)) {
             .map(
               (gift) => `<article class="discovery-decision-card">
             <span class="discovery-decision-label">Distinctive pick</span>
-            <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
-            <p>${escapeHtml(gift.why)}</p>
+            <h3>${renderUserFacingGiftLink(gift)}</h3>
+            <p>${escapeHtml(guideListCopy(guide, gift))}</p>
             <p class="discovery-best-for">Appears in ${guideUsageCount(gift.id)} guide${guideUsageCount(gift.id) === 1 ? "" : "s"}.</p>
           </article>`
             )
@@ -1289,8 +1424,8 @@ function renderGuideExpansionSection(guide, expansionProducts = []) {
 
               return `<article class="discovery-decision-card">
             <span class="discovery-decision-label">Specific lane</span>
-            <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
-            <p>${escapeHtml(gift.why)}</p>
+            <h3>${renderUserFacingGiftLink(gift)}</h3>
+            <p>${escapeHtml(guideListCopy(guide, gift))}</p>
             <p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}. Used on ${usageCount} other guide${usageCount === 1 ? "" : "s"}.</p>
           </article>`;
             })
@@ -1364,33 +1499,49 @@ function productComparisonLabel(source, candidate) {
   return "Switch for a different fit";
 }
 
+function comparisonFitLead(source, candidate) {
+  if (source.badge && candidate.badge && source.badge !== candidate.badge) {
+    return `the ${candidate.badge.toLowerCase()} angle matters more`;
+  }
+
+  if (source.vibe && candidate.vibe && source.vibe !== candidate.vibe) {
+    return `a ${candidate.vibe.toLowerCase()} mood is the better read`;
+  }
+
+  if (source.bestFor && candidate.bestFor && source.bestFor !== candidate.bestFor) {
+    return `${candidate.bestFor} is closer to the real buyer moment`;
+  }
+
+  return "the fit is closer to the real buyer moment";
+}
+
 function comparisonReasonText(source, candidate) {
   const sourcePrice = priceMidpoint(source);
   const candidatePrice = priceMidpoint(candidate);
 
   if (Number.isFinite(sourcePrice) && Number.isFinite(candidatePrice)) {
     if (candidatePrice <= sourcePrice - 25) {
-      return `${candidate.name} is the better move when you want a similar lane with less spend and do not need the broadest safest answer first.`;
+      return `${candidate.name} keeps the same general lane but drops the spend. Use it when ${comparisonFitLead(source, candidate)} and you do not need the most premium version first.`;
     }
 
     if (candidatePrice >= sourcePrice + 25) {
-      return `${candidate.name} is the better move when you are willing to spend more for a narrower upgrade than ${source.name}.`;
+      return `${candidate.name} is the step-up option when ${comparisonFitLead(source, candidate)} and the higher spend is worth it.`;
     }
   }
 
   if (source.badge && candidate.badge && source.badge !== candidate.badge) {
-    return `${candidate.name} is the better move when the ${candidate.badge.toLowerCase()} read matters more than the broadest safe answer on the page.`;
+    return `${candidate.name} leans ${candidate.badge.toLowerCase()} instead of ${source.badge.toLowerCase()}, so it fits better when that is the first thing you want her to notice.`;
   }
 
   if (source.vibe && candidate.vibe && source.vibe !== candidate.vibe) {
-    return `${candidate.name} is the better move when you want a ${candidate.vibe.toLowerCase()} mood instead of ${source.vibe.toLowerCase()}.`;
+    return `${candidate.name} shifts the mood toward ${candidate.vibe.toLowerCase()} instead of ${source.vibe.toLowerCase()}, which is better when that is the tone you want to lead with.`;
   }
 
   if (source.bestFor && candidate.bestFor && source.bestFor !== candidate.bestFor) {
-    return `${candidate.name} is the better move when ${candidate.bestFor} is a closer buyer moment than ${source.bestFor}.`;
+    return `${candidate.name} lines up better when ${candidate.bestFor} is closer to the real buyer moment than ${source.bestFor}.`;
   }
 
-  return `${candidate.name} is the better move when its fit is closer to the buyer moment than the broadest first answer.`;
+  return `${candidate.name} is the cleaner alternative when the main pick feels close but not exact.`;
 }
 
 function guideChoiceLabel(source, candidate, index) {
@@ -1419,11 +1570,11 @@ function renderGuideTopChoicesSection(guide, items = guideItems(guide)) {
           ${comparisonItems
             .map((gift, index) => {
               const usageCount = guideUsageCount(gift.id);
-              const summary = index === 0 ? gift.why : comparisonReasonText(leadGift, gift);
+              const summary = index === 0 ? guideFeaturedGiftSummary(gift) : comparisonReasonText(leadGift, gift);
 
               return `<article class="discovery-decision-card">
             <span class="discovery-decision-label">${escapeHtml(guideChoiceLabel(leadGift, gift, index))}</span>
-            <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
+            <h3>${renderUserFacingGiftLink(gift)}</h3>
             <p>${escapeHtml(summary)}</p>
             <p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}. ${escapeHtml(gift.priceLabel)}. Used on ${usageCount} guide${usageCount === 1 ? "" : "s"}.</p>
           </article>`;
@@ -1520,7 +1671,7 @@ function renderGuideBestFitsSection(guide) {
             <span class="discovery-decision-label">Best if</span>
             <h3>${escapeHtml(entry.title)}</h3>
             <p>${escapeHtml(entry.body)}</p>
-            ${gift ? `<a class="discovery-text-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)} · ${escapeHtml(gift.priceLabel)}</a>` : ""}
+            ${gift ? renderUserFacingGiftLink(gift, `${gift.name} · ${gift.priceLabel}`, "discovery-text-link") : ""}
           </article>`;
             })
             .join("")}
@@ -1568,7 +1719,7 @@ function renderGuidePickLanesSection(guide) {
 
               return `<article class="discovery-decision-card">
             <span class="discovery-decision-label">${escapeHtml(entry.title)}</span>
-            <h3>${gift ? `<a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a>` : escapeHtml(entry.title)}</h3>
+            <h3>${gift ? renderUserFacingGiftLink(gift) : escapeHtml(entry.title)}</h3>
             <p>${escapeHtml(entry.body)}</p>
             ${gift ? `<p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}</p>` : ""}
           </article>`;
@@ -1580,9 +1731,7 @@ function renderGuidePickLanesSection(guide) {
 
 function renderGuideOverviewSection(guide, items) {
   const featuredGift = items[0] || null;
-  const firstClickBody = featuredGift
-    ? `${featuredGift.name} is the fastest first click on this page when you want the cleanest answer without overthinking it. ${featuredGift.why}`
-    : "Start with the first ranked pick on this page when the title matches the exact buyer moment you are trying to solve.";
+  const firstClickBody = guideFirstClickBody(featuredGift);
 
   return `<section class="discovery-section" id="guide-overview">
         <div class="discovery-section-head">
@@ -1629,7 +1778,7 @@ function renderProductContextSection(gift, matchingGuides) {
           </article>
           <article class="discovery-faq">
             <h3>Why it reads as a gift</h3>
-            <p>${escapeHtml(`${gift.hook} ${gift.why}`)}</p>
+            <p>${escapeHtml(productGiftReadCopy(gift))}</p>
           </article>
           <article class="discovery-faq">
             <h3>Where it shows up on the site</h3>
@@ -1647,10 +1796,10 @@ function renderHotStoryAngleSection(story, items, relatedGuides) {
   const leadGift = items[0] || null;
   const leadGuide = relatedGuides[0] || null;
   const trendRead = leadGift
-    ? `${story.description} ${leadGift.name} is a clean example of the lane: ${leadGift.hook} ${leadGift.why}`
+    ? `${story.description} ${leadGift.name} is a clean example of the lane. ${guideFeaturedGiftSummary(leadGift)} ${giftBestForSentence(leadGift)}`
     : story.description;
   const firstClick = leadGift
-    ? `${leadGift.name} is the first product to open if you want the quickest read on this trend. ${leadGift.hook}`
+    ? `${leadGift.name} is the first product to open if you want the quickest read on this trend. Use it first when ${giftBuyerMomentLead(leadGift)}.`
     : "Start with the first ranked product in the story list when you want the fastest answer.";
   const useLane = leadGuide
     ? `Use this story when you want a current-feeling answer fast and do not need the broadest evergreen guide first. If you want more context before buying, move next to ${leadGuide.label.toLowerCase()}.`
@@ -1972,13 +2121,17 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
     name: guide.h1,
     url: canonical,
     numberOfItems: items.length,
-    itemListElement: items.map((gift, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: gift.name,
-      url: productUrl(gift),
-      description: gift.why,
-    })),
+    itemListElement: items.map((gift, index) => {
+      const giftUrl = searchFacingGiftUrl(gift);
+
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        name: gift.name,
+        ...(giftUrl ? { url: giftUrl } : {}),
+        description: gift.why,
+      };
+    }),
   };
 
   const breadcrumbSchema = {
@@ -2043,11 +2196,15 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
       "@type": "Thing",
       name: guide.label,
     },
-    mentions: items.slice(0, 6).map((gift) => ({
-      "@type": "Product",
-      name: gift.name,
-      url: productUrl(gift),
-    })),
+    mentions: items.slice(0, 6).map((gift) => {
+      const giftUrl = searchFacingGiftUrl(gift);
+
+      return {
+        "@type": "Product",
+        name: gift.name,
+        ...(giftUrl ? { url: giftUrl } : {}),
+      };
+    }),
     keywords: [guide.label, guide.groupLabel, "gifts for her", "gift guide"].join(", "),
     ...pageTrustSchemaFields(),
   };
@@ -2105,20 +2262,20 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
           ${
             featuredGift
               ? `<aside class="discovery-hero-feature">
-            <a class="discovery-hero-feature-media" href="/gift/${featuredGift.slug}/">
+            <a class="discovery-hero-feature-media" href="${escapeHtml(userFacingGiftHref(featuredGift))}"${userFacingGiftLinkAttributes(featuredGift)}>
               <img src="${escapeHtml(primaryImageUrl(featuredGift))}" alt="${escapeHtml(featuredGift.name)}">
             </a>
             <div class="discovery-hero-feature-body">
               <span class="discovery-card-kicker">Best first pick</span>
-              <h2><a class="discovery-title-link" href="/gift/${featuredGift.slug}/">${escapeHtml(featuredGift.name)}</a></h2>
-              <p class="discovery-feature-copy">${escapeHtml(featuredGift.hook)} ${escapeHtml(featuredGift.why)}</p>
+              <h2>${renderUserFacingGiftLink(featuredGift)}</h2>
+              <p class="discovery-feature-copy">${escapeHtml(guideFeaturedGiftSummary(featuredGift))}</p>
               <div class="discovery-pill-row">
                 <span>${escapeHtml(featuredGift.priceLabel)}</span>
                 <span>${escapeHtml(featuredGift.badge)}</span>
                 <span>Best for ${escapeHtml(featuredGift.bestFor)}</span>
               </div>
               <div class="discovery-actions">
-                <a class="discovery-text-link" href="/gift/${featuredGift.slug}/">Open product page</a>
+                ${renderUserFacingGiftLink(featuredGift, giftDetailLinkLabel(featuredGift, "Open product page"), "discovery-text-link")}
                 ${renderAffiliateAnchor(featuredGift, `guide-${guide.slug}-hero`, "Buy now")}
                 ${renderPaidLinkNote(featuredGift)}
               </div>
@@ -2144,24 +2301,24 @@ function renderGuidePage(guide, freshness = lastmodPlaceholder) {
           ${shortlist
             .map(
               (gift, index) => `<li class="discovery-guide-item">
-            <a class="discovery-guide-item-media" href="/gift/${gift.slug}/">
+            <a class="discovery-guide-item-media" href="${escapeHtml(userFacingGiftHref(gift))}"${userFacingGiftLinkAttributes(gift)}>
               <img src="${escapeHtml(primaryImageUrl(gift))}" alt="${escapeHtml(gift.name)}">
             </a>
             <div class="discovery-guide-item-body">
               <div class="discovery-guide-item-head">
                 <span class="discovery-rank">${String(index + 2).padStart(2, "0")}</span>
                 <div>
-                  <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
+                  <h3>${renderUserFacingGiftLink(gift)}</h3>
                   <div class="discovery-pill-row is-inline">
                     <span>${escapeHtml(gift.priceLabel)}</span>
                     <span>${escapeHtml(gift.badge)}</span>
                   </div>
                 </div>
               </div>
-              <p class="discovery-copy">${escapeHtml(gift.hook)} ${escapeHtml(gift.why)}</p>
+              <p class="discovery-copy">${escapeHtml(guideListCopy(guide, gift))}</p>
               <p class="discovery-best-for">Best for: ${escapeHtml(gift.bestFor)}</p>
               <div class="discovery-actions">
-                <a class="discovery-text-link" href="/gift/${gift.slug}/">View product</a>
+                ${renderUserFacingGiftLink(gift, giftDetailLinkLabel(gift), "discovery-text-link")}
                 ${renderAffiliateAnchor(gift, `guide-${guide.slug}-list`)}
                 ${renderPaidLinkNote(gift)}
               </div>
@@ -2478,7 +2635,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
           <div class="discovery-hero-copy">
             <p class="discovery-kicker">Product</p>
             <h1>${escapeHtml(gift.name)}</h1>
-            <p class="discovery-intro">${escapeHtml(gift.hook)} ${escapeHtml(gift.why)}</p>
+            <p class="discovery-intro">${escapeHtml(productHeroIntro(gift))}</p>
             <div class="discovery-meta">
               <span>${escapeHtml(gift.priceLabel)}</span>
               <span>${escapeHtml(gift.badge)}</span>
@@ -2489,7 +2646,7 @@ function renderProductPage(gift, freshness = lastmodPlaceholder) {
           <aside class="discovery-product-glance">
             <span class="discovery-card-kicker">Quick read</span>
             <strong>${escapeHtml(gift.badge)}</strong>
-            <p>${escapeHtml(gift.why)}</p>
+            <p>${escapeHtml(productGiftReadCopy(gift))}</p>
             <div class="discovery-pill-row">
               <span>${escapeHtml(gift.priceLabel)}</span>
               <span>${escapeHtml(merchantName(gift))} checkout</span>
@@ -3429,7 +3586,7 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
       emphasis: true,
       cta: leadGift
         ? `<div class="discovery-actions discovery-actions-rail">
-        <a class="discovery-text-link" href="/gift/${leadGift.slug}/">Open first product</a>
+        ${renderUserFacingGiftLink(leadGift, giftDetailLinkLabel(leadGift, "Open first product"), "discovery-text-link")}
         ${
           relatedGuides[0]
             ? `<a class="discovery-text-link" href="/${relatedGuides[0].slug}/">Open matching guide</a>`
@@ -3463,13 +3620,17 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
     name: story.h1,
     url: canonical,
     numberOfItems: items.length,
-    itemListElement: items.map((gift, index) => ({
-      "@type": "ListItem",
-      position: index + 1,
-      name: gift.name,
-      url: productUrl(gift),
-      description: gift.why,
-    })),
+    itemListElement: items.map((gift, index) => {
+      const giftUrl = searchFacingGiftUrl(gift);
+
+      return {
+        "@type": "ListItem",
+        position: index + 1,
+        name: gift.name,
+        ...(giftUrl ? { url: giftUrl } : {}),
+        description: gift.why,
+      };
+    }),
   };
 
   const collectionPageSchema = {
@@ -3496,11 +3657,15 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
       "@type": "Thing",
       name: story.label,
     },
-    mentions: items.slice(0, 6).map((gift) => ({
-      "@type": "Product",
-      name: gift.name,
-      url: productUrl(gift),
-    })),
+    mentions: items.slice(0, 6).map((gift) => {
+      const giftUrl = searchFacingGiftUrl(gift);
+
+      return {
+        "@type": "Product",
+        name: gift.name,
+        ...(giftUrl ? { url: giftUrl } : {}),
+      };
+    }),
     keywords: [story.label, "gifts for her", "viral gifts", "trending gifts"].join(", "),
     ...pageTrustSchemaFields(),
   };
@@ -3523,11 +3688,15 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
       "@type": "Thing",
       name: story.label,
     },
-    mentions: items.slice(0, 6).map((gift) => ({
-      "@type": "Product",
-      name: gift.name,
-      url: productUrl(gift),
-    })),
+    mentions: items.slice(0, 6).map((gift) => {
+      const giftUrl = searchFacingGiftUrl(gift);
+
+      return {
+        "@type": "Product",
+        name: gift.name,
+        ...(giftUrl ? { url: giftUrl } : {}),
+      };
+    }),
     ...pageTrustSchemaFields(),
   };
   const faqSchema = {
@@ -3625,14 +3794,14 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
               const hasTikTokPoster = hotGiftHasTikTokPoster(gift);
 
               return `<li class="discovery-hot-item">
-            <a class="discovery-hot-item-media" href="/gift/${gift.slug}/">
+            <a class="discovery-hot-item-media" href="${escapeHtml(userFacingGiftHref(gift))}"${userFacingGiftLinkAttributes(gift)}>
               <img src="${escapeHtml(thumbnailUrl)}" alt="${escapeHtml(gift.name)}" loading="lazy">
             </a>
             <div class="discovery-hot-item-body">
             <div class="discovery-item-head">
               <span class="discovery-rank">${String(index + 1).padStart(2, "0")}</span>
               <div>
-                <h3><a class="discovery-title-link" href="/gift/${gift.slug}/">${escapeHtml(gift.name)}</a></h3>
+                <h3>${renderUserFacingGiftLink(gift)}</h3>
                 <div class="discovery-pill-row is-inline">
                   <span>${escapeHtml(gift.priceLabel)}</span>
                   <span>${escapeHtml(gift.badge)}</span>
@@ -3640,9 +3809,9 @@ function renderHotStoryPage(story, freshness = lastmodPlaceholder) {
                 </div>
               </div>
             </div>
-            <p class="discovery-copy">${escapeHtml(gift.hook)} ${escapeHtml(gift.why)}</p>
+            <p class="discovery-copy">${escapeHtml(hotStoryListCopy(story, gift))}</p>
             <div class="discovery-actions">
-              <a class="discovery-text-link" href="/gift/${gift.slug}/">View product</a>
+              ${renderUserFacingGiftLink(gift, giftDetailLinkLabel(gift), "discovery-text-link")}
               ${renderAffiliateAnchor(gift, `hot-${story.slug}-list`)}
               ${renderPaidLinkNote(gift)}
             </div>
@@ -3811,6 +3980,17 @@ function renderSiteMapPage(freshness = lastmodPlaceholder) {
   };
 
   const sections = [
+    {
+      kicker: "Editions",
+      title: "Surface editions",
+      links: [
+        {
+          href: "/booksforher/",
+          label: "BooksForHer",
+          meta: "Reader lane",
+        },
+      ],
+    },
     {
       kicker: "Trust",
       title: "Trust pages",
@@ -4507,6 +4687,21 @@ function buildStaticPageCatalogEntries() {
       },
     },
     {
+      slug: "booksforher",
+      path: "/booksforher/",
+      pageType: "index",
+      pageArchetype: "edition-home-shell",
+      title: "BooksForHer | Reader gifts for her, bought fast",
+      description: "BooksForHer is the reading-first ShopForHer edition for Kindle gifts, cozy reader upgrades, and bookish gift angles.",
+      taxonomy: {
+        primary: {
+          intents: ["browse"],
+          angles: ["books", "reader-gifts", "edition"],
+        },
+        coverage: {},
+      },
+    },
+    {
       slug: "guides",
       path: "/guides/",
       pageType: "index",
@@ -4914,6 +5109,7 @@ ${entries
 function writeSitemaps() {
   const staticPages = [
     "/",
+    "/booksforher/",
     "/guides/",
     "/hot/",
     "/gift/",

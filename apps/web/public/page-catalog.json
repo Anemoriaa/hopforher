@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-09T00:00:00Z",
+  "generatedAt": "2026-03-12T00:00:00Z",
   "site": {
     "name": "ShopForHer",
     "url": "https://shopforher.org/",
@@ -84,24 +84,25 @@
     }
   ],
   "summary": {
-    "totalPages": 92,
-    "searchIndexablePages": 85,
-    "blockedPages": 7,
+    "totalPages": 102,
+    "searchIndexablePages": 96,
+    "blockedPages": 6,
     "byPageType": {
       "date-city": 4,
-      "guide": 20,
-      "hot-story": 8,
-      "index": 6,
+      "guide": 26,
+      "hot-story": 11,
+      "index": 7,
       "product": 51,
       "trust": 3
     },
     "byArchetype": {
       "city-date-guide": 4,
       "discovery-index": 5,
-      "gift-guide": 20,
+      "edition-home-shell": 1,
+      "gift-guide": 26,
       "home-shell": 1,
       "product-detail": 51,
-      "trend-roundup": 8,
+      "trend-roundup": 11,
       "trust-page": 3
     },
     "coverage": {
@@ -123,6 +124,7 @@
       "angles": [
         "about",
         "amazon",
+        "books",
         "budget",
         "city-guide",
         "contact",
@@ -130,6 +132,7 @@
         "daily-use",
         "date-index",
         "discovery",
+        "edition",
         "editorial-policy",
         "guide-index",
         "hard-to-buy-for",
@@ -140,6 +143,7 @@
         "popular",
         "practical",
         "product-index",
+        "reader-gifts",
         "site-map",
         "tech",
         "trend-index",
@@ -185,23 +189,155 @@
   "ops": {
     "guidesNeedingEditorialRefresh": [
       {
-        "slug": "last-minute-gifts-for-her",
-        "pageUrl": "https://shopforher.org/last-minute-gifts-for-her/",
+        "slug": "gifts-for-girlfriend",
+        "pageUrl": "https://shopforher.org/gifts-for-girlfriend/",
         "distinctiveProducts": [
           {
-            "id": "magsafe-stand",
-            "slug": "magsafe-charging-stand",
-            "name": "MagSafe Charging Stand",
-            "url": "https://shopforher.org/gift/magsafe-charging-stand/",
+            "id": "jewelry-case",
+            "slug": "structured-jewelry-case",
+            "name": "Structured Jewelry Case",
+            "url": "https://shopforher.org/gift/structured-jewelry-case/",
             "guideCount": 3
           },
           {
-            "id": "marc-jacobs-perfect-absolute",
-            "slug": "marc-jacobs-perfect-absolute",
-            "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
-            "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+            "id": "silk-pillowcase",
+            "slug": "mulberry-silk-pillowcase-set",
+            "name": "Mulberry Silk Pillowcase Set",
+            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
             "guideCount": 4
           },
+          {
+            "id": "panluca-statement-necklace",
+            "slug": "panluca-statement-necklace",
+            "name": "PanLuca Statement Necklace",
+            "url": "https://shopforher.org/gift/panluca-statement-necklace/",
+            "guideCount": 4
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "earbuds",
+            "slug": "noise-canceling-earbuds",
+            "name": "Noise-Canceling Earbuds",
+            "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
+            "guideCount": 4
+          },
+          {
+            "id": "bose-speaker",
+            "slug": "bose-soundlink-flex-2nd-gen",
+            "name": "Bose SoundLink Flex (2nd Gen)",
+            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+            "guideCount": 7
+          },
+          {
+            "id": "posadina-phone-charm",
+            "slug": "posadina-natural-stone-phone-charm",
+            "name": "Posadina Natural Stone Phone Charm",
+            "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
+            "guideCount": 4
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "sheer-crochet-poncho-top",
+            "slug": "sheer-crochet-poncho-top",
+            "name": "Sheer Crochet Poncho Top",
+            "url": "https://shopforher.org/gift/sheer-crochet-poncho-top/",
+            "guideCount": 1
+          },
+          {
+            "id": "lenox-bunny-candy-dish",
+            "slug": "lenox-wicker-creek-bunny-candy-dish",
+            "name": "Lenox Wicker Creek Bunny Candy Dish",
+            "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+            "guideCount": 1
+          },
+          {
+            "id": "saodimallsu-crochet-cardigan-dress",
+            "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+            "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+            "guideCount": 0
+          }
+        ]
+      },
+      {
+        "slug": "anniversary-gifts-for-her",
+        "pageUrl": "https://shopforher.org/anniversary-gifts-for-her/",
+        "distinctiveProducts": [
+          {
+            "id": "kirundo-pleated-maxi-dress",
+            "slug": "kirundo-pleated-a-line-maxi-dress",
+            "name": "KIRUNDO Pleated A-Line Maxi Dress",
+            "url": "https://shopforher.org/gift/kirundo-pleated-a-line-maxi-dress/",
+            "guideCount": 3
+          },
+          {
+            "id": "rustic-vase-set",
+            "slug": "rustic-vase-set-of-3",
+            "name": "Rustic Vase Set of 3",
+            "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+            "guideCount": 4
+          },
+          {
+            "id": "satin-halter-maxi-dress",
+            "slug": "satin-halter-backless-maxi-dress",
+            "name": "Satin Halter Backless Maxi Dress",
+            "url": "https://shopforher.org/gift/satin-halter-backless-maxi-dress/",
+            "guideCount": 4
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "projector",
+            "slug": "portable-projector",
+            "name": "Portable Projector",
+            "url": "https://shopforher.org/gift/portable-projector/",
+            "guideCount": 4
+          },
+          {
+            "id": "digital-frame",
+            "slug": "digital-picture-frame",
+            "name": "Digital Picture Frame",
+            "url": "https://shopforher.org/gift/digital-picture-frame/",
+            "guideCount": 4
+          },
+          {
+            "id": "cashmere-robe",
+            "slug": "cashmere-feel-robe",
+            "name": "Cashmere-Feel Robe",
+            "url": "https://shopforher.org/gift/cashmere-feel-robe/",
+            "guideCount": 3
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "boxwood-bunny-topiary",
+            "slug": "boxwood-bunny-topiary",
+            "name": "Boxwood Bunny Topiary",
+            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+            "guideCount": 1
+          },
+          {
+            "id": "saodimallsu-crochet-coverup-set",
+            "slug": "saodimallsu-crochet-cover-up-set",
+            "name": "Saodimallsu Crochet Swim Cover Up Set",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+            "guideCount": 0
+          },
+          {
+            "id": "oneida-bunny-hop-plates",
+            "slug": "oneida-bunny-hop-dinner-plates",
+            "name": "Oneida Bunny Hop Dinner Plates",
+            "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+            "guideCount": 1
+          }
+        ]
+      },
+      {
+        "slug": "birthday-gifts-for-girlfriend",
+        "pageUrl": "https://shopforher.org/birthday-gifts-for-girlfriend/",
+        "distinctiveProducts": [
           {
             "id": "sol-de-janeiro",
             "slug": "sol-de-janeiro-bum-bum-jet-set",
@@ -211,6 +347,715 @@
           }
         ],
         "dropCandidates": [
+          {
+            "id": "bose-speaker",
+            "slug": "bose-soundlink-flex-2nd-gen",
+            "name": "Bose SoundLink Flex (2nd Gen)",
+            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+            "guideCount": 7
+          },
+          {
+            "id": "prettygarden-one-shoulder-maxi",
+            "slug": "prettygarden-one-shoulder-maxi-dress",
+            "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+            "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+            "guideCount": 5
+          },
+          {
+            "id": "satin-halter-maxi-dress",
+            "slug": "satin-halter-backless-maxi-dress",
+            "name": "Satin Halter Backless Maxi Dress",
+            "url": "https://shopforher.org/gift/satin-halter-backless-maxi-dress/",
+            "guideCount": 4
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "saodimallsu-crochet-coverup-set",
+            "slug": "saodimallsu-crochet-cover-up-set",
+            "name": "Saodimallsu Crochet Swim Cover Up Set",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+            "guideCount": 0
+          },
+          {
+            "id": "lenox-bunny-candy-dish",
+            "slug": "lenox-wicker-creek-bunny-candy-dish",
+            "name": "Lenox Wicker Creek Bunny Candy Dish",
+            "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+            "guideCount": 1
+          },
+          {
+            "id": "sheer-crochet-poncho-top",
+            "slug": "sheer-crochet-poncho-top",
+            "name": "Sheer Crochet Poncho Top",
+            "url": "https://shopforher.org/gift/sheer-crochet-poncho-top/",
+            "guideCount": 1
+          }
+        ]
+      },
+      {
+        "slug": "birthday-gifts-for-wife",
+        "pageUrl": "https://shopforher.org/birthday-gifts-for-wife/",
+        "distinctiveProducts": [
+          {
+            "id": "ninja-creami",
+            "slug": "ninja-creami-deluxe",
+            "name": "Ninja CREAMi Deluxe",
+            "url": "https://shopforher.org/gift/ninja-creami-deluxe/",
+            "guideCount": 3
+          },
+          {
+            "id": "panluca-statement-necklace",
+            "slug": "panluca-statement-necklace",
+            "name": "PanLuca Statement Necklace",
+            "url": "https://shopforher.org/gift/panluca-statement-necklace/",
+            "guideCount": 4
+          },
+          {
+            "id": "faux-olive-tree-planter",
+            "slug": "faux-olive-tree-planter",
+            "name": "Tall Faux Olive Tree with Planter",
+            "url": "https://shopforher.org/gift/faux-olive-tree-planter/",
+            "guideCount": 4
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "kindle-paperwhite",
+            "slug": "kindle-paperwhite-signature-edition",
+            "name": "Kindle Paperwhite Signature Edition",
+            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
+            "guideCount": 7
+          },
+          {
+            "id": "gucci-flora-gorgeous-magnolia",
+            "slug": "gucci-flora-gorgeous-magnolia",
+            "name": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
+            "url": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/",
+            "guideCount": 3
+          },
+          {
+            "id": "vanity-mirror",
+            "slug": "led-vanity-mirror",
+            "name": "LED Vanity Mirror",
+            "url": "https://shopforher.org/gift/led-vanity-mirror/",
+            "guideCount": 3
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "boxwood-bunny-topiary",
+            "slug": "boxwood-bunny-topiary",
+            "name": "Boxwood Bunny Topiary",
+            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+            "guideCount": 1
+          },
+          {
+            "id": "hugo-boss-bottled-beyond",
+            "slug": "hugo-boss-bottled-beyond",
+            "name": "Hugo Boss Bottled Beyond Eau de Parfum",
+            "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
+            "guideCount": 0
+          },
+          {
+            "id": "saodimallsu-crochet-cardigan-dress",
+            "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+            "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+            "guideCount": 0
+          }
+        ]
+      },
+      {
+        "slug": "mothers-day-gifts-for-wife",
+        "pageUrl": "https://shopforher.org/mothers-day-gifts-for-wife/",
+        "distinctiveProducts": [
+          {
+            "id": "cashmere-robe",
+            "slug": "cashmere-feel-robe",
+            "name": "Cashmere-Feel Robe",
+            "url": "https://shopforher.org/gift/cashmere-feel-robe/",
+            "guideCount": 3
+          },
+          {
+            "id": "rustic-vase-set",
+            "slug": "rustic-vase-set-of-3",
+            "name": "Rustic Vase Set of 3",
+            "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
+            "guideCount": 4
+          },
+          {
+            "id": "prettygarden-one-shoulder-maxi",
+            "slug": "prettygarden-one-shoulder-maxi-dress",
+            "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+            "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+            "guideCount": 5
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "temperature-mug",
+            "slug": "temperature-control-mug",
+            "name": "Temperature-Control Mug",
+            "url": "https://shopforher.org/gift/temperature-control-mug/",
+            "guideCount": 6
+          },
+          {
+            "id": "marc-jacobs-perfect-absolute",
+            "slug": "marc-jacobs-perfect-absolute",
+            "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+            "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+            "guideCount": 5
+          },
+          {
+            "id": "digital-frame",
+            "slug": "digital-picture-frame",
+            "name": "Digital Picture Frame",
+            "url": "https://shopforher.org/gift/digital-picture-frame/",
+            "guideCount": 4
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "stanley-quencher",
+            "slug": "stanley-quencher-h2o-flowstate",
+            "name": "Stanley Quencher H2.0 FlowState",
+            "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
+            "guideCount": 2
+          },
+          {
+            "id": "saodimallsu-crochet-cardigan-dress",
+            "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+            "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+            "guideCount": 0
+          },
+          {
+            "id": "boxwood-bunny-topiary",
+            "slug": "boxwood-bunny-topiary",
+            "name": "Boxwood Bunny Topiary",
+            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+            "guideCount": 1
+          }
+        ]
+      },
+      {
+        "slug": "viral-gifts-for-her",
+        "pageUrl": "https://shopforher.org/viral-gifts-for-her/",
+        "distinctiveProducts": [
+          {
+            "id": "owala-bottle",
+            "slug": "owala-freesip-sway-bottle",
+            "name": "Owala FreeSip Sway Bottle",
+            "url": "https://shopforher.org/gift/owala-freesip-sway-bottle/",
+            "guideCount": 3
+          },
+          {
+            "id": "laneige-set",
+            "slug": "laneige-midnight-minis-lip-set",
+            "name": "LANEIGE Midnight Minis Lip Set",
+            "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
+            "guideCount": 4
+          },
+          {
+            "id": "satin-halter-maxi-dress",
+            "slug": "satin-halter-backless-maxi-dress",
+            "name": "Satin Halter Backless Maxi Dress",
+            "url": "https://shopforher.org/gift/satin-halter-backless-maxi-dress/",
+            "guideCount": 4
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "ninja-creami",
+            "slug": "ninja-creami-deluxe",
+            "name": "Ninja CREAMi Deluxe",
+            "url": "https://shopforher.org/gift/ninja-creami-deluxe/",
+            "guideCount": 3
+          },
+          {
+            "id": "prettygarden-one-shoulder-maxi",
+            "slug": "prettygarden-one-shoulder-maxi-dress",
+            "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+            "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+            "guideCount": 5
+          },
+          {
+            "id": "laneige-set",
+            "slug": "laneige-midnight-minis-lip-set",
+            "name": "LANEIGE Midnight Minis Lip Set",
+            "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
+            "guideCount": 4
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "stanley-quencher",
+            "slug": "stanley-quencher-h2o-flowstate",
+            "name": "Stanley Quencher H2.0 FlowState",
+            "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
+            "guideCount": 2
+          },
+          {
+            "id": "saodimallsu-crochet-coverup-set",
+            "slug": "saodimallsu-crochet-cover-up-set",
+            "name": "Saodimallsu Crochet Swim Cover Up Set",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+            "guideCount": 0
+          },
+          {
+            "id": "sheer-crochet-poncho-top",
+            "slug": "sheer-crochet-poncho-top",
+            "name": "Sheer Crochet Poncho Top",
+            "url": "https://shopforher.org/gift/sheer-crochet-poncho-top/",
+            "guideCount": 1
+          }
+        ]
+      },
+      {
+        "slug": "practical-gifts-for-her",
+        "pageUrl": "https://shopforher.org/practical-gifts-for-her/",
+        "distinctiveProducts": [
+          {
+            "id": "theragun-relief",
+            "slug": "theragun-relief",
+            "name": "Therabody Theragun Relief",
+            "url": "https://shopforher.org/gift/theragun-relief/",
+            "guideCount": 3
+          },
+          {
+            "id": "magsafe-stand",
+            "slug": "magsafe-charging-stand",
+            "name": "MagSafe Charging Stand",
+            "url": "https://shopforher.org/gift/magsafe-charging-stand/",
+            "guideCount": 4
+          },
+          {
+            "id": "bose-speaker",
+            "slug": "bose-soundlink-flex-2nd-gen",
+            "name": "Bose SoundLink Flex (2nd Gen)",
+            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+            "guideCount": 7
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "kindle-paperwhite",
+            "slug": "kindle-paperwhite-signature-edition",
+            "name": "Kindle Paperwhite Signature Edition",
+            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
+            "guideCount": 7
+          },
+          {
+            "id": "temperature-mug",
+            "slug": "temperature-control-mug",
+            "name": "Temperature-Control Mug",
+            "url": "https://shopforher.org/gift/temperature-control-mug/",
+            "guideCount": 6
+          },
+          {
+            "id": "walking-pad",
+            "slug": "compact-walking-pad",
+            "name": "Compact Walking Pad",
+            "url": "https://shopforher.org/gift/compact-walking-pad/",
+            "guideCount": 3
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "saodimallsu-crochet-coverup-set",
+            "slug": "saodimallsu-crochet-cover-up-set",
+            "name": "Saodimallsu Crochet Swim Cover Up Set",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+            "guideCount": 0
+          },
+          {
+            "id": "boxwood-bunny-topiary",
+            "slug": "boxwood-bunny-topiary",
+            "name": "Boxwood Bunny Topiary",
+            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+            "guideCount": 1
+          },
+          {
+            "id": "hugo-boss-bottled-beyond",
+            "slug": "hugo-boss-bottled-beyond",
+            "name": "Hugo Boss Bottled Beyond Eau de Parfum",
+            "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
+            "guideCount": 0
+          }
+        ]
+      },
+      {
+        "slug": "cozy-home-gifts-for-her",
+        "pageUrl": "https://shopforher.org/cozy-home-gifts-for-her/",
+        "distinctiveProducts": [
+          {
+            "id": "silk-pillowcase",
+            "slug": "mulberry-silk-pillowcase-set",
+            "name": "Mulberry Silk Pillowcase Set",
+            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+            "guideCount": 4
+          },
+          {
+            "id": "faux-olive-tree-planter",
+            "slug": "faux-olive-tree-planter",
+            "name": "Tall Faux Olive Tree with Planter",
+            "url": "https://shopforher.org/gift/faux-olive-tree-planter/",
+            "guideCount": 4
+          },
+          {
+            "id": "ugg-slippers",
+            "slug": "koolaburra-ugg-burree-slipper",
+            "name": "Koolaburra by UGG Burree Slipper",
+            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
+            "guideCount": 5
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "nespresso-machine",
+            "slug": "nespresso-vertuo-next",
+            "name": "Nespresso Vertuo Next",
+            "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
+            "guideCount": 5
+          },
+          {
+            "id": "luxury-throw",
+            "slug": "luxury-throw-blanket",
+            "name": "Luxury Throw Blanket",
+            "url": "https://shopforher.org/gift/luxury-throw-blanket/",
+            "guideCount": 5
+          },
+          {
+            "id": "miyuki-rustic-vase",
+            "slug": "miyuki-rustic-terracotta-vase",
+            "name": "MIYUKI Rustic Terracotta Vase",
+            "url": "https://shopforher.org/gift/miyuki-rustic-terracotta-vase/",
+            "guideCount": 3
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "boxwood-bunny-topiary",
+            "slug": "boxwood-bunny-topiary",
+            "name": "Boxwood Bunny Topiary",
+            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+            "guideCount": 1
+          },
+          {
+            "id": "saodimallsu-crochet-coverup-set",
+            "slug": "saodimallsu-crochet-cover-up-set",
+            "name": "Saodimallsu Crochet Swim Cover Up Set",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+            "guideCount": 0
+          },
+          {
+            "id": "stanley-quencher",
+            "slug": "stanley-quencher-h2o-flowstate",
+            "name": "Stanley Quencher H2.0 FlowState",
+            "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
+            "guideCount": 2
+          }
+        ]
+      },
+      {
+        "slug": "books-for-her",
+        "pageUrl": "https://shopforher.org/books-for-her/",
+        "distinctiveProducts": [
+          {
+            "id": "candle-warmer",
+            "slug": "candle-warmer-lamp",
+            "name": "Candle Warmer Lamp",
+            "url": "https://shopforher.org/gift/candle-warmer-lamp/",
+            "guideCount": 4
+          },
+          {
+            "id": "bose-speaker",
+            "slug": "bose-soundlink-flex-2nd-gen",
+            "name": "Bose SoundLink Flex (2nd Gen)",
+            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+            "guideCount": 7
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "kindle-paperwhite",
+            "slug": "kindle-paperwhite-signature-edition",
+            "name": "Kindle Paperwhite Signature Edition",
+            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
+            "guideCount": 7
+          },
+          {
+            "id": "sunrise-alarm",
+            "slug": "sunrise-alarm-clock",
+            "name": "Sunrise Alarm Clock",
+            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
+            "guideCount": 6
+          },
+          {
+            "id": "temperature-mug",
+            "slug": "temperature-control-mug",
+            "name": "Temperature-Control Mug",
+            "url": "https://shopforher.org/gift/temperature-control-mug/",
+            "guideCount": 6
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "boxwood-bunny-topiary",
+            "slug": "boxwood-bunny-topiary",
+            "name": "Boxwood Bunny Topiary",
+            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+            "guideCount": 1
+          },
+          {
+            "id": "easter-bunny-porch-decor",
+            "slug": "large-easter-bunny-porch-decor",
+            "name": "Large Easter Bunny Porch Decor",
+            "url": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
+            "guideCount": 1
+          },
+          {
+            "id": "lenox-bunny-candy-dish",
+            "slug": "lenox-wicker-creek-bunny-candy-dish",
+            "name": "Lenox Wicker Creek Bunny Candy Dish",
+            "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+            "guideCount": 1
+          }
+        ]
+      },
+      {
+        "slug": "kindle-gifts-for-her",
+        "pageUrl": "https://shopforher.org/kindle-gifts-for-her/",
+        "distinctiveProducts": [
+          {
+            "id": "magsafe-stand",
+            "slug": "magsafe-charging-stand",
+            "name": "MagSafe Charging Stand",
+            "url": "https://shopforher.org/gift/magsafe-charging-stand/",
+            "guideCount": 4
+          },
+          {
+            "id": "earbuds",
+            "slug": "noise-canceling-earbuds",
+            "name": "Noise-Canceling Earbuds",
+            "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
+            "guideCount": 4
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "bose-speaker",
+            "slug": "bose-soundlink-flex-2nd-gen",
+            "name": "Bose SoundLink Flex (2nd Gen)",
+            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+            "guideCount": 7
+          },
+          {
+            "id": "kindle-paperwhite",
+            "slug": "kindle-paperwhite-signature-edition",
+            "name": "Kindle Paperwhite Signature Edition",
+            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
+            "guideCount": 7
+          },
+          {
+            "id": "sunrise-alarm",
+            "slug": "sunrise-alarm-clock",
+            "name": "Sunrise Alarm Clock",
+            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
+            "guideCount": 6
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "hugo-boss-bottled-beyond",
+            "slug": "hugo-boss-bottled-beyond",
+            "name": "Hugo Boss Bottled Beyond Eau de Parfum",
+            "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
+            "guideCount": 0
+          },
+          {
+            "id": "easter-gift-basket",
+            "slug": "easter-gift-basket-with-ribbons",
+            "name": "Easter Gift Basket with Ribbons",
+            "url": "https://shopforher.org/gift/easter-gift-basket-with-ribbons/",
+            "guideCount": 1
+          },
+          {
+            "id": "boxwood-bunny-topiary",
+            "slug": "boxwood-bunny-topiary",
+            "name": "Boxwood Bunny Topiary",
+            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+            "guideCount": 1
+          }
+        ]
+      },
+      {
+        "slug": "cozy-gifts-for-readers",
+        "pageUrl": "https://shopforher.org/cozy-gifts-for-readers/",
+        "distinctiveProducts": [
+          {
+            "id": "candle-warmer",
+            "slug": "candle-warmer-lamp",
+            "name": "Candle Warmer Lamp",
+            "url": "https://shopforher.org/gift/candle-warmer-lamp/",
+            "guideCount": 4
+          },
+          {
+            "id": "silk-pillowcase",
+            "slug": "mulberry-silk-pillowcase-set",
+            "name": "Mulberry Silk Pillowcase Set",
+            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+            "guideCount": 4
+          },
+          {
+            "id": "ugg-slippers",
+            "slug": "koolaburra-ugg-burree-slipper",
+            "name": "Koolaburra by UGG Burree Slipper",
+            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
+            "guideCount": 5
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "sunrise-alarm",
+            "slug": "sunrise-alarm-clock",
+            "name": "Sunrise Alarm Clock",
+            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
+            "guideCount": 6
+          },
+          {
+            "id": "nespresso-machine",
+            "slug": "nespresso-vertuo-next",
+            "name": "Nespresso Vertuo Next",
+            "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
+            "guideCount": 5
+          },
+          {
+            "id": "ugg-slippers",
+            "slug": "koolaburra-ugg-burree-slipper",
+            "name": "Koolaburra by UGG Burree Slipper",
+            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
+            "guideCount": 5
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "boxwood-bunny-topiary",
+            "slug": "boxwood-bunny-topiary",
+            "name": "Boxwood Bunny Topiary",
+            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+            "guideCount": 1
+          },
+          {
+            "id": "saodimallsu-crochet-coverup-set",
+            "slug": "saodimallsu-crochet-cover-up-set",
+            "name": "Saodimallsu Crochet Swim Cover Up Set",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+            "guideCount": 0
+          },
+          {
+            "id": "lenox-bunny-candy-dish",
+            "slug": "lenox-wicker-creek-bunny-candy-dish",
+            "name": "Lenox Wicker Creek Bunny Candy Dish",
+            "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+            "guideCount": 1
+          }
+        ]
+      },
+      {
+        "slug": "book-lover-gifts-for-her",
+        "pageUrl": "https://shopforher.org/book-lover-gifts-for-her/",
+        "distinctiveProducts": [
+          {
+            "id": "ugg-slippers",
+            "slug": "koolaburra-ugg-burree-slipper",
+            "name": "Koolaburra by UGG Burree Slipper",
+            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
+            "guideCount": 5
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "bose-speaker",
+            "slug": "bose-soundlink-flex-2nd-gen",
+            "name": "Bose SoundLink Flex (2nd Gen)",
+            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+            "guideCount": 7
+          },
+          {
+            "id": "kindle-paperwhite",
+            "slug": "kindle-paperwhite-signature-edition",
+            "name": "Kindle Paperwhite Signature Edition",
+            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
+            "guideCount": 7
+          },
+          {
+            "id": "sunrise-alarm",
+            "slug": "sunrise-alarm-clock",
+            "name": "Sunrise Alarm Clock",
+            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
+            "guideCount": 6
+          }
+        ],
+        "addCandidates": [
+          {
+            "id": "saodimallsu-crochet-coverup-set",
+            "slug": "saodimallsu-crochet-cover-up-set",
+            "name": "Saodimallsu Crochet Swim Cover Up Set",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+            "guideCount": 0
+          },
+          {
+            "id": "lenox-bunny-candy-dish",
+            "slug": "lenox-wicker-creek-bunny-candy-dish",
+            "name": "Lenox Wicker Creek Bunny Candy Dish",
+            "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
+            "guideCount": 1
+          },
+          {
+            "id": "stanley-quencher",
+            "slug": "stanley-quencher-h2o-flowstate",
+            "name": "Stanley Quencher H2.0 FlowState",
+            "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
+            "guideCount": 2
+          }
+        ]
+      },
+      {
+        "slug": "last-minute-gifts-for-her",
+        "pageUrl": "https://shopforher.org/last-minute-gifts-for-her/",
+        "distinctiveProducts": [
+          {
+            "id": "magsafe-stand",
+            "slug": "magsafe-charging-stand",
+            "name": "MagSafe Charging Stand",
+            "url": "https://shopforher.org/gift/magsafe-charging-stand/",
+            "guideCount": 4
+          },
+          {
+            "id": "sol-de-janeiro",
+            "slug": "sol-de-janeiro-bum-bum-jet-set",
+            "name": "Sol de Janeiro Bum Bum Jet Set",
+            "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
+            "guideCount": 4
+          },
+          {
+            "id": "marc-jacobs-perfect-absolute",
+            "slug": "marc-jacobs-perfect-absolute",
+            "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+            "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+            "guideCount": 5
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "earbuds",
+            "slug": "noise-canceling-earbuds",
+            "name": "Noise-Canceling Earbuds",
+            "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
+            "guideCount": 4
+          },
           {
             "id": "posadina-phone-charm",
             "slug": "posadina-natural-stone-phone-charm",
@@ -224,13 +1069,6 @@
             "name": "LANEIGE Midnight Minis Lip Set",
             "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
             "guideCount": 4
-          },
-          {
-            "id": "earbuds",
-            "slug": "noise-canceling-earbuds",
-            "name": "Noise-Canceling Earbuds",
-            "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
-            "guideCount": 3
           }
         ],
         "addCandidates": [
@@ -242,24 +1080,97 @@
             "guideCount": 0
           },
           {
+            "id": "saodimallsu-crochet-coverup-set",
+            "slug": "saodimallsu-crochet-cover-up-set",
+            "name": "Saodimallsu Crochet Swim Cover Up Set",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+            "guideCount": 0
+          },
+          {
             "id": "oneida-bunny-hop-plates",
             "slug": "oneida-bunny-hop-dinner-plates",
             "name": "Oneida Bunny Hop Dinner Plates",
             "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
-            "guideCount": 0
+            "guideCount": 1
+          }
+        ]
+      },
+      {
+        "slug": "date-night-gifts-for-her",
+        "pageUrl": "https://shopforher.org/date-night-gifts-for-her/",
+        "distinctiveProducts": [
+          {
+            "id": "soly-hux-ruffle-maxi-dress",
+            "slug": "soly-hux-ruffle-layered-halter-maxi-dress",
+            "name": "SOLY HUX Ruffle Layered Halter Maxi Dress",
+            "url": "https://shopforher.org/gift/soly-hux-ruffle-layered-halter-maxi-dress/",
+            "guideCount": 1
           },
+          {
+            "id": "marc-jacobs-perfect-absolute",
+            "slug": "marc-jacobs-perfect-absolute",
+            "name": "Marc Jacobs Perfect Absolute Eau de Parfum",
+            "url": "https://shopforher.org/gift/marc-jacobs-perfect-absolute/",
+            "guideCount": 5
+          },
+          {
+            "id": "prettygarden-one-shoulder-maxi",
+            "slug": "prettygarden-one-shoulder-maxi-dress",
+            "name": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
+            "url": "https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/",
+            "guideCount": 5
+          }
+        ],
+        "dropCandidates": [
+          {
+            "id": "luxury-throw",
+            "slug": "luxury-throw-blanket",
+            "name": "Luxury Throw Blanket",
+            "url": "https://shopforher.org/gift/luxury-throw-blanket/",
+            "guideCount": 5
+          },
+          {
+            "id": "projector",
+            "slug": "portable-projector",
+            "name": "Portable Projector",
+            "url": "https://shopforher.org/gift/portable-projector/",
+            "guideCount": 4
+          },
+          {
+            "id": "cashmere-robe",
+            "slug": "cashmere-feel-robe",
+            "name": "Cashmere-Feel Robe",
+            "url": "https://shopforher.org/gift/cashmere-feel-robe/",
+            "guideCount": 3
+          }
+        ],
+        "addCandidates": [
           {
             "id": "saodimallsu-crochet-coverup-set",
             "slug": "saodimallsu-crochet-cover-up-set",
             "name": "Saodimallsu Crochet Swim Cover Up Set",
             "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
             "guideCount": 0
+          },
+          {
+            "id": "oneida-bunny-hop-plates",
+            "slug": "oneida-bunny-hop-dinner-plates",
+            "name": "Oneida Bunny Hop Dinner Plates",
+            "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+            "guideCount": 1
+          },
+          {
+            "id": "boxwood-bunny-topiary",
+            "slug": "boxwood-bunny-topiary",
+            "name": "Boxwood Bunny Topiary",
+            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+            "guideCount": 1
           }
         ]
       },
       {
-        "slug": "amazon-gifts-for-her",
-        "pageUrl": "https://shopforher.org/amazon-gifts-for-her/",
+        "slug": "gifts-for-homebodies",
+        "pageUrl": "https://shopforher.org/gifts-for-homebodies/",
         "distinctiveProducts": [
           {
             "id": "black-olive-tree",
@@ -269,129 +1180,136 @@
             "guideCount": 3
           },
           {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
+            "id": "candle-warmer",
+            "slug": "candle-warmer-lamp",
+            "name": "Candle Warmer Lamp",
+            "url": "https://shopforher.org/gift/candle-warmer-lamp/",
             "guideCount": 4
           },
           {
-            "id": "gucci-flora-gorgeous-magnolia",
-            "slug": "gucci-flora-gorgeous-magnolia",
-            "name": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
-            "url": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/",
+            "id": "rustic-vase-set",
+            "slug": "rustic-vase-set-of-3",
+            "name": "Rustic Vase Set of 3",
+            "url": "https://shopforher.org/gift/rustic-vase-set-of-3/",
             "guideCount": 4
           }
         ],
         "dropCandidates": [
           {
-            "id": "mini-photo-printer",
-            "slug": "mini-photo-printer",
-            "name": "Mini Photo Printer",
-            "url": "https://shopforher.org/gift/mini-photo-printer/",
+            "id": "luxury-throw",
+            "slug": "luxury-throw-blanket",
+            "name": "Luxury Throw Blanket",
+            "url": "https://shopforher.org/gift/luxury-throw-blanket/",
+            "guideCount": 5
+          },
+          {
+            "id": "miyuki-rustic-vase",
+            "slug": "miyuki-rustic-terracotta-vase",
+            "name": "MIYUKI Rustic Terracotta Vase",
+            "url": "https://shopforher.org/gift/miyuki-rustic-terracotta-vase/",
             "guideCount": 3
           },
           {
-            "id": "ninja-creami",
-            "slug": "ninja-creami-deluxe",
-            "name": "Ninja CREAMi Deluxe",
-            "url": "https://shopforher.org/gift/ninja-creami-deluxe/",
-            "guideCount": 3
-          },
-          {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 4
+            "id": "sunrise-alarm",
+            "slug": "sunrise-alarm-clock",
+            "name": "Sunrise Alarm Clock",
+            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
+            "guideCount": 6
           }
         ],
         "addCandidates": [
           {
-            "id": "hugo-boss-bottled-beyond",
-            "slug": "hugo-boss-bottled-beyond",
-            "name": "Hugo Boss Bottled Beyond Eau de Parfum",
-            "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
+            "id": "saodimallsu-crochet-coverup-set",
+            "slug": "saodimallsu-crochet-cover-up-set",
+            "name": "Saodimallsu Crochet Swim Cover Up Set",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
             "guideCount": 0
+          },
+          {
+            "id": "boxwood-bunny-topiary",
+            "slug": "boxwood-bunny-topiary",
+            "name": "Boxwood Bunny Topiary",
+            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+            "guideCount": 1
           },
           {
             "id": "lenox-bunny-candy-dish",
             "slug": "lenox-wicker-creek-bunny-candy-dish",
             "name": "Lenox Wicker Creek Bunny Candy Dish",
             "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
-            "guideCount": 0
-          },
-          {
-            "id": "boxwood-bunny-topiary",
-            "slug": "boxwood-bunny-topiary",
-            "name": "Boxwood Bunny Topiary",
-            "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
-            "guideCount": 0
+            "guideCount": 1
           }
         ]
       },
       {
-        "slug": "looks-expensive-gifts-for-her",
-        "pageUrl": "https://shopforher.org/looks-expensive-gifts-for-her/",
+        "slug": "daily-use-gifts-for-her",
+        "pageUrl": "https://shopforher.org/daily-use-gifts-for-her/",
         "distinctiveProducts": [
           {
-            "id": "cashmere-robe",
-            "slug": "cashmere-feel-robe",
-            "name": "Cashmere-Feel Robe",
-            "url": "https://shopforher.org/gift/cashmere-feel-robe/",
-            "guideCount": 3
+            "id": "stanley-quencher",
+            "slug": "stanley-quencher-h2o-flowstate",
+            "name": "Stanley Quencher H2.0 FlowState",
+            "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
+            "guideCount": 2
           },
           {
-            "id": "digital-frame",
-            "slug": "digital-picture-frame",
-            "name": "Digital Picture Frame",
-            "url": "https://shopforher.org/gift/digital-picture-frame/",
+            "id": "posadina-phone-charm",
+            "slug": "posadina-natural-stone-phone-charm",
+            "name": "Posadina Natural Stone Phone Charm",
+            "url": "https://shopforher.org/gift/posadina-natural-stone-phone-charm/",
+            "guideCount": 4
+          },
+          {
+            "id": "sol-de-janeiro",
+            "slug": "sol-de-janeiro-bum-bum-jet-set",
+            "name": "Sol de Janeiro Bum Bum Jet Set",
+            "url": "https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/",
             "guideCount": 4
           }
         ],
         "dropCandidates": [
           {
-            "id": "gucci-flora-gorgeous-magnolia",
-            "slug": "gucci-flora-gorgeous-magnolia",
-            "name": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
-            "url": "https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/",
-            "guideCount": 4
+            "id": "kindle-paperwhite",
+            "slug": "kindle-paperwhite-signature-edition",
+            "name": "Kindle Paperwhite Signature Edition",
+            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
+            "guideCount": 7
           },
           {
-            "id": "nespresso-machine",
-            "slug": "nespresso-vertuo-next",
-            "name": "Nespresso Vertuo Next",
-            "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
-            "guideCount": 4
+            "id": "temperature-mug",
+            "slug": "temperature-control-mug",
+            "name": "Temperature-Control Mug",
+            "url": "https://shopforher.org/gift/temperature-control-mug/",
+            "guideCount": 6
           },
-          {
-            "id": "panluca-statement-necklace",
-            "slug": "panluca-statement-necklace",
-            "name": "PanLuca Statement Necklace",
-            "url": "https://shopforher.org/gift/panluca-statement-necklace/",
-            "guideCount": 4
-          }
-        ],
-        "addCandidates": [
           {
             "id": "sunrise-alarm",
             "slug": "sunrise-alarm-clock",
             "name": "Sunrise Alarm Clock",
             "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 2
-          },
+            "guideCount": 6
+          }
+        ],
+        "addCandidates": [
           {
             "id": "boxwood-bunny-topiary",
             "slug": "boxwood-bunny-topiary",
             "name": "Boxwood Bunny Topiary",
             "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
-            "guideCount": 0
+            "guideCount": 1
           },
           {
-            "id": "hugo-boss-bottled-beyond",
-            "slug": "hugo-boss-bottled-beyond",
-            "name": "Hugo Boss Bottled Beyond Eau de Parfum",
-            "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
+            "id": "easter-bunny-porch-decor",
+            "slug": "large-easter-bunny-porch-decor",
+            "name": "Large Easter Bunny Porch Decor",
+            "url": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
+            "guideCount": 1
+          },
+          {
+            "id": "saodimallsu-crochet-coverup-set",
+            "slug": "saodimallsu-crochet-cover-up-set",
+            "name": "Saodimallsu Crochet Swim Cover Up Set",
+            "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
             "guideCount": 0
           }
         ]
@@ -423,17 +1341,6 @@
         "query": "Mchic Colorful Beaded Choker Necklace for Women Boho Large Square Acrylic Beaded Necklace Stainless Steel Adjustable Surfer Beach Strand Necklces Summer Handmade Jewelry Gift for Women",
         "imageHosts": [
           "i.etsystatic.com"
-        ]
-      },
-      {
-        "id": "oliker-speckled-eggs",
-        "slug": "oliker-speckled-eggs",
-        "pageUrl": "https://shopforher.org/gift/oliker-speckled-eggs/",
-        "reason": "merchant-search-fallback",
-        "query": "OLIKER 24 Pcs Easter Speckled Eggs, 2.4in 4 Colors Plastic Speckled Eggs and Vase Filler Faux Chicken Eggs for Easter Decorations Basket Filler Vase Decorating",
-        "imageHosts": [
-          "i5.walmartimages.com",
-          "images-na.ssl-images-amazon.com"
         ]
       },
       {
@@ -498,6 +1405,33 @@
       }
     },
     {
+      "id": "index:booksforher",
+      "slug": "booksforher",
+      "path": "/booksforher/",
+      "pageType": "index",
+      "pageArchetype": "edition-home-shell",
+      "pageUrl": "https://shopforher.org/booksforher/",
+      "title": "BooksForHer | Reader gifts for her, bought fast",
+      "h1": "BooksForHer | Reader gifts for her, bought fast",
+      "description": "BooksForHer is the reading-first ShopForHer edition for Kindle gifts, cozy reader upgrades, and bookish gift angles.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "intents": [
+            "browse"
+          ],
+          "angles": [
+            "books",
+            "reader-gifts",
+            "edition"
+          ]
+        },
+        "coverage": {}
+      }
+    },
+    {
       "id": "index:guides",
       "slug": "guides",
       "path": "/guides/",
@@ -507,7 +1441,7 @@
       "title": "Gift guides | ShopForHer",
       "h1": "Gift guides",
       "description": "Browse all ShopForHer gift guides for girlfriends, wives, budgets, and high-converting gift angles.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -532,7 +1466,7 @@
       "title": "Hot gift trends | ShopForHer",
       "h1": "Hot gift trends",
       "description": "Current-interest gift pages for her built from editor-tracked angles and product patterns.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -558,7 +1492,7 @@
       "title": "Product pages | ShopForHer",
       "h1": "Product pages",
       "description": "Browse the full index of ShopForHer product pages with price ranges, merchant paths, and nearby guide context.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -612,7 +1546,7 @@
       "title": "Site map | ShopForHer",
       "h1": "Site map",
       "description": "Browse every ShopForHer guide, product page, date page, hot page, and trust page from one crawlable site map.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -712,7 +1646,7 @@
       "title": "Best gifts for girlfriend in 2026 | ShopForHer",
       "h1": "Best gifts for girlfriend in 2026",
       "description": "Gift ideas for your girlfriend that feel thoughtful, attractive, and easy to buy without overthinking it.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -773,7 +1707,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -786,7 +1720,7 @@
       "title": "Best gifts for wife in 2026 | ShopForHer",
       "h1": "Best gifts for wife in 2026",
       "description": "Gift ideas for your wife that feel polished, useful, and worth spending real money on.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -861,7 +1795,7 @@
       "title": "Best anniversary gifts for her in 2026 | ShopForHer",
       "h1": "Best anniversary gifts for her in 2026",
       "description": "Anniversary gift ideas for her that feel romantic, intentional, and more memorable than a routine buy.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -919,7 +1853,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -932,7 +1866,7 @@
       "title": "Best birthday gifts for girlfriend in 2026 | ShopForHer",
       "h1": "Best birthday gifts for girlfriend in 2026",
       "description": "Birthday gift ideas for your girlfriend that feel fun, current, and clearly chosen instead of last-minute.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -995,7 +1929,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -1008,7 +1942,7 @@
       "title": "Best birthday gifts for wife in 2026 | ShopForHer",
       "h1": "Best birthday gifts for wife in 2026",
       "description": "Birthday gift ideas for your wife that feel special, polished, and better than another practical default.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1073,7 +2007,152 @@
         ]
       },
       "ops": {
+        "needsEditorialRefresh": true
+      }
+    },
+    {
+      "id": "guide:easter-gifts-for-wife",
+      "slug": "easter-gifts-for-wife",
+      "path": "/easter-gifts-for-wife/",
+      "pageType": "guide",
+      "pageArchetype": "gift-guide",
+      "pageUrl": "https://shopforher.org/easter-gifts-for-wife/",
+      "title": "Best Easter gifts for wives in 2026 | ShopForHer",
+      "h1": "Best Easter gifts for wives in 2026",
+      "description": "Easter gifts for wives that feel spring-ready, polished, and better than filler-basket buying.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "relationships": [
+            "wife"
+          ],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [],
+          "guideGroups": [
+            "moments"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-100",
+            "under-150",
+            "under-25",
+            "under-50"
+          ]
+        }
+      },
+      "entities": {
+        "featuredGiftId": "boxwood-bunny-topiary",
+        "productIds": [
+          "boxwood-bunny-topiary",
+          "lenox-bunny-candy-dish",
+          "oneida-bunny-hop-plates",
+          "easter-bunny-porch-decor",
+          "faux-olive-tree-planter",
+          "easter-gift-basket"
+        ],
+        "relatedGuideSlugs": [
+          "mothers-day-gifts-for-wife",
+          "gifts-for-wife",
+          "cozy-home-gifts-for-her"
+        ]
+      },
+      "ops": {
         "needsEditorialRefresh": false
+      }
+    },
+    {
+      "id": "guide:mothers-day-gifts-for-wife",
+      "slug": "mothers-day-gifts-for-wife",
+      "path": "/mothers-day-gifts-for-wife/",
+      "pageType": "guide",
+      "pageArchetype": "gift-guide",
+      "pageUrl": "https://shopforher.org/mothers-day-gifts-for-wife/",
+      "title": "Best Mother's Day gifts for wives in 2026 | ShopForHer",
+      "h1": "Best Mother's Day gifts for wives in 2026",
+      "description": "Mother's Day gifts for wives that feel appreciative, polished, and clearly for her.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "relationships": [
+            "wife"
+          ],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [],
+          "guideGroups": [
+            "moments"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "daily-use",
+            "everyday",
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "daily-use",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "over-150",
+            "under-150",
+            "under-50"
+          ]
+        }
+      },
+      "entities": {
+        "featuredGiftId": "digital-frame",
+        "productIds": [
+          "digital-frame",
+          "cashmere-robe",
+          "marc-jacobs-perfect-absolute",
+          "temperature-mug",
+          "prettygarden-one-shoulder-maxi",
+          "rustic-vase-set"
+        ],
+        "relatedGuideSlugs": [
+          "gifts-for-wife",
+          "birthday-gifts-for-wife",
+          "luxury-gifts-for-her"
+        ]
+      },
+      "ops": {
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -1086,7 +2165,7 @@
       "title": "Best gifts for her under $75 in 2026 | ShopForHer",
       "h1": "Best gifts for her under $75 in 2026",
       "description": "Budget gift picks that still look clean and intentional.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1127,20 +2206,20 @@
           ],
           "priceBands": [
             "under-100",
-            "under-50",
-            "under-75"
+            "under-25",
+            "under-50"
           ]
         }
       },
       "entities": {
-        "featuredGiftId": "candle-warmer",
+        "featuredGiftId": "ugg-slippers",
         "productIds": [
-          "candle-warmer",
+          "ugg-slippers",
+          "mchic-beaded-choker",
+          "silk-pillowcase",
           "laneige-set",
           "stanley-quencher",
-          "owala-bottle",
-          "ugg-slippers",
-          "silk-pillowcase"
+          "owala-bottle"
         ],
         "relatedGuideSlugs": [
           "best-gifts-under-100",
@@ -1162,7 +2241,7 @@
       "title": "Best gifts for her under $100 in 2026 | ShopForHer",
       "h1": "Best gifts for her under $100 in 2026",
       "description": "Strong gift picks for her under $100, built around easy wins and clean buys.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1205,8 +2284,7 @@
             "over-150",
             "under-100",
             "under-150",
-            "under-50",
-            "under-75"
+            "under-50"
           ]
         }
       },
@@ -1214,12 +2292,12 @@
         "featuredGiftId": "ugg-slippers",
         "productIds": [
           "ugg-slippers",
+          "ceramic-floor-vase",
+          "sheer-crochet-poncho-top",
           "mini-photo-printer",
-          "stanley-quencher",
-          "owala-bottle",
           "earbuds",
-          "laneige-set",
-          "candle-warmer"
+          "owala-bottle",
+          "laneige-set"
         ],
         "relatedGuideSlugs": [
           "gifts-for-girlfriend",
@@ -1241,7 +2319,7 @@
       "title": "Viral gifts for her in 2026 | ShopForHer",
       "h1": "Viral gifts for her in 2026",
       "description": "Trending gift ideas for her that feel current, recognizable, and easy to click when you need a fast win.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1299,7 +2377,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -1312,7 +2390,7 @@
       "title": "Luxury gifts for her in 2026 | ShopForHer",
       "h1": "Luxury gifts for her in 2026",
       "description": "Luxury gift ideas for her that feel premium, polished, and clearly more special than a standard pick.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1385,7 +2463,7 @@
       "title": "Practical gifts for her in 2026 | ShopForHer",
       "h1": "Practical gifts for her in 2026",
       "description": "Useful gifts for her that still feel like a gift, not an errand.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1444,7 +2522,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -1457,7 +2535,7 @@
       "title": "Cozy home gifts for her in 2026 | ShopForHer",
       "h1": "Cozy home gifts for her in 2026",
       "description": "Soft, apartment-friendly gifts for her that feel warm and easy to keep.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1518,7 +2596,301 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
+      }
+    },
+    {
+      "id": "guide:books-for-her",
+      "slug": "books-for-her",
+      "path": "/books-for-her/",
+      "pageType": "guide",
+      "pageArchetype": "gift-guide",
+      "pageUrl": "https://shopforher.org/books-for-her/",
+      "title": "Book gifts for her in 2026 | ShopForHer",
+      "h1": "Book gifts for her in 2026",
+      "description": "Reader-first gifts for her, from Kindle upgrades to cozy reading-night picks.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "relationships": [],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [
+            "cozy-home"
+          ],
+          "guideGroups": [
+            "angle"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "daily-use",
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "daily-use",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "over-150",
+            "under-100",
+            "under-150",
+            "under-75"
+          ]
+        }
+      },
+      "entities": {
+        "featuredGiftId": "kindle-paperwhite",
+        "productIds": [
+          "kindle-paperwhite",
+          "luxury-throw",
+          "candle-warmer",
+          "temperature-mug",
+          "sunrise-alarm",
+          "bose-speaker"
+        ],
+        "relatedGuideSlugs": [
+          "cozy-home-gifts-for-her",
+          "daily-use-gifts-for-her",
+          "gifts-for-wife"
+        ]
+      },
+      "ops": {
+        "needsEditorialRefresh": true
+      }
+    },
+    {
+      "id": "guide:kindle-gifts-for-her",
+      "slug": "kindle-gifts-for-her",
+      "path": "/kindle-gifts-for-her/",
+      "pageType": "guide",
+      "pageArchetype": "gift-guide",
+      "pageUrl": "https://shopforher.org/kindle-gifts-for-her/",
+      "title": "Kindle gifts for her in 2026 | ShopForHer",
+      "h1": "Kindle gifts for her in 2026",
+      "description": "Kindle-first gifts for her, from the Paperwhite itself to cleaner upgrades around digital reading.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "relationships": [],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [],
+          "guideGroups": [
+            "angle"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "daily-use",
+            "everyday",
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "daily-use",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "over-150",
+            "under-100",
+            "under-150"
+          ]
+        }
+      },
+      "entities": {
+        "featuredGiftId": "kindle-paperwhite",
+        "productIds": [
+          "kindle-paperwhite",
+          "bose-speaker",
+          "temperature-mug",
+          "sunrise-alarm",
+          "earbuds",
+          "magsafe-stand"
+        ],
+        "relatedGuideSlugs": [
+          "books-for-her",
+          "daily-use-gifts-for-her",
+          "gifts-for-wife"
+        ]
+      },
+      "ops": {
+        "needsEditorialRefresh": true
+      }
+    },
+    {
+      "id": "guide:cozy-gifts-for-readers",
+      "slug": "cozy-gifts-for-readers",
+      "path": "/cozy-gifts-for-readers/",
+      "pageType": "guide",
+      "pageArchetype": "gift-guide",
+      "pageUrl": "https://shopforher.org/cozy-gifts-for-readers/",
+      "title": "Cozy gifts for readers in 2026 | ShopForHer",
+      "h1": "Cozy gifts for readers in 2026",
+      "description": "Soft reader gifts for her that make reading nights feel warmer, calmer, and easier to keep.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "relationships": [],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [
+            "cozy-home"
+          ],
+          "guideGroups": [
+            "angle"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "daily-use",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "over-150",
+            "under-100",
+            "under-150",
+            "under-75"
+          ]
+        }
+      },
+      "entities": {
+        "featuredGiftId": "luxury-throw",
+        "productIds": [
+          "luxury-throw",
+          "candle-warmer",
+          "ugg-slippers",
+          "nespresso-machine",
+          "sunrise-alarm",
+          "silk-pillowcase"
+        ],
+        "relatedGuideSlugs": [
+          "books-for-her",
+          "cozy-home-gifts-for-her",
+          "gifts-for-homebodies"
+        ]
+      },
+      "ops": {
+        "needsEditorialRefresh": true
+      }
+    },
+    {
+      "id": "guide:book-lover-gifts-for-her",
+      "slug": "book-lover-gifts-for-her",
+      "path": "/book-lover-gifts-for-her/",
+      "pageType": "guide",
+      "pageArchetype": "gift-guide",
+      "pageUrl": "https://shopforher.org/book-lover-gifts-for-her/",
+      "title": "Book-lover gifts for her in 2026 | ShopForHer",
+      "h1": "Book-lover gifts for her in 2026",
+      "description": "Gift picks for women who love reading, from obvious Kindle upgrades to calmer bookish routine wins.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "relationships": [],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [],
+          "guideGroups": [
+            "angle"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "daily-use",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "over-150",
+            "under-100",
+            "under-150",
+            "under-75"
+          ]
+        }
+      },
+      "entities": {
+        "featuredGiftId": "kindle-paperwhite",
+        "productIds": [
+          "kindle-paperwhite",
+          "candle-warmer",
+          "ugg-slippers",
+          "bose-speaker",
+          "sunrise-alarm",
+          "nespresso-machine"
+        ],
+        "relatedGuideSlugs": [
+          "books-for-her",
+          "amazon-gifts-for-her",
+          "gifts-for-wife"
+        ]
+      },
+      "ops": {
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -1531,7 +2903,7 @@
       "title": "Tech gifts for her in 2026 | ShopForHer",
       "h1": "Tech gifts for her in 2026",
       "description": "Cleaner tech gifts for her that feel current, useful, and safe to buy.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1606,7 +2978,7 @@
       "title": "Best new relationship gifts for her in 2026 | ShopForHer",
       "h1": "Best new relationship gifts for her in 2026",
       "description": "Low-pressure gifts for new relationships that still feel sharp.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": false,
       "indexStatus": "overlap-suppressed",
       "taxonomy": {
@@ -1646,6 +3018,7 @@
           "priceBands": [
             "under-100",
             "under-150",
+            "under-25",
             "under-75"
           ]
         }
@@ -1656,14 +3029,14 @@
           "silk-pillowcase",
           "mini-photo-printer",
           "sunrise-alarm",
-          "luxury-throw",
-          "magsafe-stand",
-          "candle-warmer"
+          "mchic-beaded-choker",
+          "candle-warmer",
+          "luxury-throw"
         ],
         "relatedGuideSlugs": [
           "gifts-for-girlfriend",
-          "best-gifts-under-75",
-          "last-minute-gifts-for-her"
+          "birthday-gifts-for-girlfriend",
+          "date-night-gifts-for-her"
         ]
       },
       "ops": {
@@ -1679,8 +3052,8 @@
       "pageUrl": "https://shopforher.org/gifts-for-her-who-has-everything/",
       "title": "Best gifts for her who has everything in 2026 | ShopForHer",
       "h1": "Best gifts for her who has everything in 2026",
-      "description": "Gift picks that feel less obvious and more chosen.",
-      "updatedAt": "2026-03-09",
+      "description": "Gift picks that feel edited, less obvious, and more chosen than the default answers.",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1689,8 +3062,7 @@
           "occasions": [],
           "budgetBands": [],
           "angles": [
-            "hard-to-buy-for",
-            "practical"
+            "hard-to-buy-for"
           ],
           "guideGroups": [
             "relationship"
@@ -1701,13 +3073,15 @@
             "anniversary",
             "anyone",
             "girlfriend",
+            "new-relationship",
             "wife"
           ],
           "intentTags": [
             "cozy",
             "everyday",
             "looks-expensive",
-            "thoughtful"
+            "thoughtful",
+            "viral"
           ],
           "tabTags": [
             "best-overall",
@@ -1720,16 +3094,15 @@
             "over-150",
             "under-100",
             "under-150",
-            "under-50",
-            "under-75"
+            "under-50"
           ]
         }
       },
       "entities": {
-        "featuredGiftId": "black-olive-tree",
+        "featuredGiftId": "kirundo-pleated-maxi-dress",
         "productIds": [
-          "black-olive-tree",
-          "rustic-vase-set",
+          "kirundo-pleated-maxi-dress",
+          "panluca-statement-necklace",
           "faux-olive-tree-planter",
           "projector",
           "jewelry-case",
@@ -1755,7 +3128,7 @@
       "title": "Best last-minute gifts for her in 2026 | ShopForHer",
       "h1": "Best last-minute gifts for her in 2026",
       "description": "Last-minute gift ideas for her that still feel polished, useful, and safe to buy fast.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1830,7 +3203,7 @@
       "title": "Best date night gifts for her in 2026 | ShopForHer",
       "h1": "Best date night gifts for her in 2026",
       "description": "Date night gift ideas for her that feel romantic, experience-friendly, and more memorable than a standard pick.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1890,7 +3263,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -1903,7 +3276,7 @@
       "title": "Best Amazon gifts for her in 2026 | ShopForHer",
       "h1": "Best Amazon gifts for her in 2026",
       "description": "Fast Amazon gift picks for her, chosen for clean fit and faster checkout.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -1966,7 +3339,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1979,7 +3352,7 @@
       "title": "Best gifts for homebodies in 2026 | ShopForHer",
       "h1": "Best gifts for homebodies in 2026",
       "description": "At-home gifts that feel soft, useful, and easy to keep around.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2042,7 +3415,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -2055,7 +3428,7 @@
       "title": "Best daily-use gifts for her in 2026 | ShopForHer",
       "h1": "Best daily-use gifts for her in 2026",
       "description": "Gifts for her that earn their place because they get used all the time.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2118,7 +3491,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -2131,7 +3504,7 @@
       "title": "Gifts for her that look expensive in 2026 | ShopForHer",
       "h1": "Gifts for her that look expensive in 2026",
       "description": "Gifts for her that feel polished and premium without forcing a huge spend.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2156,6 +3529,222 @@
           ],
           "intentTags": [
             "cozy",
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "over-150",
+            "under-50",
+            "under-75"
+          ]
+        }
+      },
+      "entities": {
+        "featuredGiftId": "prettygarden-one-shoulder-maxi",
+        "productIds": [
+          "prettygarden-one-shoulder-maxi",
+          "kirundo-pleated-maxi-dress",
+          "black-olive-tree",
+          "marc-jacobs-perfect-absolute",
+          "satin-halter-maxi-dress",
+          "rustic-vase-set"
+        ],
+        "relatedGuideSlugs": [
+          "luxury-gifts-for-her",
+          "best-gifts-under-100",
+          "gifts-for-girlfriend"
+        ]
+      },
+      "ops": {
+        "needsEditorialRefresh": false
+      }
+    },
+    {
+      "id": "hot-story:easter-gifts-for-wife-right-now",
+      "slug": "easter-gifts-for-wife-right-now",
+      "path": "/hot/easter-gifts-for-wife-right-now/",
+      "pageType": "hot-story",
+      "pageArchetype": "trend-roundup",
+      "pageUrl": "https://shopforher.org/hot/easter-gifts-for-wife-right-now/",
+      "title": "Easter gifts for wives right now in 2026 | ShopForHer",
+      "h1": "Easter gifts for wives right now in 2026",
+      "description": "Current Easter gifts for wives that feel spring-ready, polished, and easy to move on now.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "relationships": [
+            "wife"
+          ],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [
+            "viral"
+          ],
+          "guideGroups": [
+            "trend"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-100",
+            "under-150",
+            "under-25",
+            "under-50"
+          ]
+        }
+      },
+      "entities": {
+        "productIds": [
+          "boxwood-bunny-topiary",
+          "lenox-bunny-candy-dish",
+          "oneida-bunny-hop-plates",
+          "easter-bunny-porch-decor",
+          "faux-olive-tree-planter"
+        ],
+        "relatedGuideSlugs": [
+          "easter-gifts-for-wife",
+          "gifts-for-wife",
+          "mothers-day-gifts-for-wife"
+        ]
+      },
+      "metrics": {
+        "viewsLabel": "54K views",
+        "durationLabel": "0:24",
+        "trendLabel": "Seasonal now"
+      }
+    },
+    {
+      "id": "hot-story:easter-hostess-gifts-right-now",
+      "slug": "easter-hostess-gifts-right-now",
+      "path": "/hot/easter-hostess-gifts-right-now/",
+      "pageType": "hot-story",
+      "pageArchetype": "trend-roundup",
+      "pageUrl": "https://shopforher.org/hot/easter-hostess-gifts-right-now/",
+      "title": "Easter hostess gifts right now in 2026 | ShopForHer",
+      "h1": "Easter hostess gifts right now in 2026",
+      "description": "Current Easter hostess gifts that feel polished, seasonal, and easy to bring now.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "relationships": [],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [
+            "viral"
+          ],
+          "guideGroups": [
+            "trend"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-100",
+            "under-25",
+            "under-50"
+          ]
+        }
+      },
+      "entities": {
+        "productIds": [
+          "lenox-bunny-candy-dish",
+          "oneida-bunny-hop-plates",
+          "easter-gift-basket",
+          "boxwood-bunny-topiary",
+          "easter-bunny-porch-decor"
+        ],
+        "relatedGuideSlugs": [
+          "cozy-home-gifts-for-her",
+          "easter-gifts-for-wife",
+          "gifts-for-wife"
+        ]
+      },
+      "metrics": {
+        "viewsLabel": "46K views",
+        "durationLabel": "0:23",
+        "trendLabel": "Hosting now"
+      }
+    },
+    {
+      "id": "hot-story:mothers-day-gifts-for-wife-right-now",
+      "slug": "mothers-day-gifts-for-wife-right-now",
+      "path": "/hot/mothers-day-gifts-for-wife-right-now/",
+      "pageType": "hot-story",
+      "pageArchetype": "trend-roundup",
+      "pageUrl": "https://shopforher.org/hot/mothers-day-gifts-for-wife-right-now/",
+      "title": "Mother's Day gifts for wives right now in 2026 | ShopForHer",
+      "h1": "Mother's Day gifts for wives right now in 2026",
+      "description": "Current Mother's Day gifts for wives that feel appreciative, polished, and easy to move on now.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "relationships": [
+            "wife"
+          ],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [
+            "viral"
+          ],
+          "guideGroups": [
+            "trend"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "daily-use",
             "everyday",
             "looks-expensive",
             "thoughtful",
@@ -2170,28 +3759,29 @@
           ],
           "priceBands": [
             "over-150",
+            "under-150",
             "under-50"
           ]
         }
       },
       "entities": {
-        "featuredGiftId": "cashmere-robe",
         "productIds": [
+          "digital-frame",
           "cashmere-robe",
           "marc-jacobs-perfect-absolute",
-          "panluca-statement-necklace",
-          "digital-frame",
-          "nespresso-machine",
-          "gucci-flora-gorgeous-magnolia"
+          "temperature-mug",
+          "prettygarden-one-shoulder-maxi"
         ],
         "relatedGuideSlugs": [
-          "luxury-gifts-for-her",
-          "best-gifts-under-100",
-          "gifts-for-girlfriend"
+          "birthday-gifts-for-wife",
+          "gifts-for-wife",
+          "mothers-day-gifts-for-wife"
         ]
       },
-      "ops": {
-        "needsEditorialRefresh": true
+      "metrics": {
+        "viewsLabel": "61K views",
+        "durationLabel": "0:27",
+        "trendLabel": "Seasonal now"
       }
     },
     {
@@ -2204,7 +3794,7 @@
       "title": "Viral gifts for girlfriends in 2026 | ShopForHer",
       "h1": "Viral gifts for girlfriends in 2026",
       "description": "Current gifts for girlfriends that feel popular online and easy to buy fast.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2281,7 +3871,7 @@
       "title": "Viral gifts for wives in 2026 | ShopForHer",
       "h1": "Viral gifts for wives in 2026",
       "description": "Current wife gift picks with stronger quality and cleaner buying confidence.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2354,7 +3944,7 @@
       "title": "Viral gifts for her under $100 in 2026 | ShopForHer",
       "h1": "Viral gifts for her under $100 in 2026",
       "description": "High-click gifts for her under $100 that still feel like a strong buy.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2433,7 +4023,7 @@
       "title": "Gifts for her that look expensive and are going viral | ShopForHer",
       "h1": "Gifts for her that look expensive and are going viral",
       "description": "Polished gifts for her with stronger visual payoff and current attention.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2507,7 +4097,7 @@
       "title": "Useful gifts women actually use in 2026 | ShopForHer",
       "h1": "Useful gifts women actually use in 2026",
       "description": "Practical gifts for her that still feel good when opened and better after week one.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2584,7 +4174,7 @@
       "title": "Cozy gifts trending now in 2026 | ShopForHer",
       "h1": "Cozy gifts trending now in 2026",
       "description": "Soft, apartment-friendly gifts for her that are trending now and easy to keep.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2659,7 +4249,7 @@
       "title": "Anniversary gifts trending now in 2026 | ShopForHer",
       "h1": "Anniversary gifts trending now in 2026",
       "description": "Trending anniversary gifts for her that feel more intentional without turning cheesy.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2733,7 +4323,7 @@
       "title": "New relationship gifts trending now in 2026 | ShopForHer",
       "h1": "New relationship gifts trending now in 2026",
       "description": "Trending gifts for a new relationship that feel sharp, simple, and low-pressure.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "taxonomy": {
@@ -2992,7 +4582,7 @@
       "title": "Mulberry Silk Pillowcase Set | ShopForHer",
       "h1": "Mulberry Silk Pillowcase Set",
       "description": "Feels polished, feminine, and expensive without needing her exact size or taste.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3039,6 +4629,7 @@
           "gifts-for-girlfriend",
           "best-gifts-under-75",
           "cozy-home-gifts-for-her",
+          "cozy-gifts-for-readers",
           "new-relationship-gifts-for-her"
         ],
         "hotStorySlugs": [
@@ -3060,7 +4651,7 @@
       "title": "Temperature-Control Mug | ShopForHer",
       "h1": "Temperature-Control Mug",
       "description": "A strong wife or girlfriend gift because it solves an annoying problem and feels upgraded immediately.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3104,10 +4695,14 @@
         "catalogGiftId": "temperature-mug",
         "guideSlugs": [
           "gifts-for-wife",
+          "mothers-day-gifts-for-wife",
           "practical-gifts-for-her",
+          "books-for-her",
+          "kindle-gifts-for-her",
           "daily-use-gifts-for-her"
         ],
         "hotStorySlugs": [
+          "mothers-day-gifts-for-wife-right-now",
           "viral-gifts-for-wife",
           "useful-gifts-women-actually-use"
         ]
@@ -3123,7 +4718,7 @@
       "title": "Digital Picture Frame | ShopForHer",
       "h1": "Digital Picture Frame",
       "description": "One of the cleanest meaningful gifts for wives because it feels emotional the second photos are loaded.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3166,10 +4761,11 @@
         "guideSlugs": [
           "gifts-for-wife",
           "anniversary-gifts-for-her",
-          "tech-gifts-for-her",
-          "looks-expensive-gifts-for-her"
+          "mothers-day-gifts-for-wife",
+          "tech-gifts-for-her"
         ],
         "hotStorySlugs": [
+          "mothers-day-gifts-for-wife-right-now",
           "viral-gifts-for-wife",
           "looks-expensive-gifts-going-viral",
           "anniversary-gifts-trending-now"
@@ -3186,7 +4782,7 @@
       "title": "Mini Photo Printer | ShopForHer",
       "h1": "Mini Photo Printer",
       "description": "Easy girlfriend pick because it feels fun, personal, and shareable without being too serious.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3251,7 +4847,7 @@
       "title": "Sunrise Alarm Clock | ShopForHer",
       "h1": "Sunrise Alarm Clock",
       "description": "Feels wellness-forward and designed, which makes it a good choice when you want thoughtful without overdoing it.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3293,6 +4889,10 @@
       "entities": {
         "catalogGiftId": "sunrise-alarm",
         "guideSlugs": [
+          "books-for-her",
+          "kindle-gifts-for-her",
+          "cozy-gifts-for-readers",
+          "book-lover-gifts-for-her",
           "new-relationship-gifts-for-her",
           "gifts-for-homebodies",
           "daily-use-gifts-for-her"
@@ -3314,7 +4914,7 @@
       "title": "Luxury Throw Blanket | ShopForHer",
       "h1": "Luxury Throw Blanket",
       "description": "Very safe because it feels expensive, feminine, and cozy without forcing a specific personal taste.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3357,6 +4957,8 @@
         "catalogGiftId": "luxury-throw",
         "guideSlugs": [
           "cozy-home-gifts-for-her",
+          "books-for-her",
+          "cozy-gifts-for-readers",
           "new-relationship-gifts-for-her",
           "date-night-gifts-for-her",
           "gifts-for-homebodies"
@@ -3378,7 +4980,7 @@
       "title": "Compact Walking Pad | ShopForHer",
       "h1": "Compact Walking Pad",
       "description": "The kind of wife gift that reads as useful, current, and more substantial than a small accessory.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3439,7 +5041,7 @@
       "title": "Noise-Canceling Earbuds | ShopForHer",
       "h1": "Noise-Canceling Earbuds",
       "description": "One of the easiest gifts for a girlfriend or wife because the use case is immediate and obvious.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3482,6 +5084,7 @@
         "guideSlugs": [
           "gifts-for-girlfriend",
           "best-gifts-under-100",
+          "kindle-gifts-for-her",
           "last-minute-gifts-for-her"
         ],
         "hotStorySlugs": [
@@ -3501,7 +5104,7 @@
       "title": "Portable Projector | ShopForHer",
       "h1": "Portable Projector",
       "description": "Great when you want the gift to feel like an experience and a home upgrade at the same time.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3563,7 +5166,7 @@
       "title": "MagSafe Charging Stand | ShopForHer",
       "h1": "MagSafe Charging Stand",
       "description": "A professional-feeling option when she likes neat spaces, bedside setups, or a more polished desk.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3604,8 +5207,8 @@
         "catalogGiftId": "magsafe-stand",
         "guideSlugs": [
           "practical-gifts-for-her",
+          "kindle-gifts-for-her",
           "tech-gifts-for-her",
-          "new-relationship-gifts-for-her",
           "last-minute-gifts-for-her"
         ],
         "hotStorySlugs": [
@@ -3624,7 +5227,7 @@
       "title": "Structured Jewelry Case | ShopForHer",
       "h1": "Structured Jewelry Case",
       "description": "A strong pick because it feels feminine, organized, and clearly chosen for her rather than bought at random.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3688,7 +5291,7 @@
       "title": "Candle Warmer Lamp | ShopForHer",
       "h1": "Candle Warmer Lamp",
       "description": "Feels warm, aesthetic, and feminine, which makes it a low-risk cozy-home gift for a girlfriend or wife.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3729,8 +5332,9 @@
       "entities": {
         "catalogGiftId": "candle-warmer",
         "guideSlugs": [
-          "best-gifts-under-75",
-          "best-gifts-under-100",
+          "books-for-her",
+          "cozy-gifts-for-readers",
+          "book-lover-gifts-for-her",
           "new-relationship-gifts-for-her",
           "gifts-for-homebodies"
         ],
@@ -3751,7 +5355,7 @@
       "title": "LED Vanity Mirror | ShopForHer",
       "h1": "LED Vanity Mirror",
       "description": "Useful, visual, and clearly premium, which makes it a stronger wife or long-term girlfriend option.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3811,7 +5415,7 @@
       "title": "Cashmere-Feel Robe | ShopForHer",
       "h1": "Cashmere-Feel Robe",
       "description": "One of the better elevated home gifts because it feels personal, premium, and clearly for her comfort.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3853,10 +5457,11 @@
         "catalogGiftId": "cashmere-robe",
         "guideSlugs": [
           "anniversary-gifts-for-her",
-          "date-night-gifts-for-her",
-          "looks-expensive-gifts-for-her"
+          "mothers-day-gifts-for-wife",
+          "date-night-gifts-for-her"
         ],
         "hotStorySlugs": [
+          "mothers-day-gifts-for-wife-right-now",
           "viral-gifts-for-wife",
           "looks-expensive-gifts-going-viral",
           "cozy-gifts-trending-now",
@@ -3874,7 +5479,7 @@
       "title": "Kindle Paperwhite Signature Edition | ShopForHer",
       "h1": "Kindle Paperwhite Signature Edition",
       "description": "Feels thoughtful and polished, especially when she reads at night, travels, or wants a cleaner way to unwind.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3919,6 +5524,9 @@
           "birthday-gifts-for-wife",
           "luxury-gifts-for-her",
           "practical-gifts-for-her",
+          "books-for-her",
+          "kindle-gifts-for-her",
+          "book-lover-gifts-for-her",
           "daily-use-gifts-for-her"
         ],
         "hotStorySlugs": []
@@ -3934,7 +5542,7 @@
       "title": "Ninja CREAMi Deluxe | ShopForHer",
       "h1": "Ninja CREAMi Deluxe",
       "description": "Strong when she likes hosting, dessert, or wellness routines and you want a more current-feeling home gift.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -3993,7 +5601,7 @@
       "title": "Nespresso Vertuo Next | ShopForHer",
       "h1": "Nespresso Vertuo Next",
       "description": "Feels elevated right away and makes the everyday routine look more put together.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4038,7 +5646,8 @@
           "gifts-for-wife",
           "luxury-gifts-for-her",
           "cozy-home-gifts-for-her",
-          "looks-expensive-gifts-for-her"
+          "cozy-gifts-for-readers",
+          "book-lover-gifts-for-her"
         ],
         "hotStorySlugs": []
       }
@@ -4053,7 +5662,7 @@
       "title": "Owala FreeSip Sway Bottle | ShopForHer",
       "h1": "Owala FreeSip Sway Bottle",
       "description": "Low-risk when she likes stylish everyday gear and you want something current without overspending.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4112,7 +5721,7 @@
       "title": "Therabody Theragun Relief | ShopForHer",
       "h1": "Therabody Theragun Relief",
       "description": "A better premium wellness gift when you want something more serious than a small accessory.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4171,7 +5780,7 @@
       "title": "Koolaburra by UGG Burree Slipper | ShopForHer",
       "h1": "Koolaburra by UGG Burree Slipper",
       "description": "Reads more intentional than a generic home gift and lands fast if she likes comfort and warm routines.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4216,7 +5825,9 @@
         "guideSlugs": [
           "best-gifts-under-75",
           "best-gifts-under-100",
-          "cozy-home-gifts-for-her"
+          "cozy-home-gifts-for-her",
+          "cozy-gifts-for-readers",
+          "book-lover-gifts-for-her"
         ],
         "hotStorySlugs": []
       }
@@ -4231,7 +5842,7 @@
       "title": "Stanley Quencher H2.0 FlowState | ShopForHer",
       "h1": "Stanley Quencher H2.0 FlowState",
       "description": "Works because it is instantly recognizable, easy to carry every day, and giftable without much explanation.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4273,7 +5884,6 @@
         "catalogGiftId": "stanley-quencher",
         "guideSlugs": [
           "best-gifts-under-75",
-          "best-gifts-under-100",
           "daily-use-gifts-for-her"
         ],
         "hotStorySlugs": []
@@ -4289,7 +5899,7 @@
       "title": "LANEIGE Midnight Minis Lip Set | ShopForHer",
       "h1": "LANEIGE Midnight Minis Lip Set",
       "description": "Good add-on or lower-budget pick when you want something beauty-adjacent that still feels current and polished.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4349,7 +5959,7 @@
       "title": "Bose SoundLink Flex (2nd Gen) | ShopForHer",
       "h1": "Bose SoundLink Flex (2nd Gen)",
       "description": "A clean option when she likes music, travel, or outdoor hangs and you want something with stronger brand recognition.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4394,6 +6004,9 @@
           "gifts-for-girlfriend",
           "birthday-gifts-for-girlfriend",
           "practical-gifts-for-her",
+          "books-for-her",
+          "kindle-gifts-for-her",
+          "book-lover-gifts-for-her",
           "amazon-gifts-for-her"
         ],
         "hotStorySlugs": []
@@ -4409,7 +6022,7 @@
       "title": "Sol de Janeiro Bum Bum Jet Set | ShopForHer",
       "h1": "Sol de Janeiro Bum Bum Jet Set",
       "description": "Useful when you want a smaller beauty pick that still feels current, feminine, and clearly chosen for her.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
       "taxonomy": {
@@ -4469,7 +6082,7 @@
       "title": "Saodimallsu Crochet Swim Cover Up Set | ShopForHer",
       "h1": "Saodimallsu Crochet Swim Cover Up Set",
       "description": "Useful when you want a warm-weather gift that feels trend-aware without overcomplicating the pick.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
       "taxonomy": {
@@ -4524,7 +6137,7 @@
       "title": "RoseSeek Crochet Lace Cover Up Pants | ShopForHer",
       "h1": "RoseSeek Crochet Lace Cover Up Pants",
       "description": "Works when she likes resortwear styling and you want a lower-risk fashion gift with an easy vacation angle.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "taxonomy": {
@@ -4578,7 +6191,7 @@
       "title": "Saodimallsu Crochet Cardigan Cover Up Dress | ShopForHer",
       "h1": "Saodimallsu Crochet Cardigan Cover Up Dress",
       "description": "A safer apparel-adjacent gift when you want something visual and seasonal without jumping to a full dress buy.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
       "taxonomy": {
@@ -4632,7 +6245,7 @@
       "title": "Sheer Crochet Poncho Top | ShopForHer",
       "h1": "Sheer Crochet Poncho Top",
       "description": "Easy to justify as a lower-cost style add-on when you want something breezy and visibly giftable.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4672,7 +6285,9 @@
       },
       "entities": {
         "catalogGiftId": "sheer-crochet-poncho-top",
-        "guideSlugs": [],
+        "guideSlugs": [
+          "best-gifts-under-100"
+        ],
         "hotStorySlugs": []
       }
     },
@@ -4686,7 +6301,7 @@
       "title": "PanLuca Statement Necklace | ShopForHer",
       "h1": "PanLuca Statement Necklace",
       "description": "Strong when she likes noticeable accessories and you want a jewelry gift with more visual payoff than tiny basics.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4731,8 +6346,8 @@
         "guideSlugs": [
           "gifts-for-girlfriend",
           "birthday-gifts-for-wife",
-          "amazon-gifts-for-her",
-          "looks-expensive-gifts-for-her"
+          "gifts-for-her-who-has-everything",
+          "amazon-gifts-for-her"
         ],
         "hotStorySlugs": []
       }
@@ -4747,7 +6362,7 @@
       "title": "Posadina Natural Stone Phone Charm | ShopForHer",
       "h1": "Posadina Natural Stone Phone Charm",
       "description": "A cleaner small gift when she likes personalized-looking extras that attach to something she already uses daily.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4808,7 +6423,7 @@
       "title": "Mchic Colorful Beaded Choker Necklace | ShopForHer",
       "h1": "Mchic Colorful Beaded Choker Necklace",
       "description": "Useful when you want a playful accessory gift that feels trend-aware without a big spend.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "taxonomy": {
@@ -4850,7 +6465,10 @@
       },
       "entities": {
         "catalogGiftId": "mchic-beaded-choker",
-        "guideSlugs": [],
+        "guideSlugs": [
+          "best-gifts-under-75",
+          "new-relationship-gifts-for-her"
+        ],
         "hotStorySlugs": []
       }
     },
@@ -4864,7 +6482,7 @@
       "title": "Boxwood Bunny Topiary | ShopForHer",
       "h1": "Boxwood Bunny Topiary",
       "description": "Better when you want spring decor to read intentional and gift-ready rather than like filler basket extras.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4904,8 +6522,13 @@
       },
       "entities": {
         "catalogGiftId": "boxwood-bunny-topiary",
-        "guideSlugs": [],
-        "hotStorySlugs": []
+        "guideSlugs": [
+          "easter-gifts-for-wife"
+        ],
+        "hotStorySlugs": [
+          "easter-gifts-for-wife-right-now",
+          "easter-hostess-gifts-right-now"
+        ]
       }
     },
     {
@@ -4918,7 +6541,7 @@
       "title": "Lenox Wicker Creek Bunny Candy Dish | ShopForHer",
       "h1": "Lenox Wicker Creek Bunny Candy Dish",
       "description": "A cleaner pick for someone who likes tableware, hosting pieces, or a recognizable home brand.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -4958,8 +6581,13 @@
       },
       "entities": {
         "catalogGiftId": "lenox-bunny-candy-dish",
-        "guideSlugs": [],
-        "hotStorySlugs": []
+        "guideSlugs": [
+          "easter-gifts-for-wife"
+        ],
+        "hotStorySlugs": [
+          "easter-gifts-for-wife-right-now",
+          "easter-hostess-gifts-right-now"
+        ]
       }
     },
     {
@@ -4972,7 +6600,7 @@
       "title": "Large Easter Bunny Porch Decor | ShopForHer",
       "h1": "Large Easter Bunny Porch Decor",
       "description": "Fits when she likes exterior seasonal decor and you want something more visible than tabletop pieces.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
       "taxonomy": {
@@ -5010,8 +6638,13 @@
       },
       "entities": {
         "catalogGiftId": "easter-bunny-porch-decor",
-        "guideSlugs": [],
-        "hotStorySlugs": []
+        "guideSlugs": [
+          "easter-gifts-for-wife"
+        ],
+        "hotStorySlugs": [
+          "easter-gifts-for-wife-right-now",
+          "easter-hostess-gifts-right-now"
+        ]
       }
     },
     {
@@ -5024,9 +6657,9 @@
       "title": "OLIKER Speckled Easter Eggs | ShopForHer",
       "h1": "OLIKER Speckled Easter Eggs",
       "description": "Useful as an add-on when you need low-cost Easter decor rather than a standalone main gift.",
-      "updatedAt": "2026-03-09",
-      "searchIndexable": false,
-      "indexStatus": "merchant-search-fallback",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
       "taxonomy": {
         "primary": {
           "relationshipTags": [
@@ -5049,13 +6682,13 @@
         },
         "coverage": {
           "merchantTypes": [
-            "amazon-search"
+            "direct-product"
           ]
         }
       },
       "commerce": {
         "merchantName": "Amazon",
-        "merchantPathType": "amazon-search",
+        "merchantPathType": "direct-product",
         "checkout": "offsite"
       },
       "entities": {
@@ -5074,7 +6707,7 @@
       "title": "Easter Gift Basket with Ribbons | ShopForHer",
       "h1": "Easter Gift Basket with Ribbons",
       "description": "Best when you need packaging, a basket base, or a supporting Easter add-on at a very low spend.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5110,8 +6743,12 @@
       },
       "entities": {
         "catalogGiftId": "easter-gift-basket",
-        "guideSlugs": [],
-        "hotStorySlugs": []
+        "guideSlugs": [
+          "easter-gifts-for-wife"
+        ],
+        "hotStorySlugs": [
+          "easter-hostess-gifts-right-now"
+        ]
       }
     },
     {
@@ -5124,7 +6761,7 @@
       "title": "Oneida Bunny Hop Dinner Plates | ShopForHer",
       "h1": "Oneida Bunny Hop Dinner Plates",
       "description": "Useful for spring hosting or Easter brunch when you want a seasonal pick that still feels functional.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5162,8 +6799,13 @@
       },
       "entities": {
         "catalogGiftId": "oneida-bunny-hop-plates",
-        "guideSlugs": [],
-        "hotStorySlugs": []
+        "guideSlugs": [
+          "easter-gifts-for-wife"
+        ],
+        "hotStorySlugs": [
+          "easter-gifts-for-wife-right-now",
+          "easter-hostess-gifts-right-now"
+        ]
       }
     },
     {
@@ -5176,7 +6818,7 @@
       "title": "Satin Halter Backless Maxi Dress | ShopForHer",
       "h1": "Satin Halter Backless Maxi Dress",
       "description": "Stronger when you want a dressier apparel gift that reads current and occasion-specific instead of basic.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5221,7 +6863,8 @@
         "guideSlugs": [
           "anniversary-gifts-for-her",
           "birthday-gifts-for-girlfriend",
-          "viral-gifts-for-her"
+          "viral-gifts-for-her",
+          "looks-expensive-gifts-for-her"
         ],
         "hotStorySlugs": []
       }
@@ -5236,7 +6879,7 @@
       "title": "SOLY HUX Ruffle Layered Halter Maxi Dress | ShopForHer",
       "h1": "SOLY HUX Ruffle Layered Halter Maxi Dress",
       "description": "Useful when she likes more feminine eventwear and you want the gift to feel visibly styled.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5293,7 +6936,7 @@
       "title": "KIRUNDO Pleated A-Line Maxi Dress | ShopForHer",
       "h1": "KIRUNDO Pleated A-Line Maxi Dress",
       "description": "Cleaner when you want occasionwear that feels wearable beyond one event and less revealing than trendier options.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5335,7 +6978,9 @@
       "entities": {
         "catalogGiftId": "kirundo-pleated-maxi-dress",
         "guideSlugs": [
-          "anniversary-gifts-for-her"
+          "anniversary-gifts-for-her",
+          "gifts-for-her-who-has-everything",
+          "looks-expensive-gifts-for-her"
         ],
         "hotStorySlugs": []
       }
@@ -5350,7 +6995,7 @@
       "title": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress | ShopForHer",
       "h1": "PRETTYGARDEN One-Shoulder Ruched Maxi Dress",
       "description": "Best when she likes trendier occasionwear and you want a gift that feels overtly dressed up.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5392,10 +7037,14 @@
         "catalogGiftId": "prettygarden-one-shoulder-maxi",
         "guideSlugs": [
           "birthday-gifts-for-girlfriend",
+          "mothers-day-gifts-for-wife",
           "viral-gifts-for-her",
-          "date-night-gifts-for-her"
+          "date-night-gifts-for-her",
+          "looks-expensive-gifts-for-her"
         ],
-        "hotStorySlugs": []
+        "hotStorySlugs": [
+          "mothers-day-gifts-for-wife-right-now"
+        ]
       }
     },
     {
@@ -5408,7 +7057,7 @@
       "title": "MIYUKI Rustic Terracotta Vase | ShopForHer",
       "h1": "MIYUKI Rustic Terracotta Vase",
       "description": "Strong when she likes home decor with earthy materials and a calmer neutral look.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5466,7 +7115,7 @@
       "title": "Large Ceramic Floor Vase | ShopForHer",
       "h1": "Large Ceramic Floor Vase",
       "description": "Better when you want the home gift to read more substantial and visually obvious.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "taxonomy": {
@@ -5506,7 +7155,9 @@
       },
       "entities": {
         "catalogGiftId": "ceramic-floor-vase",
-        "guideSlugs": [],
+        "guideSlugs": [
+          "best-gifts-under-100"
+        ],
         "hotStorySlugs": []
       }
     },
@@ -5520,7 +7171,7 @@
       "title": "Rustic Vase Set of 3 | ShopForHer",
       "h1": "Rustic Vase Set of 3",
       "description": "A lower-risk home pick because multiple pieces make it feel fuller without a big budget.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5562,8 +7213,9 @@
         "catalogGiftId": "rustic-vase-set",
         "guideSlugs": [
           "anniversary-gifts-for-her",
-          "gifts-for-her-who-has-everything",
-          "gifts-for-homebodies"
+          "mothers-day-gifts-for-wife",
+          "gifts-for-homebodies",
+          "looks-expensive-gifts-for-her"
         ],
         "hotStorySlugs": []
       }
@@ -5578,7 +7230,7 @@
       "title": "Ninehaoou Ceramic Scroll Vase | ShopForHer",
       "h1": "Ninehaoou Ceramic Scroll Vase",
       "description": "Useful when you want a decor gift with visible character at a lower spend.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "taxonomy": {
@@ -5630,7 +7282,7 @@
       "title": "Hugo Boss Bottled Beyond Eau de Parfum | ShopForHer",
       "h1": "Hugo Boss Bottled Beyond Eau de Parfum",
       "description": "Works when the buy is more about brand recognition and presentation than novelty.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5683,7 +7335,7 @@
       "title": "Marc Jacobs Perfect Absolute Eau de Parfum | ShopForHer",
       "h1": "Marc Jacobs Perfect Absolute Eau de Parfum",
       "description": "A cleaner premium lane when she already likes fragrance and the goal is obvious brand polish.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5724,12 +7376,15 @@
       "entities": {
         "catalogGiftId": "marc-jacobs-perfect-absolute",
         "guideSlugs": [
+          "mothers-day-gifts-for-wife",
           "luxury-gifts-for-her",
           "last-minute-gifts-for-her",
           "date-night-gifts-for-her",
           "looks-expensive-gifts-for-her"
         ],
-        "hotStorySlugs": []
+        "hotStorySlugs": [
+          "mothers-day-gifts-for-wife-right-now"
+        ]
       }
     },
     {
@@ -5742,7 +7397,7 @@
       "title": "Gucci Flora Gorgeous Magnolia Eau de Parfum | ShopForHer",
       "h1": "Gucci Flora Gorgeous Magnolia Eau de Parfum",
       "description": "Useful when you want a branded beauty gift with stronger luxury signaling than a generic scent.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5787,8 +7442,7 @@
         "guideSlugs": [
           "birthday-gifts-for-wife",
           "luxury-gifts-for-her",
-          "amazon-gifts-for-her",
-          "looks-expensive-gifts-for-her"
+          "amazon-gifts-for-her"
         ],
         "hotStorySlugs": []
       }
@@ -5803,7 +7457,7 @@
       "title": "Artificial Olive Tree 1026 | ShopForHer",
       "h1": "Artificial Olive Tree 1026",
       "description": "A better big decor gift when you want scale and a more noticeable home impact.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
       "taxonomy": {
@@ -5859,7 +7513,7 @@
       "title": "Tall Faux Olive Tree with Planter | ShopForHer",
       "h1": "Tall Faux Olive Tree with Planter",
       "description": "Useful when you want the look of a statement plant without going to the highest spend tier.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5901,10 +7555,13 @@
         "catalogGiftId": "faux-olive-tree-planter",
         "guideSlugs": [
           "birthday-gifts-for-wife",
+          "easter-gifts-for-wife",
           "cozy-home-gifts-for-her",
           "gifts-for-her-who-has-everything"
         ],
-        "hotStorySlugs": []
+        "hotStorySlugs": [
+          "easter-gifts-for-wife-right-now"
+        ]
       }
     },
     {
@@ -5917,7 +7574,7 @@
       "title": "Artificial Black Olive Tree | ShopForHer",
       "h1": "Artificial Black Olive Tree",
       "description": "A cleaner decor gift when you want something bigger than tabletop pieces without crossing into premium pricing.",
-      "updatedAt": "2026-03-09",
+      "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
       "taxonomy": {
@@ -5956,9 +7613,9 @@
       "entities": {
         "catalogGiftId": "black-olive-tree",
         "guideSlugs": [
-          "gifts-for-her-who-has-everything",
           "amazon-gifts-for-her",
-          "gifts-for-homebodies"
+          "gifts-for-homebodies",
+          "looks-expensive-gifts-for-her"
         ],
         "hotStorySlugs": []
       }

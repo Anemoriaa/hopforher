@@ -4,11 +4,17 @@ const DEFAULT_LANGUAGE = "en";
 
 const dictionaries = {
   en: {
+    "nav.shop": "Shop",
+    "nav.books": "Books",
     "nav.popular": "Popular",
     "nav.hot": "Trending",
     "nav.plans": "Date ideas",
     "nav.saved": "Saved",
     "nav.primaryAria": "Primary",
+    "nav.siteAria": "Site sections",
+    "nav.sectionsAria": "Browse sections",
+    "nav.openSections": "Open sections",
+    "nav.closeSections": "Close sections",
     "nav.giftPagesAria": "Gift pages",
     "nav.savedCountSr": "Saved picks count:",
     "brand.homeAria": "ShopForHer home",
@@ -194,11 +200,17 @@ const dictionaries = {
     "server.openTableLive": "Nearby results are coming from the configured OpenTable feed."
   },
   es: {
+    "nav.shop": "Tienda",
+    "nav.books": "Libros",
     "nav.popular": "Popular",
     "nav.hot": "Hot",
     "nav.plans": "Planes",
     "nav.saved": "Guardado",
     "nav.primaryAria": "Principal",
+    "nav.siteAria": "Secciones del sitio",
+    "nav.sectionsAria": "Secciones para explorar",
+    "nav.openSections": "Abrir secciones",
+    "nav.closeSections": "Cerrar secciones",
     "nav.giftPagesAria": "Páginas de regalos",
     "nav.savedCountSr": "Cantidad de regalos guardados:",
     "brand.homeAria": "Inicio de ShopForHer",
@@ -384,11 +396,17 @@ const dictionaries = {
     "server.openTableLive": "Los resultados cercanos vienen del feed configurado de OpenTable."
   },
   fr: {
+    "nav.shop": "Boutique",
+    "nav.books": "Livres",
     "nav.popular": "Populaire",
     "nav.hot": "Hot",
     "nav.plans": "Plans",
     "nav.saved": "Sauvegardés",
     "nav.primaryAria": "Principal",
+    "nav.siteAria": "Sections du site",
+    "nav.sectionsAria": "Sections à parcourir",
+    "nav.openSections": "Ouvrir les sections",
+    "nav.closeSections": "Fermer les sections",
     "nav.giftPagesAria": "Pages cadeaux",
     "nav.savedCountSr": "Nombre de cadeaux sauvegardés :",
     "brand.homeAria": "Accueil ShopForHer",

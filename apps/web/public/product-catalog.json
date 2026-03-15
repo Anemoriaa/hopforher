@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-09T00:00:00Z",
+  "generatedAt": "2026-03-12T00:00:00Z",
   "site": {
     "name": "ShopForHer",
     "url": "https://shopforher.org/",
@@ -96,7 +96,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "temperature-mug",
@@ -182,7 +182,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "digital-frame",
@@ -264,7 +264,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "mini-photo-printer",
@@ -341,7 +341,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "sunrise-alarm",
@@ -422,7 +422,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "luxury-throw",
@@ -506,7 +506,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "walking-pad",
@@ -588,7 +588,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "earbuds",
@@ -670,7 +670,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "projector",
@@ -752,7 +752,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "magsafe-stand",
@@ -825,7 +825,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "jewelry-case",
@@ -911,7 +911,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "candle-warmer",
@@ -993,7 +993,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "vanity-mirror",
@@ -1066,7 +1066,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "cashmere-robe",
@@ -1141,7 +1141,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "kindle-paperwhite",
@@ -1225,7 +1225,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "ninja-creami",
@@ -1309,7 +1309,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "nespresso-machine",
@@ -1393,7 +1393,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "owala-bottle",
@@ -1477,7 +1477,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "theragun-relief",
@@ -1561,7 +1561,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "ugg-slippers",
@@ -1646,7 +1646,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "stanley-quencher",
@@ -1727,7 +1727,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "laneige-set",
@@ -1811,7 +1811,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "bose-speaker",
@@ -1895,7 +1895,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "sol-de-janeiro",
@@ -1974,7 +1974,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "saodimallsu-crochet-coverup-set",
@@ -2056,7 +2056,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "roseseek-crochet-lace-pants",
@@ -2133,7 +2133,7 @@
       },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "saodimallsu-crochet-cardigan-dress",
@@ -2212,7 +2212,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "sheer-crochet-poncho-top",
@@ -2294,7 +2294,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "panluca-statement-necklace",
@@ -2376,7 +2376,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "posadina-phone-charm",
@@ -2462,7 +2462,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "mchic-beaded-choker",
@@ -2543,7 +2543,7 @@
       },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "boxwood-bunny-topiary",
@@ -2620,7 +2620,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "lenox-bunny-candy-dish",
@@ -2699,7 +2699,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "easter-bunny-porch-decor",
@@ -2772,7 +2772,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "oliker-speckled-eggs",
@@ -2781,10 +2781,10 @@
       "brand": "OLIKER",
       "searchQuery": "OLIKER 24 Pcs Easter Speckled Eggs, 2.4in 4 Colors Plastic Speckled Eggs and Vase Filler Faux Chicken Eggs for Easter Decorations Basket Filler Vase Decorating",
       "pageUrl": "https://shopforher.org/gift/oliker-speckled-eggs/",
-      "affiliateUrl": "https://www.amazon.com/s?k=OLIKER+24+Pcs+Easter+Speckled+Eggs%2C+2.4in+4+Colors+Plastic+Speckled+Eggs+and+Vase+Filler+Faux+Chicken+Eggs+for+Easter+Decorations+Basket+Filler+Vase+Decorating&tag=shopforher0b7-20",
+      "affiliateUrl": "https://www.amazon.com/dp/B0DSBGK88Q?tag=shopforher0b7-20",
       "merchantName": "Amazon",
-      "merchantProductUrl": null,
-      "affiliatePathType": "amazon-search",
+      "merchantProductUrl": "https://www.amazon.com/dp/B0DSBGK88Q",
+      "affiliatePathType": "direct-product",
       "checkout": "offsite",
       "price": {
         "currency": "USD",
@@ -2793,7 +2793,7 @@
         "high": 18.99
       },
       "availability": "https://schema.org/InStock",
-      "asin": null,
+      "asin": "B0DSBGK88Q",
       "image": "https://images-na.ssl-images-amazon.com/images/I/81NonhO9FuL.jpg",
       "additionalImages": [
         "https://i5.walmartimages.com/seo/16-Pcs-Easter-Speckled-Eggs-2-4-Plastic-Speckled-Eggs-Bowl-Vase-Filler-DIY-Spring-Displays-Easter-Decorations-Blue-Light-Blue-Green-Cream-White_aba920ba-8d9a-40ab-b556-844e42bde7be.166abe0a02d7f37d9ac840d4782ab010.jpeg"
@@ -2835,13 +2835,13 @@
         },
         "coverage": {
           "merchantTypes": [
-            "amazon-search"
+            "direct-product"
           ]
         }
       },
-      "searchIndexable": false,
-      "indexStatus": "merchant-search-fallback",
-      "updatedAt": "2026-03-09"
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "easter-gift-basket",
@@ -2910,7 +2910,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "oneida-bunny-hop-plates",
@@ -2985,7 +2985,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "satin-halter-maxi-dress",
@@ -3066,7 +3066,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "soly-hux-ruffle-maxi-dress",
@@ -3143,7 +3143,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "kirundo-pleated-maxi-dress",
@@ -3222,7 +3222,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "prettygarden-one-shoulder-maxi",
@@ -3299,7 +3299,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "miyuki-rustic-vase",
@@ -3376,7 +3376,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "ceramic-floor-vase",
@@ -3453,7 +3453,7 @@
       },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "rustic-vase-set",
@@ -3530,7 +3530,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "ninehaoou-scroll-vase",
@@ -3603,7 +3603,7 @@
       },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "hugo-boss-bottled-beyond",
@@ -3681,7 +3681,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "marc-jacobs-perfect-absolute",
@@ -3759,7 +3759,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "gucci-flora-gorgeous-magnolia",
@@ -3841,7 +3841,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "artificial-olive-tree-1026",
@@ -3918,7 +3918,7 @@
       },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "faux-olive-tree-planter",
@@ -3995,7 +3995,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     },
     {
       "id": "black-olive-tree",
@@ -4068,7 +4068,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-09"
+      "updatedAt": "2026-03-12"
     }
   ]
 }

@@ -6,7 +6,7 @@ import { normalizeSeoCatalog } from "../../../../packages/catalog/schema.js";
 export const seoSite = {
   name: "ShopForHer",
   url: "https://shopforher.org",
-  updatedAt: "2026-03-09",
+  updatedAt: "2026-03-12",
   description: "Sharper gift picks for men buying for her.",
   contactEmail: "hello@shopforher.org",
   aboutPath: "/about.html",
@@ -619,12 +619,12 @@ export const seoGuides = [
         body: "Birthday gifts for a girlfriend usually land better when they feel giftable and current instead of overly serious.",
       },
       {
-        title: "Recognizable wins quickly",
-        body: "Products that already feel easy to understand or visually strong help the birthday reveal work faster.",
+        title: "Present-ready and party-ready cues help",
+        body: "A gift with clearer birthday-night energy, beauty appeal, or a more styled reveal usually lands faster than a purely practical upgrade.",
       },
       {
-        title: "Present-ready beats purely practical",
-        body: "The page works best when the gift feels like a real birthday reveal first and only second like something she will slot into a routine.",
+        title: "Smaller add-ons still work if they look chosen",
+        body: "A lighter-spend gift can still feel strong here when it has personality, trend energy, or enough presentation to feel like a real birthday pick.",
       },
     ],
     faqs: [
@@ -653,9 +653,9 @@ export const seoGuides = [
         body: "Use this when she likes recognizable beauty gifts and you want something playful without overcommitting the moment.",
       },
       {
-        title: "A polished accessory lane with easy presentation",
-        giftId: "jewelry-case",
-        body: "This is the safer answer when you want the birthday gift to feel organized, feminine, and clearly chosen for her.",
+        title: "A lower-spend beauty pick that still looks giftable",
+        giftId: "laneige-set",
+        body: "This is the cleaner answer when you want a smaller birthday gift that still feels polished, current, and clearly chosen for her.",
       },
     ],
     avoidNotes: [
@@ -664,8 +664,8 @@ export const seoGuides = [
         body: "The best gifts here feel celebratory and attractive without carrying too much emotional weight or pressure.",
       },
       {
-        title: "Avoid filler that only works because it is cheap or fast",
-        body: "A smaller birthday gift is fine, but it should still feel like an intentional pick instead of a backup plan.",
+        title: "Avoid guessing on fit if you do not know her style well enough",
+        body: "A dress can work for a birthday, but if the fit is a real guess, move back to the printer, LANEIGE, or the phone charm instead of forcing it.",
       },
     ],
     pickLanes: [
@@ -675,9 +675,9 @@ export const seoGuides = [
         body: "The easiest answer when you want the gift to feel lively, current, and obviously birthday-friendly.",
       },
       {
-        title: "Best polished pick",
-        giftId: "jewelry-case",
-        body: "Use this when you want a more put-together present that still feels easy to buy and easy to like.",
+        title: "Best birthday-night pick",
+        giftId: "prettygarden-one-shoulder-maxi",
+        body: "Use this when you want the gift to feel more like part of the birthday night itself and less like another ordinary object.",
       },
       {
         title: "Best beauty-brand pick",
@@ -776,6 +776,180 @@ export const seoGuides = [
     related: ["gifts-for-wife", "anniversary-gifts-for-her", "luxury-gifts-for-her"],
   },
   {
+    slug: "easter-gifts-for-wife",
+    label: "Easter",
+    group: "moments",
+    groupLabel: "Moment",
+    title: "Best Easter gifts for wives in 2026 | ShopForHer",
+    h1: "Best Easter gifts for wives in 2026",
+    description: "Easter gifts for wives that feel spring-ready, polished, and better than filler-basket buying.",
+    intro: "Easter 2026 is Sunday, April 5, so this page leans toward spring decor, table pieces, and gift-ready add-ons that feel more intentional than generic basket filler.",
+    selectionMethod: "This page prioritizes Easter gifts that either sharpen the house for spring, make brunch hosting look more finished, or improve the gift presentation itself instead of defaulting to candy-only filler.",
+    bestUseCase: "Use this when your wife likes seasonal decorating, spring hosting, or a smaller Easter gift that still looks deliberately chosen.",
+    avoidWhen: "Skip this page if you need a year-round wife gift, a pure luxury lane, or something more beauty- or tech-led.",
+    buyerSignals: [
+      {
+        title: "Seasonal can still look grown-up",
+        body: "The strongest Easter gifts here feel polished and spring-ready, not childish or like a last-minute basket toss-in.",
+      },
+      {
+        title: "Entryway and table pieces do most of the work",
+        body: "A stronger porch accent or recognizable table item usually lands better than a pile of tiny holiday extras with no real place to live.",
+      },
+      {
+        title: "Use basket pieces as support, not the whole gift",
+        body: "A basket or filler item works best when it improves the presentation or rounds out a better main pick.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest Easter gift for a wife on this page?",
+        a: "The boxwood bunny topiary and Lenox bunny candy dish are the easiest first answers because they feel seasonal, polished, and gift-ready without needing a bigger explanation.",
+      },
+      {
+        q: "Should an Easter gift be decor or something for the basket?",
+        a: "Decor or table pieces are the stronger main gift. Basket items work better as presentation support or a smaller add-on rather than the whole idea.",
+      },
+      {
+        q: "When should I choose this page instead of Mother's Day gifts?",
+        a: "Use Easter gifts when spring decorating, brunch hosting, or a seasonal reveal is the point. Use Mother's Day when appreciation and a more personal wife-facing signal matter more than the season.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "A porch-facing spring gift with obvious visual payoff",
+        giftId: "boxwood-bunny-topiary",
+        body: "Best when you want the Easter gift to look more substantial and more finished than another small tabletop accent.",
+      },
+      {
+        title: "A branded tabletop gift with cleaner hosting energy",
+        giftId: "lenox-bunny-candy-dish",
+        body: "Use this when she likes spring table details and you want something more polished than generic seasonal decor.",
+      },
+      {
+        title: "A spring room refresh that lasts beyond the holiday itself",
+        giftId: "faux-olive-tree-planter",
+        body: "This is the better answer when you want the Easter gift to feel seasonal now but still make sense after the brunch table comes down.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid candy-only filler if you need the gift to feel stronger",
+        body: "A few sweets are fine, but the main Easter gift lands better when it still looks chosen after the basket is opened.",
+      },
+      {
+        title: "Avoid overbuying tiny themed pieces with no real place to go",
+        body: "One stronger porch or table piece usually performs better than multiple smaller extras that only create clutter.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best porch or entry pick",
+        giftId: "boxwood-bunny-topiary",
+        body: "The cleanest answer when you want the Easter gift to feel visible and finished the second she sets it out.",
+      },
+      {
+        title: "Best brunch-table pick",
+        giftId: "oneida-bunny-hop-plates",
+        body: "Use this when the stronger answer is something functional she can actually use while still keeping the spring look obvious.",
+      },
+      {
+        title: "Best add-on or presentation piece",
+        giftId: "easter-gift-basket",
+        body: "The better move when you already have the main gift and want the Easter setup itself to feel more handled.",
+      },
+    ],
+    itemIds: ["boxwood-bunny-topiary", "lenox-bunny-candy-dish", "oneida-bunny-hop-plates", "easter-bunny-porch-decor", "faux-olive-tree-planter", "easter-gift-basket"],
+    related: ["mothers-day-gifts-for-wife", "gifts-for-wife", "cozy-home-gifts-for-her"],
+  },
+  {
+    slug: "mothers-day-gifts-for-wife",
+    label: "Mother's Day",
+    group: "moments",
+    groupLabel: "Moment",
+    title: "Best Mother's Day gifts for wives in 2026 | ShopForHer",
+    h1: "Best Mother's Day gifts for wives in 2026",
+    description: "Mother's Day gifts for wives that feel appreciative, polished, and clearly for her.",
+    intro: "Mother's Day 2026 is Sunday, May 10, so this page leans toward gifts that feel clearly chosen for your wife instead of like another household purchase.",
+    selectionMethod: "This page prioritizes wife-facing gifts with emotional payoff, softer luxury, or obvious routine-upgrade value so the Mother's Day gift reads like appreciation rather than logistics.",
+    bestUseCase: "Use this when you want a Mother's Day gift that thanks her directly and still feels easy to stand behind after the day itself is over.",
+    avoidWhen: "Skip this page if the real need is a birthday lane, a pure luxury flex, or a low-budget fast-checkout answer first.",
+    buyerSignals: [
+      {
+        title: "Appreciation should be obvious fast",
+        body: "The strongest Mother's Day gifts for a wife feel clearly for her, not like something that mainly serves the house, the kids, or a general family need.",
+      },
+      {
+        title: "Present-ready beats errand energy",
+        body: "A cleaner reveal, a softer luxury signal, or a more personal routine upgrade usually lands better than a practical buy that needs explanation.",
+      },
+      {
+        title: "Give her relief, softness, or a better ritual",
+        body: "This page works best when the gift improves how she unwinds, gets ready, or starts the day instead of just adding another object to manage.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest Mother's Day gift for a wife on this page?",
+        a: "The digital frame and cashmere-feel robe are the cleanest first answers because they feel appreciative, easy to understand, and clearly more personal than a routine errand buy.",
+      },
+      {
+        q: "Should I buy something for her or something for the family on Mother's Day?",
+        a: "Buy for her first. The stronger move is a gift that thanks her directly, not another product whose main value is helping everyone else.",
+      },
+      {
+        q: "Can a smaller Mother's Day gift still work for my wife?",
+        a: "Yes, if it feels clearly chosen and present-ready. A polished smaller gift often lands better than a larger item with weak emotional logic.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "A more emotional gift that still keeps paying off at home",
+        giftId: "digital-frame",
+        body: "Best when you want Mother's Day to feel personal and appreciative without drifting into something overly sentimental or hard to use.",
+      },
+      {
+        title: "A softer luxury lane that feels like real relief",
+        giftId: "cashmere-robe",
+        body: "Use this when the better answer is giving her something that feels calmer, more premium, and clearly about her comfort.",
+      },
+      {
+        title: "A polished beauty gift with stronger present-ready energy",
+        giftId: "marc-jacobs-perfect-absolute",
+        body: "This is the cleaner answer when you want the gift to open beautifully and feel more like a deliberate gesture than another routine object.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid gifts that mainly solve family logistics",
+        body: "If the product mostly helps the schedule, the kitchen, or the household, it will usually feel less appreciative than a gift aimed directly at her.",
+      },
+      {
+        title: "Avoid filler flowers-only energy if you need the gift to last",
+        body: "Fresh flowers can support the day, but the main gift lands better when it still feels strong after Sunday, May 10, 2026 is over.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Most emotional",
+        giftId: "digital-frame",
+        body: "The safest answer when you want the appreciation signal to show up quickly and keep meaning something after the day ends.",
+      },
+      {
+        title: "Best present-ready pick",
+        giftId: "marc-jacobs-perfect-absolute",
+        body: "Use this when you want a polished, feminine reveal that feels clearly chosen without needing a bigger box or a bigger speech.",
+      },
+      {
+        title: "Best routine upgrade",
+        giftId: "temperature-mug",
+        body: "The better answer when you want Mother's Day to improve a personal morning ritual she will actually keep using.",
+      },
+    ],
+    itemIds: ["digital-frame", "cashmere-robe", "marc-jacobs-perfect-absolute", "temperature-mug", "prettygarden-one-shoulder-maxi", "rustic-vase-set"],
+    related: ["gifts-for-wife", "birthday-gifts-for-wife", "luxury-gifts-for-her"],
+  },
+  {
     slug: "best-gifts-under-75",
     label: "Best gifts under $75",
     group: "budget",
@@ -808,7 +982,7 @@ export const seoGuides = [
       },
       {
         q: "What under-$75 gifts are the safest here?",
-        a: "The candle warmer, silk pillowcase, and UGG slippers are strong because they look giftable immediately without needing much explanation.",
+        a: "The silk pillowcase, UGG slippers, and LANEIGE set are strong because they look giftable immediately without needing much explanation.",
       },
       {
         q: "What usually misses in this price range?",
@@ -859,7 +1033,7 @@ export const seoGuides = [
         body: "The strongest answer when you want the gift to look more expensive than the spend without overcomplicating it.",
       },
     ],
-    itemIds: ["candle-warmer", "laneige-set", "stanley-quencher", "owala-bottle", "ugg-slippers", "silk-pillowcase"],
+    itemIds: ["ugg-slippers", "mchic-beaded-choker", "silk-pillowcase", "laneige-set", "stanley-quencher", "owala-bottle"],
     related: ["best-gifts-under-100", "gifts-for-girlfriend", "last-minute-gifts-for-her"],
   },
   {
@@ -946,7 +1120,7 @@ export const seoGuides = [
         body: "The safest move when the gift should feel useful immediately and keep winning through repeat use.",
       },
     ],
-    itemIds: ["ugg-slippers", "mini-photo-printer", "stanley-quencher", "owala-bottle", "earbuds", "laneige-set", "candle-warmer"],
+    itemIds: ["ugg-slippers", "ceramic-floor-vase", "sheer-crochet-poncho-top", "mini-photo-printer", "earbuds", "owala-bottle", "laneige-set"],
     related: ["gifts-for-girlfriend", "best-gifts-under-75", "amazon-gifts-for-her"],
   },
   {
@@ -1298,6 +1472,354 @@ export const seoGuides = [
     related: ["gifts-for-homebodies", "gifts-for-wife", "daily-use-gifts-for-her"],
   },
   {
+    slug: "books-for-her",
+    label: "Book gifts",
+    group: "angle",
+    groupLabel: "Angle",
+    title: "Book gifts for her in 2026 | ShopForHer",
+    h1: "Book gifts for her in 2026",
+    description: "Reader-first gifts for her, from Kindle upgrades to cozy reading-night picks.",
+    intro: "Use this lane when she already likes reading and you want the gift to feel more intentional than a random bestseller guess.",
+    selectionMethod: "This page prioritizes cleaner reader gifts: Kindle hardware, calm at-home reading upgrades, and ritual-supporting items that make reading feel easier, cozier, or more premium.",
+    bestUseCase: "Use this when she is clearly a reader and you want the gift to reinforce that habit instead of defaulting to a generic all-purpose gift.",
+    avoidWhen: "Skip this page if she does not really read for pleasure already or if you need a more romantic, fashion-forward, or beauty-led signal first.",
+    buyerSignals: [
+      {
+        title: "Reader gifts work best when the habit is obvious",
+        body: "This lane wins when she already reads at night, travels with a book, or talks about wanting calmer off-screen downtime.",
+      },
+      {
+        title: "Support the ritual, not only the category",
+        body: "A strong reading gift can be the Kindle itself or the things that make reading time feel softer, easier, and more protected.",
+      },
+      {
+        title: "Avoid random book guessing when taste is unclear",
+        body: "If you do not know her exact genres or authors, a reader upgrade usually lands better than picking a title that might miss completely.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest book gift on this page?",
+        a: "The Kindle Paperwhite is the cleanest first answer because it clearly matches a reader identity without forcing you to guess her exact taste in titles.",
+      },
+      {
+        q: "Should I buy a reading device or a cozy add-on?",
+        a: "Choose the Kindle when you want the gift to feel like the main event. Choose the throw, mug, or candle-warmer lane when she already has a reading setup and you want to upgrade the ritual around it.",
+      },
+      {
+        q: "When should I leave this page for a broader gift guide?",
+        a: "Leave this page when reading is only a minor trait instead of a real habit. Stay here when the bookish angle is the clearest part of why the gift makes sense.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "The clearest dedicated reader upgrade",
+        giftId: "kindle-paperwhite",
+        body: "Best when you want the gift to say reader first, with less clutter and more daily payoff than another small accessory.",
+      },
+      {
+        title: "A softer reading-night comfort gift",
+        giftId: "luxury-throw",
+        body: "Use this when she already has the books or Kindle and the better move is making the reading routine feel warmer and more lived-in.",
+      },
+      {
+        title: "A ritual upgrade that keeps the reading lane calm",
+        giftId: "temperature-mug",
+        body: "This is the cleaner answer when the gift should support longer reading sessions and feel upgraded every time she uses it.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid guessing titles if you do not know her taste",
+        body: "Buying a random book is often weaker than choosing a device or ritual upgrade that still supports reading without risking a total miss.",
+      },
+      {
+        title: "Avoid drifting too far from the reading identity",
+        body: "If the page is right, the gift should still feel like it belongs near books, reading nights, quiet routines, or audiobook downtime.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best main gift",
+        giftId: "kindle-paperwhite",
+        body: "The first pick when the gift should feel clearly reader-specific and strong enough to stand on its own.",
+      },
+      {
+        title: "Best cozy add-on",
+        giftId: "luxury-throw",
+        body: "Use this when the reading ritual matters more than buying another device.",
+      },
+      {
+        title: "Best reading-session upgrade",
+        giftId: "temperature-mug",
+        body: "The better move when she already reads a lot and you want the gift to improve the part of the routine that repeats most often.",
+      },
+    ],
+    itemIds: ["kindle-paperwhite", "luxury-throw", "candle-warmer", "temperature-mug", "sunrise-alarm", "bose-speaker"],
+    related: ["cozy-home-gifts-for-her", "daily-use-gifts-for-her", "gifts-for-wife"],
+  },
+  {
+    slug: "kindle-gifts-for-her",
+    label: "Kindle gifts",
+    group: "angle",
+    groupLabel: "Angle",
+    title: "Kindle gifts for her in 2026 | ShopForHer",
+    h1: "Kindle gifts for her in 2026",
+    description: "Kindle-first gifts for her, from the Paperwhite itself to cleaner upgrades around digital reading.",
+    intro: "Use this lane when the device or ebook angle is the clearest reason the gift makes sense.",
+    selectionMethod: "This page prioritizes Kindle-first gifts: the reader itself, simple bedside upgrades that support longer digital reading sessions, and a few cleaner audio or routine add-ons that fit the same habit.",
+    bestUseCase: "Use this when she already reads digitally, keeps talking about wanting a Kindle, or would clearly appreciate a lighter reading setup for travel and nights in.",
+    avoidWhen: "Skip this page if she mainly wants decor, fragrance, fashion, or a more obviously romantic gift instead of a reading-tech angle.",
+    buyerSignals: [
+      {
+        title: "Digital-reading habits matter more than book taste guessing",
+        body: "If she already reads on her phone, tablet, or laptop, a Kindle-style upgrade usually lands better than trying to guess exact titles.",
+      },
+      {
+        title: "The device should stay cleaner than the accessory pile",
+        body: "The main win here is a simpler reading setup, not a stack of add-ons that make the gift feel less focused.",
+      },
+      {
+        title: "Night-reading and travel use are strong buying signals",
+        body: "This lane works best when she reads before bed, wants less screen glare, or likes carrying a smaller reading setup on trips.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest Kindle gift on this page?",
+        a: "The Kindle Paperwhite is still the cleanest first answer because it matches the reader identity directly without forcing you to guess specific titles.",
+      },
+      {
+        q: "Do I need to preload books or buy extras for the gift to work?",
+        a: "No. The hardware itself is usually enough. Add titles only when you know her taste well enough that the picks will not feel random.",
+      },
+      {
+        q: "When should I use the broader books guide instead?",
+        a: "Use the broader books page when the reading ritual matters as much as the device. Stay here when the Kindle or ebook angle is the main reason the gift makes sense.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "The clearest main-event Kindle gift",
+        giftId: "kindle-paperwhite",
+        body: "Best when you want the gift to feel obviously reader-specific and strong enough to stand alone.",
+      },
+      {
+        title: "A cleaner audio companion for digital reading time",
+        giftId: "bose-speaker",
+        body: "Use this when she already lives in ebooks, audiobooks, or calm background listening and the device itself is not the only win.",
+      },
+      {
+        title: "A small routine upgrade that supports longer sessions",
+        giftId: "temperature-mug",
+        body: "This is the better answer when she already has the reading habit and you want the gift to improve the part that repeats most often.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid piling on too many setup extras",
+        body: "The page works best when the gift feels like one cleaner reading upgrade instead of a box of disconnected accessories.",
+      },
+      {
+        title: "Avoid guessing ebooks if her taste is still fuzzy",
+        body: "If you do not know her exact genres, authors, or account setup, a hardware or routine upgrade is usually safer than trying to buy the perfect title.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best main gift",
+        giftId: "kindle-paperwhite",
+        body: "The first answer when the gift should read clearly as a Kindle upgrade and not a side accessory.",
+      },
+      {
+        title: "Best digital-reading companion",
+        giftId: "bose-speaker",
+        body: "Use this when audio, podcasts, and background listening are part of why her reading routine works.",
+      },
+      {
+        title: "Best bedside add-on",
+        giftId: "sunrise-alarm",
+        body: "The cleaner move when the reading habit already exists and you want the gift to support the calmer start-and-stop points around it.",
+      },
+    ],
+    itemIds: ["kindle-paperwhite", "bose-speaker", "temperature-mug", "sunrise-alarm", "earbuds", "magsafe-stand"],
+    related: ["books-for-her", "daily-use-gifts-for-her", "gifts-for-wife"],
+  },
+  {
+    slug: "cozy-gifts-for-readers",
+    label: "Cozy reader gifts",
+    group: "angle",
+    groupLabel: "Angle",
+    title: "Cozy gifts for readers in 2026 | ShopForHer",
+    h1: "Cozy gifts for readers in 2026",
+    description: "Soft reader gifts for her that make reading nights feel warmer, calmer, and easier to keep.",
+    intro: "Use this page when the stronger move is upgrading the reading ritual, not only buying another device.",
+    selectionMethod: "This page prioritizes softer home pieces and routine upgrades that support reading nights: warmer textures, calmer light, easier mornings, and apartment-friendly comfort that still feels giftable.",
+    bestUseCase: "Use this when she already likes books, couches, blankets, tea or coffee, and slower evenings more than louder trend-driven gifts.",
+    avoidWhen: "Skip this page if she would rather get a visible tech device, beauty buy, or a gift with stronger outside-the-house energy.",
+    buyerSignals: [
+      {
+        title: "The ritual matters more than the title list",
+        body: "This page wins when she already has enough books and the better gift is making the reading setup itself feel better.",
+      },
+      {
+        title: "Softness has to feel finished, not cluttered",
+        body: "The best cozy reader gifts still look intentional and useful rather than like filler added in the name of comfort.",
+      },
+      {
+        title: "Bedtime and couch routines are the clearest tells",
+        body: "If her best reading time happens at night, on weekends, or in one favorite chair, this lane usually makes more sense than a generic tech page.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest cozy reader gift on this page?",
+        a: "The luxury throw is the easiest first answer because it fits the reading-night ritual immediately and feels giftable on sight.",
+      },
+      {
+        q: "Should I buy one strong comfort gift or several smaller extras?",
+        a: "One stronger comfort pick usually works better. This page performs best when the gift feels edited and intentional instead of packed with little add-ons.",
+      },
+      {
+        q: "When should I leave this page for the broader books guide?",
+        a: "Leave for the broader books guide when the reading identity itself matters most. Stay here when the calmer ritual around reading is the real reason the gift will land.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "The safest reading-night comfort gift",
+        giftId: "luxury-throw",
+        body: "Best when you want the coziest answer with almost no learning curve and almost no risk.",
+      },
+      {
+        title: "A warmer room-feel upgrade without extra clutter",
+        giftId: "candle-warmer",
+        body: "Use this when the gift should change the mood around reading time without taking over the whole space.",
+      },
+      {
+        title: "A softer routine piece she will actually keep using",
+        giftId: "ugg-slippers",
+        body: "This is the cleaner answer when warmth and comfort matter more than adding another device to the setup.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid comfort gifts that still feel generic",
+        body: "The page works better with calmer, stronger pieces than with random soft goods that do not clearly improve her routine.",
+      },
+      {
+        title: "Avoid making the gift too purely decorative",
+        body: "A cozy reader gift should support the habit itself, not only sit nearby looking vaguely on-theme.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best comfort pick",
+        giftId: "luxury-throw",
+        body: "The first answer when you want reading-night softness with immediate payoff and almost no risk.",
+      },
+      {
+        title: "Best atmosphere upgrade",
+        giftId: "candle-warmer",
+        body: "Use this when the room mood around reading time matters as much as the object itself.",
+      },
+      {
+        title: "Best routine comfort add-on",
+        giftId: "sunrise-alarm",
+        body: "The stronger move when the goal is a calmer evening-and-morning rhythm around the same quiet habits.",
+      },
+    ],
+    itemIds: ["luxury-throw", "candle-warmer", "ugg-slippers", "nespresso-machine", "sunrise-alarm", "silk-pillowcase"],
+    related: ["books-for-her", "cozy-home-gifts-for-her", "gifts-for-homebodies"],
+  },
+  {
+    slug: "book-lover-gifts-for-her",
+    label: "Book-lover gifts",
+    group: "angle",
+    groupLabel: "Angle",
+    title: "Book-lover gifts for her in 2026 | ShopForHer",
+    h1: "Book-lover gifts for her in 2026",
+    description: "Gift picks for women who love reading, from obvious Kindle upgrades to calmer bookish routine wins.",
+    intro: "Use this lane when reading is part of how she relaxes and you want the gift to feel clearly chosen for that identity.",
+    selectionMethod: "This page blends one or two obvious reader signals with stronger routine and atmosphere upgrades, so the gift still feels bookish without forcing you to guess exact titles or genres.",
+    bestUseCase: "Use this when she talks about books, reading nights, book stacks, or wanting more off-screen downtime and you want the gift to reinforce that version of her life.",
+    avoidWhen: "Skip this page if the reading angle is only a minor trait and the gift really needs to win on romance, fashion, or beauty first.",
+    buyerSignals: [
+      {
+        title: "A book-lover gift should still feel like her life, not just her bookshelf",
+        body: "The strongest picks here support the broader reading identity: slower evenings, calmer routines, and obvious reader-first upgrades.",
+      },
+      {
+        title: "You do not need to guess the exact book to get the signal right",
+        body: "If you know reading matters but do not know precise taste, the better move is usually a device, atmosphere upgrade, or stronger routine gift.",
+      },
+      {
+        title: "The page works best when the gift feels intentionally quieter",
+        body: "Cleaner home or routine pieces often fit the book-lover angle better than louder trend products that pull the gift out of that identity.",
+      },
+    ],
+    faqs: [
+      {
+        q: "What is the safest book-lover gift on this page?",
+        a: "The Kindle Paperwhite is still the cleanest first answer because it signals reader identity immediately without asking you to guess titles.",
+      },
+      {
+        q: "Do cozy upgrades still count as book-lover gifts?",
+        a: "Yes. They work especially well when she already has books or a Kindle and the better move is making the ritual around reading feel warmer and easier to keep.",
+      },
+      {
+        q: "When should I leave this page for Kindle gifts instead?",
+        a: "Leave for Kindle gifts when the device or ebook angle is the entire point. Stay here when you want the broader book-lover identity rather than a narrower hardware decision.",
+      },
+    ],
+    bestFits: [
+      {
+        title: "The clearest main book-lover gift",
+        giftId: "kindle-paperwhite",
+        body: "Best when you want the gift to say reader first without much explanation.",
+      },
+      {
+        title: "A softer upgrade that still feels unmistakably bookish",
+        giftId: "candle-warmer",
+        body: "Use this when the mood around reading time matters more than the device itself.",
+      },
+      {
+        title: "A cleaner audio companion for long reading days",
+        giftId: "bose-speaker",
+        body: "This is the better answer when she mixes reading with audiobooks, podcasts, or calmer background sound.",
+      },
+    ],
+    avoidNotes: [
+      {
+        title: "Avoid reducing the gift to a random book pick",
+        body: "If the title guess is shaky, a stronger reader-supporting gift usually lands better and still feels clearly on-theme.",
+      },
+      {
+        title: "Avoid gifts that drift too far from the quiet-routine identity",
+        body: "If the page is right, the buy should still feel at home around books, slow evenings, and calmer downtime.",
+      },
+    ],
+    pickLanes: [
+      {
+        title: "Best main-event gift",
+        giftId: "kindle-paperwhite",
+        body: "The first answer when you want the book-lover signal to be obvious the second she opens it.",
+      },
+      {
+        title: "Best atmosphere pick",
+        giftId: "candle-warmer",
+        body: "Use this when the reading mood matters more than adding another screen or device.",
+      },
+      {
+        title: "Best daily-routine companion",
+        giftId: "nespresso-machine",
+        body: "The stronger move when the gift should support the whole reading ritual instead of only one object inside it.",
+      },
+    ],
+    itemIds: ["kindle-paperwhite", "candle-warmer", "ugg-slippers", "bose-speaker", "sunrise-alarm", "nespresso-machine"],
+    related: ["books-for-her", "amazon-gifts-for-her", "gifts-for-wife"],
+  },
+  {
     slug: "tech-gifts-for-her",
     label: "Tech gifts",
     group: "angle",
@@ -1468,8 +1990,8 @@ export const seoGuides = [
         body: "The stronger answer when the relationship already leans fun and the gift should feel more current than quiet.",
       },
     ],
-    itemIds: ["silk-pillowcase", "mini-photo-printer", "sunrise-alarm", "luxury-throw", "magsafe-stand", "candle-warmer"],
-    related: ["gifts-for-girlfriend", "best-gifts-under-75", "last-minute-gifts-for-her"],
+    itemIds: ["silk-pillowcase", "mini-photo-printer", "sunrise-alarm", "mchic-beaded-choker", "candle-warmer", "luxury-throw"],
+    related: ["gifts-for-girlfriend", "birthday-gifts-for-girlfriend", "date-night-gifts-for-her"],
   },
   {
     slug: "gifts-for-her-who-has-everything",
@@ -1478,84 +2000,84 @@ export const seoGuides = [
     groupLabel: "Relationship",
     title: "Best gifts for her who has everything in 2026 | ShopForHer",
     h1: "Best gifts for her who has everything in 2026",
-    description: "Gift picks that feel less obvious and more chosen.",
-    intro: "When she already buys what she wants, the better move is something useful, polished, or experience-adjacent.",
-    selectionMethod: "This page filters for gifts that feel less obvious, more room-changing, or more intentionally selected than the mainstream first-page answers she has probably already seen.",
-    bestUseCase: "Use this when she already buys herself the easy mainstream products and you need something that feels more chosen.",
-    avoidWhen: "Skip this page if the priority is just the safest generic gift rather than a more distinct answer.",
+    description: "Gift picks that feel edited, less obvious, and more chosen than the default answers.",
+    intro: "When she already buys the easy basics herself, the better move is something with more personality, sharper event value, or a room payoff she would not impulse-add to cart.",
+    selectionMethod: "This page filters for gifts that feel edited rather than generic, with standout accessories, more occasion-ready pieces, and room upgrades that carry stronger personality than the usual first-page staples.",
+    bestUseCase: "Use this when she already owns the mainstream staples and you need a gift that looks more considered than another default bestseller.",
+    avoidWhen: "Skip this page if you need the most size-safe generic gift first or a pure tech-only answer.",
     buyerSignals: [
       {
-        title: "Distinctiveness matters more than trend familiarity",
-        body: "The best gifts here look like you edited out the obvious answers and chose something with more personality or home impact.",
+        title: "Specific beats obvious here",
+        body: "The strongest picks look like you filtered out the default-safe answers and chose something with more shape, personality, or category point of view.",
       },
       {
-        title: "Room-changing gifts can work better than tiny accessories",
-        body: "A larger decor move or a more specific polished object usually stands out more for someone who already owns plenty.",
+        title: "A stronger style signal can outperform another neutral upgrade",
+        body: "When she already owns plenty, a more specific accessory or occasion piece often lands harder than another generic practical object.",
       },
       {
-        title: "Avoid default-best-seller energy",
-        body: "If the gift looks like the first thing anyone would buy, it loses some of the page promise immediately.",
+        title: "Home impact still works if it looks deliberate",
+        body: "A room-changing gift can still fit this page, but it has to feel cleaner and more intentional than shelf filler or basic decor.",
       },
     ],
     faqs: [
       {
         q: "What kind of gift works for someone who already has everything?",
-        a: "The strongest picks feel more chosen than obvious, either by improving a room, creating a new experience, or landing in a category she would not automatically buy herself.",
+        a: "The strongest picks feel edited out of the obvious pool, either by adding stronger visual personality, giving her something occasion-specific, or choosing a home piece with more presence than the standard defaults.",
       },
       {
-        q: "What is the safest gift on this page?",
-        a: "The black olive tree and jewelry case are strong because they feel polished and intentional without being too complicated.",
+        q: "What is the safest gift on this page if I do not know her size?",
+        a: "The faux olive tree planter and jewelry case are the cleaner first answers because they still feel chosen without relying on fit, exact styling preference, or a tech setup.",
       },
       {
         q: "When should I leave this page for luxury gifts instead?",
-        a: "Use luxury gifts when price and premium finish are the main signals. Stay here when distinctiveness matters more than pure spend.",
+        a: "Use luxury gifts when price and premium finish are the main signals. Stay here when distinctiveness, editing, and a less predictable category choice matter more than pure spend.",
       },
     ],
     bestFits: [
       {
-        title: "A stronger decor answer with real room impact",
-        giftId: "black-olive-tree",
-        body: "Best when you want the gift to feel more considered and less like another mainstream gadget.",
+        title: "An occasion-ready gift with more shape than another standard object",
+        giftId: "kirundo-pleated-maxi-dress",
+        body: "Best when you know her style well enough to buy something that feels more specific and more visually chosen than a routine default gift.",
       },
       {
-        title: "An experience-shaped pick that still feels easy to understand",
-        giftId: "projector",
-        body: "Use this when the gift should create a new use case instead of repeating an everyday item she already owns.",
+        title: "A room-changing answer that still feels easy to live with",
+        giftId: "faux-olive-tree-planter",
+        body: "Use this when the gift should make her place feel more finished without drifting into generic decor filler.",
       },
       {
-        title: "A polished smaller gift with obvious taste",
+        title: "A polished smaller gift with an easier buying risk profile",
         giftId: "jewelry-case",
-        body: "This is the safer answer when you want something elegant and chosen without jumping to a larger decor piece.",
+        body: "This is the safer answer when you want something that still looks chosen and feminine without guessing on fit or going up into a bigger object.",
       },
     ],
     avoidNotes: [
       {
         title: "Avoid the first generic bestseller that comes to mind",
-        body: "This page works best when the gift shows a little editing discipline and does not look like a default purchase.",
+        body: "This page works best when the gift shows actual editing discipline instead of looking like the most obvious thing anyone would buy.",
       },
       {
-        title: "Avoid products that feel too similar to what she likely owns already",
-        body: "If the gift duplicates a category without improving the finish or use case, it loses the point of the page.",
+        title: "Avoid size-sensitive bets if you do not know her style well enough",
+        body: "A more fashion-led pick can work here, but if her fit or taste is a guess, move back to the jewelry case or the planter instead of forcing it.",
       },
     ],
     pickLanes: [
       {
-        title: "Best lower-spend pick",
-        giftId: "rustic-vase-set",
-        body: "The easiest answer when you want the gift to feel more chosen than obvious without pushing the spend too far.",
+        title: "Best style-forward pick",
+        giftId: "panluca-statement-necklace",
+        body: "The easiest answer when you want the gift to look more edited and visibly chosen without moving into a larger purchase.",
       },
       {
         title: "Best home-impact gift",
         giftId: "faux-olive-tree-planter",
-        body: "Use this when the stronger answer is a piece that changes the room more than a small accessory can.",
+        body: "Use this when the better move is a stronger room-finish gift instead of another smaller accessory she probably already has a version of.",
       },
       {
-        title: "Best polished smaller gift",
+        title: "Best safe smaller gift",
         giftId: "jewelry-case",
-        body: "The cleaner answer when you want taste and gift energy without moving into a bigger object category.",
+        body: "The cleaner answer when you want taste and gift energy without leaning on sizing, setup, or a bigger box.",
       },
     ],
-    itemIds: ["black-olive-tree", "rustic-vase-set", "faux-olive-tree-planter", "projector", "jewelry-case", "vanity-mirror"],
+    itemIds: ["kirundo-pleated-maxi-dress", "panluca-statement-necklace", "faux-olive-tree-planter", "projector", "jewelry-case", "vanity-mirror"],
     related: ["luxury-gifts-for-her", "anniversary-gifts-for-her", "tech-gifts-for-her"],
   },
   {
@@ -1659,12 +2181,12 @@ export const seoGuides = [
     avoidWhen: "Skip this page if you need the most practical daily-use answer or the cheapest safe option.",
     buyerSignals: [
       {
-        title: "The night should get better",
-        body: "These gifts work best when they improve the date itself or create an easy second moment after the initial reveal.",
+        title: "Getting ready is part of the date",
+        body: "The strongest picks here make the night feel more polished before dinner, drinks, or the event even starts.",
       },
       {
-        title: "Mood beats utility",
-        body: "A date-night gift can still be useful, but it should first feel experiential, soft, or memorable.",
+        title: "Polish beats pure utility",
+        body: "A date-night gift can still be useful, but it should first feel dressy, feminine, or clearly chosen for how the night is supposed to feel.",
       },
       {
         title: "Pairing strengthens the gift",
@@ -1674,7 +2196,7 @@ export const seoGuides = [
     faqs: [
       {
         q: "What makes a good date-night gift instead of a regular gift?",
-        a: "The gift should support the experience, mood, or reveal of the night itself rather than feeling disconnected from the plan.",
+        a: "The gift should sharpen the reveal, the getting-ready moment, or the mood of the night itself instead of feeling like a random everyday object.",
       },
       {
         q: "What is the safest date-night gift on this page?",
@@ -1682,14 +2204,14 @@ export const seoGuides = [
       },
       {
         q: "When should I choose anniversary gifts instead of date-night gifts?",
-        a: "Choose anniversary gifts when the emotional signal matters more than the shared-night feel. Choose date-night gifts when you want the experience to carry the moment.",
+        a: "Choose anniversary gifts when the emotional signal matters more than the night-out energy. Choose date-night gifts when you want the reveal, getting-ready window, or dressed-up feel to carry the moment.",
       },
     ],
     bestFits: [
       {
-        title: "A shared-night gift that becomes part of the plan",
-        giftId: "projector",
-        body: "Best when you want the gift to create a second moment together instead of only being opened and set aside.",
+        title: "A stronger night-out dress with obvious reveal value",
+        giftId: "prettygarden-one-shoulder-maxi",
+        body: "Best when you want the date-night gift to look visibly dressed up right away and feel more like a real reveal than a routine buy.",
       },
       {
         title: "A softer reveal with more intimate home energy",
@@ -1704,17 +2226,22 @@ export const seoGuides = [
       {
         title: "A polished getting-ready gift with stronger night-out energy",
         giftId: "marc-jacobs-perfect-absolute",
-        body: "Use this when you want the date-night gift to feel more dressed-up and less homebound than a pure comfort pick.",
+        body: "Use this when the stronger answer is a feminine, present-ready gift that feels more date-facing than a practical upgrade.",
+      },
+      {
+        title: "A lower-pressure beauty pick that still feels like a date-night add-on",
+        giftId: "sol-de-janeiro",
+        body: "This is the cleaner answer when you want the date-night gift to stay lighter, easier to buy fast, and clearly more fun than a routine product.",
       },
     ],
     avoidNotes: [
       {
-        title: "Avoid ultra-practical gifts when the experience matters more",
-        body: "The strongest date-night gifts feel tied to the mood or memory of the night instead of solving a random everyday problem.",
+        title: "Avoid routine-only gifts when the night should feel different",
+        body: "The strongest date-night gifts feel tied to the reveal, mood, or look of the night instead of solving an unrelated everyday problem.",
       },
       {
-        title: "Avoid solo-use products with no shared-angle payoff",
-        body: "This lane works best when the gift naturally creates a moment you can both step into, even briefly.",
+        title: "Avoid guessing on apparel if you do not know her style well enough",
+        body: "A dress can be a strong date-night move, but if size or silhouette is a real guess, shift back to fragrance, beauty, or the candle warmer instead of forcing it.",
       },
     ],
     pickLanes: [
@@ -1731,7 +2258,17 @@ export const seoGuides = [
       {
         title: "Best premium reveal",
         giftId: "marc-jacobs-perfect-absolute",
-        body: "The cleaner answer when you want the gift to feel more dressed-up, polished, and clearly date-oriented.",
+        body: "The easiest answer when you want the date-night gift to feel polished and clearly chosen without guessing on fit.",
+      },
+      {
+        title: "Best dress lane",
+        giftId: "kirundo-pleated-maxi-dress",
+        body: "Use this when you want the date-night gift to feel more occasion-ready while staying cleaner and lower-risk than a trendier bodycon silhouette.",
+      },
+      {
+        title: "Best lower-pressure add-on",
+        giftId: "candle-warmer",
+        body: "The cleaner answer when you want a softer mood-setting gift that still feels more date-oriented than a generic home buy.",
       },
     ],
     itemIds: ["projector", "cashmere-robe", "luxury-throw", "prettygarden-one-shoulder-maxi", "marc-jacobs-perfect-absolute", "soly-hux-ruffle-maxi-dress"],
@@ -2006,8 +2543,8 @@ export const seoGuides = [
     title: "Gifts for her that look expensive in 2026 | ShopForHer",
     h1: "Gifts for her that look expensive in 2026",
     description: "Gifts for her that feel polished and premium without forcing a huge spend.",
-    intro: "This lane is about visual payoff, clean presentation, and picks that read stronger than their price.",
-    selectionMethod: "This page favors gifts with stronger visual payoff, cleaner materials or branding, and presentation that feels premium before price comes up.",
+    intro: "This lane is about visible payoff first: silhouette, room impact, and gifts that read stronger than their price before she ever asks what they cost.",
+    selectionMethod: "This page favors gifts with stronger shape, scale, or finish, using fashion pieces, decor accents, and cleaner presentation instead of leaning on pure utility to imply premium taste.",
     bestUseCase: "Use this when you want the gift to look elevated immediately even if the actual spend stays below true luxury territory.",
     avoidWhen: "Skip this page if practicality, trend relevance, or daily-use logic matters more than first impression.",
     buyerSignals: [
@@ -2016,8 +2553,8 @@ export const seoGuides = [
         body: "If the gift looks polished fast, she will usually assume the spend and thought level were higher too.",
       },
       {
-        title: "Brand and finish matter",
-        body: "Recognizable premium brands, cleaner shapes, and better materials beat complicated products with weak presentation.",
+        title: "Shape and finish matter more than category",
+        body: "A sharper silhouette, better proportions, or a room piece with real presence usually lands better than a practical product trying to borrow expensive energy.",
       },
       {
         title: "Do not fake luxury too hard",
@@ -2031,28 +2568,28 @@ export const seoGuides = [
       },
       {
         q: "What is the safest expensive-looking gift on this page?",
-        a: "The digital frame, Gucci Flora fragrance, and Nespresso machine are strong because they signal polish immediately and still make practical sense.",
+        a: "The Marc Jacobs fragrance, black olive tree, and PRETTYGARDEN one-shoulder dress are the strongest first answers because the visual payoff shows up immediately.",
       },
       {
         q: "When should I use this page instead of the luxury page?",
-        a: "Use this page when the visual impression matters more than true premium spend. Use luxury when you want both higher finish and a higher actual budget.",
+        a: "Use this page when the visual impression matters more than true premium spend. Use luxury when you want higher finish and a stronger everyday-upgrade budget at the same time.",
       },
     ],
     bestFits: [
       {
-        title: "Polished home gifts with immediate visual payoff",
-        giftId: "digital-frame",
-        body: "Best when you want the product to look premium quickly and still have enough usefulness to feel like a smart buy.",
+        title: "A fragrance lane with clear designer polish",
+        giftId: "marc-jacobs-perfect-absolute",
+        body: "Best when you want the gift to feel visibly branded, dressed-up, and more expensive than a generic beauty buy.",
       },
       {
-        title: "Soft luxury that reads expensive on contact",
-        giftId: "cashmere-robe",
-        body: "Use this when fabric, finish, and immediate comfort are the main signals you want her to notice first.",
+        title: "A room-impact gift that changes the visual read fast",
+        giftId: "black-olive-tree",
+        body: "Use this when you want the expensive-looking signal to come from scale and home presence instead of from brand alone.",
       },
       {
-        title: "A premium-feeling kitchen or routine upgrade",
-        giftId: "nespresso-machine",
-        body: "This is the stronger answer when the gift should look elevated while still fitting a real everyday habit.",
+        title: "A spring-event fashion lane with strong silhouette payoff",
+        giftId: "prettygarden-one-shoulder-maxi",
+        body: "This is the stronger answer when you want the expensive-looking signal to come from shape, drape, and a more dressed-up reveal.",
       },
     ],
     avoidNotes: [
@@ -2068,32 +2605,32 @@ export const seoGuides = [
     pickLanes: [
       {
         title: "Lower spend",
-        giftId: "gucci-flora-gorgeous-magnolia",
-        body: "The easiest answer when you want visible brand polish and a stronger luxury signal without moving into a very high spend.",
+        giftId: "rustic-vase-set",
+        body: "The easiest answer when you want a smaller spend that still looks more styled and intentional than a filler decor buy.",
       },
       {
-        title: "Best visual impact",
-        giftId: "digital-frame",
-        body: "Use this when the gift should look polished immediately and still hold up once she actually starts using it.",
+        title: "Best room impact",
+        giftId: "black-olive-tree",
+        body: "Use this when you want the expensive-looking read to come from scale, shape, and a cleaner finished-room effect.",
       },
       {
-        title: "Best routine upgrade",
-        giftId: "nespresso-machine",
-        body: "The cleaner answer when the expensive-looking signal should come from a better everyday ritual rather than pure decoration.",
+        title: "Best fashion lane",
+        giftId: "prettygarden-one-shoulder-maxi",
+        body: "The cleaner answer when you want the expensive-looking signal to come from a more dressed-up silhouette instead of from a home object.",
       },
     ],
-    itemIds: ["cashmere-robe", "marc-jacobs-perfect-absolute", "panluca-statement-necklace", "digital-frame", "nespresso-machine", "gucci-flora-gorgeous-magnolia"],
+    itemIds: ["prettygarden-one-shoulder-maxi", "kirundo-pleated-maxi-dress", "black-olive-tree", "marc-jacobs-perfect-absolute", "satin-halter-maxi-dress", "rustic-vase-set"],
     related: ["luxury-gifts-for-her", "best-gifts-under-100", "gifts-for-girlfriend"],
   },
 ];
 
 export const featuredSeoGuides = [
-  "gifts-for-girlfriend",
+  "easter-gifts-for-wife",
+  "mothers-day-gifts-for-wife",
   "gifts-for-wife",
-  "anniversary-gifts-for-her",
+  "gifts-for-girlfriend",
   "best-gifts-under-100",
   "viral-gifts-for-her",
-  "looks-expensive-gifts-for-her",
 ].map((slug) => seoGuides.find((guide) => guide.slug === slug)).filter(Boolean);
 
 export const heroSeoProducts = [
@@ -2261,6 +2798,45 @@ export const seoDateCities = [
 ];
 
 export const seoHotStories = [
+  {
+    slug: "easter-gifts-for-wife-right-now",
+    label: "Easter",
+    title: "Easter gifts for wives right now in 2026 | ShopForHer",
+    h1: "Easter gifts for wives right now in 2026",
+    description: "Current Easter gifts for wives that feel spring-ready, polished, and easy to move on now.",
+    intro: "Easter 2026 lands on Sunday, April 5. These are the cleaner spring gifts to move on now instead of defaulting to filler-basket buying.",
+    views: "54K views",
+    duration: "0:24",
+    trendLabel: "Seasonal now",
+    itemIds: ["boxwood-bunny-topiary", "lenox-bunny-candy-dish", "oneida-bunny-hop-plates", "easter-bunny-porch-decor", "faux-olive-tree-planter"],
+    relatedGuides: ["easter-gifts-for-wife", "mothers-day-gifts-for-wife", "gifts-for-wife"],
+  },
+  {
+    slug: "easter-hostess-gifts-right-now",
+    label: "Easter host",
+    title: "Easter hostess gifts right now in 2026 | ShopForHer",
+    h1: "Easter hostess gifts right now in 2026",
+    description: "Current Easter hostess gifts that feel polished, seasonal, and easy to bring now.",
+    intro: "Easter 2026 lands on Sunday, April 5. These are the cleaner table, porch, and basket-ready gifts to move on now when you need a spring host gift that still looks handled.",
+    views: "46K views",
+    duration: "0:23",
+    trendLabel: "Hosting now",
+    itemIds: ["lenox-bunny-candy-dish", "oneida-bunny-hop-plates", "easter-gift-basket", "boxwood-bunny-topiary", "easter-bunny-porch-decor"],
+    relatedGuides: ["easter-gifts-for-wife", "cozy-home-gifts-for-her", "gifts-for-wife"],
+  },
+  {
+    slug: "mothers-day-gifts-for-wife-right-now",
+    label: "Mother's Day",
+    title: "Mother's Day gifts for wives right now in 2026 | ShopForHer",
+    h1: "Mother's Day gifts for wives right now in 2026",
+    description: "Current Mother's Day gifts for wives that feel appreciative, polished, and easy to move on now.",
+    intro: "Mother's Day 2026 lands on Sunday, May 10. These are the cleaner wife-facing gifts to move on now instead of defaulting to filler.",
+    views: "61K views",
+    duration: "0:27",
+    trendLabel: "Seasonal now",
+    itemIds: ["digital-frame", "cashmere-robe", "marc-jacobs-perfect-absolute", "temperature-mug", "prettygarden-one-shoulder-maxi"],
+    relatedGuides: ["mothers-day-gifts-for-wife", "gifts-for-wife", "birthday-gifts-for-wife"],
+  },
   {
     slug: "viral-gifts-for-girlfriend",
     label: "For girlfriend",
