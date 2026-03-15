@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1350" role="img" aria-labelledby="title desc">
+  <title id="title">The Women Kindle Edition</title>
+  <desc id="desc">Decorative placeholder cover for The Women Kindle Edition.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#efe4d1"/>
+      <stop offset="100%" stop-color="#d18b52"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1350" rx="44" fill="url(#bg)"/>
+  <rect x="98" y="118" width="704" height="1114" rx="30" fill="#f8f2e8" opacity="0.16"/>
+  <path d="M170 1002c67-128 130-230 188-307 52-69 118-144 198-224 33 72 55 146 66 220 13 83 16 187 10 311H170Z" fill="#fff5ec" opacity="0.26"/>
+  <text x="112" y="164" fill="#61402b" font-size="46" font-family="Arial, Helvetica, sans-serif" letter-spacing="8">KINDLE EDITION</text>
+  <text x="114" y="504" fill="#4a2d1f" font-size="168" font-weight="700" font-family="Georgia, 'Times New Roman', serif">THE</text>
+  <text x="114" y="670" fill="#4a2d1f" font-size="168" font-weight="700" font-family="Georgia, 'Times New Roman', serif">WOMEN</text>
+  <text x="116" y="824" fill="#6c4631" font-size="52" font-family="Georgia, 'Times New Roman', serif" letter-spacing="6">KRISTIN HANNAH</text>
+  <text x="114" y="1176" fill="#624334" font-size="38" font-family="Arial, Helvetica, sans-serif" letter-spacing="5">BIG-EMOTION FICTION PICK</text>
+</svg>

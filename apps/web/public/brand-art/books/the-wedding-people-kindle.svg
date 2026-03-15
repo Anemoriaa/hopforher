@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1350" role="img" aria-labelledby="title desc">
+  <title id="title">The Wedding People Kindle Edition</title>
+  <desc id="desc">Decorative placeholder cover for The Wedding People Kindle Edition.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fff0ea"/>
+      <stop offset="100%" stop-color="#e18e8b"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1350" rx="44" fill="url(#bg)"/>
+  <circle cx="710" cy="210" r="118" fill="#ffffff" opacity="0.3"/>
+  <circle cx="728" cy="210" r="76" fill="#f1b4b0" opacity="0.45"/>
+  <path d="M156 980c95-120 191-218 287-292 109-83 213-138 311-165-68 71-130 152-186 243-56 91-110 163-160 214H156Z" fill="#ffffff" opacity="0.22"/>
+  <text x="94" y="164" fill="#8a4f54" font-size="46" font-family="Arial, Helvetica, sans-serif" letter-spacing="8">KINDLE EDITION</text>
+  <text x="96" y="440" fill="#7a4046" font-size="118" font-weight="700" font-family="Georgia, 'Times New Roman', serif">THE</text>
+  <text x="96" y="580" fill="#7a4046" font-size="118" font-weight="700" font-family="Georgia, 'Times New Roman', serif">WEDDING</text>
+  <text x="96" y="720" fill="#7a4046" font-size="118" font-weight="700" font-family="Georgia, 'Times New Roman', serif">PEOPLE</text>
+  <text x="100" y="846" fill="#8f5960" font-size="48" font-family="Georgia, 'Times New Roman', serif" letter-spacing="6">ALISON ESPACH</text>
+  <text x="96" y="1178" fill="#8c5557" font-size="36" font-family="Arial, Helvetica, sans-serif" letter-spacing="5">SMART FICTION WITH BROAD APPEAL</text>
+</svg>

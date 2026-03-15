@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1350" role="img" aria-labelledby="title desc">
+  <title id="title">The Empyrean Series 3 Book Set</title>
+  <desc id="desc">Decorative placeholder cover for The Empyrean Series 3 Book Set.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#16142a"/>
+      <stop offset="100%" stop-color="#5f57a0"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1350" rx="44" fill="url(#bg)"/>
+  <rect x="96" y="168" width="176" height="840" rx="24" fill="#7e76cc"/>
+  <rect x="362" y="134" width="176" height="910" rx="24" fill="#c69c76"/>
+  <rect x="628" y="198" width="176" height="810" rx="24" fill="#b15a67"/>
+  <rect x="118" y="244" width="132" height="588" rx="18" fill="#261f43" opacity="0.55"/>
+  <rect x="384" y="210" width="132" height="658" rx="18" fill="#4b2a1e" opacity="0.42"/>
+  <rect x="650" y="274" width="132" height="558" rx="18" fill="#4d1828" opacity="0.46"/>
+  <text x="94" y="120" fill="#f3ebff" font-size="42" font-family="Arial, Helvetica, sans-serif" letter-spacing="8">PHYSICAL BOOK SET</text>
+  <text x="90" y="1120" fill="#f7f1ff" font-size="94" font-weight="700" font-family="Georgia, 'Times New Roman', serif">THE EMPYREAN</text>
+  <text x="92" y="1218" fill="#e6dfff" font-size="48" font-family="Georgia, 'Times New Roman', serif" letter-spacing="6">THREE-BOOK GIFT SET</text>
+</svg>

@@ -696,11 +696,28 @@ h2, h3 {
 }
 
 .gs-home-hero {
+  position: relative;
+  overflow: hidden;
   gap: 24px;
+  padding-top: 20px;
+  padding-bottom: 18px;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0) 42%),
+    linear-gradient(180deg, #ffffff 0%, #f5f3ee 100%);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
 }
 
 .gs-home-hero-copy {
   gap: 18px;
+}
+
+.gs-home-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -24px 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(17, 17, 17, 0), rgba(17, 17, 17, 0.16), rgba(17, 17, 17, 0));
+  pointer-events: none;
 }
 
 .gs-home-hero-head {

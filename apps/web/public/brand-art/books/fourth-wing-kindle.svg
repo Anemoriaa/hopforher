@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Fourth Wing Kindle Edition</title>
+  <desc id="desc">Decorative placeholder cover for Fourth Wing Kindle Edition.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#140f1f"/>
+      <stop offset="100%" stop-color="#685190"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="1350" rx="44" fill="url(#bg)"/>
+  <circle cx="680" cy="240" r="120" fill="#f0c8a8" opacity="0.18"/>
+  <path d="M140 930c120-176 228-308 324-396 92-84 190-143 294-176-90 91-165 194-226 309-57 108-112 229-165 363H140Z" fill="#e4b992" opacity="0.22"/>
+  <text x="96" y="160" fill="#f7efe8" font-size="46" font-family="Georgia, 'Times New Roman', serif" letter-spacing="8">KINDLE EDITION</text>
+  <text x="92" y="520" fill="#fff7f1" font-size="148" font-weight="700" font-family="Georgia, 'Times New Roman', serif">FOURTH</text>
+  <text x="92" y="666" fill="#fff7f1" font-size="148" font-weight="700" font-family="Georgia, 'Times New Roman', serif">WING</text>
+  <text x="98" y="822" fill="#f0d8c6" font-size="52" font-family="Georgia, 'Times New Roman', serif" letter-spacing="6">REBECCA YARROS</text>
+  <text x="96" y="1176" fill="#f3ddd0" font-size="38" font-family="Arial, Helvetica, sans-serif" letter-spacing="5">BOOKTOK ROMANTASY FAVORITE</text>
+</svg>

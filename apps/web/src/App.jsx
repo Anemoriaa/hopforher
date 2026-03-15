@@ -924,6 +924,14 @@ export default function App() {
   }, [localeProfile]);
 
   useEffect(() => {
+    if (typeof document === "undefined" || !document.body) {
+      return;
+    }
+
+    document.body.dataset.appMounted = "true";
+  }, []);
+
+  useEffect(() => {
     if (typeof document === "undefined") {
       return;
     }
