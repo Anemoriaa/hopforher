@@ -38,7 +38,7 @@ import {
 } from "./lib/date-spots.js";
 import { createI18n } from "./lib/i18n.js";
 import { applyDocumentLocale, buildLocaleBadge, formatDateForLocales, getLocaleProfile } from "./lib/locale.js";
-import { getHomeSurfaceMeta, resolveHomeSurface } from "./content/home-surfaces.js";
+import { filterCatalogGiftsForSurface, getHomeSurfaceMeta, resolveHomeSurface } from "./content/home-surfaces.js";
 import { getProductMedia } from "../../../packages/catalog/media.js";
 
 const slides = [
@@ -1013,6 +1013,10 @@ export default function App() {
 
   const { affiliateConfig, gifts } = catalog;
   const liveGiftById = useMemo(() => new Map(gifts.map((gift) => [gift.id, gift])), [gifts]);
+  const surfaceCatalogGifts = useMemo(
+    () => filterCatalogGiftsForSurface(gifts, homeSurface.id),
+    [gifts, homeSurface.id]
+  );
 
   useEffect(() => {
     return subscribeToCatalogUpdates(() => {
@@ -1265,15 +1269,18 @@ export default function App() {
     [activeBudget.id, activeIntent.id, activeRelationship.id, activeSignal.id]
   );
 
-  const rankedMatches = useMemo(() => rankGiftMatches(gifts, activeFilters), [gifts, activeFilters]);
+  const rankedMatches = useMemo(
+    () => rankGiftMatches(surfaceCatalogGifts, activeFilters),
+    [surfaceCatalogGifts, activeFilters]
+  );
   const topPicks = useMemo(() => {
-    const byScore = [...gifts].sort((a, b) => scoreGift(b, activeFilters) - scoreGift(a, activeFilters));
+    const byScore = [...surfaceCatalogGifts].sort((a, b) => scoreGift(b, activeFilters) - scoreGift(a, activeFilters));
     const merged = [...rankedMatches, ...byScore].filter(
       (gift, index, array) => array.findIndex((item) => item.id === gift.id) === index
     );
 
     return merged.slice(0, 18);
-  }, [gifts, rankedMatches, activeFilters]);
+  }, [surfaceCatalogGifts, rankedMatches, activeFilters]);
   const linkedTopProducts = useMemo(
     () =>
       topPicks
@@ -1288,9 +1295,9 @@ export default function App() {
   const featuredCatalogProducts = useMemo(
     () =>
       featuredSeoProducts
-        .map((featuredGift) => gifts.find((gift) => gift.id === featuredGift.id))
+        .map((featuredGift) => surfaceCatalogGifts.find((gift) => gift.id === featuredGift.id))
         .filter(Boolean),
-    [gifts]
+    [surfaceCatalogGifts]
   );
   const activeQuickStartLanes = homeSurface.quickStartLanes || defaultQuickStartLanes;
   const getQuickStartLaneText = (lane, field) => {
@@ -1303,9 +1310,9 @@ export default function App() {
   const heroCatalogProducts = useMemo(
     () =>
       heroSeoProducts
-        .map((heroGift) => gifts.find((gift) => gift.id === heroGift.id))
+        .map((heroGift) => surfaceCatalogGifts.find((gift) => gift.id === heroGift.id))
         .filter(Boolean),
-    [gifts]
+    [surfaceCatalogGifts]
   );
   const surfaceHeroProducts = useMemo(() => {
     if (!Array.isArray(homeSurface.heroProductIds) || !homeSurface.heroProductIds.length) {
@@ -1383,15 +1390,15 @@ export default function App() {
   }, [featuredSeoGuides, homeSurface.guideSlugs, seoGuideBySlug]);
   const surfaceHotGifts = useMemo(() => {
     if (!Array.isArray(homeSurface.hotGiftIds) || !homeSurface.hotGiftIds.length) {
-      return gifts;
+      return surfaceCatalogGifts;
     }
 
     const selected = homeSurface.hotGiftIds
       .map((giftId) => liveGiftById.get(giftId))
       .filter(Boolean);
 
-    return selected.length ? selected : gifts;
-  }, [gifts, homeSurface.hotGiftIds, liveGiftById]);
+    return selected.length ? selected : surfaceCatalogGifts;
+  }, [homeSurface.hotGiftIds, liveGiftById, surfaceCatalogGifts]);
   const surfaceHotGuides = useMemo(() => {
     if (!Array.isArray(homeSurface.hotGuideSlugs) || !homeSurface.hotGuideSlugs.length) {
       return seoHotStories;

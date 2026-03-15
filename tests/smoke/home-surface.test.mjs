@@ -3,8 +3,10 @@ import test from "node:test";
 import {
   booksSurfaceGiftIds,
   booksSurfaceGuideSlugs,
+  filterCatalogGiftsForSurface,
   resolveHomeSurface,
 } from "../../apps/web/src/content/home-surfaces.js";
+import { gifts } from "../../packages/catalog/index.js";
 
 const passthroughT = (key) => key;
 
@@ -41,4 +43,13 @@ test("books surface keeps its own home href and drops preview brand copy", () =>
     booksSurface.topPickIds.join(","),
     /kindle-paperwhite|luxury-throw|candle-warmer|temperature-mug|ugg-slippers|bose-speaker|sunrise-alarm|nespresso-machine|earbuds|magsafe-stand/
   );
+});
+
+test("default surface gift pool excludes books while books surface stays book-only", () => {
+  const defaultGiftIds = filterCatalogGiftsForSurface(gifts, "default").map((gift) => gift.id);
+  const booksGiftIds = filterCatalogGiftsForSurface(gifts, "books").map((gift) => gift.id);
+
+  assert.ok(defaultGiftIds.length > 0);
+  assert.ok(defaultGiftIds.every((giftId) => !booksSurfaceGiftIds.includes(giftId)));
+  assert.deepEqual(booksGiftIds, booksSurfaceGiftIds);
 });

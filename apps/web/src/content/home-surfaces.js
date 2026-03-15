@@ -56,6 +56,24 @@ export const booksSurfaceGuideSlugs = [
   "booktok-gifts-for-her",
 ];
 
+const booksSurfaceGiftIdSet = new Set(booksSurfaceGiftIds);
+
+export function isBooksSurfaceGiftId(giftId) {
+  return typeof giftId === "string" && booksSurfaceGiftIdSet.has(giftId);
+}
+
+export function filterCatalogGiftsForSurface(catalogGifts, surfaceId = "default") {
+  if (!Array.isArray(catalogGifts)) {
+    return [];
+  }
+
+  return catalogGifts.filter((gift) =>
+    normalizeSurfaceId(surfaceId) === "books"
+      ? isBooksSurfaceGiftId(gift?.id)
+      : !isBooksSurfaceGiftId(gift?.id)
+  );
+}
+
 const surfaceBuilders = {
   default({ t, updatedLabel }) {
     return {
