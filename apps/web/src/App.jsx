@@ -2264,14 +2264,14 @@ export default function App() {
                       <ArrowRight size={14} />
                     </button>
                   </div>
-                  <div className="gs-popular-hero-visual">
-                    <div className="gs-popular-hero-art-shell">
-                      <img
-                        src="/brand-art/homepage-hero-merch-line-v2.png"
-                        alt="Curated premium gifts including a jewelry case, mug, candle warmer lamp, silk accessory, slippers, picture frame, and projector."
-                        className="gs-popular-hero-art"
-                        loading="lazy"
-                      />
+                  <div className="gs-popular-hero-visual" aria-hidden="true">
+                    <div className="gs-popular-hero-bleed">
+                      <span className="gs-popular-hero-orb is-orb-1" />
+                      <span className="gs-popular-hero-orb is-orb-2" />
+                      <span className="gs-popular-hero-orb is-orb-3" />
+                      <span className="gs-popular-hero-line is-line-1" />
+                      <span className="gs-popular-hero-line is-line-2" />
+                      <span className="gs-popular-hero-line is-line-3" />
                     </div>
                   </div>
                 </section>
@@ -2660,12 +2660,11 @@ export default function App() {
                     Use exact products when one already looks right. Use the guide buckets when you want to narrow the lane first.
                   </p>
                   <div className="gs-popular-library-artband" aria-hidden="true">
-                    <img
-                      src="/brand-art/homepage-clusters-merch-v2.png"
-                      alt=""
-                      className="gs-popular-library-art"
-                      loading="lazy"
-                    />
+                    <div className="gs-popular-library-bleed">
+                      <span className="gs-popular-library-wave is-wave-1" />
+                      <span className="gs-popular-library-wave is-wave-2" />
+                      <span className="gs-popular-library-wave is-wave-3" />
+                    </div>
                   </div>
                   <div className="gs-popular-library-grid gs-popular-guides-grid">
                     {curatedHomepageGuideBuckets.map((bucket) => (
