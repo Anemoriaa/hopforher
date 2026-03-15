@@ -726,7 +726,7 @@ function AnimatedHotCard({ item, index, onOpenHotPreview }) {
 }
 
 export default function App() {
-  const touchRef = useRef({ x: 0, y: 0 });
+  const touchRef = useRef({ x: 0, y: 0, tracking: false, horizontalIntent: false });
   const tabRefs = useRef([]);
   const slideScrollRefs = useRef([]);
   const decisionPanelRef = useRef(null);
@@ -1887,15 +1887,52 @@ export default function App() {
 
   function onTouchStart(event) {
     const touch = event.touches[0];
-    touchRef.current = { x: touch.clientX, y: touch.clientY };
+
+    if (!touch) {
+      return;
+    }
+
+    touchRef.current = {
+      x: touch.clientX,
+      y: touch.clientY,
+      tracking: true,
+      horizontalIntent: false,
+    };
+  }
+
+  function onTouchMove(event) {
+    const touch = event.touches[0];
+    const gesture = touchRef.current;
+
+    if (!touch || !gesture.tracking) {
+      return;
+    }
+
+    const deltaX = touch.clientX - gesture.x;
+    const deltaY = touch.clientY - gesture.y;
+
+    if (!gesture.horizontalIntent && Math.abs(deltaX) > 18 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      gesture.horizontalIntent = true;
+    }
+
+    if (gesture.horizontalIntent) {
+      event.preventDefault();
+    }
   }
 
   function onTouchEnd(event) {
     const touch = event.changedTouches[0];
-    const deltaX = touch.clientX - touchRef.current.x;
-    const deltaY = touch.clientY - touchRef.current.y;
+    const gesture = touchRef.current;
 
-    if (Math.abs(deltaX) < 44 || Math.abs(deltaX) <= Math.abs(deltaY)) {
+    if (!touch || !gesture.tracking) {
+      return;
+    }
+
+    const deltaX = touch.clientX - gesture.x;
+    const deltaY = touch.clientY - gesture.y;
+    touchRef.current = { x: 0, y: 0, tracking: false, horizontalIntent: false };
+
+    if ((!gesture.horizontalIntent && Math.abs(deltaX) < 44) || Math.abs(deltaX) <= Math.abs(deltaY)) {
       return;
     }
 
@@ -1905,6 +1942,10 @@ export default function App() {
     }
 
     setSlide(activeSlide - 1);
+  }
+
+  function onTouchCancel() {
+    touchRef.current = { x: 0, y: 0, tracking: false, horizontalIntent: false };
   }
 
   function getGiftCommerceSource(gift) {
@@ -2340,7 +2381,13 @@ export default function App() {
         </header>
 
         <main className="gs-main" id="gs-main-content">
-        <section className="gs-slider-stage" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+        <section
+          className="gs-slider-stage"
+          onTouchStartCapture={onTouchStart}
+          onTouchMoveCapture={onTouchMove}
+          onTouchEndCapture={onTouchEnd}
+          onTouchCancelCapture={onTouchCancel}
+        >
           <div
             className="gs-slider-track"
             style={{ transform: `translateX(-${(activeSlide * 100) / slides.length}%)` }}

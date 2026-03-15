@@ -8,4 +8,8 @@ test("slide navigation does not reference removed menu-toggle state", () => {
   assert.doesNotMatch(appSource, /setIsNavMenuOpen\(/);
   assert.match(appSource, /function setSlide\(index\)/);
   assert.match(appSource, /setActiveSlide\(nextIndex\)/);
+  assert.match(appSource, /onTouchStartCapture=\{onTouchStart\}/);
+  assert.match(appSource, /onTouchMoveCapture=\{onTouchMove\}/);
+  assert.match(appSource, /onTouchEndCapture=\{onTouchEnd\}/);
+  assert.match(appSource, /event\.preventDefault\(\)/);
 });
