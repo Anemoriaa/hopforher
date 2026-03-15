@@ -409,12 +409,53 @@ function isTikTokPreviewMedia(media) {
   return media?.kind === "embed" && media.provider === "tiktok" && Boolean(media.videoId || media.embedUrl);
 }
 
-function getPrimaryHotVideoMedia(gift) {
+function isMotionPreviewMedia(media) {
+  return media?.kind === "embed" || media?.kind === "video" || media?.kind === "reel";
+}
+
+function getPrimaryHotMedia(gift, surfaceId = "default") {
   const mediaItems = buildGiftPreviewMedia(gift);
+
+  if (surfaceId === "books") {
+    return mediaItems.find((media) => isTikTokPreviewMedia(media) && media.nativePosterUrl)
+      || mediaItems.find((media) => isTikTokPreviewMedia(media))
+      || mediaItems.find((media) => media.kind === "reel")
+      || mediaItems.find((media) => media.kind === "video")
+      || mediaItems.find((media) => media.kind === "image")
+      || null;
+  }
 
   return mediaItems.find((media) => isTikTokPreviewMedia(media) && media.nativePosterUrl)
     || mediaItems.find((media) => isTikTokPreviewMedia(media))
     || null;
+}
+
+function getHotMediaSourceMark(media) {
+  if (media?.provider === "tiktok") {
+    return "TT";
+  }
+
+  if (media?.kind === "reel") {
+    return "SF";
+  }
+
+  if (media?.kind === "video") {
+    return "VD";
+  }
+
+  if (media?.kind === "image") {
+    return "BK";
+  }
+
+  return "PK";
+}
+
+function getHotMediaSourceLabel(media) {
+  if (media?.kind === "image") {
+    return "Book cover";
+  }
+
+  return media?.creatorHandle || media?.creatorName || media?.sourceLabel || "ShopForHer";
 }
 
 function getHotFallbackLabel(gift) {
@@ -615,8 +656,8 @@ function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
   const media = useMemo(() => {
     const mediaItems = buildGiftPreviewMedia(gift);
 
-    return mediaItems.find((candidate) => candidate.id === item.mediaId) || getPrimaryHotVideoMedia(gift);
-  }, [gift, item.mediaId]);
+    return mediaItems.find((candidate) => candidate.id === item.mediaId) || getPrimaryHotMedia(gift, item.surfaceId);
+  }, [gift, item.mediaId, item.surfaceId]);
   const posterUrl = media?.nativePosterUrl || media?.posterUrl || getGiftImageUrl(gift);
   const embedUrl =
     shouldLoadEmbed && media?.provider === "tiktok"
@@ -639,13 +680,13 @@ function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
       <div className="gs-hot-feed-video-placeholder" aria-hidden={embedUrl && embedLoaded ? "true" : undefined}>
         {posterUrl ? <img src={posterUrl} alt="" className="gs-hot-feed-poster" loading="lazy" /> : null}
         <span className="gs-hot-feed-video-placeholder-scrim" aria-hidden="true" />
-        <span>Open video</span>
+        <span>{item.mediaLabel === "TikTok" ? "Open video" : "Open preview"}</span>
       </div>
 
       {embedUrl ? (
         <iframe
           src={embedUrl}
-          title={media?.title || `${gift.name} TikTok video`}
+          title={media?.title || `${gift.name} preview`}
           className="gs-hot-feed-embed"
           loading="lazy"
           allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
@@ -699,7 +740,7 @@ function AnimatedHotCard({ item, index, onOpenHotPreview }) {
         type="button"
         className="gs-hot-feed-hit"
         onClick={() => onOpenHotPreview(item)}
-        aria-label={`Open ${gift.name} video full screen`}
+        aria-label={`Open ${gift.name} ${item.mediaLabel === "TikTok" ? "video" : "preview"}`}
       >
         <HotFeedMedia item={item} gift={gift} shouldLoadEmbed={inView || hasEntered} />
         <div className="gs-hot-feed-body">
@@ -711,7 +752,7 @@ function AnimatedHotCard({ item, index, onOpenHotPreview }) {
           <p>{gift.why || gift.hook}</p>
           <div className="gs-hot-feed-meta">
             <div className="gs-hot-feed-source">
-              <span className="gs-hot-feed-source-mark">TT</span>
+              <span className="gs-hot-feed-source-mark">{item.sourceMark || "TT"}</span>
               <span className="gs-hot-feed-source-label">{item.sourceLabel}</span>
             </div>
             <div className="gs-hot-feed-meta-tags">
@@ -1169,7 +1210,13 @@ export default function App() {
 
     return merged.slice(0, 10);
   }, [featuredSeoProducts, indexableSeoGiftIds, linkedTopProducts]);
-  const popularHeroProducts = surfaceHeroProducts.length ? surfaceHeroProducts : linkedTopProducts.slice(0, 3);
+  const popularHeroProducts = useMemo(() => {
+    const merged = [...surfaceHeroProducts, ...heroCatalogProducts, ...linkedTopProducts, ...topPicks]
+      .filter(Boolean)
+      .filter((gift, index, array) => array.findIndex((item) => item.id === gift.id) === index);
+
+    return merged.slice(0, 3);
+  }, [surfaceHeroProducts, heroCatalogProducts, linkedTopProducts, topPicks]);
   const surfaceTopPicks = useMemo(() => {
     if (!Array.isArray(homeSurface.topPickIds) || !homeSurface.topPickIds.length) {
       return topPicks.slice(0, 6);
@@ -1219,6 +1266,37 @@ export default function App() {
 
     return selected.length ? selected : featuredSeoGuides;
   }, [featuredSeoGuides, homeSurface.guideSlugs, seoGuideBySlug]);
+  const surfaceHotGifts = useMemo(() => {
+    if (!Array.isArray(homeSurface.hotGiftIds) || !homeSurface.hotGiftIds.length) {
+      return gifts;
+    }
+
+    const selected = homeSurface.hotGiftIds
+      .map((giftId) => liveGiftById.get(giftId))
+      .filter(Boolean);
+
+    return selected.length ? selected : gifts;
+  }, [gifts, homeSurface.hotGiftIds, liveGiftById]);
+  const surfaceHotGuides = useMemo(() => {
+    if (!Array.isArray(homeSurface.hotGuideSlugs) || !homeSurface.hotGuideSlugs.length) {
+      return seoHotStories;
+    }
+
+    const selected = homeSurface.hotGuideSlugs
+      .map((slug) => seoGuideBySlug.get(slug))
+      .filter(Boolean);
+
+    return selected.length ? selected : seoHotStories;
+  }, [homeSurface.hotGuideSlugs, seoGuideBySlug]);
+  const activeHotFeedSection = homeSurface.hotFeed || {
+    overline: t("hot.overline"),
+    title: t("hot.title"),
+    body: t("hot.body"),
+    storiesOverline: t("hot.storiesOverline"),
+    storiesTitle: t("hot.storiesTitle"),
+    allPagesLabel: t("hot.allPages"),
+    allPagesHref: "/hot/",
+  };
   const activeTopPicksSection = homeSurface.sections?.topPicks || {
     overline: t("home.topPicksOverline"),
     title: t("home.topPicksTitle"),
@@ -1309,131 +1387,164 @@ export default function App() {
     ? [previewGift.priceLabel, previewGift.badge, activePreviewSourceLabel].filter(Boolean)
     : [];
   const videoStories = useMemo(() => {
-    const definitions = [
-      {
-        id: "women",
-        label: "For women",
-        heat: "Rising",
-        filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
-      },
-      {
-        id: "wives",
-        label: "For wives",
-        heat: "Most booked",
-        filters: { relationship: "wife", budget: "premium", tab: "looks-expensive", intent: "looks-expensive" },
-      },
-      {
-        id: "girlfriends",
-        label: "For girlfriends",
-        heat: "Easy win",
-        filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
-      },
-      {
-        id: "under-100",
-        label: "Under $100",
-        heat: "Under budget",
-        filters: { budget: "under-100", tab: "best-overall", intent: "everyday" },
-      },
-      {
-        id: "expensive",
-        label: "Looks expensive",
-        heat: "Looks strong",
-        filters: { tab: "looks-expensive", budget: "premium", intent: "looks-expensive" },
-      },
-      {
-        id: "useful",
-        label: "Actually useful",
-        heat: "Repeat use",
-        filters: { tab: "daily-use", budget: "under-100", intent: "everyday" },
-      },
-      {
-        id: "anniversary",
-        label: "Anniversary",
-        heat: "Higher signal",
-        filters: { relationship: "anniversary", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
-      },
-      {
-        id: "new-relationship",
-        label: "New relationship",
-        heat: "Low pressure",
-        filters: { relationship: "new-relationship", budget: "under-50", tab: "best-overall", intent: "thoughtful" },
-      },
-      {
-        id: "cozy",
-        label: "Cozy home",
-        heat: "Soft lane",
-        filters: { budget: "under-100", tab: "cozy-home", intent: "cozy" },
-      },
-      {
-        id: "daily-upgrade",
-        label: "Daily upgrade",
-        heat: "Used daily",
-        filters: { relationship: "wife", budget: "under-100", tab: "daily-use", intent: "everyday" },
-      },
-      {
-        id: "wife-under-100",
-        label: "Wife under $100",
-        heat: "Safe buy",
-        filters: { relationship: "wife", budget: "under-100", tab: "best-overall", intent: "everyday" },
-      },
-      {
-        id: "girlfriend-premium",
-        label: "Girlfriend premium",
-        heat: "Higher spend",
-        filters: { relationship: "girlfriend", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
-      },
-      {
-        id: "under-50",
-        label: "Under $50",
-        heat: "Quick buy",
-        filters: { budget: "under-50", tab: "best-overall", intent: "everyday" },
-      },
-      {
-        id: "thoughtful",
-        label: "Thoughtful",
-        heat: "Cleaner choice",
-        filters: { tab: "best-overall", intent: "thoughtful" },
-      },
-      {
-        id: "polished",
-        label: "Polished",
-        heat: "Looks better",
-        filters: { tab: "looks-expensive", intent: "looks-expensive" },
-      },
-      {
-        id: "soft",
-        label: "Soft",
-        heat: "Cozy lane",
-        filters: { tab: "cozy-home", intent: "cozy" },
-      },
-      {
-        id: "birthday",
-        label: "Birthday",
-        heat: "Gift-ready",
-        filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
-      },
-      {
-        id: "wife-premium",
-        label: "Wife premium",
-        heat: "Big move",
-        filters: { relationship: "wife", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
-      },
-      {
-        id: "anniversary-under-100",
-        label: "Anniversary under $100",
-        heat: "Smart spend",
-        filters: { relationship: "anniversary", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
-      },
-      {
-        id: "daily-soft",
-        label: "Daily soft",
-        heat: "Easy home",
-        filters: { budget: "under-100", tab: "cozy-home", intent: "everyday" },
-      },
-    ];
+    const definitions = homeSurface.id === "books"
+      ? [
+          {
+            id: "kindle-first",
+            label: "Kindle-first",
+            heat: "Main event",
+            filters: { budget: "premium", tab: "best-overall", intent: "thoughtful" },
+          },
+          {
+            id: "reader-comfort",
+            label: "Reader comfort",
+            heat: "Cozy lane",
+            filters: { budget: "under-100", tab: "cozy-home", intent: "cozy" },
+          },
+          {
+            id: "reading-session",
+            label: "Long session",
+            heat: "Repeat use",
+            filters: { budget: "under-100", tab: "daily-use", intent: "everyday" },
+          },
+          {
+            id: "book-lover",
+            label: "Book lover",
+            heat: "Quiet win",
+            filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
+          },
+          {
+            id: "reader-upgrade",
+            label: "Reader upgrade",
+            heat: "Higher signal",
+            filters: { relationship: "wife", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
+          },
+        ]
+      : [
+          {
+            id: "women",
+            label: "For women",
+            heat: "Rising",
+            filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
+          },
+          {
+            id: "wives",
+            label: "For wives",
+            heat: "Most booked",
+            filters: { relationship: "wife", budget: "premium", tab: "looks-expensive", intent: "looks-expensive" },
+          },
+          {
+            id: "girlfriends",
+            label: "For girlfriends",
+            heat: "Easy win",
+            filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
+          },
+          {
+            id: "under-100",
+            label: "Under $100",
+            heat: "Under budget",
+            filters: { budget: "under-100", tab: "best-overall", intent: "everyday" },
+          },
+          {
+            id: "expensive",
+            label: "Looks expensive",
+            heat: "Looks strong",
+            filters: { tab: "looks-expensive", budget: "premium", intent: "looks-expensive" },
+          },
+          {
+            id: "useful",
+            label: "Actually useful",
+            heat: "Repeat use",
+            filters: { tab: "daily-use", budget: "under-100", intent: "everyday" },
+          },
+          {
+            id: "anniversary",
+            label: "Anniversary",
+            heat: "Higher signal",
+            filters: { relationship: "anniversary", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
+          },
+          {
+            id: "new-relationship",
+            label: "New relationship",
+            heat: "Low pressure",
+            filters: { relationship: "new-relationship", budget: "under-50", tab: "best-overall", intent: "thoughtful" },
+          },
+          {
+            id: "cozy",
+            label: "Cozy home",
+            heat: "Soft lane",
+            filters: { budget: "under-100", tab: "cozy-home", intent: "cozy" },
+          },
+          {
+            id: "daily-upgrade",
+            label: "Daily upgrade",
+            heat: "Used daily",
+            filters: { relationship: "wife", budget: "under-100", tab: "daily-use", intent: "everyday" },
+          },
+          {
+            id: "wife-under-100",
+            label: "Wife under $100",
+            heat: "Safe buy",
+            filters: { relationship: "wife", budget: "under-100", tab: "best-overall", intent: "everyday" },
+          },
+          {
+            id: "girlfriend-premium",
+            label: "Girlfriend premium",
+            heat: "Higher spend",
+            filters: { relationship: "girlfriend", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
+          },
+          {
+            id: "under-50",
+            label: "Under $50",
+            heat: "Quick buy",
+            filters: { budget: "under-50", tab: "best-overall", intent: "everyday" },
+          },
+          {
+            id: "thoughtful",
+            label: "Thoughtful",
+            heat: "Cleaner choice",
+            filters: { tab: "best-overall", intent: "thoughtful" },
+          },
+          {
+            id: "polished",
+            label: "Polished",
+            heat: "Looks better",
+            filters: { tab: "looks-expensive", intent: "looks-expensive" },
+          },
+          {
+            id: "soft",
+            label: "Soft",
+            heat: "Cozy lane",
+            filters: { tab: "cozy-home", intent: "cozy" },
+          },
+          {
+            id: "birthday",
+            label: "Birthday",
+            heat: "Gift-ready",
+            filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
+          },
+          {
+            id: "wife-premium",
+            label: "Wife premium",
+            heat: "Big move",
+            filters: { relationship: "wife", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
+          },
+          {
+            id: "anniversary-under-100",
+            label: "Anniversary under $100",
+            heat: "Smart spend",
+            filters: { relationship: "anniversary", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
+          },
+          {
+            id: "daily-soft",
+            label: "Daily soft",
+            heat: "Easy home",
+            filters: { budget: "under-100", tab: "cozy-home", intent: "everyday" },
+          },
+        ];
 
-    const eligibleTikTokGifts = gifts.filter((gift) => getPrimaryHotVideoMedia(gift));
-    const rankedTikTokGifts = [...eligibleTikTokGifts].sort((left, right) => {
+    const eligibleHotGifts = surfaceHotGifts.filter((gift) => getPrimaryHotMedia(gift, homeSurface.id));
+    const rankedHotGifts = [...eligibleHotGifts].sort((left, right) => {
       const scoreDelta = scoreGift(right, activeFilters) - scoreGift(left, activeFilters);
 
       if (scoreDelta !== 0) {
@@ -1447,13 +1558,13 @@ export default function App() {
 
     const seededStories = definitions
       .map((story) => {
-        const picks = rankGiftMatches(rankedTikTokGifts, { ...activeFilters, ...story.filters });
+        const picks = rankGiftMatches(rankedHotGifts, { ...activeFilters, ...story.filters });
         const gift = picks.find((candidate) => {
           if (usedGiftIds.has(candidate.id)) {
             return false;
           }
 
-          const primaryVideo = getPrimaryHotVideoMedia(candidate);
+          const primaryVideo = getPrimaryHotMedia(candidate, homeSurface.id);
 
           if (!primaryVideo) {
             return false;
@@ -1468,7 +1579,7 @@ export default function App() {
           return null;
         }
 
-        const primaryVideo = getPrimaryHotVideoMedia(gift);
+        const primaryVideo = getPrimaryHotMedia(gift, homeSurface.id);
 
         if (!primaryVideo) {
           return null;
@@ -1480,23 +1591,24 @@ export default function App() {
         return {
           ...story,
           gift,
+          surfaceId: homeSurface.id,
           mediaId: primaryVideo.id,
-          mediaKind: "embed",
-          mediaLabel: "TikTok",
-          sourceLabel:
-            primaryVideo.creatorHandle || primaryVideo.creatorName || primaryVideo.sourceLabel || "TikTok",
+          mediaKind: primaryVideo.kind,
+          mediaLabel: getPreviewMediaBadgeLabel(primaryVideo),
+          sourceMark: getHotMediaSourceMark(primaryVideo),
+          sourceLabel: getHotMediaSourceLabel(primaryVideo),
           durationLabel: formatDurationLabel(primaryVideo.durationSeconds || 0),
         };
       })
       .filter(Boolean);
 
-    const fallbackStories = rankedTikTokGifts
+    const fallbackStories = rankedHotGifts
       .map((gift) => {
         if (usedGiftIds.has(gift.id)) {
           return null;
         }
 
-        const primaryVideo = getPrimaryHotVideoMedia(gift);
+        const primaryVideo = getPrimaryHotMedia(gift, homeSurface.id);
 
         if (!primaryVideo) {
           return null;
@@ -1516,18 +1628,19 @@ export default function App() {
           label: getHotFallbackLabel(gift),
           heat: getHotFallbackHeat(gift),
           gift,
+          surfaceId: homeSurface.id,
           mediaId: primaryVideo.id,
-          mediaKind: "embed",
-          mediaLabel: "TikTok",
-          sourceLabel:
-            primaryVideo.creatorHandle || primaryVideo.creatorName || primaryVideo.sourceLabel || "TikTok",
+          mediaKind: primaryVideo.kind,
+          mediaLabel: getPreviewMediaBadgeLabel(primaryVideo),
+          sourceMark: getHotMediaSourceMark(primaryVideo),
+          sourceLabel: getHotMediaSourceLabel(primaryVideo),
           durationLabel: formatDurationLabel(primaryVideo.durationSeconds || 0),
         };
       })
       .filter(Boolean);
 
     return [...seededStories, ...fallbackStories].slice(0, HOT_FEED_TARGET_COUNT);
-  }, [gifts, activeFilters]);
+  }, [surfaceHotGifts, homeSurface.id, activeFilters]);
   const leadingHotFeedCycle = hotFeedCycles[0] ?? null;
   const trailingHotFeedCycles = hotFeedCycles.slice(1);
 
@@ -2026,14 +2139,15 @@ export default function App() {
   }
 
   function openHotPreview(item) {
-    const media = getPrimaryHotVideoMedia(item.gift);
+    const media = buildGiftPreviewMedia(item.gift).find((candidate) => candidate.id === item.mediaId)
+      || getPrimaryHotMedia(item.gift, homeSurface.id);
 
     if (!media) {
       return;
     }
 
     openPreview(item.gift, {
-      mode: "hot",
+      mode: media.provider === "tiktok" ? "hot" : "default",
       preferredMediaId: media.id,
     });
   }
@@ -2875,22 +2989,28 @@ export default function App() {
                         <p>{activeContinueSection.hot.body}</p>
                       </div>
                       <div className="gs-popular-library-list">
-                        {seoHotStories.slice(0, 4).map((story) => (
-                          <a key={story.slug} href={`/hot/${story.slug}/`} className="gs-popular-library-link">
+                        {surfaceHotGuides.slice(0, 4).map((story) => (
+                          <a
+                            key={story.slug}
+                            href={homeSurface.id === "books" ? `/${story.slug}/` : `/hot/${story.slug}/`}
+                            className="gs-popular-library-link"
+                          >
                             <div>
-                              <span className="gs-seo-guide-eyebrow">{story.trendLabel}</span>
+                              <span className="gs-seo-guide-eyebrow">{story.trendLabel || story.groupLabel || t("hot.overline")}</span>
                               <strong>{story.h1}</strong>
                             </div>
                             <ArrowUpRight size={16} />
                           </a>
                         ))}
-                        <a href="/hot/" className="gs-popular-library-link is-all">
-                          <div>
-                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
-                            <strong>{t("hot.allPages")}</strong>
-                          </div>
-                          <ArrowUpRight size={16} />
-                        </a>
+                        {activeHotFeedSection.allPagesHref ? (
+                          <a href={activeHotFeedSection.allPagesHref} className="gs-popular-library-link is-all">
+                            <div>
+                              <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                              <strong>{activeHotFeedSection.allPagesLabel}</strong>
+                            </div>
+                            <ArrowUpRight size={16} />
+                          </a>
+                        ) : null}
                       </div>
                     </article>
                     <article className="gs-popular-library-panel">
@@ -2935,9 +3055,9 @@ export default function App() {
               <div className="gs-slide-scroll" ref={(node) => setSlideScrollRef(1, node)}>
                 <div className="gs-hot-feed-toolbar">
                   <div className="gs-parallax-copy">
-                    <p className="gs-overline">{t("hot.overline")}</p>
-                    <h2>{t("hot.title")}</h2>
-                    <p>{t("hot.body")}</p>
+                    <p className="gs-overline">{activeHotFeedSection.overline}</p>
+                    <h2>{activeHotFeedSection.title}</h2>
+                    <p>{activeHotFeedSection.body}</p>
                   </div>
                   <button
                     type="button"
@@ -2967,28 +3087,34 @@ export default function App() {
                     </Masonry>
                   </section>
                 ) : null}
-                <section className="gs-seo-guide-section" aria-label="Read full hot pages">
+                <section className="gs-seo-guide-section" aria-label={activeHotFeedSection.storiesTitle}>
                   <div className="gs-section-head">
-                    <p className="gs-overline">{t("hot.storiesOverline")}</p>
-                    <h3>{t("hot.storiesTitle")}</h3>
+                    <p className="gs-overline">{activeHotFeedSection.storiesOverline}</p>
+                    <h3>{activeHotFeedSection.storiesTitle}</h3>
                   </div>
                   <div className="gs-seo-guide-list">
-                    {seoHotStories.slice(0, 6).map((story) => (
-                      <a key={story.slug} href={`/hot/${story.slug}/`} className="gs-seo-guide-link">
+                    {surfaceHotGuides.slice(0, 6).map((story) => (
+                      <a
+                        key={story.slug}
+                        href={homeSurface.id === "books" ? `/${story.slug}/` : `/hot/${story.slug}/`}
+                        className="gs-seo-guide-link"
+                      >
                         <div>
-                          <span className="gs-seo-guide-eyebrow">{story.trendLabel}</span>
+                          <span className="gs-seo-guide-eyebrow">{story.trendLabel || story.groupLabel || t("hot.overline")}</span>
                           <strong>{story.h1}</strong>
                         </div>
                         <ArrowUpRight size={16} />
                       </a>
                     ))}
-                    <a href="/hot/" className="gs-seo-guide-link is-all">
-                      <div>
-                        <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
-                        <strong>{t("hot.allPages")}</strong>
-                      </div>
-                      <ArrowUpRight size={16} />
-                    </a>
+                    {activeHotFeedSection.allPagesHref ? (
+                      <a href={activeHotFeedSection.allPagesHref} className="gs-seo-guide-link is-all">
+                        <div>
+                          <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                          <strong>{activeHotFeedSection.allPagesLabel}</strong>
+                        </div>
+                        <ArrowUpRight size={16} />
+                      </a>
+                    ) : null}
                   </div>
                 </section>
                 {trailingHotFeedCycles.map((cycleIndex) => (

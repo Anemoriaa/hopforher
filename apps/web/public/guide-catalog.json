@@ -267,7 +267,7 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "jewelry-case",
@@ -286,13 +286,6 @@
         ],
         "overusedProducts": [
           {
-            "id": "silk-pillowcase",
-            "slug": "mulberry-silk-pillowcase-set",
-            "name": "Mulberry Silk Pillowcase Set",
-            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
-            "guideCount": 5
-          },
-          {
             "id": "mini-photo-printer",
             "slug": "mini-photo-printer",
             "name": "Mini Photo Printer",
@@ -304,7 +297,7 @@
             "slug": "candle-warmer-lamp",
             "name": "Candle Warmer Lamp",
             "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 8
+            "guideCount": 5
           }
         ],
         "relatedGuideOverlap": [
@@ -655,22 +648,7 @@
             "guideCount": 3
           }
         ],
-        "overusedProducts": [
-          {
-            "id": "temperature-mug",
-            "slug": "temperature-control-mug",
-            "name": "Temperature-Control Mug",
-            "url": "https://shopforher.org/gift/temperature-control-mug/",
-            "guideCount": 6
-          },
-          {
-            "id": "nespresso-machine",
-            "slug": "nespresso-vertuo-next",
-            "name": "Nespresso Vertuo Next",
-            "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
-            "guideCount": 5
-          }
-        ],
+        "overusedProducts": [],
         "relatedGuideOverlap": [
           {
             "slug": "anniversary-gifts-for-her",
@@ -996,17 +974,10 @@
             "slug": "mulberry-silk-pillowcase-set",
             "name": "Mulberry Silk Pillowcase Set",
             "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
-            "guideCount": 5
+            "guideCount": 4
           }
         ],
         "overusedProducts": [
-          {
-            "id": "silk-pillowcase",
-            "slug": "mulberry-silk-pillowcase-set",
-            "name": "Mulberry Silk Pillowcase Set",
-            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
-            "guideCount": 5
-          },
           {
             "id": "mini-photo-printer",
             "slug": "mini-photo-printer",
@@ -1338,7 +1309,7 @@
             "slug": "candle-warmer-lamp",
             "name": "Candle Warmer Lamp",
             "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 8
+            "guideCount": 5
           }
         ],
         "relatedGuideOverlap": [
@@ -1702,13 +1673,6 @@
             "name": "Tall Faux Olive Tree with Planter",
             "url": "https://shopforher.org/gift/faux-olive-tree-planter/",
             "guideCount": 5
-          },
-          {
-            "id": "kindle-paperwhite",
-            "slug": "kindle-paperwhite-signature-edition",
-            "name": "Kindle Paperwhite Signature Edition",
-            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-            "guideCount": 7
           }
         ],
         "relatedGuideOverlap": [
@@ -2334,15 +2298,7 @@
             "guideCount": 3
           }
         ],
-        "overusedProducts": [
-          {
-            "id": "temperature-mug",
-            "slug": "temperature-control-mug",
-            "name": "Temperature-Control Mug",
-            "url": "https://shopforher.org/gift/temperature-control-mug/",
-            "guideCount": 6
-          }
-        ],
+        "overusedProducts": [],
         "relatedGuideOverlap": [
           {
             "slug": "gifts-for-wife",
@@ -2640,7 +2596,7 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "owala-bottle",
@@ -2650,35 +2606,21 @@
             "guideCount": 2
           },
           {
+            "id": "ugg-slippers",
+            "slug": "koolaburra-ugg-burree-slipper",
+            "name": "Koolaburra by UGG Burree Slipper",
+            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
+            "guideCount": 3
+          },
+          {
             "id": "mchic-beaded-choker",
             "slug": "mchic-colorful-beaded-choker",
             "name": "Mchic Colorful Beaded Choker Necklace",
             "url": "https://shopforher.org/gift/mchic-colorful-beaded-choker/",
             "guideCount": 3
-          },
-          {
-            "id": "stanley-quencher",
-            "slug": "stanley-quencher-h2o-flowstate",
-            "name": "Stanley Quencher H2.0 FlowState",
-            "url": "https://shopforher.org/gift/stanley-quencher-h2o-flowstate/",
-            "guideCount": 4
           }
         ],
         "overusedProducts": [
-          {
-            "id": "ugg-slippers",
-            "slug": "koolaburra-ugg-burree-slipper",
-            "name": "Koolaburra by UGG Burree Slipper",
-            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
-            "guideCount": 5
-          },
-          {
-            "id": "silk-pillowcase",
-            "slug": "mulberry-silk-pillowcase-set",
-            "name": "Mulberry Silk Pillowcase Set",
-            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
-            "guideCount": 5
-          },
           {
             "id": "laneige-set",
             "slug": "laneige-midnight-minis-lip-set",
@@ -3046,13 +2988,6 @@
           }
         ],
         "overusedProducts": [
-          {
-            "id": "ugg-slippers",
-            "slug": "koolaburra-ugg-burree-slipper",
-            "name": "Koolaburra by UGG Burree Slipper",
-            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
-            "guideCount": 5
-          },
           {
             "id": "mini-photo-printer",
             "slug": "mini-photo-printer",
@@ -3699,14 +3634,14 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "bose-speaker",
             "slug": "bose-soundlink-flex-2nd-gen",
             "name": "Bose SoundLink Flex (2nd Gen)",
             "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 6
+            "guideCount": 3
           },
           {
             "id": "theragun-relief",
@@ -3720,32 +3655,10 @@
             "slug": "kindle-paperwhite-signature-edition",
             "name": "Kindle Paperwhite Signature Edition",
             "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-            "guideCount": 7
+            "guideCount": 4
           }
         ],
-        "overusedProducts": [
-          {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 6
-          },
-          {
-            "id": "kindle-paperwhite",
-            "slug": "kindle-paperwhite-signature-edition",
-            "name": "Kindle Paperwhite Signature Edition",
-            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-            "guideCount": 7
-          },
-          {
-            "id": "nespresso-machine",
-            "slug": "nespresso-vertuo-next",
-            "name": "Nespresso Vertuo Next",
-            "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
-            "guideCount": 5
-          }
-        ],
+        "overusedProducts": [],
         "relatedGuideOverlap": [
           {
             "slug": "gifts-for-wife",
@@ -4033,7 +3946,7 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "theragun-relief",
@@ -4047,39 +3960,17 @@
             "slug": "magsafe-charging-stand",
             "name": "MagSafe Charging Stand",
             "url": "https://shopforher.org/gift/magsafe-charging-stand/",
-            "guideCount": 4
+            "guideCount": 3
           },
           {
             "id": "bose-speaker",
             "slug": "bose-soundlink-flex-2nd-gen",
             "name": "Bose SoundLink Flex (2nd Gen)",
             "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 6
+            "guideCount": 3
           }
         ],
-        "overusedProducts": [
-          {
-            "id": "temperature-mug",
-            "slug": "temperature-control-mug",
-            "name": "Temperature-Control Mug",
-            "url": "https://shopforher.org/gift/temperature-control-mug/",
-            "guideCount": 6
-          },
-          {
-            "id": "kindle-paperwhite",
-            "slug": "kindle-paperwhite-signature-edition",
-            "name": "Kindle Paperwhite Signature Edition",
-            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-            "guideCount": 7
-          },
-          {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 6
-          }
-        ],
+        "overusedProducts": [],
         "relatedGuideOverlap": [
           {
             "slug": "daily-use-gifts-for-her",
@@ -4381,7 +4272,7 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "faux-olive-tree-planter",
@@ -4402,36 +4293,15 @@
             "slug": "koolaburra-ugg-burree-slipper",
             "name": "Koolaburra by UGG Burree Slipper",
             "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
-            "guideCount": 5
+            "guideCount": 3
           }
         ],
         "overusedProducts": [
-          {
-            "id": "luxury-throw",
-            "slug": "luxury-throw-blanket",
-            "name": "Luxury Throw Blanket",
-            "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-            "guideCount": 6
-          },
           {
             "id": "faux-olive-tree-planter",
             "slug": "faux-olive-tree-planter",
             "name": "Tall Faux Olive Tree with Planter",
             "url": "https://shopforher.org/gift/faux-olive-tree-planter/",
-            "guideCount": 5
-          },
-          {
-            "id": "ugg-slippers",
-            "slug": "koolaburra-ugg-burree-slipper",
-            "name": "Koolaburra by UGG Burree Slipper",
-            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
-            "guideCount": 5
-          },
-          {
-            "id": "nespresso-machine",
-            "slug": "nespresso-vertuo-next",
-            "name": "Nespresso Vertuo Next",
-            "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
             "guideCount": 5
           }
         ],
@@ -4487,386 +4357,8 @@
       "pageArchetype": "gift-guide",
       "title": "Book gifts for her in 2026 | ShopForHer",
       "h1": "Book gifts for her in 2026",
-      "description": "Reader-first gifts for her, from Kindle upgrades to cozy reading-night picks.",
-      "intro": "Use this lane when she already likes reading and you want the gift to feel more intentional than a random bestseller guess.",
-      "group": "angle",
-      "groupLabel": "Angle",
-      "taxonomy": {
-        "primary": {
-          "relationships": [],
-          "occasions": [],
-          "budgetBands": [],
-          "angles": [
-            "cozy-home"
-          ],
-          "guideGroups": [
-            "angle"
-          ]
-        },
-        "coverage": {
-          "relationshipTags": [
-            "anniversary",
-            "anyone",
-            "girlfriend",
-            "new-relationship",
-            "wife"
-          ],
-          "intentTags": [
-            "cozy",
-            "daily-use",
-            "everyday",
-            "looks-expensive",
-            "thoughtful"
-          ],
-          "tabTags": [
-            "best-overall",
-            "cozy-home",
-            "daily-use",
-            "looks-expensive",
-            "under-100"
-          ],
-          "priceBands": [
-            "over-150",
-            "under-100",
-            "under-150",
-            "under-75"
-          ]
-        }
-      },
-      "searchIndexable": true,
-      "indexStatus": "search-facing",
-      "updatedAt": "2026-03-12",
-      "featuredGiftId": "kindle-paperwhite",
-      "featuredGiftUrl": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-      "selectionMethod": "This page prioritizes cleaner reader gifts: Kindle hardware, calm at-home reading upgrades, and ritual-supporting items that make reading feel easier, cozier, or more premium.",
-      "bestUseCase": "Use this when she is clearly a reader and you want the gift to reinforce that habit instead of defaulting to a generic all-purpose gift.",
-      "avoidWhen": "Skip this page if she does not really read for pleasure already or if you need a more romantic, fashion-forward, or beauty-led signal first.",
-      "buyerSignals": [
-        {
-          "title": "Reader gifts work best when the habit is obvious",
-          "body": "This lane wins when she already reads at night, travels with a book, or talks about wanting calmer off-screen downtime."
-        },
-        {
-          "title": "Support the ritual, not only the category",
-          "body": "A strong reading gift can be the Kindle itself or the things that make reading time feel softer, easier, and more protected."
-        },
-        {
-          "title": "Avoid random book guessing when taste is unclear",
-          "body": "If you do not know her exact genres or authors, a reader upgrade usually lands better than picking a title that might miss completely."
-        }
-      ],
-      "bestFits": [
-        {
-          "title": "The clearest dedicated reader upgrade",
-          "giftId": "kindle-paperwhite",
-          "body": "Best when you want the gift to say reader first, with less clutter and more daily payoff than another small accessory.",
-          "giftSlug": "kindle-paperwhite-signature-edition",
-          "giftUrl": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/"
-        },
-        {
-          "title": "A softer reading-night comfort gift",
-          "giftId": "luxury-throw",
-          "body": "Use this when she already has the books or Kindle and the better move is making the reading routine feel warmer and more lived-in.",
-          "giftSlug": "luxury-throw-blanket",
-          "giftUrl": "https://shopforher.org/gift/luxury-throw-blanket/"
-        },
-        {
-          "title": "A ritual upgrade that keeps the reading lane calm",
-          "giftId": "temperature-mug",
-          "body": "This is the cleaner answer when the gift should support longer reading sessions and feel upgraded every time she uses it.",
-          "giftSlug": "temperature-control-mug",
-          "giftUrl": "https://shopforher.org/gift/temperature-control-mug/"
-        }
-      ],
-      "pickLanes": [
-        {
-          "title": "Best main gift",
-          "giftId": "kindle-paperwhite",
-          "body": "The first pick when the gift should feel clearly reader-specific and strong enough to stand on its own.",
-          "giftSlug": "kindle-paperwhite-signature-edition",
-          "giftUrl": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/"
-        },
-        {
-          "title": "Best cozy add-on",
-          "giftId": "luxury-throw",
-          "body": "Use this when the reading ritual matters more than buying another device.",
-          "giftSlug": "luxury-throw-blanket",
-          "giftUrl": "https://shopforher.org/gift/luxury-throw-blanket/"
-        },
-        {
-          "title": "Best reading-session upgrade",
-          "giftId": "temperature-mug",
-          "body": "The better move when she already reads a lot and you want the gift to improve the part of the routine that repeats most often.",
-          "giftSlug": "temperature-control-mug",
-          "giftUrl": "https://shopforher.org/gift/temperature-control-mug/"
-        }
-      ],
-      "avoidNotes": [
-        {
-          "title": "Avoid guessing titles if you do not know her taste",
-          "body": "Buying a random book is often weaker than choosing a device or ritual upgrade that still supports reading without risking a total miss."
-        },
-        {
-          "title": "Avoid drifting too far from the reading identity",
-          "body": "If the page is right, the gift should still feel like it belongs near books, reading nights, quiet routines, or audiobook downtime."
-        }
-      ],
-      "faqs": [
-        {
-          "question": "What is the safest book gift on this page?",
-          "answer": "The Kindle Paperwhite is the cleanest first answer because it clearly matches a reader identity without forcing you to guess her exact taste in titles."
-        },
-        {
-          "question": "Should I buy a reading device or a cozy add-on?",
-          "answer": "Choose the Kindle when you want the gift to feel like the main event. Choose the throw, mug, or candle-warmer lane when she already has a reading setup and you want to upgrade the ritual around it."
-        },
-        {
-          "question": "When should I leave this page for a broader gift guide?",
-          "answer": "Leave this page when reading is only a minor trait instead of a real habit. Stay here when the bookish angle is the clearest part of why the gift makes sense."
-        }
-      ],
-      "products": [
-        {
-          "id": "kindle-paperwhite",
-          "slug": "kindle-paperwhite-signature-edition",
-          "name": "Kindle Paperwhite Signature Edition",
-          "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-          "price": "$159 - $209",
-          "badge": "reader upgrade",
-          "bestFor": "girlfriend / wife / reader",
-          "searchIndexable": true
-        },
-        {
-          "id": "luxury-throw",
-          "slug": "luxury-throw-blanket",
-          "name": "Luxury Throw Blanket",
-          "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-          "price": "$39 - $89",
-          "badge": "comfort hit",
-          "bestFor": "girlfriend / wife / apartment",
-          "searchIndexable": true
-        },
-        {
-          "id": "candle-warmer",
-          "slug": "candle-warmer-lamp",
-          "name": "Candle Warmer Lamp",
-          "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-          "price": "$32 - $56",
-          "badge": "cozy",
-          "bestFor": "girlfriend / wife / apartment",
-          "searchIndexable": true
-        },
-        {
-          "id": "temperature-mug",
-          "slug": "temperature-control-mug",
-          "name": "Temperature-Control Mug",
-          "url": "https://shopforher.org/gift/temperature-control-mug/",
-          "price": "$99 - $129",
-          "badge": "viral",
-          "bestFor": "wife / girlfriend / coffee or tea",
-          "searchIndexable": true
-        },
-        {
-          "id": "sunrise-alarm",
-          "slug": "sunrise-alarm-clock",
-          "name": "Sunrise Alarm Clock",
-          "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-          "price": "$59 - $109",
-          "badge": "smart pick",
-          "bestFor": "girlfriend / wife / home routine",
-          "searchIndexable": true
-        },
-        {
-          "id": "bose-speaker",
-          "slug": "bose-soundlink-flex-2nd-gen",
-          "name": "Bose SoundLink Flex (2nd Gen)",
-          "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-          "price": "$129 - $159",
-          "badge": "daily win",
-          "bestFor": "girlfriend / wife / travel",
-          "searchIndexable": true
-        }
-      ],
-      "relatedGuides": [
-        {
-          "slug": "cozy-home-gifts-for-her",
-          "label": "Cozy home gifts",
-          "h1": "Cozy home gifts for her in 2026",
-          "url": "https://shopforher.org/cozy-home-gifts-for-her/"
-        },
-        {
-          "slug": "daily-use-gifts-for-her",
-          "label": "Daily-use gifts",
-          "h1": "Best daily-use gifts for her in 2026",
-          "url": "https://shopforher.org/daily-use-gifts-for-her/"
-        },
-        {
-          "slug": "gifts-for-wife",
-          "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
-          "url": "https://shopforher.org/gifts-for-wife/"
-        }
-      ],
-      "exploreProducts": [
-        {
-          "id": "boxwood-bunny-topiary",
-          "slug": "boxwood-bunny-topiary",
-          "name": "Boxwood Bunny Topiary",
-          "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
-          "badge": "seasonal",
-          "bestFor": "wife / spring decorating / porch",
-          "guideCount": 1
-        },
-        {
-          "id": "easter-bunny-porch-decor",
-          "slug": "large-easter-bunny-porch-decor",
-          "name": "Large Easter Bunny Porch Decor",
-          "url": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
-          "badge": "porch decor",
-          "bestFor": "wife / porch decorating / seasonal home",
-          "guideCount": 1
-        },
-        {
-          "id": "lenox-bunny-candy-dish",
-          "slug": "lenox-wicker-creek-bunny-candy-dish",
-          "name": "Lenox Wicker Creek Bunny Candy Dish",
-          "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
-          "badge": "tabletop",
-          "bestFor": "wife / host gift / spring table",
-          "guideCount": 1
-        }
-      ],
-      "uniqueness": {
-        "needsEditorialRefresh": true,
-        "distinctiveProducts": [
-          {
-            "id": "candle-warmer",
-            "slug": "candle-warmer-lamp",
-            "name": "Candle Warmer Lamp",
-            "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 8
-          },
-          {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 6
-          }
-        ],
-        "overusedProducts": [
-          {
-            "id": "kindle-paperwhite",
-            "slug": "kindle-paperwhite-signature-edition",
-            "name": "Kindle Paperwhite Signature Edition",
-            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-            "guideCount": 7
-          },
-          {
-            "id": "luxury-throw",
-            "slug": "luxury-throw-blanket",
-            "name": "Luxury Throw Blanket",
-            "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-            "guideCount": 6
-          },
-          {
-            "id": "candle-warmer",
-            "slug": "candle-warmer-lamp",
-            "name": "Candle Warmer Lamp",
-            "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 8
-          },
-          {
-            "id": "temperature-mug",
-            "slug": "temperature-control-mug",
-            "name": "Temperature-Control Mug",
-            "url": "https://shopforher.org/gift/temperature-control-mug/",
-            "guideCount": 6
-          },
-          {
-            "id": "sunrise-alarm",
-            "slug": "sunrise-alarm-clock",
-            "name": "Sunrise Alarm Clock",
-            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 7
-          },
-          {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 6
-          }
-        ],
-        "relatedGuideOverlap": [
-          {
-            "slug": "daily-use-gifts-for-her",
-            "label": "Daily-use gifts",
-            "h1": "Best daily-use gifts for her in 2026",
-            "url": "https://shopforher.org/daily-use-gifts-for-her/",
-            "sharedCount": 3,
-            "sharedItems": [
-              {
-                "id": "kindle-paperwhite",
-                "name": "Kindle Paperwhite Signature Edition",
-                "slug": "kindle-paperwhite-signature-edition",
-                "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/"
-              },
-              {
-                "id": "temperature-mug",
-                "name": "Temperature-Control Mug",
-                "slug": "temperature-control-mug",
-                "url": "https://shopforher.org/gift/temperature-control-mug/"
-              },
-              {
-                "id": "sunrise-alarm",
-                "name": "Sunrise Alarm Clock",
-                "slug": "sunrise-alarm-clock",
-                "url": "https://shopforher.org/gift/sunrise-alarm-clock/"
-              }
-            ]
-          },
-          {
-            "slug": "cozy-home-gifts-for-her",
-            "label": "Cozy home gifts",
-            "h1": "Cozy home gifts for her in 2026",
-            "url": "https://shopforher.org/cozy-home-gifts-for-her/",
-            "sharedCount": 1,
-            "sharedItems": [
-              {
-                "id": "luxury-throw",
-                "name": "Luxury Throw Blanket",
-                "slug": "luxury-throw-blanket",
-                "url": "https://shopforher.org/gift/luxury-throw-blanket/"
-              }
-            ]
-          },
-          {
-            "slug": "gifts-for-wife",
-            "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
-            "url": "https://shopforher.org/gifts-for-wife/",
-            "sharedCount": 1,
-            "sharedItems": [
-              {
-                "id": "temperature-mug",
-                "name": "Temperature-Control Mug",
-                "slug": "temperature-control-mug",
-                "url": "https://shopforher.org/gift/temperature-control-mug/"
-              }
-            ]
-          }
-        ]
-      }
-    },
-    {
-      "slug": "kindle-gifts-for-her",
-      "pageUrl": "https://shopforher.org/kindle-gifts-for-her/",
-      "pageArchetype": "gift-guide",
-      "title": "Kindle gifts for her in 2026 | ShopForHer",
-      "h1": "Kindle gifts for her in 2026",
-      "description": "Kindle-first gifts for her, from the Paperwhite itself to cleaner upgrades around digital reading.",
-      "intro": "Use this lane when the device or ebook angle is the clearest reason the gift makes sense.",
+      "description": "Actual books for her, built around Kindle editions, broad-appeal fiction, and one visible boxed-set gift.",
+      "intro": "Use this lane when she already likes reading and you want the gift to be an actual book or boxed set, not a reader-adjacent accessory.",
       "group": "angle",
       "groupLabel": "Angle",
       "taxonomy": {
@@ -4889,7 +4381,6 @@
           ],
           "intentTags": [
             "cozy",
-            "daily-use",
             "everyday",
             "looks-expensive",
             "thoughtful",
@@ -4902,164 +4393,571 @@
             "looks-expensive",
             "under-100"
           ],
-          "priceBands": [
-            "over-150",
-            "under-100",
-            "under-150"
-          ]
+          "priceBands": []
         }
       },
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "updatedAt": "2026-03-12",
-      "featuredGiftId": "kindle-paperwhite",
-      "featuredGiftUrl": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-      "selectionMethod": "This page prioritizes Kindle-first gifts: the reader itself, simple bedside upgrades that support longer digital reading sessions, and a few cleaner audio or routine add-ons that fit the same habit.",
-      "bestUseCase": "Use this when she already reads digitally, keeps talking about wanting a Kindle, or would clearly appreciate a lighter reading setup for travel and nights in.",
-      "avoidWhen": "Skip this page if she mainly wants decor, fragrance, fashion, or a more obviously romantic gift instead of a reading-tech angle.",
+      "featuredGiftId": "fourth-wing-kindle",
+      "featuredGiftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+      "selectionMethod": "This page prioritizes exact books: current Kindle editions with broad demand, safer standalone fiction, and one visible physical set when the gift should still feel substantial to unwrap.",
+      "bestUseCase": "Use this when the reading habit is obvious and the cleanest answer is choosing a real book, a Kindle edition, or a current series set instead of shifting into gadgets or home extras.",
+      "avoidWhen": "Skip this page if she barely reads for fun or if you truly do not know whether she likes fiction, fantasy, romance, or book-club style reads at all.",
       "buyerSignals": [
         {
-          "title": "Digital-reading habits matter more than book taste guessing",
-          "body": "If she already reads on her phone, tablet, or laptop, a Kindle-style upgrade usually lands better than trying to guess exact titles."
+          "title": "Book gifts work best when she is already tracking what she wants to read next",
+          "body": "This lane wins when she talks about specific titles, saves BookTok clips, keeps a Kindle queue, or is always halfway through something."
         },
         {
-          "title": "The device should stay cleaner than the accessory pile",
-          "body": "The main win here is a simpler reading setup, not a stack of add-ons that make the gift feel less focused."
+          "title": "Standalones and first-in-series picks are safer than random sequels",
+          "body": "If you are not sure exactly where she is inside a series, start with a broad standalone or book one instead of trying to guess the perfect sequel."
         },
         {
-          "title": "Night-reading and travel use are strong buying signals",
-          "body": "This lane works best when she reads before bed, wants less screen glare, or likes carrying a smaller reading setup on trips."
+          "title": "Visible physical books and instant Kindle delivery solve different gift moments",
+          "body": "Use Kindle editions when speed and low friction matter. Use the boxed set when you want something she can open, stack, and keep."
         }
       ],
       "bestFits": [
         {
-          "title": "The clearest main-event Kindle gift",
-          "giftId": "kindle-paperwhite",
-          "body": "Best when you want the gift to feel obviously reader-specific and strong enough to stand alone.",
-          "giftSlug": "kindle-paperwhite-signature-edition",
-          "giftUrl": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/"
+          "title": "The clearest current Kindle gift",
+          "giftId": "fourth-wing-kindle",
+          "body": "Best when you want one recognizable Kindle edition with obvious demand and a low chance of feeling random.",
+          "giftSlug": "fourth-wing-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
         },
         {
-          "title": "A cleaner audio companion for digital reading time",
-          "giftId": "bose-speaker",
-          "body": "Use this when she already lives in ebooks, audiobooks, or calm background listening and the device itself is not the only win.",
-          "giftSlug": "bose-soundlink-flex-2nd-gen",
-          "giftUrl": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/"
+          "title": "A broader standalone fiction pick",
+          "giftId": "the-women-kindle",
+          "body": "Use this when you want the book gift to feel more literary and conversation-starting than purely BookTok-coded.",
+          "giftSlug": "the-women-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-women-kindle-edition/"
         },
         {
-          "title": "A small routine upgrade that supports longer sessions",
-          "giftId": "temperature-mug",
-          "body": "This is the better answer when she already has the reading habit and you want the gift to improve the part that repeats most often.",
-          "giftSlug": "temperature-control-mug",
-          "giftUrl": "https://shopforher.org/gift/temperature-control-mug/"
+          "title": "The visible physical-book gift",
+          "giftId": "empyrean-box-set",
+          "body": "This is the stronger move when you want an actual stack to unwrap instead of a single digital purchase.",
+          "giftSlug": "the-empyrean-series-3-book-set",
+          "giftUrl": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
         }
       ],
       "pickLanes": [
         {
-          "title": "Best main gift",
-          "giftId": "kindle-paperwhite",
-          "body": "The first answer when the gift should read clearly as a Kindle upgrade and not a side accessory.",
-          "giftSlug": "kindle-paperwhite-signature-edition",
-          "giftUrl": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/"
+          "title": "Best Kindle starter",
+          "giftId": "fourth-wing-kindle",
+          "body": "The first pick when you want a clear current favorite with instant download upside.",
+          "giftSlug": "fourth-wing-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
         },
         {
-          "title": "Best digital-reading companion",
-          "giftId": "bose-speaker",
-          "body": "Use this when audio, podcasts, and background listening are part of why her reading routine works.",
-          "giftSlug": "bose-soundlink-flex-2nd-gen",
-          "giftUrl": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/"
+          "title": "Best broad fiction pick",
+          "giftId": "the-women-kindle",
+          "body": "Use this when you want the book to feel more general-market and less internet-coded.",
+          "giftSlug": "the-women-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-women-kindle-edition/"
         },
         {
-          "title": "Best bedside add-on",
-          "giftId": "sunrise-alarm",
-          "body": "The cleaner move when the reading habit already exists and you want the gift to support the calmer start-and-stop points around it.",
-          "giftSlug": "sunrise-alarm-clock",
-          "giftUrl": "https://shopforher.org/gift/sunrise-alarm-clock/"
+          "title": "Best physical-book gift",
+          "giftId": "empyrean-box-set",
+          "body": "The better move when the present needs visible weight and stronger unwrap energy.",
+          "giftSlug": "the-empyrean-series-3-book-set",
+          "giftUrl": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
         }
       ],
       "avoidNotes": [
         {
-          "title": "Avoid piling on too many setup extras",
-          "body": "The page works best when the gift feels like one cleaner reading upgrade instead of a box of disconnected accessories."
+          "title": "Avoid buying deep-series entries without proof",
+          "body": "If you cannot verify where she is in a series, stay with standalones, book one, or the full box set instead of guessing a later installment."
         },
         {
-          "title": "Avoid guessing ebooks if her taste is still fuzzy",
-          "body": "If you do not know her exact genres, authors, or account setup, a hardware or routine upgrade is usually safer than trying to buy the perfect title."
+          "title": "Avoid shifting into cozy filler when the ask is really books",
+          "body": "If this page is right, the gift should still be an actual title or set, not a mug, blanket, lamp, or generic home extra."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the safest book gift on this page?",
+          "answer": "Fourth Wing Kindle Edition is the safest current Kindle pick because it is book one, easy to recognize, and already heavily validated by reader demand. If you want a more visible physical gift, the Empyrean box set is the cleaner unwrap."
+        },
+        {
+          "question": "Should I buy a Kindle edition or a physical book set?",
+          "answer": "Choose the Kindle edition when she already reads digitally, travels with books, or you need a faster low-friction gift. Choose the box set when the point is giving her something more visible to open and keep."
+        },
+        {
+          "question": "When should I leave this page for a broader gift guide?",
+          "answer": "Leave this page when reading is only a minor trait or when you still do not know enough about her taste to choose a genre lane with confidence."
+        }
+      ],
+      "products": [
+        {
+          "id": "fourth-wing-kindle",
+          "slug": "fourth-wing-kindle-edition",
+          "name": "Fourth Wing Kindle Edition",
+          "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "booktok favorite",
+          "bestFor": "girlfriend / wife / romantasy reader",
+          "searchIndexable": true
+        },
+        {
+          "id": "the-women-kindle",
+          "slug": "the-women-kindle-edition",
+          "name": "The Women Kindle Edition",
+          "url": "https://shopforher.org/gift/the-women-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "book club hit",
+          "bestFor": "wife / girlfriend / historical fiction reader",
+          "searchIndexable": true
+        },
+        {
+          "id": "the-wedding-people-kindle",
+          "slug": "the-wedding-people-kindle-edition",
+          "name": "The Wedding People Kindle Edition",
+          "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "fiction winner",
+          "bestFor": "girlfriend / wife / contemporary fiction reader",
+          "searchIndexable": true
+        },
+        {
+          "id": "acotar-kindle",
+          "slug": "a-court-of-thorns-and-roses-kindle-edition",
+          "name": "A Court of Thorns and Roses Kindle Edition",
+          "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "romantasy classic",
+          "bestFor": "girlfriend / wife / fantasy romance reader",
+          "searchIndexable": true
+        },
+        {
+          "id": "empyrean-box-set",
+          "slug": "the-empyrean-series-3-book-set",
+          "name": "The Empyrean Series 3 Book Set",
+          "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+          "price": "Box set price varies",
+          "badge": "collector gift",
+          "bestFor": "wife / girlfriend / big reader gift",
+          "searchIndexable": true
+        }
+      ],
+      "relatedGuides": [
+        {
+          "slug": "kindle-gifts-for-her",
+          "label": "Kindle gifts",
+          "h1": "Kindle gifts for her in 2026",
+          "url": "https://shopforher.org/kindle-gifts-for-her/"
+        },
+        {
+          "slug": "booktok-gifts-for-her",
+          "label": "BookTok gifts",
+          "h1": "BookTok gifts for her in 2026",
+          "url": "https://shopforher.org/booktok-gifts-for-her/"
+        },
+        {
+          "slug": "book-lover-gifts-for-her",
+          "label": "Book-lover gifts",
+          "h1": "Book-lover gifts for her in 2026",
+          "url": "https://shopforher.org/book-lover-gifts-for-her/"
+        }
+      ],
+      "exploreProducts": [
+        {
+          "id": "saodimallsu-crochet-cardigan-dress",
+          "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+          "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+          "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+          "badge": "vacation layer",
+          "bestFor": "girlfriend / wife / resort trip",
+          "guideCount": 0
+        },
+        {
+          "id": "easter-bunny-porch-decor",
+          "slug": "large-easter-bunny-porch-decor",
+          "name": "Large Easter Bunny Porch Decor",
+          "url": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
+          "badge": "porch decor",
+          "bestFor": "wife / porch decorating / seasonal home",
+          "guideCount": 1
+        },
+        {
+          "id": "oneida-bunny-hop-plates",
+          "slug": "oneida-bunny-hop-dinner-plates",
+          "name": "Oneida Bunny Hop Dinner Plates",
+          "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+          "badge": "serveware",
+          "bestFor": "wife / host gift / Easter brunch",
+          "guideCount": 1
+        }
+      ],
+      "uniqueness": {
+        "needsEditorialRefresh": true,
+        "distinctiveProducts": [
+          {
+            "id": "acotar-kindle",
+            "slug": "a-court-of-thorns-and-roses-kindle-edition",
+            "name": "A Court of Thorns and Roses Kindle Edition",
+            "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "fourth-wing-kindle",
+            "slug": "fourth-wing-kindle-edition",
+            "name": "Fourth Wing Kindle Edition",
+            "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "empyrean-box-set",
+            "slug": "the-empyrean-series-3-book-set",
+            "name": "The Empyrean Series 3 Book Set",
+            "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+            "guideCount": 5
+          }
+        ],
+        "overusedProducts": [
+          {
+            "id": "fourth-wing-kindle",
+            "slug": "fourth-wing-kindle-edition",
+            "name": "Fourth Wing Kindle Edition",
+            "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "the-women-kindle",
+            "slug": "the-women-kindle-edition",
+            "name": "The Women Kindle Edition",
+            "url": "https://shopforher.org/gift/the-women-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "the-wedding-people-kindle",
+            "slug": "the-wedding-people-kindle-edition",
+            "name": "The Wedding People Kindle Edition",
+            "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "acotar-kindle",
+            "slug": "a-court-of-thorns-and-roses-kindle-edition",
+            "name": "A Court of Thorns and Roses Kindle Edition",
+            "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "empyrean-box-set",
+            "slug": "the-empyrean-series-3-book-set",
+            "name": "The Empyrean Series 3 Book Set",
+            "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+            "guideCount": 5
+          }
+        ],
+        "relatedGuideOverlap": [
+          {
+            "slug": "book-lover-gifts-for-her",
+            "label": "Book-lover gifts",
+            "h1": "Book-lover gifts for her in 2026",
+            "url": "https://shopforher.org/book-lover-gifts-for-her/",
+            "sharedCount": 5,
+            "sharedItems": [
+              {
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
+              },
+              {
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
+              }
+            ]
+          },
+          {
+            "slug": "booktok-gifts-for-her",
+            "label": "BookTok gifts",
+            "h1": "BookTok gifts for her in 2026",
+            "url": "https://shopforher.org/booktok-gifts-for-her/",
+            "sharedCount": 5,
+            "sharedItems": [
+              {
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
+              },
+              {
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
+              }
+            ]
+          },
+          {
+            "slug": "kindle-gifts-for-her",
+            "label": "Kindle gifts",
+            "h1": "Kindle gifts for her in 2026",
+            "url": "https://shopforher.org/kindle-gifts-for-her/",
+            "sharedCount": 5,
+            "sharedItems": [
+              {
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
+              },
+              {
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "slug": "kindle-gifts-for-her",
+      "pageUrl": "https://shopforher.org/kindle-gifts-for-her/",
+      "pageArchetype": "gift-guide",
+      "title": "Kindle gifts for her in 2026 | ShopForHer",
+      "h1": "Kindle gifts for her in 2026",
+      "description": "Kindle gifts for her, built around actual Kindle editions with current demand instead of devices or accessories.",
+      "intro": "Use this lane when the ebook angle is the clearest reason the gift makes sense and you want a real Kindle title, not a device setup.",
+      "group": "angle",
+      "groupLabel": "Angle",
+      "taxonomy": {
+        "primary": {
+          "relationships": [],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [],
+          "guideGroups": [
+            "angle"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "daily-use",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": []
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "updatedAt": "2026-03-12",
+      "featuredGiftId": "fourth-wing-kindle",
+      "featuredGiftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+      "selectionMethod": "This page prioritizes Kindle editions only: broad-appeal fiction, first-in-series romantasy, and one obvious physical fallback when you want to pair the digital lane with a visible book gift.",
+      "bestUseCase": "Use this when she already reads digitally, shares Kindle screenshots, or wants easier instant-delivery books instead of another object around the reading habit.",
+      "avoidWhen": "Skip this page if she mainly wants a physical collectible, non-fiction, or a more visibly substantial gift than one ebook purchase.",
+      "buyerSignals": [
+        {
+          "title": "Digital reading habits matter more than the format debate",
+          "body": "If she already reads on a Kindle, phone, tablet, or Kindle app, an exact ebook usually lands better than turning the gift into hardware research."
+        },
+        {
+          "title": "Standalone fiction and first-in-series picks are the safer ebook bet",
+          "body": "Kindle gifting gets easier when the title does not require a lot of background knowledge about what she has already read."
+        },
+        {
+          "title": "Instant delivery is the main advantage here",
+          "body": "This lane works best when you need a clean, fast, low-friction gift that still feels chosen instead of generic."
+        }
+      ],
+      "bestFits": [
+        {
+          "title": "The clearest current Kindle pick",
+          "giftId": "fourth-wing-kindle",
+          "body": "Best when you want a high-recognition Kindle title with obvious momentum and low overthinking.",
+          "giftSlug": "fourth-wing-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+        },
+        {
+          "title": "The broader general-fiction Kindle pick",
+          "giftId": "the-women-kindle",
+          "body": "Use this when you want something less fantasy-coded and more mainstream-book-club safe.",
+          "giftSlug": "the-women-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-women-kindle-edition/"
+        },
+        {
+          "title": "The easiest fiction-winner Kindle pick",
+          "giftId": "the-wedding-people-kindle",
+          "body": "This is the cleaner move when you want a recent standalone with award-style social proof instead of series baggage.",
+          "giftSlug": "the-wedding-people-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+        }
+      ],
+      "pickLanes": [
+        {
+          "title": "Best current fantasy Kindle pick",
+          "giftId": "fourth-wing-kindle",
+          "body": "The first answer when you want a clearly current digital read with obvious BookTok gravity.",
+          "giftSlug": "fourth-wing-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+        },
+        {
+          "title": "Best mainstream Kindle pick",
+          "giftId": "the-women-kindle",
+          "body": "Use this when you want the ebook to feel broader, more emotional, and less niche.",
+          "giftSlug": "the-women-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-women-kindle-edition/"
+        },
+        {
+          "title": "Best romance-fantasy Kindle classic",
+          "giftId": "acotar-kindle",
+          "body": "The cleaner move when you want the older proven BookTok series starter instead of the newer pick.",
+          "giftSlug": "a-court-of-thorns-and-roses-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+        }
+      ],
+      "avoidNotes": [
+        {
+          "title": "Avoid turning Kindle gifts back into setup gear",
+          "body": "If this page is right, the gift should stay on exact Kindle titles instead of drifting into readers, stands, lamps, or generic add-ons."
+        },
+        {
+          "title": "Avoid later-series Kindle picks without proof",
+          "body": "If you cannot tell what she has already read, first-in-series books and standalones are the safer ebook move."
         }
       ],
       "faqs": [
         {
           "question": "What is the safest Kindle gift on this page?",
-          "answer": "The Kindle Paperwhite is still the cleanest first answer because it matches the reader identity directly without forcing you to guess specific titles."
+          "answer": "Fourth Wing Kindle Edition is the safest first answer because it is book one, currently recognizable, and already validated by heavy reader demand."
         },
         {
-          "question": "Do I need to preload books or buy extras for the gift to work?",
-          "answer": "No. The hardware itself is usually enough. Add titles only when you know her taste well enough that the picks will not feel random."
+          "question": "Do I need a device or extras for a Kindle gift to work?",
+          "answer": "No. This page is focused on Kindle editions themselves. If she already reads digitally, the actual title is enough. Add a physical book only when you want something visible to hand over."
         },
         {
           "question": "When should I use the broader books guide instead?",
-          "answer": "Use the broader books page when the reading ritual matters as much as the device. Stay here when the Kindle or ebook angle is the main reason the gift makes sense."
+          "answer": "Use the broader books page when you want to compare Kindle editions with one stronger physical set. Stay here when the ebook angle is the whole point."
         }
       ],
       "products": [
         {
-          "id": "kindle-paperwhite",
-          "slug": "kindle-paperwhite-signature-edition",
-          "name": "Kindle Paperwhite Signature Edition",
-          "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-          "price": "$159 - $209",
-          "badge": "reader upgrade",
-          "bestFor": "girlfriend / wife / reader",
+          "id": "fourth-wing-kindle",
+          "slug": "fourth-wing-kindle-edition",
+          "name": "Fourth Wing Kindle Edition",
+          "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "booktok favorite",
+          "bestFor": "girlfriend / wife / romantasy reader",
           "searchIndexable": true
         },
         {
-          "id": "bose-speaker",
-          "slug": "bose-soundlink-flex-2nd-gen",
-          "name": "Bose SoundLink Flex (2nd Gen)",
-          "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-          "price": "$129 - $159",
-          "badge": "daily win",
-          "bestFor": "girlfriend / wife / travel",
+          "id": "the-women-kindle",
+          "slug": "the-women-kindle-edition",
+          "name": "The Women Kindle Edition",
+          "url": "https://shopforher.org/gift/the-women-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "book club hit",
+          "bestFor": "wife / girlfriend / historical fiction reader",
           "searchIndexable": true
         },
         {
-          "id": "temperature-mug",
-          "slug": "temperature-control-mug",
-          "name": "Temperature-Control Mug",
-          "url": "https://shopforher.org/gift/temperature-control-mug/",
-          "price": "$99 - $129",
-          "badge": "viral",
-          "bestFor": "wife / girlfriend / coffee or tea",
+          "id": "the-wedding-people-kindle",
+          "slug": "the-wedding-people-kindle-edition",
+          "name": "The Wedding People Kindle Edition",
+          "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "fiction winner",
+          "bestFor": "girlfriend / wife / contemporary fiction reader",
           "searchIndexable": true
         },
         {
-          "id": "sunrise-alarm",
-          "slug": "sunrise-alarm-clock",
-          "name": "Sunrise Alarm Clock",
-          "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-          "price": "$59 - $109",
-          "badge": "smart pick",
-          "bestFor": "girlfriend / wife / home routine",
+          "id": "acotar-kindle",
+          "slug": "a-court-of-thorns-and-roses-kindle-edition",
+          "name": "A Court of Thorns and Roses Kindle Edition",
+          "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "romantasy classic",
+          "bestFor": "girlfriend / wife / fantasy romance reader",
           "searchIndexable": true
         },
         {
-          "id": "earbuds",
-          "slug": "noise-canceling-earbuds",
-          "name": "Noise-Canceling Earbuds",
-          "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
-          "price": "$49 - $159",
-          "badge": "daily win",
-          "bestFor": "girlfriend / wife / commute",
-          "searchIndexable": true
-        },
-        {
-          "id": "magsafe-stand",
-          "slug": "magsafe-charging-stand",
-          "name": "MagSafe Charging Stand",
-          "url": "https://shopforher.org/gift/magsafe-charging-stand/",
-          "price": "$29 - $79",
-          "badge": "clean desk",
-          "bestFor": "girlfriend / wife / desk setup",
+          "id": "empyrean-box-set",
+          "slug": "the-empyrean-series-3-book-set",
+          "name": "The Empyrean Series 3 Book Set",
+          "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+          "price": "Box set price varies",
+          "badge": "collector gift",
+          "bestFor": "wife / girlfriend / big reader gift",
           "searchIndexable": true
         }
       ],
@@ -5071,93 +4969,107 @@
           "url": "https://shopforher.org/books-for-her/"
         },
         {
-          "slug": "daily-use-gifts-for-her",
-          "label": "Daily-use gifts",
-          "h1": "Best daily-use gifts for her in 2026",
-          "url": "https://shopforher.org/daily-use-gifts-for-her/"
+          "slug": "booktok-gifts-for-her",
+          "label": "BookTok gifts",
+          "h1": "BookTok gifts for her in 2026",
+          "url": "https://shopforher.org/booktok-gifts-for-her/"
         },
         {
-          "slug": "gifts-for-wife",
-          "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
-          "url": "https://shopforher.org/gifts-for-wife/"
+          "slug": "book-lover-gifts-for-her",
+          "label": "Book-lover gifts",
+          "h1": "Book-lover gifts for her in 2026",
+          "url": "https://shopforher.org/book-lover-gifts-for-her/"
         }
       ],
       "exploreProducts": [
         {
-          "id": "roseseek-crochet-lace-pants",
-          "slug": "roseseek-crochet-lace-cover-up-pants",
-          "name": "RoseSeek Crochet Lace Cover Up Pants",
-          "url": "https://shopforher.org/gift/roseseek-crochet-lace-cover-up-pants/",
-          "badge": "beach layer",
-          "bestFor": "girlfriend / wife / beach vacation",
-          "guideCount": 1
-        },
-        {
-          "id": "hugo-boss-bottled-beyond",
-          "slug": "hugo-boss-bottled-beyond",
-          "name": "Hugo Boss Bottled Beyond Eau de Parfum",
-          "url": "https://shopforher.org/gift/hugo-boss-bottled-beyond/",
-          "badge": "fragrance",
-          "bestFor": "wife / premium gift / fragrance",
+          "id": "saodimallsu-crochet-cardigan-dress",
+          "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+          "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+          "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+          "badge": "vacation layer",
+          "bestFor": "girlfriend / wife / resort trip",
           "guideCount": 0
         },
         {
-          "id": "easter-gift-basket",
-          "slug": "easter-gift-basket-with-ribbons",
-          "name": "Easter Gift Basket with Ribbons",
-          "url": "https://shopforher.org/gift/easter-gift-basket-with-ribbons/",
-          "badge": "gift-ready",
-          "bestFor": "Easter gift setup / add-on",
+          "id": "easter-bunny-porch-decor",
+          "slug": "large-easter-bunny-porch-decor",
+          "name": "Large Easter Bunny Porch Decor",
+          "url": "https://shopforher.org/gift/large-easter-bunny-porch-decor/",
+          "badge": "porch decor",
+          "bestFor": "wife / porch decorating / seasonal home",
           "guideCount": 1
+        },
+        {
+          "id": "oliker-speckled-eggs",
+          "slug": "oliker-speckled-eggs",
+          "name": "OLIKER Speckled Easter Eggs",
+          "url": "https://shopforher.org/gift/oliker-speckled-eggs/",
+          "badge": "basket filler",
+          "bestFor": "host gift / Easter setup / add-on",
+          "guideCount": 0
         }
       ],
       "uniqueness": {
         "needsEditorialRefresh": true,
         "distinctiveProducts": [
           {
-            "id": "earbuds",
-            "slug": "noise-canceling-earbuds",
-            "name": "Noise-Canceling Earbuds",
-            "url": "https://shopforher.org/gift/noise-canceling-earbuds/",
-            "guideCount": 4
+            "id": "acotar-kindle",
+            "slug": "a-court-of-thorns-and-roses-kindle-edition",
+            "name": "A Court of Thorns and Roses Kindle Edition",
+            "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+            "guideCount": 5
           },
           {
-            "id": "magsafe-stand",
-            "slug": "magsafe-charging-stand",
-            "name": "MagSafe Charging Stand",
-            "url": "https://shopforher.org/gift/magsafe-charging-stand/",
-            "guideCount": 4
+            "id": "fourth-wing-kindle",
+            "slug": "fourth-wing-kindle-edition",
+            "name": "Fourth Wing Kindle Edition",
+            "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "empyrean-box-set",
+            "slug": "the-empyrean-series-3-book-set",
+            "name": "The Empyrean Series 3 Book Set",
+            "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+            "guideCount": 5
           }
         ],
         "overusedProducts": [
           {
-            "id": "kindle-paperwhite",
-            "slug": "kindle-paperwhite-signature-edition",
-            "name": "Kindle Paperwhite Signature Edition",
-            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-            "guideCount": 7
+            "id": "fourth-wing-kindle",
+            "slug": "fourth-wing-kindle-edition",
+            "name": "Fourth Wing Kindle Edition",
+            "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+            "guideCount": 5
           },
           {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 6
+            "id": "the-women-kindle",
+            "slug": "the-women-kindle-edition",
+            "name": "The Women Kindle Edition",
+            "url": "https://shopforher.org/gift/the-women-kindle-edition/",
+            "guideCount": 5
           },
           {
-            "id": "temperature-mug",
-            "slug": "temperature-control-mug",
-            "name": "Temperature-Control Mug",
-            "url": "https://shopforher.org/gift/temperature-control-mug/",
-            "guideCount": 6
+            "id": "the-wedding-people-kindle",
+            "slug": "the-wedding-people-kindle-edition",
+            "name": "The Wedding People Kindle Edition",
+            "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+            "guideCount": 5
           },
           {
-            "id": "sunrise-alarm",
-            "slug": "sunrise-alarm-clock",
-            "name": "Sunrise Alarm Clock",
-            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 7
+            "id": "acotar-kindle",
+            "slug": "a-court-of-thorns-and-roses-kindle-edition",
+            "name": "A Court of Thorns and Roses Kindle Edition",
+            "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "empyrean-box-set",
+            "slug": "the-empyrean-series-3-book-set",
+            "name": "The Empyrean Series 3 Book Set",
+            "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+            "guideCount": 5
           }
         ],
         "relatedGuideOverlap": [
@@ -5166,73 +5078,115 @@
             "label": "Book gifts",
             "h1": "Book gifts for her in 2026",
             "url": "https://shopforher.org/books-for-her/",
-            "sharedCount": 4,
+            "sharedCount": 5,
             "sharedItems": [
               {
-                "id": "kindle-paperwhite",
-                "name": "Kindle Paperwhite Signature Edition",
-                "slug": "kindle-paperwhite-signature-edition",
-                "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/"
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
               },
               {
-                "id": "bose-speaker",
-                "name": "Bose SoundLink Flex (2nd Gen)",
-                "slug": "bose-soundlink-flex-2nd-gen",
-                "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/"
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
               },
               {
-                "id": "temperature-mug",
-                "name": "Temperature-Control Mug",
-                "slug": "temperature-control-mug",
-                "url": "https://shopforher.org/gift/temperature-control-mug/"
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
               },
               {
-                "id": "sunrise-alarm",
-                "name": "Sunrise Alarm Clock",
-                "slug": "sunrise-alarm-clock",
-                "url": "https://shopforher.org/gift/sunrise-alarm-clock/"
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
               }
             ]
           },
           {
-            "slug": "daily-use-gifts-for-her",
-            "label": "Daily-use gifts",
-            "h1": "Best daily-use gifts for her in 2026",
-            "url": "https://shopforher.org/daily-use-gifts-for-her/",
-            "sharedCount": 3,
+            "slug": "book-lover-gifts-for-her",
+            "label": "Book-lover gifts",
+            "h1": "Book-lover gifts for her in 2026",
+            "url": "https://shopforher.org/book-lover-gifts-for-her/",
+            "sharedCount": 5,
             "sharedItems": [
               {
-                "id": "kindle-paperwhite",
-                "name": "Kindle Paperwhite Signature Edition",
-                "slug": "kindle-paperwhite-signature-edition",
-                "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/"
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
               },
               {
-                "id": "temperature-mug",
-                "name": "Temperature-Control Mug",
-                "slug": "temperature-control-mug",
-                "url": "https://shopforher.org/gift/temperature-control-mug/"
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
               },
               {
-                "id": "sunrise-alarm",
-                "name": "Sunrise Alarm Clock",
-                "slug": "sunrise-alarm-clock",
-                "url": "https://shopforher.org/gift/sunrise-alarm-clock/"
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
               }
             ]
           },
           {
-            "slug": "gifts-for-wife",
-            "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
-            "url": "https://shopforher.org/gifts-for-wife/",
-            "sharedCount": 1,
+            "slug": "booktok-gifts-for-her",
+            "label": "BookTok gifts",
+            "h1": "BookTok gifts for her in 2026",
+            "url": "https://shopforher.org/booktok-gifts-for-her/",
+            "sharedCount": 5,
             "sharedItems": [
               {
-                "id": "temperature-mug",
-                "name": "Temperature-Control Mug",
-                "slug": "temperature-control-mug",
-                "url": "https://shopforher.org/gift/temperature-control-mug/"
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
+              },
+              {
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
               }
             ]
           }
@@ -5245,8 +5199,8 @@
       "pageArchetype": "gift-guide",
       "title": "Cozy gifts for readers in 2026 | ShopForHer",
       "h1": "Cozy gifts for readers in 2026",
-      "description": "Soft reader gifts for her that make reading nights feel warmer, calmer, and easier to keep.",
-      "intro": "Use this page when the stronger move is upgrading the reading ritual, not only buying another device.",
+      "description": "Cozier book gifts for readers, built around comfort-read Kindle editions, softer fiction, and one bingeable boxed set.",
+      "intro": "Use this page when the stronger move is choosing the right kind of read, not layering in blankets, mugs, lamps, or other reader-adjacent extras.",
       "group": "angle",
       "groupLabel": "Angle",
       "taxonomy": {
@@ -5273,7 +5227,8 @@
             "cozy",
             "everyday",
             "looks-expensive",
-            "thoughtful"
+            "thoughtful",
+            "viral"
           ],
           "tabTags": [
             "best-overall",
@@ -5282,165 +5237,150 @@
             "looks-expensive",
             "under-100"
           ],
-          "priceBands": [
-            "over-150",
-            "under-100",
-            "under-150",
-            "under-75"
-          ]
+          "priceBands": []
         }
       },
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "updatedAt": "2026-03-12",
-      "featuredGiftId": "luxury-throw",
-      "featuredGiftUrl": "https://shopforher.org/gift/luxury-throw-blanket/",
-      "selectionMethod": "This page prioritizes softer home pieces and routine upgrades that support reading nights: warmer textures, calmer light, easier mornings, and apartment-friendly comfort that still feels giftable.",
-      "bestUseCase": "Use this when she already likes books, couches, blankets, tea or coffee, and slower evenings more than louder trend-driven gifts.",
-      "avoidWhen": "Skip this page if she would rather get a visible tech device, beauty buy, or a gift with stronger outside-the-house energy.",
+      "featuredGiftId": "the-wedding-people-kindle",
+      "featuredGiftUrl": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+      "selectionMethod": "This page prioritizes approachable books: emotionally warm or conversation-starting fiction, easy Kindle starts, and one full series set when the point is giving her something she can sink into for days.",
+      "bestUseCase": "Use this when she likes slow weekends, comfort reads, book-club fiction, or longer immersive series more than flashy product gifts.",
+      "avoidWhen": "Skip this page if she wants nonfiction, a practical tech item, or a visibly romantic gift that has nothing to do with books.",
       "buyerSignals": [
         {
-          "title": "The ritual matters more than the title list",
-          "body": "This page wins when she already has enough books and the better gift is making the reading setup itself feel better."
+          "title": "The book choice matters more than the setup around it",
+          "body": "This page wins when she already has a reading routine and the better move is choosing a softer book lane instead of adding more objects to the room."
         },
         {
-          "title": "Softness has to feel finished, not cluttered",
-          "body": "The best cozy reader gifts still look intentional and useful rather than like filler added in the name of comfort."
+          "title": "Standalone fiction usually feels cozier than a device conversation",
+          "body": "A calm, strong novel often reads more intentional here than asking her to decode another piece of reading hardware or accessory clutter."
         },
         {
-          "title": "Bedtime and couch routines are the clearest tells",
-          "body": "If her best reading time happens at night, on weekends, or in one favorite chair, this lane usually makes more sense than a generic tech page."
+          "title": "Emotional tone is the clearest signal",
+          "body": "If she likes slower fiction, beach-read energy, or emotional book-club conversation starters, this lane usually makes more sense than pure fantasy hype."
         }
       ],
       "bestFits": [
         {
-          "title": "The safest reading-night comfort gift",
-          "giftId": "luxury-throw",
-          "body": "Best when you want the coziest answer with almost no learning curve and almost no risk.",
-          "giftSlug": "luxury-throw-blanket",
-          "giftUrl": "https://shopforher.org/gift/luxury-throw-blanket/"
+          "title": "The safest comfort-read Kindle pick",
+          "giftId": "the-wedding-people-kindle",
+          "body": "Best when you want a warm-entry fiction choice with strong proof and almost no setup or explanation.",
+          "giftSlug": "the-wedding-people-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
         },
         {
-          "title": "A warmer room-feel upgrade without extra clutter",
-          "giftId": "candle-warmer",
-          "body": "Use this when the gift should change the mood around reading time without taking over the whole space.",
-          "giftSlug": "candle-warmer-lamp",
-          "giftUrl": "https://shopforher.org/gift/candle-warmer-lamp/"
+          "title": "The bigger-feeling emotional fiction pick",
+          "giftId": "the-women-kindle",
+          "body": "Use this when you want the gift to feel more moving and conversation-worthy than a lighter casual read.",
+          "giftSlug": "the-women-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-women-kindle-edition/"
         },
         {
-          "title": "A softer routine piece she will actually keep using",
-          "giftId": "ugg-slippers",
-          "body": "This is the cleaner answer when warmth and comfort matter more than adding another device to the setup.",
-          "giftSlug": "koolaburra-ugg-burree-slipper",
-          "giftUrl": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/"
+          "title": "The bingeable physical set",
+          "giftId": "empyrean-box-set",
+          "body": "This is the cleaner answer when you want a more substantial comfort-read lane she can disappear into for longer.",
+          "giftSlug": "the-empyrean-series-3-book-set",
+          "giftUrl": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
         }
       ],
       "pickLanes": [
         {
-          "title": "Best comfort pick",
-          "giftId": "luxury-throw",
-          "body": "The first answer when you want reading-night softness with immediate payoff and almost no risk.",
-          "giftSlug": "luxury-throw-blanket",
-          "giftUrl": "https://shopforher.org/gift/luxury-throw-blanket/"
+          "title": "Best comfort-fiction pick",
+          "giftId": "the-wedding-people-kindle",
+          "body": "The first answer when you want an easy-reading gift that still feels current and chosen.",
+          "giftSlug": "the-wedding-people-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
         },
         {
-          "title": "Best atmosphere upgrade",
-          "giftId": "candle-warmer",
-          "body": "Use this when the room mood around reading time matters as much as the object itself.",
-          "giftSlug": "candle-warmer-lamp",
-          "giftUrl": "https://shopforher.org/gift/candle-warmer-lamp/"
+          "title": "Best bigger emotional read",
+          "giftId": "the-women-kindle",
+          "body": "Use this when the gift should feel deeper, more sweeping, and more conversation-ready.",
+          "giftSlug": "the-women-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-women-kindle-edition/"
         },
         {
-          "title": "Best routine comfort add-on",
-          "giftId": "sunrise-alarm",
-          "body": "The stronger move when the goal is a calmer evening-and-morning rhythm around the same quiet habits.",
-          "giftSlug": "sunrise-alarm-clock",
-          "giftUrl": "https://shopforher.org/gift/sunrise-alarm-clock/"
+          "title": "Best bingeable fantasy start",
+          "giftId": "fourth-wing-kindle",
+          "body": "The stronger move when cozy for her means a long immersive series and obvious page-turner energy.",
+          "giftSlug": "fourth-wing-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
         }
       ],
       "avoidNotes": [
         {
-          "title": "Avoid comfort gifts that still feel generic",
-          "body": "The page works better with calmer, stronger pieces than with random soft goods that do not clearly improve her routine."
+          "title": "Avoid replacing books with cozy filler",
+          "body": "If this page is right, the gift should still be a real read, not a generic soft good pretending to be bookish."
         },
         {
-          "title": "Avoid making the gift too purely decorative",
-          "body": "A cozy reader gift should support the habit itself, not only sit nearby looking vaguely on-theme."
+          "title": "Avoid forcing fantasy when she really wants softer fiction",
+          "body": "If her taste leans literary or book-club, broader fiction usually lands better than choosing a huge fantasy world by default."
         }
       ],
       "faqs": [
         {
           "question": "What is the safest cozy reader gift on this page?",
-          "answer": "The luxury throw is the easiest first answer because it fits the reading-night ritual immediately and feels giftable on sight."
+          "answer": "The Wedding People Kindle Edition is the safest first answer because it is approachable, current, and easy to recommend without needing a whole genre lecture."
         },
         {
-          "question": "Should I buy one strong comfort gift or several smaller extras?",
-          "answer": "One stronger comfort pick usually works better. This page performs best when the gift feels edited and intentional instead of packed with little add-ons."
+          "question": "Should I buy one strong read or a bigger series set?",
+          "answer": "One strong standalone usually works better when you are not fully sure of her taste. Choose the Empyrean box set when you know she likes romantasy and you want a longer bingeable arc."
         },
         {
           "question": "When should I leave this page for the broader books guide?",
-          "answer": "Leave for the broader books guide when the reading identity itself matters most. Stay here when the calmer ritual around reading is the real reason the gift will land."
+          "answer": "Leave for the broader books guide when you want a wider mix of BookTok, Kindle, and visible physical-book choices. Stay here when the softer, more comfort-read angle is the real reason the gift will land."
         }
       ],
       "products": [
         {
-          "id": "luxury-throw",
-          "slug": "luxury-throw-blanket",
-          "name": "Luxury Throw Blanket",
-          "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-          "price": "$39 - $89",
-          "badge": "comfort hit",
-          "bestFor": "girlfriend / wife / apartment",
+          "id": "the-wedding-people-kindle",
+          "slug": "the-wedding-people-kindle-edition",
+          "name": "The Wedding People Kindle Edition",
+          "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "fiction winner",
+          "bestFor": "girlfriend / wife / contemporary fiction reader",
           "searchIndexable": true
         },
         {
-          "id": "candle-warmer",
-          "slug": "candle-warmer-lamp",
-          "name": "Candle Warmer Lamp",
-          "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-          "price": "$32 - $56",
-          "badge": "cozy",
-          "bestFor": "girlfriend / wife / apartment",
+          "id": "the-women-kindle",
+          "slug": "the-women-kindle-edition",
+          "name": "The Women Kindle Edition",
+          "url": "https://shopforher.org/gift/the-women-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "book club hit",
+          "bestFor": "wife / girlfriend / historical fiction reader",
           "searchIndexable": true
         },
         {
-          "id": "ugg-slippers",
-          "slug": "koolaburra-ugg-burree-slipper",
-          "name": "Koolaburra by UGG Burree Slipper",
-          "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
-          "price": "$55 - $80",
-          "badge": "cozy",
-          "bestFor": "girlfriend / wife / home",
+          "id": "fourth-wing-kindle",
+          "slug": "fourth-wing-kindle-edition",
+          "name": "Fourth Wing Kindle Edition",
+          "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "booktok favorite",
+          "bestFor": "girlfriend / wife / romantasy reader",
           "searchIndexable": true
         },
         {
-          "id": "nespresso-machine",
-          "slug": "nespresso-vertuo-next",
-          "name": "Nespresso Vertuo Next",
-          "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
-          "price": "$119 - $179",
-          "badge": "morning flex",
-          "bestFor": "wife / girlfriend / coffee",
+          "id": "acotar-kindle",
+          "slug": "a-court-of-thorns-and-roses-kindle-edition",
+          "name": "A Court of Thorns and Roses Kindle Edition",
+          "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "romantasy classic",
+          "bestFor": "girlfriend / wife / fantasy romance reader",
           "searchIndexable": true
         },
         {
-          "id": "sunrise-alarm",
-          "slug": "sunrise-alarm-clock",
-          "name": "Sunrise Alarm Clock",
-          "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-          "price": "$59 - $109",
-          "badge": "smart pick",
-          "bestFor": "girlfriend / wife / home routine",
-          "searchIndexable": true
-        },
-        {
-          "id": "silk-pillowcase",
-          "slug": "mulberry-silk-pillowcase-set",
-          "name": "Mulberry Silk Pillowcase Set",
-          "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
-          "price": "$49 - $79",
-          "badge": "easy yes",
-          "bestFor": "girlfriend / wife / new relationship",
+          "id": "empyrean-box-set",
+          "slug": "the-empyrean-series-3-book-set",
+          "name": "The Empyrean Series 3 Book Set",
+          "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+          "price": "Box set price varies",
+          "badge": "collector gift",
+          "bestFor": "wife / girlfriend / big reader gift",
           "searchIndexable": true
         }
       ],
@@ -5452,27 +5392,27 @@
           "url": "https://shopforher.org/books-for-her/"
         },
         {
-          "slug": "cozy-home-gifts-for-her",
-          "label": "Cozy home gifts",
-          "h1": "Cozy home gifts for her in 2026",
-          "url": "https://shopforher.org/cozy-home-gifts-for-her/"
+          "slug": "kindle-gifts-for-her",
+          "label": "Kindle gifts",
+          "h1": "Kindle gifts for her in 2026",
+          "url": "https://shopforher.org/kindle-gifts-for-her/"
         },
         {
-          "slug": "gifts-for-homebodies",
-          "label": "Gifts for homebodies",
-          "h1": "Best gifts for homebodies in 2026",
-          "url": "https://shopforher.org/gifts-for-homebodies/"
+          "slug": "book-lover-gifts-for-her",
+          "label": "Book-lover gifts",
+          "h1": "Book-lover gifts for her in 2026",
+          "url": "https://shopforher.org/book-lover-gifts-for-her/"
         }
       ],
       "exploreProducts": [
         {
-          "id": "boxwood-bunny-topiary",
-          "slug": "boxwood-bunny-topiary",
-          "name": "Boxwood Bunny Topiary",
-          "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
-          "badge": "seasonal",
-          "bestFor": "wife / spring decorating / porch",
-          "guideCount": 1
+          "id": "saodimallsu-crochet-cardigan-dress",
+          "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+          "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+          "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+          "badge": "vacation layer",
+          "bestFor": "girlfriend / wife / resort trip",
+          "guideCount": 0
         },
         {
           "id": "saodimallsu-crochet-coverup-set",
@@ -5484,12 +5424,12 @@
           "guideCount": 0
         },
         {
-          "id": "lenox-bunny-candy-dish",
-          "slug": "lenox-wicker-creek-bunny-candy-dish",
-          "name": "Lenox Wicker Creek Bunny Candy Dish",
-          "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
-          "badge": "tabletop",
-          "bestFor": "wife / host gift / spring table",
+          "id": "boxwood-bunny-topiary",
+          "slug": "boxwood-bunny-topiary",
+          "name": "Boxwood Bunny Topiary",
+          "url": "https://shopforher.org/gift/boxwood-bunny-topiary/",
+          "badge": "seasonal",
+          "bestFor": "wife / spring decorating / porch",
           "guideCount": 1
         }
       ],
@@ -5497,54 +5437,61 @@
         "needsEditorialRefresh": true,
         "distinctiveProducts": [
           {
-            "id": "silk-pillowcase",
-            "slug": "mulberry-silk-pillowcase-set",
-            "name": "Mulberry Silk Pillowcase Set",
-            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+            "id": "acotar-kindle",
+            "slug": "a-court-of-thorns-and-roses-kindle-edition",
+            "name": "A Court of Thorns and Roses Kindle Edition",
+            "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "fourth-wing-kindle",
+            "slug": "fourth-wing-kindle-edition",
+            "name": "Fourth Wing Kindle Edition",
+            "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "empyrean-box-set",
+            "slug": "the-empyrean-series-3-book-set",
+            "name": "The Empyrean Series 3 Book Set",
+            "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
             "guideCount": 5
           }
         ],
         "overusedProducts": [
           {
-            "id": "luxury-throw",
-            "slug": "luxury-throw-blanket",
-            "name": "Luxury Throw Blanket",
-            "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-            "guideCount": 6
-          },
-          {
-            "id": "candle-warmer",
-            "slug": "candle-warmer-lamp",
-            "name": "Candle Warmer Lamp",
-            "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 8
-          },
-          {
-            "id": "ugg-slippers",
-            "slug": "koolaburra-ugg-burree-slipper",
-            "name": "Koolaburra by UGG Burree Slipper",
-            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
+            "id": "the-wedding-people-kindle",
+            "slug": "the-wedding-people-kindle-edition",
+            "name": "The Wedding People Kindle Edition",
+            "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
             "guideCount": 5
           },
           {
-            "id": "nespresso-machine",
-            "slug": "nespresso-vertuo-next",
-            "name": "Nespresso Vertuo Next",
-            "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
+            "id": "the-women-kindle",
+            "slug": "the-women-kindle-edition",
+            "name": "The Women Kindle Edition",
+            "url": "https://shopforher.org/gift/the-women-kindle-edition/",
             "guideCount": 5
           },
           {
-            "id": "sunrise-alarm",
-            "slug": "sunrise-alarm-clock",
-            "name": "Sunrise Alarm Clock",
-            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 7
+            "id": "fourth-wing-kindle",
+            "slug": "fourth-wing-kindle-edition",
+            "name": "Fourth Wing Kindle Edition",
+            "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+            "guideCount": 5
           },
           {
-            "id": "silk-pillowcase",
-            "slug": "mulberry-silk-pillowcase-set",
-            "name": "Mulberry Silk Pillowcase Set",
-            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
+            "id": "acotar-kindle",
+            "slug": "a-court-of-thorns-and-roses-kindle-edition",
+            "name": "A Court of Thorns and Roses Kindle Edition",
+            "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "empyrean-box-set",
+            "slug": "the-empyrean-series-3-book-set",
+            "name": "The Empyrean Series 3 Book Set",
+            "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
             "guideCount": 5
           }
         ],
@@ -5554,79 +5501,115 @@
             "label": "Book gifts",
             "h1": "Book gifts for her in 2026",
             "url": "https://shopforher.org/books-for-her/",
-            "sharedCount": 3,
+            "sharedCount": 5,
             "sharedItems": [
               {
-                "id": "luxury-throw",
-                "name": "Luxury Throw Blanket",
-                "slug": "luxury-throw-blanket",
-                "url": "https://shopforher.org/gift/luxury-throw-blanket/"
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
               },
               {
-                "id": "candle-warmer",
-                "name": "Candle Warmer Lamp",
-                "slug": "candle-warmer-lamp",
-                "url": "https://shopforher.org/gift/candle-warmer-lamp/"
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
               },
               {
-                "id": "sunrise-alarm",
-                "name": "Sunrise Alarm Clock",
-                "slug": "sunrise-alarm-clock",
-                "url": "https://shopforher.org/gift/sunrise-alarm-clock/"
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
               }
             ]
           },
           {
-            "slug": "cozy-home-gifts-for-her",
-            "label": "Cozy home gifts",
-            "h1": "Cozy home gifts for her in 2026",
-            "url": "https://shopforher.org/cozy-home-gifts-for-her/",
-            "sharedCount": 3,
+            "slug": "book-lover-gifts-for-her",
+            "label": "Book-lover gifts",
+            "h1": "Book-lover gifts for her in 2026",
+            "url": "https://shopforher.org/book-lover-gifts-for-her/",
+            "sharedCount": 5,
             "sharedItems": [
               {
-                "id": "luxury-throw",
-                "name": "Luxury Throw Blanket",
-                "slug": "luxury-throw-blanket",
-                "url": "https://shopforher.org/gift/luxury-throw-blanket/"
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
               },
               {
-                "id": "ugg-slippers",
-                "name": "Koolaburra by UGG Burree Slipper",
-                "slug": "koolaburra-ugg-burree-slipper",
-                "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/"
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
               },
               {
-                "id": "nespresso-machine",
-                "name": "Nespresso Vertuo Next",
-                "slug": "nespresso-vertuo-next",
-                "url": "https://shopforher.org/gift/nespresso-vertuo-next/"
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
               }
             ]
           },
           {
-            "slug": "gifts-for-homebodies",
-            "label": "Gifts for homebodies",
-            "h1": "Best gifts for homebodies in 2026",
-            "url": "https://shopforher.org/gifts-for-homebodies/",
-            "sharedCount": 3,
+            "slug": "kindle-gifts-for-her",
+            "label": "Kindle gifts",
+            "h1": "Kindle gifts for her in 2026",
+            "url": "https://shopforher.org/kindle-gifts-for-her/",
+            "sharedCount": 5,
             "sharedItems": [
               {
-                "id": "luxury-throw",
-                "name": "Luxury Throw Blanket",
-                "slug": "luxury-throw-blanket",
-                "url": "https://shopforher.org/gift/luxury-throw-blanket/"
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
               },
               {
-                "id": "candle-warmer",
-                "name": "Candle Warmer Lamp",
-                "slug": "candle-warmer-lamp",
-                "url": "https://shopforher.org/gift/candle-warmer-lamp/"
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
               },
               {
-                "id": "sunrise-alarm",
-                "name": "Sunrise Alarm Clock",
-                "slug": "sunrise-alarm-clock",
-                "url": "https://shopforher.org/gift/sunrise-alarm-clock/"
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
               }
             ]
           }
@@ -5639,8 +5622,8 @@
       "pageArchetype": "gift-guide",
       "title": "Book-lover gifts for her in 2026 | ShopForHer",
       "h1": "Book-lover gifts for her in 2026",
-      "description": "Gift picks for women who love reading, from obvious Kindle upgrades to calmer bookish routine wins.",
-      "intro": "Use this lane when reading is part of how she relaxes and you want the gift to feel clearly chosen for that identity.",
+      "description": "Book-lover gifts for her, built around actual books, Kindle editions, and one stronger stack-worthy set.",
+      "intro": "Use this lane when reading is part of how she relaxes and you want the gift to be unmistakably bookish without slipping into generic reader merchandise.",
       "group": "angle",
       "groupLabel": "Angle",
       "taxonomy": {
@@ -5665,7 +5648,8 @@
             "cozy",
             "everyday",
             "looks-expensive",
-            "thoughtful"
+            "thoughtful",
+            "viral"
           ],
           "tabTags": [
             "best-overall",
@@ -5674,165 +5658,150 @@
             "looks-expensive",
             "under-100"
           ],
-          "priceBands": [
-            "over-150",
-            "under-100",
-            "under-150",
-            "under-75"
-          ]
+          "priceBands": []
         }
       },
       "searchIndexable": true,
       "indexStatus": "search-facing",
       "updatedAt": "2026-03-12",
-      "featuredGiftId": "kindle-paperwhite",
-      "featuredGiftUrl": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-      "selectionMethod": "This page blends one or two obvious reader signals with stronger routine and atmosphere upgrades, so the gift still feels bookish without forcing you to guess exact titles or genres.",
-      "bestUseCase": "Use this when she talks about books, reading nights, book stacks, or wanting more off-screen downtime and you want the gift to reinforce that version of her life.",
-      "avoidWhen": "Skip this page if the reading angle is only a minor trait and the gift really needs to win on romance, fashion, or beauty first.",
+      "featuredGiftId": "empyrean-box-set",
+      "featuredGiftUrl": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+      "selectionMethod": "This page blends one visible boxed set with several cleaner Kindle editions, so the gift still feels clearly chosen for a book lover even when you are not certain of every genre detail.",
+      "bestUseCase": "Use this when she talks about books, reading goals, current releases, or book stacks and you want the gift to reinforce that identity with actual reading material.",
+      "avoidWhen": "Skip this page if the reading angle is minor or if you need the gift to win on beauty, fashion, or romantic signaling first.",
       "buyerSignals": [
         {
-          "title": "A book-lover gift should still feel like her life, not just her bookshelf",
-          "body": "The strongest picks here support the broader reading identity: slower evenings, calmer routines, and obvious reader-first upgrades."
+          "title": "A book-lover gift should still be a real book or set",
+          "body": "The strongest picks here are exact titles and one visible series stack, not candles, mugs, decor, or vague reading-themed extras."
         },
         {
-          "title": "You do not need to guess the exact book to get the signal right",
-          "body": "If you know reading matters but do not know precise taste, the better move is usually a device, atmosphere upgrade, or stronger routine gift."
+          "title": "You do not need perfect taste knowledge to get the signal right",
+          "body": "If you know reading matters but not her full backlist, standalones, book-one entries, and the boxed set are the safer book-lover moves."
         },
         {
-          "title": "The page works best when the gift feels intentionally quieter",
-          "body": "Cleaner home or routine pieces often fit the book-lover angle better than louder trend products that pull the gift out of that identity."
+          "title": "Visible stack gifts and Kindle gifts solve different versions of the same identity",
+          "body": "The boxed set works when the unwrapping moment matters. Kindle editions work when speed, convenience, and daily reading habits matter more."
         }
       ],
       "bestFits": [
         {
-          "title": "The clearest main book-lover gift",
-          "giftId": "kindle-paperwhite",
-          "body": "Best when you want the gift to say reader first without much explanation.",
-          "giftSlug": "kindle-paperwhite-signature-edition",
-          "giftUrl": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/"
+          "title": "The clearest visible book-lover gift",
+          "giftId": "empyrean-box-set",
+          "body": "Best when you want the book-lover signal to be obvious the second she opens the present.",
+          "giftSlug": "the-empyrean-series-3-book-set",
+          "giftUrl": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
         },
         {
-          "title": "A softer upgrade that still feels unmistakably bookish",
-          "giftId": "candle-warmer",
-          "body": "Use this when the mood around reading time matters more than the device itself.",
-          "giftSlug": "candle-warmer-lamp",
-          "giftUrl": "https://shopforher.org/gift/candle-warmer-lamp/"
+          "title": "A stronger standalone book-club pick",
+          "giftId": "the-women-kindle",
+          "body": "Use this when you want the gift to feel more literary and less purely trend-led.",
+          "giftSlug": "the-women-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-women-kindle-edition/"
         },
         {
-          "title": "A cleaner audio companion for long reading days",
-          "giftId": "bose-speaker",
-          "body": "This is the better answer when she mixes reading with audiobooks, podcasts, or calmer background sound.",
-          "giftSlug": "bose-soundlink-flex-2nd-gen",
-          "giftUrl": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/"
+          "title": "The clearest current fantasy pick",
+          "giftId": "fourth-wing-kindle",
+          "body": "This is the better answer when the book-lover identity skews current, online, and fantasy-forward.",
+          "giftSlug": "fourth-wing-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
         }
       ],
       "pickLanes": [
         {
-          "title": "Best main-event gift",
-          "giftId": "kindle-paperwhite",
-          "body": "The first answer when you want the book-lover signal to be obvious the second she opens it.",
-          "giftSlug": "kindle-paperwhite-signature-edition",
-          "giftUrl": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/"
+          "title": "Best main-event book gift",
+          "giftId": "empyrean-box-set",
+          "body": "The first answer when the book-lover signal needs to be obvious from the physical present itself.",
+          "giftSlug": "the-empyrean-series-3-book-set",
+          "giftUrl": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
         },
         {
-          "title": "Best atmosphere pick",
-          "giftId": "candle-warmer",
-          "body": "Use this when the reading mood matters more than adding another screen or device.",
-          "giftSlug": "candle-warmer-lamp",
-          "giftUrl": "https://shopforher.org/gift/candle-warmer-lamp/"
+          "title": "Best current standalone",
+          "giftId": "the-women-kindle",
+          "body": "Use this when you want a broader fiction win that still feels sharp and current.",
+          "giftSlug": "the-women-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/the-women-kindle-edition/"
         },
         {
-          "title": "Best daily-routine companion",
-          "giftId": "nespresso-machine",
-          "body": "The stronger move when the gift should support the whole reading ritual instead of only one object inside it.",
-          "giftSlug": "nespresso-vertuo-next",
-          "giftUrl": "https://shopforher.org/gift/nespresso-vertuo-next/"
+          "title": "Best BookTok-leaning pick",
+          "giftId": "fourth-wing-kindle",
+          "body": "The stronger move when you want the gift to feel current online without losing the actual-reader logic.",
+          "giftSlug": "fourth-wing-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
         }
       ],
       "avoidNotes": [
         {
-          "title": "Avoid reducing the gift to a random book pick",
-          "body": "If the title guess is shaky, a stronger reader-supporting gift usually lands better and still feels clearly on-theme."
+          "title": "Avoid reducing the gift to a random obscure book",
+          "body": "If the exact taste match is shaky, stay with current broad-appeal titles or the set instead of reaching for something niche just to sound well read."
         },
         {
-          "title": "Avoid gifts that drift too far from the quiet-routine identity",
-          "body": "If the page is right, the buy should still feel at home around books, slow evenings, and calmer downtime."
+          "title": "Avoid gifts that drift away from actual reading material",
+          "body": "If the page is right, the buy should still be something she can read now, not generic bookish decor or cozy filler."
         }
       ],
       "faqs": [
         {
           "question": "What is the safest book-lover gift on this page?",
-          "answer": "The Kindle Paperwhite is still the cleanest first answer because it signals reader identity immediately without asking you to guess titles."
+          "answer": "The Empyrean box set is the safest visible book-lover gift because it gives her an actual stack to open. If you want a digital option instead, Fourth Wing Kindle Edition is the safest current starter."
         },
         {
-          "question": "Do cozy upgrades still count as book-lover gifts?",
-          "answer": "Yes. They work especially well when she already has books or a Kindle and the better move is making the ritual around reading feel warmer and easier to keep."
+          "question": "Do Kindle editions still count as book-lover gifts?",
+          "answer": "Yes. They work especially well when she already reads digitally and the main goal is giving her the next book, not a new object around reading."
         },
         {
           "question": "When should I leave this page for Kindle gifts instead?",
-          "answer": "Leave for Kindle gifts when the device or ebook angle is the entire point. Stay here when you want the broader book-lover identity rather than a narrower hardware decision."
+          "answer": "Leave for Kindle gifts when the ebook angle is the whole point. Stay here when you want the broader book-lover identity and want to compare digital picks with a visible physical set."
         }
       ],
       "products": [
         {
-          "id": "kindle-paperwhite",
-          "slug": "kindle-paperwhite-signature-edition",
-          "name": "Kindle Paperwhite Signature Edition",
-          "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-          "price": "$159 - $209",
-          "badge": "reader upgrade",
-          "bestFor": "girlfriend / wife / reader",
+          "id": "empyrean-box-set",
+          "slug": "the-empyrean-series-3-book-set",
+          "name": "The Empyrean Series 3 Book Set",
+          "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+          "price": "Box set price varies",
+          "badge": "collector gift",
+          "bestFor": "wife / girlfriend / big reader gift",
           "searchIndexable": true
         },
         {
-          "id": "candle-warmer",
-          "slug": "candle-warmer-lamp",
-          "name": "Candle Warmer Lamp",
-          "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-          "price": "$32 - $56",
-          "badge": "cozy",
-          "bestFor": "girlfriend / wife / apartment",
+          "id": "fourth-wing-kindle",
+          "slug": "fourth-wing-kindle-edition",
+          "name": "Fourth Wing Kindle Edition",
+          "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "booktok favorite",
+          "bestFor": "girlfriend / wife / romantasy reader",
           "searchIndexable": true
         },
         {
-          "id": "ugg-slippers",
-          "slug": "koolaburra-ugg-burree-slipper",
-          "name": "Koolaburra by UGG Burree Slipper",
-          "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
-          "price": "$55 - $80",
-          "badge": "cozy",
-          "bestFor": "girlfriend / wife / home",
+          "id": "the-women-kindle",
+          "slug": "the-women-kindle-edition",
+          "name": "The Women Kindle Edition",
+          "url": "https://shopforher.org/gift/the-women-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "book club hit",
+          "bestFor": "wife / girlfriend / historical fiction reader",
           "searchIndexable": true
         },
         {
-          "id": "bose-speaker",
-          "slug": "bose-soundlink-flex-2nd-gen",
-          "name": "Bose SoundLink Flex (2nd Gen)",
-          "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-          "price": "$129 - $159",
-          "badge": "daily win",
-          "bestFor": "girlfriend / wife / travel",
+          "id": "the-wedding-people-kindle",
+          "slug": "the-wedding-people-kindle-edition",
+          "name": "The Wedding People Kindle Edition",
+          "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "fiction winner",
+          "bestFor": "girlfriend / wife / contemporary fiction reader",
           "searchIndexable": true
         },
         {
-          "id": "sunrise-alarm",
-          "slug": "sunrise-alarm-clock",
-          "name": "Sunrise Alarm Clock",
-          "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-          "price": "$59 - $109",
-          "badge": "smart pick",
-          "bestFor": "girlfriend / wife / home routine",
-          "searchIndexable": true
-        },
-        {
-          "id": "nespresso-machine",
-          "slug": "nespresso-vertuo-next",
-          "name": "Nespresso Vertuo Next",
-          "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
-          "price": "$119 - $179",
-          "badge": "morning flex",
-          "bestFor": "wife / girlfriend / coffee",
+          "id": "acotar-kindle",
+          "slug": "a-court-of-thorns-and-roses-kindle-edition",
+          "name": "A Court of Thorns and Roses Kindle Edition",
+          "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "romantasy classic",
+          "bestFor": "girlfriend / wife / fantasy romance reader",
           "searchIndexable": true
         }
       ],
@@ -5844,16 +5813,16 @@
           "url": "https://shopforher.org/books-for-her/"
         },
         {
-          "slug": "amazon-gifts-for-her",
-          "label": "Amazon gifts",
-          "h1": "Best Amazon gifts for her in 2026",
-          "url": "https://shopforher.org/amazon-gifts-for-her/"
+          "slug": "kindle-gifts-for-her",
+          "label": "Kindle gifts",
+          "h1": "Kindle gifts for her in 2026",
+          "url": "https://shopforher.org/kindle-gifts-for-her/"
         },
         {
-          "slug": "gifts-for-wife",
-          "label": "Gifts for wife",
-          "h1": "Best gifts for wives in 2026",
-          "url": "https://shopforher.org/gifts-for-wife/"
+          "slug": "booktok-gifts-for-her",
+          "label": "BookTok gifts",
+          "h1": "BookTok gifts for her in 2026",
+          "url": "https://shopforher.org/booktok-gifts-for-her/"
         }
       ],
       "exploreProducts": [
@@ -5867,21 +5836,21 @@
           "guideCount": 0
         },
         {
-          "id": "lenox-bunny-candy-dish",
-          "slug": "lenox-wicker-creek-bunny-candy-dish",
-          "name": "Lenox Wicker Creek Bunny Candy Dish",
-          "url": "https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/",
-          "badge": "tabletop",
-          "bestFor": "wife / host gift / spring table",
-          "guideCount": 1
+          "id": "saodimallsu-crochet-cardigan-dress",
+          "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+          "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+          "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+          "badge": "vacation layer",
+          "bestFor": "girlfriend / wife / resort trip",
+          "guideCount": 0
         },
         {
-          "id": "roseseek-crochet-lace-pants",
-          "slug": "roseseek-crochet-lace-cover-up-pants",
-          "name": "RoseSeek Crochet Lace Cover Up Pants",
-          "url": "https://shopforher.org/gift/roseseek-crochet-lace-cover-up-pants/",
-          "badge": "beach layer",
-          "bestFor": "girlfriend / wife / beach vacation",
+          "id": "oneida-bunny-hop-plates",
+          "slug": "oneida-bunny-hop-dinner-plates",
+          "name": "Oneida Bunny Hop Dinner Plates",
+          "url": "https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/",
+          "badge": "serveware",
+          "bestFor": "wife / host gift / Easter brunch",
           "guideCount": 1
         }
       ],
@@ -5889,54 +5858,61 @@
         "needsEditorialRefresh": true,
         "distinctiveProducts": [
           {
-            "id": "ugg-slippers",
-            "slug": "koolaburra-ugg-burree-slipper",
-            "name": "Koolaburra by UGG Burree Slipper",
-            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
+            "id": "acotar-kindle",
+            "slug": "a-court-of-thorns-and-roses-kindle-edition",
+            "name": "A Court of Thorns and Roses Kindle Edition",
+            "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "fourth-wing-kindle",
+            "slug": "fourth-wing-kindle-edition",
+            "name": "Fourth Wing Kindle Edition",
+            "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "empyrean-box-set",
+            "slug": "the-empyrean-series-3-book-set",
+            "name": "The Empyrean Series 3 Book Set",
+            "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
             "guideCount": 5
           }
         ],
         "overusedProducts": [
           {
-            "id": "kindle-paperwhite",
-            "slug": "kindle-paperwhite-signature-edition",
-            "name": "Kindle Paperwhite Signature Edition",
-            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-            "guideCount": 7
-          },
-          {
-            "id": "candle-warmer",
-            "slug": "candle-warmer-lamp",
-            "name": "Candle Warmer Lamp",
-            "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 8
-          },
-          {
-            "id": "ugg-slippers",
-            "slug": "koolaburra-ugg-burree-slipper",
-            "name": "Koolaburra by UGG Burree Slipper",
-            "url": "https://shopforher.org/gift/koolaburra-ugg-burree-slipper/",
+            "id": "empyrean-box-set",
+            "slug": "the-empyrean-series-3-book-set",
+            "name": "The Empyrean Series 3 Book Set",
+            "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
             "guideCount": 5
           },
           {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 6
+            "id": "fourth-wing-kindle",
+            "slug": "fourth-wing-kindle-edition",
+            "name": "Fourth Wing Kindle Edition",
+            "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+            "guideCount": 5
           },
           {
-            "id": "sunrise-alarm",
-            "slug": "sunrise-alarm-clock",
-            "name": "Sunrise Alarm Clock",
-            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 7
+            "id": "the-women-kindle",
+            "slug": "the-women-kindle-edition",
+            "name": "The Women Kindle Edition",
+            "url": "https://shopforher.org/gift/the-women-kindle-edition/",
+            "guideCount": 5
           },
           {
-            "id": "nespresso-machine",
-            "slug": "nespresso-vertuo-next",
-            "name": "Nespresso Vertuo Next",
-            "url": "https://shopforher.org/gift/nespresso-vertuo-next/",
+            "id": "the-wedding-people-kindle",
+            "slug": "the-wedding-people-kindle-edition",
+            "name": "The Wedding People Kindle Edition",
+            "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "acotar-kindle",
+            "slug": "a-court-of-thorns-and-roses-kindle-edition",
+            "name": "A Court of Thorns and Roses Kindle Edition",
+            "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
             "guideCount": 5
           }
         ],
@@ -5946,61 +5922,536 @@
             "label": "Book gifts",
             "h1": "Book gifts for her in 2026",
             "url": "https://shopforher.org/books-for-her/",
-            "sharedCount": 4,
+            "sharedCount": 5,
             "sharedItems": [
               {
-                "id": "kindle-paperwhite",
-                "name": "Kindle Paperwhite Signature Edition",
-                "slug": "kindle-paperwhite-signature-edition",
-                "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/"
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
               },
               {
-                "id": "candle-warmer",
-                "name": "Candle Warmer Lamp",
-                "slug": "candle-warmer-lamp",
-                "url": "https://shopforher.org/gift/candle-warmer-lamp/"
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
               },
               {
-                "id": "bose-speaker",
-                "name": "Bose SoundLink Flex (2nd Gen)",
-                "slug": "bose-soundlink-flex-2nd-gen",
-                "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/"
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
               },
               {
-                "id": "sunrise-alarm",
-                "name": "Sunrise Alarm Clock",
-                "slug": "sunrise-alarm-clock",
-                "url": "https://shopforher.org/gift/sunrise-alarm-clock/"
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
               }
             ]
           },
           {
-            "slug": "amazon-gifts-for-her",
-            "label": "Amazon gifts",
-            "h1": "Best Amazon gifts for her in 2026",
-            "url": "https://shopforher.org/amazon-gifts-for-her/",
-            "sharedCount": 1,
+            "slug": "booktok-gifts-for-her",
+            "label": "BookTok gifts",
+            "h1": "BookTok gifts for her in 2026",
+            "url": "https://shopforher.org/booktok-gifts-for-her/",
+            "sharedCount": 5,
             "sharedItems": [
               {
-                "id": "bose-speaker",
-                "name": "Bose SoundLink Flex (2nd Gen)",
-                "slug": "bose-soundlink-flex-2nd-gen",
-                "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/"
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
+              },
+              {
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
+              },
+              {
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
               }
             ]
           },
           {
-            "slug": "gifts-for-wife",
-            "label": "Gifts for wife",
-            "h1": "Best gifts for wives in 2026",
-            "url": "https://shopforher.org/gifts-for-wife/",
-            "sharedCount": 1,
+            "slug": "kindle-gifts-for-her",
+            "label": "Kindle gifts",
+            "h1": "Kindle gifts for her in 2026",
+            "url": "https://shopforher.org/kindle-gifts-for-her/",
+            "sharedCount": 5,
             "sharedItems": [
               {
-                "id": "nespresso-machine",
-                "name": "Nespresso Vertuo Next",
-                "slug": "nespresso-vertuo-next",
-                "url": "https://shopforher.org/gift/nespresso-vertuo-next/"
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
+              },
+              {
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
+              },
+              {
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "slug": "booktok-gifts-for-her",
+      "pageUrl": "https://shopforher.org/booktok-gifts-for-her/",
+      "pageArchetype": "gift-guide",
+      "title": "BookTok gifts for her in 2026 | ShopForHer",
+      "h1": "BookTok gifts for her in 2026",
+      "description": "Current BookTok gifts for her, built around actual books and Kindle editions instead of generic trend clutter.",
+      "intro": "Use this page when you want the bookish gift to feel current online but still be an actual title or boxed set you can justify in real life.",
+      "group": "angle",
+      "groupLabel": "Angle",
+      "taxonomy": {
+        "primary": {
+          "relationships": [],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [],
+          "guideGroups": [
+            "angle"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "daily-use",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": []
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "updatedAt": "2026-03-12",
+      "featuredGiftId": "fourth-wing-kindle",
+      "featuredGiftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+      "selectionMethod": "This page keeps the BookTok angle disciplined: first-in-series romantasy, proven BookTok staples, broader current fiction, and one visible physical stack instead of drifting into vague accessories.",
+      "bestUseCase": "Use this when she likes reading content online, shares book clips, or wants a book gift that feels current without forcing you to guess something obscure.",
+      "avoidWhen": "Skip this page if the reading angle is weak or if you need a broader fashion, beauty, or non-book trend lane instead.",
+      "buyerSignals": [
+        {
+          "title": "BookTok works best when the gift is still obviously a real book choice",
+          "body": "The trend angle should reinforce the reading identity, not replace it with generic internet-product energy around books."
+        },
+        {
+          "title": "Series starters beat sequel guesses here too",
+          "body": "BookTok lanes move fast, but the safer gift move is still the recognizable entry point rather than a mid-series guess."
+        },
+        {
+          "title": "Visible stacks and instant Kindle picks both work here",
+          "body": "Choose the boxed set when you want a more substantial present. Choose Kindle editions when you want faster delivery and less friction."
+        }
+      ],
+      "bestFits": [
+        {
+          "title": "The clearest current BookTok Kindle pick",
+          "giftId": "fourth-wing-kindle",
+          "body": "Best when you want the BookTok angle to still feel easy to justify, current, and clearly tied to reading.",
+          "giftSlug": "fourth-wing-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+        },
+        {
+          "title": "The proven BookTok classic",
+          "giftId": "acotar-kindle",
+          "body": "Use this when you want the older established fantasy-romance lane instead of the newer hit.",
+          "giftSlug": "a-court-of-thorns-and-roses-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+        },
+        {
+          "title": "The visible BookTok stack",
+          "giftId": "empyrean-box-set",
+          "body": "This is the better move when you want the gift to make a stronger first impression the second she opens it.",
+          "giftSlug": "the-empyrean-series-3-book-set",
+          "giftUrl": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
+        }
+      ],
+      "pickLanes": [
+        {
+          "title": "Best current romantasy pick",
+          "giftId": "fourth-wing-kindle",
+          "body": "The first answer when the gift should feel current, reader-specific, and easy to buy fast.",
+          "giftSlug": "fourth-wing-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+        },
+        {
+          "title": "Best proven BookTok classic",
+          "giftId": "acotar-kindle",
+          "body": "Use this when you want the older still-famous series starter instead of the current hit.",
+          "giftSlug": "a-court-of-thorns-and-roses-kindle-edition",
+          "giftUrl": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+        },
+        {
+          "title": "Best visible BookTok gift",
+          "giftId": "empyrean-box-set",
+          "body": "The better move when you want a stronger unwrap moment and a physical stack that still fits the same trend lane.",
+          "giftSlug": "the-empyrean-series-3-book-set",
+          "giftUrl": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
+        }
+      ],
+      "avoidNotes": [
+        {
+          "title": "Avoid generic viral products with no book logic",
+          "body": "If the product could live on any trend page equally well, it is too broad for the BookTok lane."
+        },
+        {
+          "title": "Avoid overbuilding the gift around the trend",
+          "body": "One strong title or one strong set beats a pile of vague bookish extras that only sound good because they are online."
+        }
+      ],
+      "faqs": [
+        {
+          "question": "What is the safest BookTok gift on this page?",
+          "answer": "Fourth Wing Kindle Edition is the safest BookTok gift here because it is current, recognizable, and starts at book one. The Empyrean box set is the stronger move when you want a physical BookTok gift with more presence."
+        },
+        {
+          "question": "Do older BookTok staples still count here?",
+          "answer": "Yes. A Court of Thorns and Roses still counts because it remains one of the clearest proven romantasy entry points in the same internet lane."
+        },
+        {
+          "question": "When should I use this instead of the broader books guide?",
+          "answer": "Use this page when the current online-reading angle matters specifically. Use the broader books guide when you just need the best book gift without the BookTok framing."
+        }
+      ],
+      "products": [
+        {
+          "id": "fourth-wing-kindle",
+          "slug": "fourth-wing-kindle-edition",
+          "name": "Fourth Wing Kindle Edition",
+          "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "booktok favorite",
+          "bestFor": "girlfriend / wife / romantasy reader",
+          "searchIndexable": true
+        },
+        {
+          "id": "acotar-kindle",
+          "slug": "a-court-of-thorns-and-roses-kindle-edition",
+          "name": "A Court of Thorns and Roses Kindle Edition",
+          "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "romantasy classic",
+          "bestFor": "girlfriend / wife / fantasy romance reader",
+          "searchIndexable": true
+        },
+        {
+          "id": "empyrean-box-set",
+          "slug": "the-empyrean-series-3-book-set",
+          "name": "The Empyrean Series 3 Book Set",
+          "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+          "price": "Box set price varies",
+          "badge": "collector gift",
+          "bestFor": "wife / girlfriend / big reader gift",
+          "searchIndexable": true
+        },
+        {
+          "id": "the-wedding-people-kindle",
+          "slug": "the-wedding-people-kindle-edition",
+          "name": "The Wedding People Kindle Edition",
+          "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "fiction winner",
+          "bestFor": "girlfriend / wife / contemporary fiction reader",
+          "searchIndexable": true
+        },
+        {
+          "id": "the-women-kindle",
+          "slug": "the-women-kindle-edition",
+          "name": "The Women Kindle Edition",
+          "url": "https://shopforher.org/gift/the-women-kindle-edition/",
+          "price": "Kindle price varies",
+          "badge": "book club hit",
+          "bestFor": "wife / girlfriend / historical fiction reader",
+          "searchIndexable": true
+        }
+      ],
+      "relatedGuides": [
+        {
+          "slug": "books-for-her",
+          "label": "Book gifts",
+          "h1": "Book gifts for her in 2026",
+          "url": "https://shopforher.org/books-for-her/"
+        },
+        {
+          "slug": "kindle-gifts-for-her",
+          "label": "Kindle gifts",
+          "h1": "Kindle gifts for her in 2026",
+          "url": "https://shopforher.org/kindle-gifts-for-her/"
+        },
+        {
+          "slug": "book-lover-gifts-for-her",
+          "label": "Book-lover gifts",
+          "h1": "Book-lover gifts for her in 2026",
+          "url": "https://shopforher.org/book-lover-gifts-for-her/"
+        }
+      ],
+      "exploreProducts": [
+        {
+          "id": "roseseek-crochet-lace-pants",
+          "slug": "roseseek-crochet-lace-cover-up-pants",
+          "name": "RoseSeek Crochet Lace Cover Up Pants",
+          "url": "https://shopforher.org/gift/roseseek-crochet-lace-cover-up-pants/",
+          "badge": "beach layer",
+          "bestFor": "girlfriend / wife / beach vacation",
+          "guideCount": 1
+        },
+        {
+          "id": "saodimallsu-crochet-coverup-set",
+          "slug": "saodimallsu-crochet-cover-up-set",
+          "name": "Saodimallsu Crochet Swim Cover Up Set",
+          "url": "https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/",
+          "badge": "beach set",
+          "bestFor": "girlfriend / wife / beach trip",
+          "guideCount": 0
+        },
+        {
+          "id": "saodimallsu-crochet-cardigan-dress",
+          "slug": "saodimallsu-crochet-cardigan-cover-up-dress",
+          "name": "Saodimallsu Crochet Cardigan Cover Up Dress",
+          "url": "https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/",
+          "badge": "vacation layer",
+          "bestFor": "girlfriend / wife / resort trip",
+          "guideCount": 0
+        }
+      ],
+      "uniqueness": {
+        "needsEditorialRefresh": true,
+        "distinctiveProducts": [
+          {
+            "id": "acotar-kindle",
+            "slug": "a-court-of-thorns-and-roses-kindle-edition",
+            "name": "A Court of Thorns and Roses Kindle Edition",
+            "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "fourth-wing-kindle",
+            "slug": "fourth-wing-kindle-edition",
+            "name": "Fourth Wing Kindle Edition",
+            "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "empyrean-box-set",
+            "slug": "the-empyrean-series-3-book-set",
+            "name": "The Empyrean Series 3 Book Set",
+            "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+            "guideCount": 5
+          }
+        ],
+        "overusedProducts": [
+          {
+            "id": "fourth-wing-kindle",
+            "slug": "fourth-wing-kindle-edition",
+            "name": "Fourth Wing Kindle Edition",
+            "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "acotar-kindle",
+            "slug": "a-court-of-thorns-and-roses-kindle-edition",
+            "name": "A Court of Thorns and Roses Kindle Edition",
+            "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "empyrean-box-set",
+            "slug": "the-empyrean-series-3-book-set",
+            "name": "The Empyrean Series 3 Book Set",
+            "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+            "guideCount": 5
+          },
+          {
+            "id": "the-wedding-people-kindle",
+            "slug": "the-wedding-people-kindle-edition",
+            "name": "The Wedding People Kindle Edition",
+            "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+            "guideCount": 5
+          },
+          {
+            "id": "the-women-kindle",
+            "slug": "the-women-kindle-edition",
+            "name": "The Women Kindle Edition",
+            "url": "https://shopforher.org/gift/the-women-kindle-edition/",
+            "guideCount": 5
+          }
+        ],
+        "relatedGuideOverlap": [
+          {
+            "slug": "books-for-her",
+            "label": "Book gifts",
+            "h1": "Book gifts for her in 2026",
+            "url": "https://shopforher.org/books-for-her/",
+            "sharedCount": 5,
+            "sharedItems": [
+              {
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
+              },
+              {
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
+              }
+            ]
+          },
+          {
+            "slug": "book-lover-gifts-for-her",
+            "label": "Book-lover gifts",
+            "h1": "Book-lover gifts for her in 2026",
+            "url": "https://shopforher.org/book-lover-gifts-for-her/",
+            "sharedCount": 5,
+            "sharedItems": [
+              {
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
+              },
+              {
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
+              }
+            ]
+          },
+          {
+            "slug": "kindle-gifts-for-her",
+            "label": "Kindle gifts",
+            "h1": "Kindle gifts for her in 2026",
+            "url": "https://shopforher.org/kindle-gifts-for-her/",
+            "sharedCount": 5,
+            "sharedItems": [
+              {
+                "id": "fourth-wing-kindle",
+                "name": "Fourth Wing Kindle Edition",
+                "slug": "fourth-wing-kindle-edition",
+                "url": "https://shopforher.org/gift/fourth-wing-kindle-edition/"
+              },
+              {
+                "id": "acotar-kindle",
+                "name": "A Court of Thorns and Roses Kindle Edition",
+                "slug": "a-court-of-thorns-and-roses-kindle-edition",
+                "url": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/"
+              },
+              {
+                "id": "empyrean-box-set",
+                "name": "The Empyrean Series 3 Book Set",
+                "slug": "the-empyrean-series-3-book-set",
+                "url": "https://shopforher.org/gift/the-empyrean-series-3-book-set/"
+              },
+              {
+                "id": "the-wedding-people-kindle",
+                "name": "The Wedding People Kindle Edition",
+                "slug": "the-wedding-people-kindle-edition",
+                "url": "https://shopforher.org/gift/the-wedding-people-kindle-edition/"
+              },
+              {
+                "id": "the-women-kindle",
+                "name": "The Women Kindle Edition",
+                "slug": "the-women-kindle-edition",
+                "url": "https://shopforher.org/gift/the-women-kindle-edition/"
               }
             ]
           }
@@ -6284,7 +6735,7 @@
             "slug": "magsafe-charging-stand",
             "name": "MagSafe Charging Stand",
             "url": "https://shopforher.org/gift/magsafe-charging-stand/",
-            "guideCount": 4
+            "guideCount": 3
           }
         ],
         "overusedProducts": [],
@@ -6584,14 +7035,14 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "sunrise-alarm",
             "slug": "sunrise-alarm-clock",
             "name": "Sunrise Alarm Clock",
             "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 7
+            "guideCount": 3
           },
           {
             "id": "mchic-beaded-choker",
@@ -6605,17 +7056,10 @@
             "slug": "luxury-throw-blanket",
             "name": "Luxury Throw Blanket",
             "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-            "guideCount": 6
+            "guideCount": 4
           }
         ],
         "overusedProducts": [
-          {
-            "id": "silk-pillowcase",
-            "slug": "mulberry-silk-pillowcase-set",
-            "name": "Mulberry Silk Pillowcase Set",
-            "url": "https://shopforher.org/gift/mulberry-silk-pillowcase-set/",
-            "guideCount": 5
-          },
           {
             "id": "mini-photo-printer",
             "slug": "mini-photo-printer",
@@ -6624,25 +7068,11 @@
             "guideCount": 6
           },
           {
-            "id": "sunrise-alarm",
-            "slug": "sunrise-alarm-clock",
-            "name": "Sunrise Alarm Clock",
-            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 7
-          },
-          {
             "id": "candle-warmer",
             "slug": "candle-warmer-lamp",
             "name": "Candle Warmer Lamp",
             "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 8
-          },
-          {
-            "id": "luxury-throw",
-            "slug": "luxury-throw-blanket",
-            "name": "Luxury Throw Blanket",
-            "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-            "guideCount": 6
+            "guideCount": 5
           }
         ],
         "relatedGuideOverlap": [
@@ -7302,14 +7732,14 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "magsafe-stand",
             "slug": "magsafe-charging-stand",
             "name": "MagSafe Charging Stand",
             "url": "https://shopforher.org/gift/magsafe-charging-stand/",
-            "guideCount": 4
+            "guideCount": 3
           },
           {
             "id": "ninehaoou-scroll-vase",
@@ -7323,7 +7753,7 @@
             "slug": "luxury-throw-blanket",
             "name": "Luxury Throw Blanket",
             "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-            "guideCount": 6
+            "guideCount": 4
           }
         ],
         "overusedProducts": [
@@ -7333,13 +7763,6 @@
             "name": "LANEIGE Midnight Minis Lip Set",
             "url": "https://shopforher.org/gift/laneige-midnight-minis-lip-set/",
             "guideCount": 5
-          },
-          {
-            "id": "luxury-throw",
-            "slug": "luxury-throw-blanket",
-            "name": "Luxury Throw Blanket",
-            "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-            "guideCount": 6
           }
         ],
         "relatedGuideOverlap": [
@@ -7656,7 +8079,7 @@
             "slug": "candle-warmer-lamp",
             "name": "Candle Warmer Lamp",
             "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 8
+            "guideCount": 5
           }
         ],
         "relatedGuideOverlap": []
@@ -7940,17 +8363,10 @@
             "slug": "bose-soundlink-flex-2nd-gen",
             "name": "Bose SoundLink Flex (2nd Gen)",
             "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 6
+            "guideCount": 3
           }
         ],
         "overusedProducts": [
-          {
-            "id": "bose-speaker",
-            "slug": "bose-soundlink-flex-2nd-gen",
-            "name": "Bose SoundLink Flex (2nd Gen)",
-            "url": "https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/",
-            "guideCount": 6
-          },
           {
             "id": "faux-olive-tree-planter",
             "slug": "faux-olive-tree-planter",
@@ -8256,30 +8672,16 @@
             "slug": "sunrise-alarm-clock",
             "name": "Sunrise Alarm Clock",
             "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 7
+            "guideCount": 3
           }
         ],
         "overusedProducts": [
-          {
-            "id": "luxury-throw",
-            "slug": "luxury-throw-blanket",
-            "name": "Luxury Throw Blanket",
-            "url": "https://shopforher.org/gift/luxury-throw-blanket/",
-            "guideCount": 6
-          },
           {
             "id": "candle-warmer",
             "slug": "candle-warmer-lamp",
             "name": "Candle Warmer Lamp",
             "url": "https://shopforher.org/gift/candle-warmer-lamp/",
-            "guideCount": 8
-          },
-          {
-            "id": "sunrise-alarm",
-            "slug": "sunrise-alarm-clock",
-            "name": "Sunrise Alarm Clock",
-            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 7
+            "guideCount": 5
           }
         ],
         "relatedGuideOverlap": [
@@ -8594,7 +8996,7 @@
         }
       ],
       "uniqueness": {
-        "needsEditorialRefresh": true,
+        "needsEditorialRefresh": false,
         "distinctiveProducts": [
           {
             "id": "posadina-phone-charm",
@@ -8608,7 +9010,7 @@
             "slug": "sunrise-alarm-clock",
             "name": "Sunrise Alarm Clock",
             "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 7
+            "guideCount": 3
           },
           {
             "id": "sol-de-janeiro",
@@ -8618,29 +9020,7 @@
             "guideCount": 3
           }
         ],
-        "overusedProducts": [
-          {
-            "id": "temperature-mug",
-            "slug": "temperature-control-mug",
-            "name": "Temperature-Control Mug",
-            "url": "https://shopforher.org/gift/temperature-control-mug/",
-            "guideCount": 6
-          },
-          {
-            "id": "sunrise-alarm",
-            "slug": "sunrise-alarm-clock",
-            "name": "Sunrise Alarm Clock",
-            "url": "https://shopforher.org/gift/sunrise-alarm-clock/",
-            "guideCount": 7
-          },
-          {
-            "id": "kindle-paperwhite",
-            "slug": "kindle-paperwhite-signature-edition",
-            "name": "Kindle Paperwhite Signature Edition",
-            "url": "https://shopforher.org/gift/kindle-paperwhite-signature-edition/",
-            "guideCount": 7
-          }
-        ],
+        "overusedProducts": [],
         "relatedGuideOverlap": [
           {
             "slug": "practical-gifts-for-her",

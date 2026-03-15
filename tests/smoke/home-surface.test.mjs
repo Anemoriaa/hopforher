@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { resolveHomeSurface } from "../../apps/web/src/content/home-surfaces.js";
+import {
+  booksSurfaceGiftIds,
+  booksSurfaceGuideSlugs,
+  resolveHomeSurface,
+} from "../../apps/web/src/content/home-surfaces.js";
 
 const passthroughT = (key) => key;
 
@@ -20,4 +24,21 @@ test("books surface keeps its own home href and drops preview brand copy", () =>
   assert.equal(booksSurface.brandHref, "/booksforher/");
   assert.equal(booksSurface.brandContext, null);
   assert.doesNotMatch(booksSurface.hero.summary, /preview/i);
+  assert.deepEqual(booksSurfaceGiftIds, [
+    "fourth-wing-kindle",
+    "the-women-kindle",
+    "the-wedding-people-kindle",
+    "acotar-kindle",
+    "empyrean-box-set",
+  ]);
+  assert.deepEqual(booksSurface.topPickIds, booksSurfaceGiftIds);
+  assert.deepEqual(booksSurface.featuredProductIds, booksSurfaceGiftIds);
+  assert.deepEqual(booksSurface.libraryProductIds, booksSurfaceGiftIds);
+  assert.deepEqual(booksSurface.hotGiftIds, booksSurfaceGiftIds);
+  assert.deepEqual(booksSurface.guideSlugs, booksSurfaceGuideSlugs);
+  assert.deepEqual(booksSurface.hotGuideSlugs, booksSurfaceGuideSlugs);
+  assert.doesNotMatch(
+    booksSurface.topPickIds.join(","),
+    /kindle-paperwhite|luxury-throw|candle-warmer|temperature-mug|ugg-slippers|bose-speaker|sunrise-alarm|nespresso-machine|earbuds|magsafe-stand/
+  );
 });

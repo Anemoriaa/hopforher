@@ -84,24 +84,24 @@
     }
   ],
   "summary": {
-    "totalPages": 102,
-    "searchIndexablePages": 98,
+    "totalPages": 108,
+    "searchIndexablePages": 104,
     "blockedPages": 4,
     "byPageType": {
       "date-city": 4,
-      "guide": 26,
+      "guide": 27,
       "hot-story": 11,
       "index": 7,
-      "product": 51,
+      "product": 56,
       "trust": 3
     },
     "byArchetype": {
       "city-date-guide": 4,
       "discovery-index": 5,
       "edition-home-shell": 1,
-      "gift-guide": 26,
+      "gift-guide": 27,
       "home-shell": 1,
-      "product-detail": 51,
+      "product-detail": 56,
       "trend-roundup": 11,
       "trust-page": 3
     },
@@ -189,26 +189,6 @@
   "ops": {
     "guidesNeedingEditorialRefresh": [
       {
-        "slug": "gifts-for-girlfriend",
-        "pageUrl": "https://shopforher.org/gifts-for-girlfriend/"
-      },
-      {
-        "slug": "best-gifts-under-75",
-        "pageUrl": "https://shopforher.org/best-gifts-under-75/"
-      },
-      {
-        "slug": "luxury-gifts-for-her",
-        "pageUrl": "https://shopforher.org/luxury-gifts-for-her/"
-      },
-      {
-        "slug": "practical-gifts-for-her",
-        "pageUrl": "https://shopforher.org/practical-gifts-for-her/"
-      },
-      {
-        "slug": "cozy-home-gifts-for-her",
-        "pageUrl": "https://shopforher.org/cozy-home-gifts-for-her/"
-      },
-      {
         "slug": "books-for-her",
         "pageUrl": "https://shopforher.org/books-for-her/"
       },
@@ -225,16 +205,8 @@
         "pageUrl": "https://shopforher.org/book-lover-gifts-for-her/"
       },
       {
-        "slug": "new-relationship-gifts-for-her",
-        "pageUrl": "https://shopforher.org/new-relationship-gifts-for-her/"
-      },
-      {
-        "slug": "last-minute-gifts-for-her",
-        "pageUrl": "https://shopforher.org/last-minute-gifts-for-her/"
-      },
-      {
-        "slug": "daily-use-gifts-for-her",
-        "pageUrl": "https://shopforher.org/daily-use-gifts-for-her/"
+        "slug": "booktok-gifts-for-her",
+        "pageUrl": "https://shopforher.org/booktok-gifts-for-her/"
       }
     ],
     "searchSuppressedGuides": [],
@@ -615,7 +587,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1141,7 +1113,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1362,7 +1334,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1434,7 +1406,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1508,7 +1480,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1520,7 +1492,7 @@
       "pageUrl": "https://shopforher.org/books-for-her/",
       "title": "Book gifts for her in 2026 | ShopForHer",
       "h1": "Book gifts for her in 2026",
-      "description": "Reader-first gifts for her, from Kindle upgrades to cozy reading-night picks.",
+      "description": "Actual books for her, built around Kindle editions, broad-appeal fiction, and one visible boxed-set gift.",
       "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
@@ -1529,9 +1501,7 @@
           "relationships": [],
           "occasions": [],
           "budgetBands": [],
-          "angles": [
-            "cozy-home"
-          ],
+          "angles": [],
           "guideGroups": [
             "angle"
           ]
@@ -1546,10 +1516,10 @@
           ],
           "intentTags": [
             "cozy",
-            "daily-use",
             "everyday",
             "looks-expensive",
-            "thoughtful"
+            "thoughtful",
+            "viral"
           ],
           "tabTags": [
             "best-overall",
@@ -1558,28 +1528,22 @@
             "looks-expensive",
             "under-100"
           ],
-          "priceBands": [
-            "over-150",
-            "under-100",
-            "under-150",
-            "under-75"
-          ]
+          "priceBands": []
         }
       },
       "entities": {
-        "featuredGiftId": "kindle-paperwhite",
+        "featuredGiftId": "fourth-wing-kindle",
         "productIds": [
-          "kindle-paperwhite",
-          "luxury-throw",
-          "candle-warmer",
-          "temperature-mug",
-          "sunrise-alarm",
-          "bose-speaker"
+          "fourth-wing-kindle",
+          "the-women-kindle",
+          "the-wedding-people-kindle",
+          "acotar-kindle",
+          "empyrean-box-set"
         ],
         "relatedGuideSlugs": [
-          "cozy-home-gifts-for-her",
-          "daily-use-gifts-for-her",
-          "gifts-for-wife"
+          "kindle-gifts-for-her",
+          "booktok-gifts-for-her",
+          "book-lover-gifts-for-her"
         ]
       },
       "ops": {
@@ -1595,7 +1559,7 @@
       "pageUrl": "https://shopforher.org/kindle-gifts-for-her/",
       "title": "Kindle gifts for her in 2026 | ShopForHer",
       "h1": "Kindle gifts for her in 2026",
-      "description": "Kindle-first gifts for her, from the Paperwhite itself to cleaner upgrades around digital reading.",
+      "description": "Kindle gifts for her, built around actual Kindle editions with current demand instead of devices or accessories.",
       "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
@@ -1619,7 +1583,6 @@
           ],
           "intentTags": [
             "cozy",
-            "daily-use",
             "everyday",
             "looks-expensive",
             "thoughtful",
@@ -1632,27 +1595,22 @@
             "looks-expensive",
             "under-100"
           ],
-          "priceBands": [
-            "over-150",
-            "under-100",
-            "under-150"
-          ]
+          "priceBands": []
         }
       },
       "entities": {
-        "featuredGiftId": "kindle-paperwhite",
+        "featuredGiftId": "fourth-wing-kindle",
         "productIds": [
-          "kindle-paperwhite",
-          "bose-speaker",
-          "temperature-mug",
-          "sunrise-alarm",
-          "earbuds",
-          "magsafe-stand"
+          "fourth-wing-kindle",
+          "the-women-kindle",
+          "the-wedding-people-kindle",
+          "acotar-kindle",
+          "empyrean-box-set"
         ],
         "relatedGuideSlugs": [
           "books-for-her",
-          "daily-use-gifts-for-her",
-          "gifts-for-wife"
+          "booktok-gifts-for-her",
+          "book-lover-gifts-for-her"
         ]
       },
       "ops": {
@@ -1668,7 +1626,7 @@
       "pageUrl": "https://shopforher.org/cozy-gifts-for-readers/",
       "title": "Cozy gifts for readers in 2026 | ShopForHer",
       "h1": "Cozy gifts for readers in 2026",
-      "description": "Soft reader gifts for her that make reading nights feel warmer, calmer, and easier to keep.",
+      "description": "Cozier book gifts for readers, built around comfort-read Kindle editions, softer fiction, and one bingeable boxed set.",
       "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
@@ -1696,7 +1654,8 @@
             "cozy",
             "everyday",
             "looks-expensive",
-            "thoughtful"
+            "thoughtful",
+            "viral"
           ],
           "tabTags": [
             "best-overall",
@@ -1705,28 +1664,22 @@
             "looks-expensive",
             "under-100"
           ],
-          "priceBands": [
-            "over-150",
-            "under-100",
-            "under-150",
-            "under-75"
-          ]
+          "priceBands": []
         }
       },
       "entities": {
-        "featuredGiftId": "luxury-throw",
+        "featuredGiftId": "the-wedding-people-kindle",
         "productIds": [
-          "luxury-throw",
-          "candle-warmer",
-          "ugg-slippers",
-          "nespresso-machine",
-          "sunrise-alarm",
-          "silk-pillowcase"
+          "the-wedding-people-kindle",
+          "the-women-kindle",
+          "fourth-wing-kindle",
+          "acotar-kindle",
+          "empyrean-box-set"
         ],
         "relatedGuideSlugs": [
           "books-for-her",
-          "cozy-home-gifts-for-her",
-          "gifts-for-homebodies"
+          "kindle-gifts-for-her",
+          "book-lover-gifts-for-her"
         ]
       },
       "ops": {
@@ -1742,7 +1695,7 @@
       "pageUrl": "https://shopforher.org/book-lover-gifts-for-her/",
       "title": "Book-lover gifts for her in 2026 | ShopForHer",
       "h1": "Book-lover gifts for her in 2026",
-      "description": "Gift picks for women who love reading, from obvious Kindle upgrades to calmer bookish routine wins.",
+      "description": "Book-lover gifts for her, built around actual books, Kindle editions, and one stronger stack-worthy set.",
       "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
@@ -1768,7 +1721,8 @@
             "cozy",
             "everyday",
             "looks-expensive",
-            "thoughtful"
+            "thoughtful",
+            "viral"
           ],
           "tabTags": [
             "best-overall",
@@ -1777,28 +1731,89 @@
             "looks-expensive",
             "under-100"
           ],
-          "priceBands": [
-            "over-150",
-            "under-100",
-            "under-150",
-            "under-75"
-          ]
+          "priceBands": []
         }
       },
       "entities": {
-        "featuredGiftId": "kindle-paperwhite",
+        "featuredGiftId": "empyrean-box-set",
         "productIds": [
-          "kindle-paperwhite",
-          "candle-warmer",
-          "ugg-slippers",
-          "bose-speaker",
-          "sunrise-alarm",
-          "nespresso-machine"
+          "empyrean-box-set",
+          "fourth-wing-kindle",
+          "the-women-kindle",
+          "the-wedding-people-kindle",
+          "acotar-kindle"
         ],
         "relatedGuideSlugs": [
           "books-for-her",
-          "amazon-gifts-for-her",
-          "gifts-for-wife"
+          "kindle-gifts-for-her",
+          "booktok-gifts-for-her"
+        ]
+      },
+      "ops": {
+        "needsEditorialRefresh": true
+      }
+    },
+    {
+      "id": "guide:booktok-gifts-for-her",
+      "slug": "booktok-gifts-for-her",
+      "path": "/booktok-gifts-for-her/",
+      "pageType": "guide",
+      "pageArchetype": "gift-guide",
+      "pageUrl": "https://shopforher.org/booktok-gifts-for-her/",
+      "title": "BookTok gifts for her in 2026 | ShopForHer",
+      "h1": "BookTok gifts for her in 2026",
+      "description": "Current BookTok gifts for her, built around actual books and Kindle editions instead of generic trend clutter.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "search-facing",
+      "taxonomy": {
+        "primary": {
+          "relationships": [],
+          "occasions": [],
+          "budgetBands": [],
+          "angles": [],
+          "guideGroups": [
+            "angle"
+          ]
+        },
+        "coverage": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "daily-use",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": []
+        }
+      },
+      "entities": {
+        "featuredGiftId": "fourth-wing-kindle",
+        "productIds": [
+          "fourth-wing-kindle",
+          "acotar-kindle",
+          "empyrean-box-set",
+          "the-wedding-people-kindle",
+          "the-women-kindle"
+        ],
+        "relatedGuideSlugs": [
+          "books-for-her",
+          "kindle-gifts-for-her",
+          "book-lover-gifts-for-her"
         ]
       },
       "ops": {
@@ -1952,7 +1967,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -2101,7 +2116,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -2401,7 +2416,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -3539,7 +3554,6 @@
           "gifts-for-girlfriend",
           "anniversary-gifts-for-her",
           "best-gifts-under-75",
-          "cozy-gifts-for-readers",
           "new-relationship-gifts-for-her"
         ],
         "hotStorySlugs": [
@@ -3607,8 +3621,6 @@
           "gifts-for-wife",
           "mothers-day-gifts-for-wife",
           "practical-gifts-for-her",
-          "books-for-her",
-          "kindle-gifts-for-her",
           "daily-use-gifts-for-her"
         ],
         "hotStorySlugs": [
@@ -3800,10 +3812,6 @@
       "entities": {
         "catalogGiftId": "sunrise-alarm",
         "guideSlugs": [
-          "books-for-her",
-          "kindle-gifts-for-her",
-          "cozy-gifts-for-readers",
-          "book-lover-gifts-for-her",
           "new-relationship-gifts-for-her",
           "gifts-for-homebodies",
           "daily-use-gifts-for-her"
@@ -3868,8 +3876,6 @@
         "catalogGiftId": "luxury-throw",
         "guideSlugs": [
           "cozy-home-gifts-for-her",
-          "books-for-her",
-          "cozy-gifts-for-readers",
           "new-relationship-gifts-for-her",
           "last-minute-gifts-for-her",
           "gifts-for-homebodies"
@@ -3995,7 +4001,6 @@
         "guideSlugs": [
           "gifts-for-girlfriend",
           "best-gifts-under-100",
-          "kindle-gifts-for-her",
           "tech-gifts-for-her"
         ],
         "hotStorySlugs": [
@@ -4117,7 +4122,6 @@
         "catalogGiftId": "magsafe-stand",
         "guideSlugs": [
           "practical-gifts-for-her",
-          "kindle-gifts-for-her",
           "tech-gifts-for-her",
           "last-minute-gifts-for-her"
         ],
@@ -4244,9 +4248,6 @@
         "guideSlugs": [
           "gifts-for-girlfriend",
           "birthday-gifts-for-girlfriend",
-          "books-for-her",
-          "cozy-gifts-for-readers",
-          "book-lover-gifts-for-her",
           "new-relationship-gifts-for-her",
           "date-night-gifts-for-her",
           "gifts-for-homebodies"
@@ -4438,10 +4439,304 @@
           "birthday-gifts-for-wife",
           "luxury-gifts-for-her",
           "practical-gifts-for-her",
+          "daily-use-gifts-for-her"
+        ],
+        "hotStorySlugs": []
+      }
+    },
+    {
+      "id": "product:fourth-wing-kindle-edition",
+      "slug": "fourth-wing-kindle-edition",
+      "path": "/gift/fourth-wing-kindle-edition/",
+      "pageType": "product",
+      "pageArchetype": "product-detail",
+      "pageUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+      "title": "Fourth Wing Kindle Edition | ShopForHer",
+      "h1": "Fourth Wing Kindle Edition",
+      "description": "Works well because it is book one, instantly recognizable, and already a proven BookTok lane instead of a riskier sequel guess.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [],
+          "vibes": [
+            "high-energy fantasy read"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
+      "commerce": {
+        "merchantName": "Amazon",
+        "merchantPathType": "direct-product",
+        "checkout": "offsite"
+      },
+      "entities": {
+        "catalogGiftId": "fourth-wing-kindle",
+        "guideSlugs": [
           "books-for-her",
           "kindle-gifts-for-her",
+          "cozy-gifts-for-readers",
           "book-lover-gifts-for-her",
-          "daily-use-gifts-for-her"
+          "booktok-gifts-for-her"
+        ],
+        "hotStorySlugs": []
+      }
+    },
+    {
+      "id": "product:the-women-kindle-edition",
+      "slug": "the-women-kindle-edition",
+      "path": "/gift/the-women-kindle-edition/",
+      "pageType": "product",
+      "pageArchetype": "product-detail",
+      "pageUrl": "https://shopforher.org/gift/the-women-kindle-edition/",
+      "title": "The Women Kindle Edition | ShopForHer",
+      "h1": "The Women Kindle Edition",
+      "description": "Strong when you want a current standalone novel that already has wide reader traction instead of guessing a niche title.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [],
+          "vibes": [
+            "big-feeling conversation starter"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
+      "commerce": {
+        "merchantName": "Amazon",
+        "merchantPathType": "direct-product",
+        "checkout": "offsite"
+      },
+      "entities": {
+        "catalogGiftId": "the-women-kindle",
+        "guideSlugs": [
+          "books-for-her",
+          "kindle-gifts-for-her",
+          "cozy-gifts-for-readers",
+          "book-lover-gifts-for-her",
+          "booktok-gifts-for-her"
+        ],
+        "hotStorySlugs": []
+      }
+    },
+    {
+      "id": "product:the-wedding-people-kindle-edition",
+      "slug": "the-wedding-people-kindle-edition",
+      "path": "/gift/the-wedding-people-kindle-edition/",
+      "pageType": "product",
+      "pageArchetype": "product-detail",
+      "pageUrl": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+      "title": "The Wedding People Kindle Edition | ShopForHer",
+      "h1": "The Wedding People Kindle Edition",
+      "description": "Easy to justify because it is a recent Goodreads fiction winner and does not require any series knowledge.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [],
+          "vibes": [
+            "smart beach-read energy"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
+      "commerce": {
+        "merchantName": "Amazon",
+        "merchantPathType": "direct-product",
+        "checkout": "offsite"
+      },
+      "entities": {
+        "catalogGiftId": "the-wedding-people-kindle",
+        "guideSlugs": [
+          "books-for-her",
+          "kindle-gifts-for-her",
+          "cozy-gifts-for-readers",
+          "book-lover-gifts-for-her",
+          "booktok-gifts-for-her"
+        ],
+        "hotStorySlugs": []
+      }
+    },
+    {
+      "id": "product:a-court-of-thorns-and-roses-kindle-edition",
+      "slug": "a-court-of-thorns-and-roses-kindle-edition",
+      "path": "/gift/a-court-of-thorns-and-roses-kindle-edition/",
+      "pageType": "product",
+      "pageArchetype": "product-detail",
+      "pageUrl": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+      "title": "A Court of Thorns and Roses Kindle Edition | ShopForHer",
+      "h1": "A Court of Thorns and Roses Kindle Edition",
+      "description": "Safer than a deep-cut fantasy pick because the series is already huge and this starts at book one.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [],
+          "vibes": [
+            "classic booktok starter"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
+      "commerce": {
+        "merchantName": "Amazon",
+        "merchantPathType": "direct-product",
+        "checkout": "offsite"
+      },
+      "entities": {
+        "catalogGiftId": "acotar-kindle",
+        "guideSlugs": [
+          "books-for-her",
+          "kindle-gifts-for-her",
+          "cozy-gifts-for-readers",
+          "book-lover-gifts-for-her",
+          "booktok-gifts-for-her"
+        ],
+        "hotStorySlugs": []
+      }
+    },
+    {
+      "id": "product:the-empyrean-series-3-book-set",
+      "slug": "the-empyrean-series-3-book-set",
+      "path": "/gift/the-empyrean-series-3-book-set/",
+      "pageType": "product",
+      "pageArchetype": "product-detail",
+      "pageUrl": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+      "title": "The Empyrean Series 3 Book Set | ShopForHer",
+      "h1": "The Empyrean Series 3 Book Set",
+      "description": "Best when you want a stronger present to unwrap with current romantasy demand and less risk than buying book three alone.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [],
+          "vibes": [
+            "display-worthy series set"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
+      "commerce": {
+        "merchantName": "Amazon",
+        "merchantPathType": "direct-product",
+        "checkout": "offsite"
+      },
+      "entities": {
+        "catalogGiftId": "empyrean-box-set",
+        "guideSlugs": [
+          "books-for-her",
+          "kindle-gifts-for-her",
+          "cozy-gifts-for-readers",
+          "book-lover-gifts-for-her",
+          "booktok-gifts-for-her"
         ],
         "hotStorySlugs": []
       }
@@ -4559,9 +4854,7 @@
         "guideSlugs": [
           "gifts-for-wife",
           "luxury-gifts-for-her",
-          "cozy-home-gifts-for-her",
-          "cozy-gifts-for-readers",
-          "book-lover-gifts-for-her"
+          "cozy-home-gifts-for-her"
         ],
         "hotStorySlugs": []
       }
@@ -4738,9 +5031,7 @@
         "guideSlugs": [
           "best-gifts-under-75",
           "best-gifts-under-100",
-          "cozy-home-gifts-for-her",
-          "cozy-gifts-for-readers",
-          "book-lover-gifts-for-her"
+          "cozy-home-gifts-for-her"
         ],
         "hotStorySlugs": []
       }
@@ -4919,9 +5210,6 @@
         "guideSlugs": [
           "luxury-gifts-for-her",
           "practical-gifts-for-her",
-          "books-for-her",
-          "kindle-gifts-for-her",
-          "book-lover-gifts-for-her",
           "amazon-gifts-for-her"
         ],
         "hotStorySlugs": []

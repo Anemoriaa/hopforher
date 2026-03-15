@@ -1228,6 +1228,385 @@
       "updatedAt": "2026-03-12"
     },
     {
+      "id": "fourth-wing-kindle",
+      "slug": "fourth-wing-kindle-edition",
+      "name": "Fourth Wing Kindle Edition",
+      "brand": "Amazon Kindle",
+      "searchQuery": "Fourth Wing Kindle Edition Rebecca Yarros",
+      "pageUrl": "https://shopforher.org/gift/fourth-wing-kindle-edition/",
+      "affiliateUrl": "https://www.amazon.com/dp/B0BGDM197Q?tag=shopforher0b7-20",
+      "merchantName": "Amazon",
+      "merchantProductUrl": "https://www.amazon.com/dp/B0BGDM197Q",
+      "affiliatePathType": "direct-product",
+      "checkout": "offsite",
+      "price": {
+        "currency": "USD",
+        "display": "Kindle price varies",
+        "low": null,
+        "high": null
+      },
+      "availability": "https://schema.org/InStock",
+      "asin": "B0BGDM197Q",
+      "image": "/brand-art/books/fourth-wing-kindle.svg",
+      "additionalImages": [],
+      "summary": "Works well because it is book one, instantly recognizable, and already a proven BookTok lane instead of a riskier sequel guess.",
+      "bestFor": "girlfriend / wife / romantasy reader",
+      "vibe": "high-energy fantasy read",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "viral",
+        "everyday"
+      ],
+      "tabTags": [
+        "best-overall",
+        "under-100",
+        "daily-use"
+      ],
+      "priceBand": null,
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [],
+          "vibes": [
+            "high-energy fantasy read"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "updatedAt": "2026-03-12"
+    },
+    {
+      "id": "the-women-kindle",
+      "slug": "the-women-kindle-edition",
+      "name": "The Women Kindle Edition",
+      "brand": "Amazon Kindle",
+      "searchQuery": "The Women Kindle Edition Kristin Hannah",
+      "pageUrl": "https://shopforher.org/gift/the-women-kindle-edition/",
+      "affiliateUrl": "https://www.amazon.com/dp/B0C1X97LW7?tag=shopforher0b7-20",
+      "merchantName": "Amazon",
+      "merchantProductUrl": "https://www.amazon.com/dp/B0C1X97LW7",
+      "affiliatePathType": "direct-product",
+      "checkout": "offsite",
+      "price": {
+        "currency": "USD",
+        "display": "Kindle price varies",
+        "low": null,
+        "high": null
+      },
+      "availability": "https://schema.org/InStock",
+      "asin": "B0C1X97LW7",
+      "image": "/brand-art/books/the-women-kindle.svg",
+      "additionalImages": [],
+      "summary": "Strong when you want a current standalone novel that already has wide reader traction instead of guessing a niche title.",
+      "bestFor": "wife / girlfriend / historical fiction reader",
+      "vibe": "big-feeling conversation starter",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "cozy",
+        "everyday"
+      ],
+      "tabTags": [
+        "best-overall",
+        "under-100",
+        "cozy-home"
+      ],
+      "priceBand": null,
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [],
+          "vibes": [
+            "big-feeling conversation starter"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "updatedAt": "2026-03-12"
+    },
+    {
+      "id": "the-wedding-people-kindle",
+      "slug": "the-wedding-people-kindle-edition",
+      "name": "The Wedding People Kindle Edition",
+      "brand": "Amazon Kindle",
+      "searchQuery": "The Wedding People Kindle Edition Alison Espach",
+      "pageUrl": "https://shopforher.org/gift/the-wedding-people-kindle-edition/",
+      "affiliateUrl": "https://www.amazon.com/dp/B0CJ839C56?tag=shopforher0b7-20",
+      "merchantName": "Amazon",
+      "merchantProductUrl": "https://www.amazon.com/dp/B0CJ839C56",
+      "affiliatePathType": "direct-product",
+      "checkout": "offsite",
+      "price": {
+        "currency": "USD",
+        "display": "Kindle price varies",
+        "low": null,
+        "high": null
+      },
+      "availability": "https://schema.org/InStock",
+      "asin": "B0CJ839C56",
+      "image": "/brand-art/books/the-wedding-people-kindle.svg",
+      "additionalImages": [],
+      "summary": "Easy to justify because it is a recent Goodreads fiction winner and does not require any series knowledge.",
+      "bestFor": "girlfriend / wife / contemporary fiction reader",
+      "vibe": "smart beach-read energy",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "cozy",
+        "viral"
+      ],
+      "tabTags": [
+        "best-overall",
+        "under-100",
+        "cozy-home"
+      ],
+      "priceBand": null,
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [],
+          "vibes": [
+            "smart beach-read energy"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "updatedAt": "2026-03-12"
+    },
+    {
+      "id": "acotar-kindle",
+      "slug": "a-court-of-thorns-and-roses-kindle-edition",
+      "name": "A Court of Thorns and Roses Kindle Edition",
+      "brand": "Amazon Kindle",
+      "searchQuery": "A Court of Thorns and Roses Kindle Edition Sarah J Maas",
+      "pageUrl": "https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/",
+      "affiliateUrl": "https://www.amazon.com/dp/B00OZP5VRS?tag=shopforher0b7-20",
+      "merchantName": "Amazon",
+      "merchantProductUrl": "https://www.amazon.com/dp/B00OZP5VRS",
+      "affiliatePathType": "direct-product",
+      "checkout": "offsite",
+      "price": {
+        "currency": "USD",
+        "display": "Kindle price varies",
+        "low": null,
+        "high": null
+      },
+      "availability": "https://schema.org/InStock",
+      "asin": "B00OZP5VRS",
+      "image": "/brand-art/books/acotar-kindle.svg",
+      "additionalImages": [],
+      "summary": "Safer than a deep-cut fantasy pick because the series is already huge and this starts at book one.",
+      "bestFor": "girlfriend / wife / fantasy romance reader",
+      "vibe": "classic booktok starter",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "viral",
+        "cozy"
+      ],
+      "tabTags": [
+        "best-overall",
+        "under-100",
+        "cozy-home"
+      ],
+      "priceBand": null,
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "cozy-home",
+            "under-100"
+          ],
+          "priceBands": [],
+          "vibes": [
+            "classic booktok starter"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "updatedAt": "2026-03-12"
+    },
+    {
+      "id": "empyrean-box-set",
+      "slug": "the-empyrean-series-3-book-set",
+      "name": "The Empyrean Series 3 Book Set",
+      "brand": null,
+      "searchQuery": "The Empyrean Series 3 Book Set Fourth Wing Iron Flame Onyx Storm",
+      "pageUrl": "https://shopforher.org/gift/the-empyrean-series-3-book-set/",
+      "affiliateUrl": "https://www.amazon.com/dp/B0DDRD5NGZ?tag=shopforher0b7-20",
+      "merchantName": "Amazon",
+      "merchantProductUrl": "https://www.amazon.com/dp/B0DDRD5NGZ",
+      "affiliatePathType": "direct-product",
+      "checkout": "offsite",
+      "price": {
+        "currency": "USD",
+        "display": "Box set price varies",
+        "low": null,
+        "high": null
+      },
+      "availability": "https://schema.org/InStock",
+      "asin": "B0DDRD5NGZ",
+      "image": "/brand-art/books/empyrean-box-set.svg",
+      "additionalImages": [],
+      "summary": "Best when you want a stronger present to unwrap with current romantasy demand and less risk than buying book three alone.",
+      "bestFor": "wife / girlfriend / big reader gift",
+      "vibe": "display-worthy series set",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "looks-expensive",
+        "viral"
+      ],
+      "tabTags": [
+        "best-overall",
+        "looks-expensive",
+        "under-100"
+      ],
+      "priceBand": null,
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "looks-expensive",
+            "thoughtful",
+            "viral"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [],
+          "vibes": [
+            "display-worthy series set"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-product"
+          ]
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-path",
+      "updatedAt": "2026-03-12"
+    },
+    {
       "id": "ninja-creami",
       "slug": "ninja-creami-deluxe",
       "name": "Ninja CREAMi Deluxe",

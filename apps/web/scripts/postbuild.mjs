@@ -54,38 +54,38 @@ function applyBooksSurfaceShellCopy(html) {
   const booksGuideSection = `      <section class="discovery-section">
         <div class="discovery-section-head">
           <p class="discovery-kicker">Start here</p>
-          <h2>Reader gift guides</h2>
+          <h2>Book gift guides</h2>
         </div>
         <div class="discovery-link-list">
           <a class="discovery-link-card" href="/books-for-her/">
-            <span>Reader</span>
+            <span>Books</span>
             <strong>Book gifts for her in 2026</strong>
-            <p>A reading-first shortlist built around Kindle upgrades, cozy setup pieces, and cleaner bookish gift angles.</p>
+            <p>A book-first shortlist built around actual Kindle editions, broader fiction picks, and one stronger boxed-set move.</p>
           </a>
           <a class="discovery-link-card" href="/kindle-gifts-for-her/">
             <span>Kindle</span>
             <strong>Kindle gifts for her in 2026</strong>
-            <p>The cleaner device-first lane when ebooks, night reading, and simpler digital reading habits are the whole point.</p>
+            <p>The ebook-first lane when exact Kindle editions matter more than devices, accessories, or reading-setup gear.</p>
           </a>
           <a class="discovery-link-card" href="/cozy-gifts-for-readers/">
             <span>Cozy</span>
             <strong>Cozy gifts for readers in 2026</strong>
-            <p>Warm, apartment-safe home gifts that fit the reading ritual without feeling overly sentimental.</p>
+            <p>Softer fiction and comfort-read picks when the gift should still be an actual book instead of cozy filler.</p>
           </a>
           <a class="discovery-link-card" href="/book-lover-gifts-for-her/">
             <span>Identity</span>
             <strong>Book-lover gifts for her in 2026</strong>
-            <p>Broader bookish picks when the reading identity matters more than choosing one exact format or device.</p>
+            <p>Broader bookish picks when you want actual books and one visible stack-worthy set instead of reader merch.</p>
           </a>
-          <a class="discovery-link-card" href="/best-gifts-under-100/">
-            <span>Budget</span>
-            <strong>Reader-friendly gifts under $100 in 2026</strong>
-            <p>Use the lower-spend lane when budget matters more than building out the full reading setup.</p>
+          <a class="discovery-link-card" href="/booktok-gifts-for-her/">
+            <span>BookTok</span>
+            <strong>BookTok gifts for her in 2026</strong>
+            <p>Current BookTok books and Kindle editions when you want the online-reading angle without generic trend clutter.</p>
           </a>
-          <a class="discovery-link-card" href="/amazon-gifts-for-her/">
-            <span>Amazon</span>
-            <strong>Fast Amazon gifts that still fit the reading lane</strong>
-            <p>Quick-checkout picks when speed matters but you still want the gift to feel more edited than generic marketplace filler.</p>
+          <a class="discovery-link-card" href="/gift/fourth-wing-kindle-edition/">
+            <span>Product</span>
+            <strong>Fourth Wing Kindle Edition product page</strong>
+            <p>The fastest route when one current Kindle title already feels right.</p>
           </a>
         </div>
       </section>`;
@@ -129,44 +129,44 @@ function applyBooksSurfaceShellCopy(html) {
       </section>`;
   const booksProductSection = `      <section class="discovery-section">
         <div class="discovery-section-head">
-          <p class="discovery-kicker">Reading setup</p>
-          <h2>Reader-ready product pages</h2>
+          <p class="discovery-kicker">Book picks</p>
+          <h2>Book-ready product pages</h2>
         </div>
         <div class="discovery-link-list">
-          <a class="discovery-link-card" href="/books-for-her/">
+          <a class="discovery-link-card" href="/booksforher/">
             <span>Guide</span>
-            <strong>BooksForHer edit</strong>
-            <p>The reading-first guide hub for Kindle gifts, bookish upgrades, and cozy reader moments.</p>
+            <strong>BooksForHer home</strong>
+            <p>The books-only guide hub for Kindle editions, broader fiction picks, boxed sets, and the books-only swipe surface.</p>
           </a>
-          <a class="discovery-link-card" href="/gift/kindle-paperwhite-signature-edition/">
-            <span>Reader</span>
-            <strong>Kindle Paperwhite Signature Edition</strong>
-            <p>The clearest reader-first product page when you want a premium upgrade with obvious daily use.</p>
+          <a class="discovery-link-card" href="/gift/fourth-wing-kindle-edition/">
+            <span>Kindle</span>
+            <strong>Fourth Wing Kindle Edition</strong>
+            <p>The clearest current Kindle pick when you want an instantly recognizable fantasy starter.</p>
           </a>
-          <a class="discovery-link-card" href="/gift/luxury-throw-blanket/">
+          <a class="discovery-link-card" href="/gift/the-women-kindle-edition/">
+            <span>Fiction</span>
+            <strong>The Women Kindle Edition</strong>
+            <p>A broader emotional fiction pick when you want something less fantasy-coded and more book-club safe.</p>
+          </a>
+          <a class="discovery-link-card" href="/gift/the-wedding-people-kindle-edition/">
             <span>Cozy</span>
-            <strong>Luxury Throw Blanket</strong>
-            <p>A soft, low-risk comfort pick that fits reading nights without feeling generic.</p>
+            <strong>The Wedding People Kindle Edition</strong>
+            <p>A comfort-read fiction choice when you want a current standalone with easy gift logic.</p>
           </a>
-          <a class="discovery-link-card" href="/gift/candle-warmer-lamp/">
-            <span>Atmosphere</span>
-            <strong>Candle Warmer Lamp</strong>
-            <p>An easy reader-desk or bedside setup upgrade with a cleaner apartment-safe use case.</p>
+          <a class="discovery-link-card" href="/gift/a-court-of-thorns-and-roses-kindle-edition/">
+            <span>BookTok</span>
+            <strong>A Court of Thorns and Roses Kindle Edition</strong>
+            <p>The proven romantasy classic when you want the older still-famous BookTok lane.</p>
           </a>
-          <a class="discovery-link-card" href="/gift/temperature-control-mug/">
-            <span>Daily use</span>
-            <strong>Temperature-Control Mug</strong>
-            <p>A stronger routine gift when you want long reading sessions to feel a little more premium.</p>
+          <a class="discovery-link-card" href="/gift/the-empyrean-series-3-book-set/">
+            <span>Box set</span>
+            <strong>The Empyrean Series 3 Book Set</strong>
+            <p>The stronger physical-book move when you want a visible stack and a bigger unwrap moment.</p>
           </a>
-          <a class="discovery-link-card" href="/gift/sunrise-alarm-clock/">
-            <span>Routine</span>
-            <strong>Sunrise Alarm Clock</strong>
-            <p>A quieter bedside upgrade that supports evening reading and gentler morning routines.</p>
-          </a>
-          <a class="discovery-link-card" href="/gift/bose-soundlink-flex-2nd-gen/">
-            <span>Audiobooks</span>
-            <strong>Bose SoundLink Flex</strong>
-            <p>A cleaner audio companion pick for readers who also live in Audible, podcasts, and ambient playlists.</p>
+          <a class="discovery-link-card" href="/gift/fourth-wing-kindle-edition/">
+            <span>Fast buy</span>
+            <strong>Start with the fastest Kindle pick</strong>
+            <p>Use the Fourth Wing page when the gift needs to be bookish, current, and easy to buy quickly.</p>
           </a>
         </div>
       </section>`;
@@ -218,7 +218,7 @@ function applyBooksSurfaceShellCopy(html) {
     .replace("<h1>Popular gifts for her, bought fast</h1>", "<h1>Reader gifts for her, bought fast</h1>")
     .replace(
       '<p class="discovery-intro">ShopForHer publishes crawlable gift guides, product pages, trust pages, and date-planning hubs built to answer real buyer moments fast.</p>',
-      '<p class="discovery-intro">BooksForHer is the reading-first ShopForHer edition for Kindle gifts, cozy reader upgrades, and cleaner bookish gift angles.</p>'
+      '<p class="discovery-intro">BooksForHer is the book-first ShopForHer edition for actual books, Kindle editions, and boxed-set picks.</p>'
     )
     .replace(defaultGuideSection, booksGuideSection)
     .replace(defaultProductSection, booksProductSection);

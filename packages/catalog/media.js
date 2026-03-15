@@ -530,6 +530,21 @@ export const productMedia = {
     imageUrl: "https://m.media-amazon.com/images/I/71+Yf+KXC6L.jpg",
     galleryImages: ["https://images-na.ssl-images-amazon.com/images/I/71qg1efHOYL.jpg"],
   },
+  "fourth-wing-kindle": {
+    imageUrl: "/brand-art/books/fourth-wing-kindle.svg",
+  },
+  "the-women-kindle": {
+    imageUrl: "/brand-art/books/the-women-kindle.svg",
+  },
+  "the-wedding-people-kindle": {
+    imageUrl: "/brand-art/books/the-wedding-people-kindle.svg",
+  },
+  "acotar-kindle": {
+    imageUrl: "/brand-art/books/acotar-kindle.svg",
+  },
+  "empyrean-box-set": {
+    imageUrl: "/brand-art/books/empyrean-box-set.svg",
+  },
   "faux-olive-tree-planter": {
     imageUrl: "https://m.media-amazon.com/images/I/71OMxknM9oL._AC_SL1500_.jpg",
     galleryImages: ["https://m.media-amazon.com/images/I/71rxsQ+zeiL._AC_SL1500_.jpg"],

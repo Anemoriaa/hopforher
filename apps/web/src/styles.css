@@ -832,8 +832,8 @@ h2, h3 {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center center;
+  object-fit: var(--gift-image-fit, cover);
+  object-position: var(--gift-image-position, center center);
   transform: scale(var(--hero-image-scale));
   transform-origin: center center;
   filter: drop-shadow(0 18px 34px rgba(17, 17, 17, 0.12));
@@ -885,6 +885,7 @@ h2, h3 {
   left: 0;
   width: 59%;
   height: 238px;
+  z-index: 2;
   --hero-image-scale: 1.04;
   transform: rotate(-5deg);
   animation: gs-parallax-float-a 14s ease-in-out infinite;
@@ -895,6 +896,7 @@ h2, h3 {
   right: 4px;
   width: 40%;
   height: 216px;
+  z-index: 3;
   --hero-image-scale: 1.06;
   transform: rotate(4deg);
   animation: gs-parallax-float-b 16s ease-in-out infinite;
@@ -905,6 +907,7 @@ h2, h3 {
   bottom: 0;
   width: 54%;
   height: 188px;
+  z-index: 1;
   --hero-image-scale: 1.05;
   transform: rotate(-3deg);
   animation: gs-parallax-float-c 18s ease-in-out infinite;
@@ -3157,6 +3160,25 @@ h2, h3 {
 .surface-books .gs-popular-hero-card {
   border-color: rgba(95, 67, 40, 0.14);
   box-shadow: 0 14px 32px rgba(65, 44, 24, 0.12);
+}
+
+.surface-books .gs-popular-hero-card.is-layer-1 {
+  left: 8px;
+  width: 53%;
+}
+
+.surface-books .gs-popular-hero-card.is-layer-2 {
+  top: 26px;
+  right: 0;
+  width: 35%;
+  height: 208px;
+}
+
+.surface-books .gs-popular-hero-card.is-layer-3 {
+  right: 44px;
+  bottom: 8px;
+  width: 46%;
+  height: 200px;
 }
 
 .surface-books .gs-popular-hero-card-badge {
