@@ -80,7 +80,7 @@ async function sendNodeResponse(nodeResponse, webResponse) {
 
 function dateSpotsDevPlugin() {
   return {
-    name: "shopforher-date-spots-dev",
+    name: "giftsher-date-spots-dev",
     configureServer(server) {
       server.middlewares.use(async (req, res, next) => {
         const requestPath = req.url ? req.url.split("?")[0] : "";

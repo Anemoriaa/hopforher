@@ -52,7 +52,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "looks-expensive", "daily-use"],
       query: "temperature control mug gift for her",
       amazonAsin: "B08D3XPCZR",
-      sourceProductUrl: "https://www.amazon.com/dp/B08D3XPCZR",
       baseScore: 94,
       accentFrom: "#acd0ff",
       accentTo: "#2d649e"
@@ -113,7 +112,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["under-100", "cozy-home", "daily-use"],
       query: "sunrise alarm clock gift for her",
       amazonAsin: "B0C67ZDQLX",
-      sourceProductUrl: "https://www.amazon.com/dp/B0C67ZDQLX",
       baseScore: 89,
       accentFrom: "#bfdcff",
       accentTo: "#4271a3"
@@ -134,7 +132,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["under-100", "cozy-home", "looks-expensive"],
       query: "luxury throw blanket gift for her",
       amazonAsin: "B08KTS4KDT",
-      sourceProductUrl: "https://www.amazon.com/dp/B08KTS4KDT",
       baseScore: 90,
       accentFrom: "#d0e3ff",
       accentTo: "#4b78aa"
@@ -155,7 +152,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "looks-expensive", "daily-use"],
       query: "compact walking pad gift for wife",
       amazonAsin: "B0BVQMSVM1",
-      sourceProductUrl: "https://www.amazon.com/dp/B0BVQMSVM1",
       baseScore: 88,
       accentFrom: "#c7ddff",
       accentTo: "#3c6b9b"
@@ -196,7 +192,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["looks-expensive", "cozy-home", "best-overall"],
       query: "portable projector gift for couples",
       amazonAsin: "B0FDGLZKKM",
-      sourceProductUrl: "https://www.amazon.com/dp/B0FDGLZKKM",
       baseScore: 87,
       accentFrom: "#c2dbff",
       accentTo: "#2c5d8d"
@@ -217,7 +212,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["under-100", "daily-use"],
       query: "magsafe charging stand gift for her",
       amazonAsin: "B0D8PYWHZR",
-      sourceProductUrl: "https://www.amazon.com/dp/B0D8PYWHZR",
       baseScore: 86,
       accentFrom: "#bed9ff",
       accentTo: "#416c99"
@@ -238,7 +232,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "looks-expensive", "under-100", "daily-use"],
       query: "structured jewelry case gift for her",
       amazonAsin: "B09TN9PWV2",
-      sourceProductUrl: "https://www.amazon.com/dp/B09TN9PWV2",
       baseScore: 90,
       accentFrom: "#cfe3ff",
       accentTo: "#4c79a6"
@@ -259,7 +252,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["cozy-home", "under-100", "best-overall"],
       query: "candle warmer lamp gift for her",
       amazonAsin: "B0BWJRJYS7",
-      sourceProductUrl: "https://www.amazon.com/dp/B0BWJRJYS7",
       baseScore: 88,
       accentFrom: "#d6e7ff",
       accentTo: "#5b82ad"
@@ -280,7 +272,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["looks-expensive", "daily-use", "best-overall"],
       query: "led vanity mirror gift for her",
       amazonAsin: "B0DBKXV48B",
-      sourceProductUrl: "https://www.amazon.com/dp/B0DBKXV48B",
       baseScore: 87,
       accentFrom: "#c6ddff",
       accentTo: "#3d6c99"
@@ -301,7 +292,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["looks-expensive", "cozy-home", "best-overall"],
       query: "luxury robe gift for wife",
       amazonAsin: "B079B9CWRN",
-      sourceProductUrl: "https://www.amazon.com/dp/B079B9CWRN",
       baseScore: 89,
       accentFrom: "#d0e3ff",
       accentTo: "#527ba7"
@@ -322,7 +312,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "looks-expensive", "daily-use"],
       query: "Kindle Paperwhite Signature Edition gift for her",
       amazonAsin: "B0DC85J75V",
-      sourceProductUrl: "https://www.amazon.com/dp/B0DC85J75V",
       baseScore: 92,
       accentFrom: "#c4dcff",
       accentTo: "#386897"
@@ -363,7 +352,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "looks-expensive", "daily-use"],
       query: "Nespresso Vertuo Next gift for her",
       amazonAsin: "B084GY7284",
-      sourceProductUrl: "https://www.amazon.com/dp/B084GY7284",
       baseScore: 90,
       accentFrom: "#d1e4ff",
       accentTo: "#567ea8"
@@ -384,7 +372,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["under-100", "daily-use", "best-overall"],
       query: "Owala FreeSip Sway bottle gift for her",
       amazonAsin: "B0FJZDV6BH",
-      sourceProductUrl: "https://www.amazon.com/dp/B0FJZDV6BH",
       baseScore: 87,
       accentFrom: "#c7ddff",
       accentTo: "#4a739f"
@@ -405,7 +392,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "daily-use", "looks-expensive"],
       query: "Theragun Relief gift for her",
       amazonAsin: "B0CNS894RH",
-      sourceProductUrl: "https://www.amazon.com/dp/B0CNS894RH",
       baseScore: 89,
       accentFrom: "#bdd8ff",
       accentTo: "#426d9a"
@@ -426,7 +412,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "under-100", "cozy-home", "looks-expensive"],
       query: "UGG slippers gift for her",
       amazonAsin: "B0CB978WSZ",
-      sourceProductUrl: "https://www.amazon.com/dp/B0CB978WSZ",
       baseScore: 90,
       accentFrom: "#d7e7ff",
       accentTo: "#6489af"
@@ -447,7 +432,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "under-100", "daily-use"],
       query: "Stanley Quencher H2.0 gift for her",
       amazonAsin: "B0FB7LKQXV",
-      sourceProductUrl: "https://www.amazon.com/dp/B0FB7LKQXV",
       baseScore: 86,
       accentFrom: "#bdd6ff",
       accentTo: "#3f6b97"
@@ -488,7 +472,6 @@ import { importedCatalogItems } from "./imported-items.js";
       tabs: ["best-overall", "daily-use", "looks-expensive"],
       query: "Bose SoundLink Flex 2nd Gen gift for her",
       amazonAsin: "B0D6W8X6L2",
-      sourceProductUrl: "https://www.amazon.com/dp/B0D6W8X6L2",
       baseScore: 88,
       accentFrom: "#c7ddff",
       accentTo: "#446f9c"

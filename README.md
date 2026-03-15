@@ -1,4 +1,4 @@
-# ShopForHer
+# hopforher
 
 ## Dates / Nearby Places
 
@@ -87,13 +87,13 @@ URL-prefix verification is also supported by the build:
 
 After verification, submit `https://shopforher.org/sitemap.xml` in Search Console.
 
-See [docs/google-search-console.md](./docs/google-search-console.md) for the exact setup flow.
+See [docs/google-search-console.md](/mnt/c/Projects/giftsher/docs/google-search-console.md) for the exact setup flow.
 
 ### SEO ops
 
 After a build, run `npm run seo:ops` to print the current search-facing counts, guide-overlap queue, suppressed guides, and merchant-path gaps from `apps/web/public/page-catalog.json`.
 
-See [docs/seo-product-roadmap.md](./docs/seo-product-roadmap.md) for the current backlog and template-level improvement plan.
+See [docs/seo-product-roadmap.md](/mnt/c/Projects/giftsher/docs/seo-product-roadmap.md) for the current backlog and template-level improvement plan.
 
 ### Referral attribution
 
@@ -122,8 +122,8 @@ Those logs include:
 If `INDEXNOW_KEY` is set in Cloudflare Pages env:
 
 - `/indexnow.txt` will serve the key from the Pages Function
-- `npm run build -w @shopforher/web` will auto-submit URLs from the sitemap index in `public/sitemap.xml` after the build completes
-- `npm run indexnow -w @shopforher/web` still works as a manual retry path
+- `npm run build -w @giftsher/web` will auto-submit URLs from the sitemap index in `public/sitemap.xml` after the build completes
+- `npm run indexnow -w @giftsher/web` still works as a manual retry path
 
 The submit script uses `INDEXNOW_KEY`, expands the sitemap index into page URLs, and posts those URLs to the IndexNow endpoint.
 

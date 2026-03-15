@@ -51,6 +51,7 @@ export const importedCatalogItems = [
     vibe: "sheer coastal layer",
     intents: ["looks-expensive", "viral"],
     tabs: ["looks-expensive", "under-100"],
+    sourceProductUrl: "https://giftpals.com/item/roseseek-women-s-cover-up-beach-pants-hollow-out-2",
     query:
       "RoseSeek Women's Crochet Lace Pants Ruffle Layered Elastic Waist Mesh Bathing Suit Cover Up Beach Pants",
     baseScore: 75,

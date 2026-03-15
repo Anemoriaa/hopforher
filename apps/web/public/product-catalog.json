@@ -774,7 +774,7 @@
       },
       "availability": "https://schema.org/InStock",
       "asin": "B0D8PYWHZR",
-      "image": "https://cdn.shopify.com/s/files/1/0493/9834/9974/files/A25M8J11_Rich_image_TD01.2_US_V1_15302e8e-c829-4510-9707-65efff24d13f.png",
+      "image": "https://m.media-amazon.com/images/I/610ezpL6j8L.__AC_SX300_SY300_QL70_ML2_.jpg",
       "additionalImages": [],
       "summary": "A professional-feeling option when she likes neat spaces, bedside setups, or a more polished desk.",
       "bestFor": "girlfriend / wife / desk setup",
@@ -1015,7 +1015,7 @@
       },
       "availability": "https://schema.org/InStock",
       "asin": "B0DBKXV48B",
-      "image": "https://m.media-amazon.com/images/I/81cyeBMoGUL._AC_SL1500_.jpg",
+      "image": "https://m.media-amazon.com/images/I/71t3G6KN3BL._AC_SX679_.jpg",
       "additionalImages": [],
       "summary": "Useful, visual, and clearly premium, which makes it a stronger wife or long-term girlfriend option.",
       "bestFor": "wife / girlfriend / beauty setup",
@@ -1088,7 +1088,7 @@
       },
       "availability": "https://schema.org/InStock",
       "asin": "B079B9CWRN",
-      "image": "https://m.media-amazon.com/images/I/61u6jMURmYL._AC_SL1500_.jpg",
+      "image": "https://m.media-amazon.com/images/I/71RG-S+XvbL._AC_SX679_.jpg",
       "additionalImages": [],
       "summary": "One of the better elevated home gifts because it feels personal, premium, and clearly for her comfort.",
       "bestFor": "wife / anniversary / home",
@@ -2066,9 +2066,9 @@
       "searchQuery": "RoseSeek Women's Crochet Lace Pants Ruffle Layered Elastic Waist Mesh Bathing Suit Cover Up Beach Pants",
       "pageUrl": "https://shopforher.org/gift/roseseek-crochet-lace-cover-up-pants/",
       "affiliateUrl": "https://www.amazon.com/s?k=RoseSeek+Women%27s+Crochet+Lace+Pants+Ruffle+Layered+Elastic+Waist+Mesh+Bathing+Suit+Cover+Up+Beach+Pants&tag=shopforher0b7-20",
-      "merchantName": "Amazon",
-      "merchantProductUrl": null,
-      "affiliatePathType": "amazon-search",
+      "merchantName": "Giftpals",
+      "merchantProductUrl": "https://giftpals.com/item/roseseek-women-s-cover-up-beach-pants-hollow-out-2",
+      "affiliatePathType": "direct-merchant-url",
       "checkout": "offsite",
       "price": {
         "currency": "USD",
@@ -2127,12 +2127,12 @@
         },
         "coverage": {
           "merchantTypes": [
-            "amazon-search"
+            "direct-merchant-url"
           ]
         }
       },
-      "searchIndexable": false,
-      "indexStatus": "merchant-search-fallback",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
       "updatedAt": "2026-03-12"
     },
     {

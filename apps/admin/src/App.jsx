@@ -189,11 +189,11 @@ export default function App() {
   }
 
   function exportOverrides() {
-    downloadJson("shopforher-overrides.json", overrideMap);
+    downloadJson("giftsher-overrides.json", overrideMap);
   }
 
   function exportMergedCatalog() {
-    downloadJson("shopforher-catalog.json", {
+    downloadJson("giftsher-catalog.json", {
       affiliateConfig,
       tabs,
       gifts: catalogGifts,
@@ -237,7 +237,7 @@ export default function App() {
           <div className="ga-mark">GS</div>
           <div>
             <p className="ga-label">Catalog studio</p>
-            <h1>ShopForHer admin</h1>
+            <h1>GiftSher admin</h1>
             <p>
               Readable product operations for the buyer app. Review the catalog, inspect each item, and edit fields without touching source code.
             </p>

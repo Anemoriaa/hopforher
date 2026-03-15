@@ -1,5 +1,5 @@
 {
-  "name": "shopforher-monorepo",
+  "name": "giftsher-monorepo",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -7,16 +7,16 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev -w @shopforher/web",
-    "dev:web": "npm run dev -w @shopforher/web",
-    "dev:admin": "npm run dev -w @shopforher/admin",
-    "build": "npm run build -w @shopforher/web",
-    "build:web": "npm run build -w @shopforher/web",
-    "build:admin": "npm run build -w @shopforher/admin",
+    "dev": "npm run dev -w @giftsher/web",
+    "dev:web": "npm run dev -w @giftsher/web",
+    "dev:admin": "npm run dev -w @giftsher/admin",
+    "build": "npm run build -w @giftsher/web",
+    "build:web": "npm run build -w @giftsher/web",
+    "build:admin": "npm run build -w @giftsher/admin",
     "seo:ops": "node ./apps/web/scripts/seo-ops-report.mjs",
-    "preview": "npm run preview -w @shopforher/web",
-    "preview:web": "npm run preview -w @shopforher/web",
-    "preview:admin": "npm run preview -w @shopforher/admin",
+    "preview": "npm run preview -w @giftsher/web",
+    "preview:web": "npm run preview -w @giftsher/web",
+    "preview:admin": "npm run preview -w @giftsher/admin",
     "test:smoke": "node --test tests/smoke/*.test.mjs",
     "start": "npm run dev"
   }

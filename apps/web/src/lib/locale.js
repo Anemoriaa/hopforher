@@ -12,11 +12,17 @@ function normalizeLocaleEntries(values) {
   }
 
   if (typeof Intl !== "undefined" && typeof Intl.getCanonicalLocales === "function") {
-    try {
-      return [...new Set(Intl.getCanonicalLocales(entries))];
-    } catch (error) {
-      return [...new Set(entries)];
+    const canonicalEntries = [];
+
+    for (const entry of entries) {
+      try {
+        canonicalEntries.push(...Intl.getCanonicalLocales(entry));
+      } catch (error) {
+        // Ignore malformed locale tokens so valid entries still survive.
+      }
     }
+
+    return canonicalEntries.length ? [...new Set(canonicalEntries)] : [DEFAULT_LOCALE];
   }
 
   return [...new Set(entries)];

@@ -173,8 +173,7 @@ export const productMedia = {
     ],
   },
   "magsafe-stand": {
-    imageUrl:
-      "https://cdn.shopify.com/s/files/1/0493/9834/9974/files/A25M8J11_Rich_image_TD01.2_US_V1_15302e8e-c829-4510-9707-65efff24d13f.png",
+    imageUrl: "https://m.media-amazon.com/images/I/610ezpL6j8L.__AC_SX300_SY300_QL70_ML2_.jpg",
   },
   "jewelry-case": {
     imageUrl: "https://m.media-amazon.com/images/I/81+AOP7-G-L._AC_SL1500_.jpg",
@@ -205,10 +204,10 @@ export const productMedia = {
     ],
   },
   "vanity-mirror": {
-    imageUrl: "https://m.media-amazon.com/images/I/81cyeBMoGUL._AC_SL1500_.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/71t3G6KN3BL._AC_SX679_.jpg",
   },
   "cashmere-robe": {
-    imageUrl: "https://m.media-amazon.com/images/I/61u6jMURmYL._AC_SL1500_.jpg",
+    imageUrl: "https://m.media-amazon.com/images/I/71RG-S+XvbL._AC_SX679_.jpg",
   },
   "kindle-paperwhite": {
     imageUrl: "https://m.media-amazon.com/images/I/81I4120duxL._AC_SL1500_.jpg",

@@ -345,9 +345,9 @@ export const seoGuides = [
     label: "Gifts for girlfriend",
     group: "relationship",
     groupLabel: "Relationship",
-    title: "Best gifts for girlfriend in 2026 | ShopForHer",
-    h1: "Best gifts for girlfriend in 2026",
-    description: "Gift ideas for your girlfriend that feel thoughtful, attractive, and easy to buy without overthinking it.",
+    title: "Best gifts for girlfriends in 2026 | ShopForHer",
+    h1: "Best gifts for girlfriends in 2026",
+    description: "Low-risk, popular gifts for men buying for a girlfriend right now.",
     intro: "Start with clean picks that feel current, easy to receive, and fast to buy.",
     selectionMethod: "This page favors low-risk girlfriend gifts that feel attractive immediately, do not require sizing, and still look chosen rather than generic.",
     bestUseCase: "Use this when you want the safest mainstream answer for a girlfriend and do not want to overcomplicate the buy.",
@@ -387,9 +387,9 @@ export const seoGuides = [
         body: "Use this when you want the gift to feel attractive and clearly chosen without crossing into a heavy romantic gesture.",
       },
       {
-        title: "A more premium everyday lane with clearer brand pull",
-        giftId: "bose-speaker",
-        body: "This is the cleaner answer when you want more personality and presence than another small home object.",
+        title: "Fun, current gifts she can actually use and share",
+        giftId: "mini-photo-printer",
+        body: "This is the cleaner answer when you want more energy and personality than another safe home object.",
       },
       {
         title: "A more organized, put-together travel or accessories lane",
@@ -420,11 +420,11 @@ export const seoGuides = [
       },
       {
         title: "Best if you want more personality",
-        giftId: "bose-speaker",
-        body: "Use this when the gift should feel more current and premium instead of overly safe or forgettable.",
+        giftId: "mini-photo-printer",
+        body: "Use this when the gift should feel more current and fun instead of calm and ultra-safe.",
       },
     ],
-    itemIds: ["silk-pillowcase", "bose-speaker", "jewelry-case", "panluca-statement-necklace", "posadina-phone-charm", "earbuds"],
+    itemIds: ["silk-pillowcase", "mini-photo-printer", "jewelry-case", "earbuds", "candle-warmer", "posadina-phone-charm"],
     related: ["best-gifts-under-100", "viral-gifts-for-her", "new-relationship-gifts-for-her"],
   },
   {
@@ -432,9 +432,9 @@ export const seoGuides = [
     label: "Gifts for wife",
     group: "relationship",
     groupLabel: "Relationship",
-    title: "Best gifts for wife in 2026 | ShopForHer",
-    h1: "Best gifts for wife in 2026",
-    description: "Gift ideas for your wife that feel polished, useful, and worth spending real money on.",
+    title: "Best gifts for wives in 2026 | ShopForHer",
+    h1: "Best gifts for wives in 2026",
+    description: "Higher-confidence gift picks for wives, with stronger quality and daily-use upside.",
     intro: "These are the better answers when you want something polished, useful, and easy to stand behind.",
     selectionMethod: "This page leans toward stronger quality, clearer everyday payoff, and gifts that feel substantial enough for a wife without getting random.",
     bestUseCase: "Use this when you need the safest wife-facing shortlist and want to avoid novelty-heavy or too-light picks.",
@@ -521,7 +521,7 @@ export const seoGuides = [
     groupLabel: "Moment",
     title: "Best anniversary gifts for her in 2026 | ShopForHer",
     h1: "Best anniversary gifts for her in 2026",
-    description: "Anniversary gift ideas for her that feel romantic, intentional, and more memorable than a routine buy.",
+    description: "Sharper anniversary gifts that feel intentional without getting cheesy.",
     intro: "The cleanest anniversary picks usually feel personal, premium, or experience-driven.",
     selectionMethod: "This page prioritizes gifts with emotional payoff, premium finish, or shared-experience upside so the anniversary gift feels deliberate.",
     bestUseCase: "Use this when the occasion matters more than raw practicality and you want the gift to read more intentional than routine.",
@@ -543,7 +543,7 @@ export const seoGuides = [
     faqs: [
       {
         q: "Do anniversary gifts need to be sentimental?",
-        a: "Not necessarily, but they should feel intentional. Experience-shaped, dressed-up, or premium home gifts often work better than purely practical ones.",
+        a: "Not necessarily, but they should feel intentional. Experience-adjacent and premium home gifts often work better than purely practical ones.",
       },
       {
         q: "Is a shared-experience gift better than a basic product?",
@@ -566,9 +566,9 @@ export const seoGuides = [
         body: "Use this when the point is to make the night itself stronger instead of only adding another object.",
       },
       {
-        title: "A dressed-up reveal with more obvious anniversary energy",
-        giftId: "satin-halter-maxi-dress",
-        body: "This is the cleaner answer when you want the gift to feel date-ready and celebratory right away instead of reading like another home upgrade.",
+        title: "Soft luxury with a calmer, more intimate feel",
+        giftId: "cashmere-robe",
+        body: "This is the cleaner answer when you want warmth, polish, and a stronger sense of occasion.",
       },
     ],
     avoidNotes: [
@@ -584,8 +584,8 @@ export const seoGuides = [
     pickLanes: [
       {
         title: "Lower spend",
-        giftId: "rustic-vase-set",
-        body: "The cleaner lower-budget answer when you still want the anniversary gift to feel polished, styled, and clearly chosen.",
+        giftId: "silk-pillowcase",
+        body: "The cleanest lower-budget answer when you still want softness, polish, and a more premium feel.",
       },
       {
         title: "Most emotional",
@@ -598,7 +598,7 @@ export const seoGuides = [
         body: "The strongest answer when you want the gift and the date itself to reinforce each other.",
       },
     ],
-    itemIds: ["digital-frame", "projector", "cashmere-robe", "satin-halter-maxi-dress", "kirundo-pleated-maxi-dress", "rustic-vase-set"],
+    itemIds: ["digital-frame", "projector", "cashmere-robe", "silk-pillowcase", "jewelry-case", "mini-photo-printer"],
     related: ["gifts-for-wife", "date-night-gifts-for-her", "luxury-gifts-for-her"],
   },
   {
@@ -606,13 +606,13 @@ export const seoGuides = [
     label: "Birthday for girlfriend",
     group: "moments",
     groupLabel: "Moment",
-    title: "Best birthday gifts for girlfriend in 2026 | ShopForHer",
-    h1: "Best birthday gifts for girlfriend in 2026",
-    description: "Birthday gift ideas for your girlfriend that feel fun, current, and clearly chosen instead of last-minute.",
-    intro: "Use this lane when you want a present that feels current, visibly giftable, and easier to open than to explain.",
-    selectionMethod: "This page keeps the birthday lane lighter and more present-ready, with picks that feel current, branded, or visually strong without getting too serious too soon.",
-    bestUseCase: "Use this when you want a cleaner birthday answer for a girlfriend that still feels fun and current.",
-    avoidWhen: "Skip this page if the relationship is long-term enough that you really need a stronger wife-level or anniversary-style move.",
+    title: "Best birthday gifts for girlfriends in 2026 | ShopForHer",
+    h1: "Best birthday gifts for girlfriends in 2026",
+    description: "Birthday gifts for girlfriends that feel current, present-ready, and fun enough for the night.",
+    intro: "Use this lane when you want a birthday gift that feels more celebratory, more photo-ready, and easier to say yes to than a practical default.",
+    selectionMethod: "This page keeps the girlfriend birthday lane lighter and more reveal-driven, with picks that feel current, playful, or visibly styled without drifting into heavier wife-level intensity.",
+    bestUseCase: "Use this when you want a cleaner girlfriend birthday answer that still feels fun, current, and easy to buy with confidence.",
+    avoidWhen: "Skip this page if the relationship is long-term enough that you really need a more premium wife-level or anniversary-style move first.",
     buyerSignals: [
       {
         title: "Fun beats heavy",
@@ -630,7 +630,7 @@ export const seoGuides = [
     faqs: [
       {
         q: "What is the easiest birthday gift for a girlfriend to get right?",
-        a: "The jewelry case and Sol de Janeiro set are strong first picks because they feel current, visibly giftable, and easy to like without getting too serious.",
+        a: "The mini photo printer and LANEIGE set are the easiest first picks because they feel current, present-ready, and easy to like without making the birthday moment feel too heavy.",
       },
       {
         q: "Should a girlfriend birthday gift be more fun than practical?",
@@ -643,14 +643,14 @@ export const seoGuides = [
     ],
     bestFits: [
       {
-        title: "A visibly birthday-ready pick with more party energy",
-        giftId: "prettygarden-one-shoulder-maxi",
-        body: "Best when you want the present to feel current, fun, and more like a real birthday reveal than a default safe buy.",
+        title: "A playful gift that still feels obviously birthday-ready",
+        giftId: "mini-photo-printer",
+        body: "Best when you want the present to feel current, visual, and easy to enjoy right away.",
       },
       {
-        title: "A cleaner beauty lane with current brand pull",
-        giftId: "sol-de-janeiro",
-        body: "Use this when she likes recognizable beauty gifts and you want something playful without overcommitting the moment.",
+        title: "A birthday-night dress lane with stronger reveal value",
+        giftId: "prettygarden-one-shoulder-maxi",
+        body: "Use this when you want the birthday gift to feel more dressed up, more event-ready, and more obviously celebratory than a basic small accessory.",
       },
       {
         title: "A lower-spend beauty pick that still looks giftable",
@@ -671,7 +671,7 @@ export const seoGuides = [
     pickLanes: [
       {
         title: "Best fun pick",
-        giftId: "prettygarden-one-shoulder-maxi",
+        giftId: "mini-photo-printer",
         body: "The easiest answer when you want the gift to feel lively, current, and obviously birthday-friendly.",
       },
       {
@@ -680,12 +680,12 @@ export const seoGuides = [
         body: "Use this when you want the gift to feel more like part of the birthday night itself and less like another ordinary object.",
       },
       {
-        title: "Best beauty-brand pick",
-        giftId: "sol-de-janeiro",
-        body: "The cleaner answer when recognizable beauty branding and a stronger reveal matter more than pure utility.",
+        title: "Best smaller add-on",
+        giftId: "posadina-phone-charm",
+        body: "The cleaner answer when you want a lower-spend birthday gift with enough personality and trend energy to still feel intentional.",
       },
     ],
-    itemIds: ["prettygarden-one-shoulder-maxi", "jewelry-case", "posadina-phone-charm", "satin-halter-maxi-dress", "sol-de-janeiro", "bose-speaker"],
+    itemIds: ["prettygarden-one-shoulder-maxi", "laneige-set", "posadina-phone-charm", "mini-photo-printer", "satin-halter-maxi-dress", "candle-warmer"],
     related: ["gifts-for-girlfriend", "best-gifts-under-100", "looks-expensive-gifts-for-her"],
   },
   {
@@ -693,9 +693,9 @@ export const seoGuides = [
     label: "Birthday for wife",
     group: "moments",
     groupLabel: "Moment",
-    title: "Best birthday gifts for wife in 2026 | ShopForHer",
-    h1: "Best birthday gifts for wife in 2026",
-    description: "Birthday gift ideas for your wife that feel special, polished, and better than another practical default.",
+    title: "Best birthday gifts for wives in 2026 | ShopForHer",
+    h1: "Best birthday gifts for wives in 2026",
+    description: "Birthday gifts for wives that feel more substantial, polished, and worth opening.",
     intro: "This page stays on gifts with stronger birthday reveal value, cleaner design, and enough presence to feel worth opening.",
     selectionMethod: "This page filters toward gifts with clearer visual payoff, stronger finish, and enough presence to feel birthday-worthy for a wife.",
     bestUseCase: "Use this when you need a birthday gift for your wife that feels bigger than a routine buy but still easy to defend.",
@@ -1130,7 +1130,7 @@ export const seoGuides = [
     groupLabel: "Angle",
     title: "Viral gifts for her in 2026 | ShopForHer",
     h1: "Viral gifts for her in 2026",
-    description: "Trending gift ideas for her that feel current, recognizable, and easy to click when you need a fast win.",
+    description: "Current, shareable, high-click gift ideas for her.",
     intro: "Use this page when you want something that already feels current online and easy to justify in real life.",
     selectionMethod: "This page favors gifts that are already circulating online but still survive the reality check of being useful, presentable, and broadly giftable.",
     bestUseCase: "Use this when you want the gift to feel current now, not merely safe or timeless.",
@@ -1156,7 +1156,7 @@ export const seoGuides = [
       },
       {
         q: "What is the safest viral gift on this page?",
-        a: "The Sol de Janeiro set, Owala bottle, and Ninja CREAMi are easy first answers because they feel current and still have obvious everyday use or strong recognition.",
+        a: "The Stanley, Sol de Janeiro set, and mini photo printer are easy first answers because they feel current and still have obvious everyday use or shareability.",
       },
       {
         q: "When should I avoid the viral lane?",
@@ -1165,9 +1165,9 @@ export const seoGuides = [
     ],
     bestFits: [
       {
-        title: "Trendy fashion gifts with obvious social energy",
-        giftId: "prettygarden-one-shoulder-maxi",
-        body: "Best when you want the gift to look current immediately and feel like something she has already seen online.",
+        title: "Mainstream products she already recognizes online",
+        giftId: "stanley-quencher",
+        body: "Best when you want the gift to feel current immediately without needing a lot of explanation.",
       },
       {
         title: "Beauty-category gifts with fast trend recognition",
@@ -1193,13 +1193,13 @@ export const seoGuides = [
     pickLanes: [
       {
         title: "Lower spend",
-        giftId: "laneige-set",
+        giftId: "sol-de-janeiro",
         body: "The easiest smaller viral pick when you want trend energy without turning the gift into a bigger purchase.",
       },
       {
         title: "Safest mainstream pick",
-        giftId: "owala-bottle",
-        body: "Use this when you want a recognizable viral gift with an obvious everyday role and less hype risk than a novelty buy.",
+        giftId: "stanley-quencher",
+        body: "Use this when you want the most instantly recognizable viral gift with an obvious everyday role.",
       },
       {
         title: "Best bigger trend gift",
@@ -1207,7 +1207,7 @@ export const seoGuides = [
         body: "The strongest answer when the gift should feel more substantial while still carrying current online momentum.",
       },
     ],
-    itemIds: ["prettygarden-one-shoulder-maxi", "ninja-creami", "owala-bottle", "sol-de-janeiro", "satin-halter-maxi-dress", "laneige-set"],
+    itemIds: ["sol-de-janeiro", "roseseek-crochet-lace-pants", "ninja-creami", "stanley-quencher", "laneige-set", "mini-photo-printer"],
     related: ["gifts-for-girlfriend", "tech-gifts-for-her", "amazon-gifts-for-her"],
   },
   {
@@ -1217,7 +1217,7 @@ export const seoGuides = [
     groupLabel: "Angle",
     title: "Luxury gifts for her in 2026 | ShopForHer",
     h1: "Luxury gifts for her in 2026",
-    description: "Luxury gift ideas for her that feel premium, polished, and clearly more special than a standard pick.",
+    description: "Cleaner premium gifts for her that read expensive fast.",
     intro: "These picks lean more polished and elevated without turning flashy or random.",
     selectionMethod: "This page favors premium-feeling gifts with high finish, stronger presentation, and enough everyday logic that the spend does not feel random.",
     bestUseCase: "Use this when the gift has to read expensive quickly and you want a cleaner premium answer than a trend pick.",
@@ -1294,7 +1294,7 @@ export const seoGuides = [
         body: "The stronger answer when you want the luxury gift to feel more substantial and obviously above a small upgrade.",
       },
     ],
-    itemIds: ["marc-jacobs-perfect-absolute", "artificial-olive-tree-1026", "theragun-relief", "kindle-paperwhite", "gucci-flora-gorgeous-magnolia", "nespresso-machine"],
+    itemIds: ["marc-jacobs-perfect-absolute", "bose-speaker", "theragun-relief", "kindle-paperwhite", "gucci-flora-gorgeous-magnolia", "nespresso-machine"],
     related: ["gifts-for-wife", "anniversary-gifts-for-her", "looks-expensive-gifts-for-her"],
   },
   {
@@ -1468,7 +1468,7 @@ export const seoGuides = [
         body: "The better answer when you want cozy-home energy with a routine she will actually keep using.",
       },
     ],
-    itemIds: ["luxury-throw", "faux-olive-tree-planter", "silk-pillowcase", "ugg-slippers", "nespresso-machine", "miyuki-rustic-vase"],
+    itemIds: ["luxury-throw", "faux-olive-tree-planter", "cashmere-robe", "ugg-slippers", "nespresso-machine", "miyuki-rustic-vase"],
     related: ["gifts-for-homebodies", "gifts-for-wife", "daily-use-gifts-for-her"],
   },
   {
@@ -1848,7 +1848,7 @@ export const seoGuides = [
     faqs: [
       {
         q: "What is the safest tech gift on this page?",
-        a: "The MagSafe stand and digital frame are strong because they are easy to understand, easy to use, and hard to regret.",
+        a: "The earbuds and MagSafe stand are strong because they are easy to understand, easy to use, and hard to regret.",
       },
       {
         q: "Can wellness gear count as a tech gift?",
@@ -1866,9 +1866,9 @@ export const seoGuides = [
         body: "Best when you want the tech gift to feel neat, helpful, and immediately understandable.",
       },
       {
-        title: "A smart home-tech gift with low learning curve",
-        giftId: "digital-frame",
-        body: "Use this when the safest path is a polished device that feels personal quickly without a fussy setup.",
+        title: "A reliable everyday device she will actually use",
+        giftId: "earbuds",
+        body: "Use this when the safest path is strong day-to-day utility with very little learning curve.",
       },
       {
         title: "A more memorable device with shared payoff",
@@ -1893,9 +1893,9 @@ export const seoGuides = [
         body: "The easiest answer when you want a lower-spend tech gift with immediate usefulness.",
       },
       {
-        title: "Best home-tech pick",
-        giftId: "digital-frame",
-        body: "Use this when the gift should feel personal, polished, and easy to appreciate without a long setup.",
+        title: "Best everyday tech pick",
+        giftId: "earbuds",
+        body: "Use this when the gift should fit quickly into commuting, work, travel, or daily downtime.",
       },
       {
         title: "Best bigger device",
@@ -1903,8 +1903,8 @@ export const seoGuides = [
         body: "The better move when the tech gift should feel more memorable and more like an experience-backed upgrade.",
       },
     ],
-    itemIds: ["projector", "walking-pad", "digital-frame", "theragun-relief", "magsafe-stand", "mini-photo-printer"],
-    related: ["viral-gifts-for-her", "gifts-for-wife", "daily-use-gifts-for-her"],
+    itemIds: ["projector", "walking-pad", "vanity-mirror", "theragun-relief", "magsafe-stand", "earbuds"],
+    related: ["viral-gifts-for-her", "best-gifts-under-100", "gifts-for-wife"],
   },
   {
     slug: "new-relationship-gifts-for-her",
@@ -2087,7 +2087,7 @@ export const seoGuides = [
     groupLabel: "Moment",
     title: "Best last-minute gifts for her in 2026 | ShopForHer",
     h1: "Best last-minute gifts for her in 2026",
-    description: "Last-minute gift ideas for her that still feel polished, useful, and safe to buy fast.",
+    description: "Fast, low-friction gifts for her when you need a strong answer quickly.",
     intro: "These are the picks that make sense when the main requirement is speed without looking careless.",
     selectionMethod: "This page filters toward gifts that are easy to understand, fast to buy, and still polished enough that the rush does not show.",
     bestUseCase: "Use this when timing is the real constraint and you need the shortest path to a respectable gift.",
@@ -2109,7 +2109,7 @@ export const seoGuides = [
     faqs: [
       {
         q: "What is the safest last-minute gift for her?",
-        a: "The MagSafe stand, LANEIGE set, and Sol de Janeiro set are strong because they are easy to recognize quickly and still feel present-ready.",
+        a: "The MagSafe stand, Stanley, and luxury throw are strong because they are easy to understand quickly and still feel giftable.",
       },
       {
         q: "Can a last-minute gift still look thoughtful?",
@@ -2123,8 +2123,8 @@ export const seoGuides = [
     bestFits: [
       {
         title: "A simple practical gift that still looks intentional",
-        giftId: "magsafe-stand",
-        body: "Best when you need the product to make sense on sight and feel clean enough that the rush does not show.",
+        giftId: "stanley-quencher",
+        body: "Best when you need the product to make sense on sight and feel current enough that the rush does not show.",
       },
       {
         title: "A polished smaller gift you can buy fast",
@@ -2132,9 +2132,9 @@ export const seoGuides = [
         body: "Use this when the spend is small and the gift still needs to read as present-ready immediately.",
       },
       {
-        title: "A beauty pick with faster recognition and low friction",
-        giftId: "sol-de-janeiro",
-        body: "This is the easy answer when you want something current, feminine, and easy to justify without a long explanation.",
+        title: "A calmer home-comfort lane with very low friction",
+        giftId: "luxury-throw",
+        body: "This is the easy answer when you want the gift to feel softer and more elevated than a generic practical product.",
       },
     ],
     avoidNotes: [
@@ -2155,16 +2155,16 @@ export const seoGuides = [
       },
       {
         title: "Safest practical pick",
-        giftId: "magsafe-stand",
+        giftId: "stanley-quencher",
         body: "Use this when the goal is recognizable, useful, and easy to buy without overthinking the decision.",
       },
       {
-        title: "Best beauty pick",
-        giftId: "sol-de-janeiro",
-        body: "The cleaner answer when you want last-minute speed without making the gift feel cold or overly utilitarian.",
+        title: "Best softer pick",
+        giftId: "luxury-throw",
+        body: "The cleaner answer when you want last-minute speed without making the gift feel overly utilitarian.",
       },
     ],
-    itemIds: ["laneige-set", "magsafe-stand", "sol-de-janeiro", "posadina-phone-charm", "earbuds", "marc-jacobs-perfect-absolute"],
+    itemIds: ["magsafe-stand", "mchic-beaded-choker", "ninehaoou-scroll-vase", "laneige-set", "stanley-quencher", "luxury-throw"],
     related: ["amazon-gifts-for-her", "best-gifts-under-75", "gifts-for-girlfriend"],
   },
   {
@@ -2172,13 +2172,13 @@ export const seoGuides = [
     label: "Date-night gifts",
     group: "moments",
     groupLabel: "Moment",
-    title: "Best date night gifts for her in 2026 | ShopForHer",
-    h1: "Best date night gifts for her in 2026",
-    description: "Date night gift ideas for her that feel romantic, experience-friendly, and more memorable than a standard pick.",
-    intro: "This page leans toward gifts that create a shared night, a softer mood, or a stronger reveal.",
-    selectionMethod: "This page prioritizes gifts that strengthen the night itself, either by creating a shared plan, a softer mood, or a better reveal moment.",
-    bestUseCase: "Use this when you want the gift to feel tied to the experience and not like a disconnected object.",
-    avoidWhen: "Skip this page if you need the most practical daily-use answer or the cheapest safe option.",
+    title: "Best date-night gifts for her in 2026 | ShopForHer",
+    h1: "Best date-night gifts for her in 2026",
+    description: "Date-night gifts that sharpen the getting-ready moment and feel more dressed-up than a basic object.",
+    intro: "This page leans toward night-out dresses, fragrance, and polished add-ons that make the date feel more handled before you even leave.",
+    selectionMethod: "This page prioritizes getting-ready gifts, night-out pieces, and present-ready beauty picks that make the date feel more polished instead of treating the night like another ordinary routine.",
+    bestUseCase: "Use this when you want the gift to feel tied to the date reveal, the getting-ready window, or the look and mood of the night itself.",
+    avoidWhen: "Skip this page if you need the safest size-free everyday pick or a more emotional anniversary-style signal first.",
     buyerSignals: [
       {
         title: "Getting ready is part of the date",
@@ -2189,8 +2189,8 @@ export const seoGuides = [
         body: "A date-night gift can still be useful, but it should first feel dressy, feminine, or clearly chosen for how the night is supposed to feel.",
       },
       {
-        title: "Pairing strengthens the gift",
-        body: "The projector, robe, fragrance, and dressed-up fashion picks all work better when they connect to the plan rather than sitting alone.",
+        title: "Keep one lower-risk lane if sizing is a guess",
+        body: "Fragrance, beauty, or a smaller mood-setting add-on often lands better than forcing a fit-sensitive buy when you are not sure on her style.",
       },
     ],
     faqs: [
@@ -2200,7 +2200,7 @@ export const seoGuides = [
       },
       {
         q: "What is the safest date-night gift on this page?",
-        a: "The projector and Marc Jacobs fragrance are strong because they make the night feel more intentional right away without forcing a bigger relationship signal.",
+        a: "The Marc Jacobs fragrance and Sol de Janeiro set are the cleanest first answers because they feel date-facing, present-ready, and do not depend on getting her size exactly right.",
       },
       {
         q: "When should I choose anniversary gifts instead of date-night gifts?",
@@ -2214,17 +2214,7 @@ export const seoGuides = [
         body: "Best when you want the date-night gift to look visibly dressed up right away and feel more like a real reveal than a routine buy.",
       },
       {
-        title: "A softer reveal with more intimate home energy",
-        giftId: "cashmere-robe",
-        body: "Use this when the night should feel warmer, more premium, and less like a standard practical buy.",
-      },
-      {
-        title: "A date-ready fashion pick with obvious night-out energy",
-        giftId: "prettygarden-one-shoulder-maxi",
-        body: "This is the cleaner answer when you want the gift to feel more dressed-up, current, and tied to the night itself.",
-      },
-      {
-        title: "A polished getting-ready gift with stronger night-out energy",
+        title: "A polished fragrance lane with cleaner getting-ready energy",
         giftId: "marc-jacobs-perfect-absolute",
         body: "Use this when the stronger answer is a feminine, present-ready gift that feels more date-facing than a practical upgrade.",
       },
@@ -2246,17 +2236,7 @@ export const seoGuides = [
     ],
     pickLanes: [
       {
-        title: "Best shared experience",
-        giftId: "projector",
-        body: "Use this when the gift should become part of the date itself and feel more memorable than a basic object.",
-      },
-      {
-        title: "Best cozy pick",
-        giftId: "luxury-throw",
-        body: "The easiest answer when you want a lower-pressure date-night gift that still softens the mood fast.",
-      },
-      {
-        title: "Best premium reveal",
+        title: "Best size-safe pick",
         giftId: "marc-jacobs-perfect-absolute",
         body: "The easiest answer when you want the date-night gift to feel polished and clearly chosen without guessing on fit.",
       },
@@ -2271,7 +2251,7 @@ export const seoGuides = [
         body: "The cleaner answer when you want a softer mood-setting gift that still feels more date-oriented than a generic home buy.",
       },
     ],
-    itemIds: ["projector", "cashmere-robe", "luxury-throw", "prettygarden-one-shoulder-maxi", "marc-jacobs-perfect-absolute", "soly-hux-ruffle-maxi-dress"],
+    itemIds: ["satin-halter-maxi-dress", "kirundo-pleated-maxi-dress", "sol-de-janeiro", "candle-warmer", "marc-jacobs-perfect-absolute", "prettygarden-one-shoulder-maxi"],
     related: ["anniversary-gifts-for-her", "cozy-home-gifts-for-her", "gifts-for-wife"],
   },
   {
@@ -2358,7 +2338,7 @@ export const seoGuides = [
         body: "The stronger answer when you want the Amazon order to feel more substantial the second it arrives.",
       },
     ],
-    itemIds: ["gucci-flora-gorgeous-magnolia", "panluca-statement-necklace", "ninja-creami", "bose-speaker", "black-olive-tree", "mini-photo-printer"],
+    itemIds: ["gucci-flora-gorgeous-magnolia", "panluca-statement-necklace", "ninja-creami", "bose-speaker", "black-olive-tree", "faux-olive-tree-planter"],
     related: ["last-minute-gifts-for-her", "best-gifts-under-100", "viral-gifts-for-her"],
   },
   {
@@ -2445,7 +2425,7 @@ export const seoGuides = [
         body: "The better answer when the homebody gift should keep paying off long after the first night at home.",
       },
     ],
-    itemIds: ["luxury-throw", "rustic-vase-set", "miyuki-rustic-vase", "sunrise-alarm", "black-olive-tree", "candle-warmer"],
+    itemIds: ["luxury-throw", "rustic-vase-set", "miyuki-rustic-vase", "black-olive-tree", "candle-warmer", "sunrise-alarm"],
     related: ["cozy-home-gifts-for-her", "date-night-gifts-for-her", "gifts-for-wife"],
   },
   {
@@ -2634,44 +2614,22 @@ export const featuredSeoGuides = [
 ].map((slug) => seoGuides.find((guide) => guide.slug === slug)).filter(Boolean);
 
 export const heroSeoProducts = [
-  "temperature-mug",
-  "mini-photo-printer",
-  "jewelry-case",
-].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
-
-export const weeklyTopSeoProducts = [
-  "temperature-mug",
-  "jewelry-case",
-  "mini-photo-printer",
-  "owala-bottle",
-  "laneige-set",
-  "candle-warmer",
+  "kindle-paperwhite",
+  "bose-speaker",
+  "theragun-relief",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const featuredSeoProducts = [
-  "sol-de-janeiro",
-  "luxury-throw",
-  "jewelry-case",
-  "theragun-relief",
-  "mini-photo-printer",
+  "boxwood-bunny-topiary",
+  "lenox-bunny-candy-dish",
+  "kindle-paperwhite",
   "ninja-creami",
-].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
-
-export const librarySeoProducts = [
-  "temperature-mug",
-  "jewelry-case",
+  "nespresso-machine",
+  "owala-bottle",
   "theragun-relief",
   "ugg-slippers",
   "bose-speaker",
-  "nespresso-machine",
-  "kindle-paperwhite",
-  "projector",
-  "stanley-quencher",
-  "sunrise-alarm",
-  "luxury-throw",
-  "owala-bottle",
-  "prettygarden-one-shoulder-maxi",
-  "satin-halter-maxi-dress",
+  "sol-de-janeiro",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const seoDateCities = [

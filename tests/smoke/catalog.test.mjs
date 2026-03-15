@@ -37,6 +37,21 @@ test("merchant names are inferred from direct merchant hosts when missing", () =
   assert.equal(resolveGiftMerchantName(gift), "Giftpals");
 });
 
+test("newly verified imported items keep direct merchant routing", () => {
+  const olikerGift = importedCatalogItems.find((item) => item.id === "oliker-speckled-eggs");
+  const roseSeekGift = importedCatalogItems.find((item) => item.id === "roseseek-crochet-lace-pants");
+  assert.ok(olikerGift, "expected OLIKER direct merchant fixture");
+  assert.ok(roseSeekGift, "expected RoseSeek direct merchant fixture");
+
+  const olikerUrl = new URL(buildAffiliateLink(olikerGift));
+  assert.equal(olikerUrl.hostname, "www.amazon.com");
+  assert.equal(olikerUrl.pathname, "/dp/B0DSBGK88Q");
+  assert.equal(olikerUrl.searchParams.get("tag"), "shopforher0b7-20");
+
+  assert.equal(resolveGiftMerchantName(roseSeekGift), "Giftpals");
+  assert.equal(buildAffiliateLink(roseSeekGift), "https://giftpals.com/item/roseseek-women-s-cover-up-beach-pants-hollow-out-2");
+});
+
 test("generated direct merchant pages keep the inferred merchant label", () => {
   const html = fs.readFileSync(
     new URL("../../apps/web/public/gift/saodimallsu-crochet-cover-up-set/index.html", import.meta.url),

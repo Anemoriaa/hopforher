@@ -67,9 +67,19 @@ function toBoundedInteger(value, min, max, fallback) {
   return Math.min(max, Math.max(min, Math.round(parsed)));
 }
 
+function toCoordinate(value, min, max) {
+  const parsed = toNumber(value);
+
+  if (parsed === null || parsed < min || parsed > max) {
+    return null;
+  }
+
+  return parsed;
+}
+
 function getSearchParams(url) {
-  const latitude = toNumber(url.searchParams.get("latitude"));
-  const longitude = toNumber(url.searchParams.get("longitude"));
+  const latitude = toCoordinate(url.searchParams.get("latitude"), -90, 90);
+  const longitude = toCoordinate(url.searchParams.get("longitude"), -180, 180);
   const partySize = toBoundedInteger(
     url.searchParams.get("partySize"),
     1,
@@ -147,13 +157,11 @@ async function fetchJsonWithTimeout(resource, options = {}, timeoutMs = 8000) {
 
 function getGooglePlacesLanguageCode(context) {
   const explicit = String(context.env.GOOGLE_PLACES_LANGUAGE_CODE || "").trim();
+  return explicit ? toGooglePlacesLanguageCode(explicit) : toGooglePlacesLanguageCode(getRequestLocales(context)[0]);
+}
 
-  if (explicit) {
-    return explicit;
-  }
-
-  const header = context.request.headers.get("accept-language") || "";
-  const requested = header.split(",")[0]?.trim();
+function toGooglePlacesLanguageCode(value) {
+  const requested = String(value || "").trim();
 
   if (!requested) {
     return "en";
@@ -174,7 +182,7 @@ function getGooglePlacesLanguageCode(context) {
 
     return locale.language || canonical;
   } catch (error) {
-    return requested.split("-")[0] || "en";
+    return "en";
   }
 }
 
@@ -192,11 +200,16 @@ function getGooglePlacesRegionCode(context) {
   const explicit = String(context.env.GOOGLE_PLACES_REGION_CODE || "").trim();
 
   if (explicit) {
-    return explicit;
+    return normalizeGooglePlacesRegionCode(explicit);
   }
 
   const header = context.request.headers.get("cf-ipcountry") || "";
-  return /^[A-Z]{2}$/i.test(header) ? header.toUpperCase() : undefined;
+  return normalizeGooglePlacesRegionCode(header);
+}
+
+function normalizeGooglePlacesRegionCode(value) {
+  const normalized = String(value || "").trim().toUpperCase();
+  return /^[A-Z]{2}$/.test(normalized) ? normalized : undefined;
 }
 
 function getGooglePlacesRankPreference(env) {
