@@ -69,7 +69,7 @@ const surfaceBuilders = {
       footerTagline: "",
     };
   },
-  books({ updatedLabel }) {
+  books({ t, updatedLabel }) {
     return {
       id: "books",
       appClassName: "surface-books",
@@ -85,8 +85,8 @@ const surfaceBuilders = {
         primaryCta: "Start with reader-safe picks",
         secondaryCta: "See the shortlist",
         summary: `Books-forward surface preview inside ShopForHer. Reading-first picks updated ${updatedLabel}.`,
-        openHotAria: "Open the Hot page",
-        openHotLabel: "Need trend proof? Open Hot",
+        openHotAria: t("home.openHotAria"),
+        openHotLabel: t("home.openHotLabel"),
       },
       heroProductIds: ["kindle-paperwhite", "luxury-throw", "candle-warmer"],
       decisionModule: {
