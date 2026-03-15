@@ -256,12 +256,29 @@ function buildBriefSelection(selection) {
   };
 }
 
+function isLocalImageUrl(value) {
+  return typeof value === "string" && value.startsWith("/");
+}
+
 function getGiftImageList(gift) {
   if (!gift) {
     return [];
   }
 
-  return [...new Set([gift.imageUrl || gift.image || "", ...(gift.galleryImages || [])].filter(Boolean))];
+  const productMedia = getProductMedia(gift.id);
+  const resolvedCandidates = [
+    productMedia.imageUrl,
+    gift.imageUrl,
+    gift.image,
+    ...(productMedia.galleryImages || []),
+    ...(gift.galleryImages || []),
+  ].filter(Boolean);
+  const dedupedCandidates = [...new Set(resolvedCandidates)];
+  const localFirstCandidates = dedupedCandidates.filter((value) => isLocalImageUrl(value));
+
+  return localFirstCandidates.length
+    ? [...localFirstCandidates, ...dedupedCandidates.filter((value) => !isLocalImageUrl(value))]
+    : dedupedCandidates;
 }
 
 function extractTikTokVideoId(value) {
@@ -325,9 +342,7 @@ function postTikTokPlayerMessage(frameWindow, type, value) {
 }
 
 function getGiftMotionPoster(gift, fallbackId = "story") {
-  const videoPoster = (gift?.shortVideos || []).find((video) => video?.posterUrl)?.posterUrl;
-
-  return videoPoster || "";
+  return getGiftImageList(gift)[0] || "";
 }
 
 function getPreviewMediaThumbnailUrl(media) {
@@ -378,14 +393,19 @@ function buildGiftPreviewMedia(gift) {
       video.provider === "tiktok"
         ? extractTikTokVideoId(video.id || video.sourceUrl || video.embedUrl || "")
         : "";
+    const fallbackPosterUrl = images[0] || "";
+    const displayPosterUrl =
+      video.provider === "tiktok"
+        ? fallbackPosterUrl
+        : video.posterUrl || fallbackPosterUrl;
 
     return {
       id: `${gift.id}-${video.id || `video-${index + 1}`}`,
       kind: video.provider === "direct" ? "video" : "embed",
       provider: video.provider,
       title: video.title,
-      nativePosterUrl: video.posterUrl || "",
-      posterUrl: video.posterUrl || images[0] || "",
+      nativePosterUrl: video.provider === "tiktok" ? "" : video.posterUrl || "",
+      posterUrl: displayPosterUrl,
       videoUrl: video.videoUrl || "",
       embedUrl:
         video.provider === "tiktok"
@@ -560,16 +580,16 @@ function rankGiftMatches(gifts, filters) {
 }
 
 function getGiftImageUrl(gift) {
-  return gift?.imageUrl || gift?.image || "/logo1.png";
+  return getGiftImageList(gift)[0] || giftImageFallbackUrl;
 }
 
 function getGiftFallbackImageUrl(gift) {
-  const productMedia = getProductMedia(gift?.id);
-  const localImageCandidates = [gift?.imageUrl, gift?.image, productMedia.imageUrl].filter(
-    (value) => typeof value === "string" && value.startsWith("/")
+  const primaryImageUrl = getGiftImageUrl(gift);
+  const alternateLocalImageUrl = getGiftImageList(gift).find(
+    (value) => isLocalImageUrl(value) && value !== primaryImageUrl
   );
 
-  return localImageCandidates[0] || giftImageFallbackUrl;
+  return alternateLocalImageUrl || giftImageFallbackUrl;
 }
 
 function getGiftHeroImageUrl(gift) {
@@ -730,7 +750,7 @@ function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
 
     return mediaItems.find((candidate) => candidate.id === item.mediaId) || getPrimaryHotMedia(gift, item.surfaceId);
   }, [gift, item.mediaId, item.surfaceId]);
-  const posterUrl = media?.nativePosterUrl || media?.posterUrl || getGiftImageUrl(gift);
+  const posterUrl = media?.posterUrl || media?.nativePosterUrl || getGiftImageUrl(gift);
   const embedUrl =
     shouldLoadEmbed && media?.provider === "tiktok"
       ? buildTikTokPlayerUrl(media.videoId, {
