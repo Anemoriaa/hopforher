@@ -1021,6 +1021,9 @@ h2, h3 {
 }
 
 .gs-home-decision-module {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
   padding: 14px;
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -1029,6 +1032,8 @@ h2, h3 {
 }
 
 .gs-home-module-head {
+  width: 100%;
+  max-width: 30rem;
   display: grid;
   gap: 10px;
   justify-items: center;
@@ -1060,23 +1065,34 @@ h2, h3 {
   letter-spacing: 0.05em;
 }
 
+.gs-home-picker-stage {
+  width: min(100%, 22rem);
+  display: grid;
+  gap: 8px;
+}
+
 .gs-home-picker-progress {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(240, 240, 240, 0.7);
 }
 
 .gs-home-picker-progress-step {
-  padding: 5px 8px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
+  min-height: 30px;
+  padding: 5px 6px;
+  border: 1px solid transparent;
+  border-radius: 10px;
   background: transparent;
   color: var(--text-soft);
   font-family: var(--font-display);
-  font-size: 0.56rem;
+  font-size: 0.5rem;
   font-weight: 800;
   letter-spacing: 0.05em;
+  line-height: 1.1;
   text-transform: uppercase;
   cursor: pointer;
   transition:
@@ -1093,28 +1109,52 @@ h2, h3 {
 
 .gs-home-picker-viewport {
   overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px;
+  background:
+    linear-gradient(180deg, rgba(240, 240, 240, 0.76), rgba(255, 255, 255, 0.96));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
 }
 
 .gs-home-picker-track {
   display: flex;
+  align-items: stretch;
   transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
 }
 
 .gs-home-picker-slide {
   flex: 0 0 100%;
   min-width: 100%;
   display: flex;
+  padding: 2px;
 }
 
 .gs-home-picker-panel {
   width: 100%;
   display: grid;
-  gap: 12px;
+  gap: 10px;
+  min-height: 22rem;
   align-content: start;
 }
 
 .gs-home-picker-panel.is-intro {
-  gap: 14px;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+.gs-home-question.gs-home-picker-panel {
+  grid-template-rows: auto 1fr auto;
+}
+
+.gs-home-picker-panel-result {
+  grid-template-rows: 1fr auto;
+  align-content: stretch;
 }
 
 .gs-home-picker-copy,
@@ -1129,7 +1169,7 @@ h2, h3 {
 .gs-home-picker-step-copy h4 {
   margin: 0;
   font-family: var(--font-display);
-  font-size: 0.92rem;
+  font-size: 0.86rem;
   line-height: 1;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -1138,10 +1178,10 @@ h2, h3 {
 
 .gs-home-picker-copy p,
 .gs-home-picker-step-copy p {
-  max-width: 30ch;
+  max-width: 28ch;
   margin: 0;
   color: var(--text-soft);
-  font-size: 0.74rem;
+  font-size: 0.68rem;
   line-height: 1.45;
 }
 
@@ -1150,7 +1190,7 @@ h2, h3 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .gs-home-picker-nav.is-result {
@@ -1225,6 +1265,29 @@ h2, h3 {
   grid-template-columns: minmax(0, 1fr);
 }
 
+.gs-home-picker-shortcuts {
+  gap: 6px;
+  align-content: start;
+}
+
+.gs-home-picker-shortcut {
+  gap: 6px;
+  padding: 10px;
+}
+
+.gs-home-picker-shortcut .gs-seo-guide-eyebrow {
+  margin-bottom: 2px;
+  font-size: 0.52rem;
+}
+
+.gs-home-picker-shortcut h4 {
+  font-size: 0.72rem;
+}
+
+.gs-home-picker-shortcut p {
+  display: none;
+}
+
 .gs-home-quick-start-copy {
   display: grid;
   gap: 4px;
@@ -1242,11 +1305,25 @@ h2, h3 {
   gap: 8px;
 }
 
+.gs-home-picker-shortcut .gs-home-quick-start-actions.is-inline {
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px;
+}
+
 .gs-home-quick-start-actions.is-inline .gs-secondary-btn {
   min-width: 0;
   padding: 7px 10px;
   font-size: 0.62rem;
   border-radius: 6px;
+}
+
+.gs-home-picker-shortcut .gs-home-quick-start-actions.is-inline .gs-secondary-btn {
+  padding: 7px 8px;
+  font-size: 0.56rem;
+}
+
+.gs-home-picker-shortcut .gs-home-inline-link {
+  font-size: 0.5rem;
 }
 
 .gs-home-inline-link {
@@ -1300,12 +1377,13 @@ h2, h3 {
 .gs-home-compact-choice-grid {
   display: grid;
   gap: 6px;
+  align-content: start;
 }
 
 .gs-home-choice {
   display: grid;
   gap: 0;
-  min-height: 38px;
+  min-height: 42px;
   padding: 8px 10px;
   border: 1px solid var(--border);
   border-radius: 8px;
@@ -1354,8 +1432,9 @@ h2, h3 {
 
 .gs-home-result-card {
   display: grid;
-  gap: 12px;
-  padding: 14px;
+  gap: 10px;
+  min-height: 100%;
+  padding: 12px;
   align-content: start;
   background: var(--text);
   border-color: var(--text);
@@ -1470,6 +1549,10 @@ h2, h3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .gs-home-picker-shortcuts {
+    grid-template-columns: 1fr;
+  }
+
   .gs-home-question-stack,
   .gs-home-choice-grid,
   .gs-home-compact-choice-grid {
@@ -1479,9 +1562,21 @@ h2, h3 {
   .gs-home-picker-nav.is-result {
     justify-content: flex-end;
   }
+
+  .gs-home-picker-stage .gs-home-picker-nav.is-result {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 639px) {
+  .gs-home-picker-stage {
+    width: 100%;
+  }
+
+  .gs-home-picker-panel {
+    min-height: 20rem;
+  }
+
   .gs-home-hero-actions .gs-primary-btn,
   .gs-home-hero-actions .gs-secondary-btn,
   .gs-home-result-actions .gs-primary-btn,
@@ -3144,6 +3239,14 @@ h2, h3 {
 .surface-books .gs-home-question,
 .surface-books .gs-home-result-card,
 .surface-books .gs-home-quick-start-card {
+  border-color: rgba(95, 67, 40, 0.14);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 240, 228, 0.9));
+}
+
+.surface-books .gs-home-picker-progress,
+.surface-books .gs-home-picker-viewport,
+.surface-books .gs-home-picker-panel.is-intro {
   border-color: rgba(95, 67, 40, 0.14);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 240, 228, 0.9));

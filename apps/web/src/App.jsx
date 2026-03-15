@@ -2606,303 +2606,311 @@ export default function App() {
                       ))}
                     </div>
                   </div>
-                  <div className="gs-home-picker-progress" aria-label={activeDecisionModule.title}>
-                    {pickerSlides.map((slide, index) => (
-                      <button
-                        key={slide.id}
-                        type="button"
-                        className={classNames("gs-home-picker-progress-step", pickerStep === index && "is-active")}
-                        onClick={() => goToPickerStep(index)}
-                        aria-current={pickerStep === index ? "step" : undefined}
+                  <div className="gs-home-picker-stage">
+                    <div className="gs-home-picker-progress" aria-label={activeDecisionModule.title}>
+                      {pickerSlides.map((slide, index) => (
+                        <button
+                          key={slide.id}
+                          type="button"
+                          className={classNames("gs-home-picker-progress-step", pickerStep === index && "is-active")}
+                          onClick={() => goToPickerStep(index)}
+                          aria-current={pickerStep === index ? "step" : undefined}
+                        >
+                          {t(`picker.${slide.id}`)}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="gs-home-picker-viewport">
+                      <div
+                        className="gs-home-picker-track"
+                        style={{ transform: `translateX(-${pickerStep * 100}%)` }}
                       >
-                        {t(`picker.${slide.id}`)}
-                      </button>
-                    ))}
-                  </div>
-                  <div className="gs-home-picker-viewport">
-                    <div
-                      className="gs-home-picker-track"
-                      style={{ transform: `translateX(-${pickerStep * 100}%)` }}
-                    >
-                      <section
-                        className="gs-home-picker-slide"
-                        aria-hidden={pickerStep !== 0}
-                        tabIndex={pickerStep === 0 ? 0 : -1}
-                      >
-                        <div className="gs-home-picker-panel is-intro">
-                          <div className="gs-home-picker-copy">
-                            <span className="gs-seo-guide-eyebrow">{activePickerIntro.eyebrow}</span>
-                            <h4>{activePickerIntro.title}</h4>
-                            <p>{activePickerIntro.body}</p>
-                          </div>
-                          <div className="gs-home-quick-start-row" aria-label={activePickerIntro.quickStartAriaLabel}>
-                            {activeQuickStartLanes.map((lane) => (
-                              <article key={lane.id} className="gs-home-quick-start-card is-condensed">
-                                <div className="gs-home-quick-start-copy">
-                                  <span className="gs-seo-guide-eyebrow">{getQuickStartLaneText(lane, "eyebrow")}</span>
-                                  <h4>{getQuickStartLaneText(lane, "title")}</h4>
-                                  <p>{getQuickStartLaneText(lane, "description")}</p>
-                                </div>
-                                <div className="gs-home-quick-start-actions is-inline">
-                                  <button
-                                    type="button"
-                                    className="gs-secondary-btn"
-                                    onClick={() => applyBriefSelection(lane.selection)}
-                                  >
-                                    {getQuickStartLaneText(lane, "cta")}
-                                  </button>
-                                  <a href={lane.guideHref} className="gs-home-inline-link">
-                                    {getQuickStartLaneText(lane, "guideLabel")}
-                                  </a>
-                                </div>
-                              </article>
-                            ))}
-                          </div>
-                          <div className="gs-home-picker-footer">
-                            <button
-                              type="button"
-                              className="gs-primary-btn"
-                              onClick={() => goToPickerStep(1)}
-                            >
-                              {activePickerIntro.buildManualLabel}
-                            </button>
-                            <a href={activePickerIntro.speedHref} className="gs-home-inline-link">
-                              {activePickerIntro.speedLabel}
-                            </a>
-                          </div>
-                        </div>
-                      </section>
-
-                      <section
-                        className="gs-home-picker-slide"
-                        aria-hidden={pickerStep !== 1}
-                        tabIndex={pickerStep === 1 ? 0 : -1}
-                      >
-                        <div className="gs-home-question gs-home-picker-panel" aria-label="Relationship stage">
-                          <div className="gs-home-picker-step-copy">
-                            <span className="gs-home-step-number">01</span>
-                            <div>
-                              <h4>{t("picker.relationshipTitle")}</h4>
-                              <p>{t("picker.relationshipBody")}</p>
+                        <section
+                          className="gs-home-picker-slide"
+                          aria-hidden={pickerStep !== 0}
+                          tabIndex={pickerStep === 0 ? 0 : -1}
+                        >
+                          <div className="gs-home-picker-panel is-intro">
+                            <div className="gs-home-picker-copy">
+                              <span className="gs-seo-guide-eyebrow">{activePickerIntro.eyebrow}</span>
+                              <h4>{activePickerIntro.title}</h4>
+                              <p>{activePickerIntro.body}</p>
                             </div>
-                          </div>
-                          <div className="gs-home-choice-grid">
-                            {relationshipOptions.map((option, index) => (
-                              <button
-                                key={option.id}
-                                type="button"
-                                className={classNames("gs-home-choice", brief.relationship === index && "is-active")}
-                                onClick={() => updateBriefAndAdvance("relationship", index, 2)}
-                                aria-pressed={brief.relationship === index}
-                              >
-                                <strong>{getRelationshipLabel(option.id)}</strong>
-                                <span>{option.note}</span>
-                              </button>
-                            ))}
-                          </div>
-                          <div className="gs-home-picker-nav">
-                            <button
-                              type="button"
-                              className="gs-secondary-btn"
-                              onClick={() => goToPickerStep(0)}
+                            <div
+                              className="gs-home-quick-start-row gs-home-picker-shortcuts"
+                              aria-label={activePickerIntro.quickStartAriaLabel}
                             >
-                              {t("generic.back")}
-                            </button>
-                          </div>
-                        </div>
-                      </section>
-
-                      <section
-                        className="gs-home-picker-slide"
-                        aria-hidden={pickerStep !== 2}
-                        tabIndex={pickerStep === 2 ? 0 : -1}
-                      >
-                        <div className="gs-home-question gs-home-picker-panel" aria-label="Budget">
-                          <div className="gs-home-picker-step-copy">
-                            <span className="gs-home-step-number">02</span>
-                            <div>
-                              <h4>{t("picker.budgetTitle")}</h4>
-                              <p>{t("picker.budgetBody")}</p>
-                            </div>
-                          </div>
-                          <div className="gs-home-choice-grid">
-                            {budgetOptions.map((option, index) => (
-                              <button
-                                key={option.id}
-                                type="button"
-                                className={classNames("gs-home-choice", brief.budget === index && "is-active")}
-                                onClick={() => updateBriefAndAdvance("budget", index, 3)}
-                                aria-pressed={brief.budget === index}
-                              >
-                                <strong>{getBudgetLabel(option.id)}</strong>
-                                <span>{option.note}</span>
-                              </button>
-                            ))}
-                          </div>
-                          <div className="gs-home-picker-nav">
-                            <button
-                              type="button"
-                              className="gs-secondary-btn"
-                              onClick={() => goToPickerStep(1)}
-                            >
-                              {t("generic.back")}
-                            </button>
-                          </div>
-                        </div>
-                      </section>
-
-                      <section
-                        className="gs-home-picker-slide"
-                        aria-hidden={pickerStep !== 3}
-                        tabIndex={pickerStep === 3 ? 0 : -1}
-                      >
-                        <div className="gs-home-question gs-home-picker-panel" aria-label="Vibe or use case">
-                          <div className="gs-home-picker-step-copy">
-                            <span className="gs-home-step-number">03</span>
-                            <div>
-                              <h4>{t("picker.intentTitle")}</h4>
-                              <p>{t("picker.intentBody")}</p>
-                            </div>
-                          </div>
-                          <div className="gs-home-choice-grid">
-                            {intentOptions.map((option, index) => (
-                              <button
-                                key={option.id}
-                                type="button"
-                                className={classNames("gs-home-choice", brief.intent === index && "is-active")}
-                                onClick={() => updateBriefAndAdvance("intent", index, 4)}
-                                aria-pressed={brief.intent === index}
-                              >
-                                <strong>{getIntentLabel(option.id)}</strong>
-                                <span>{option.note}</span>
-                              </button>
-                            ))}
-                          </div>
-                          <div className="gs-home-picker-nav">
-                            <button
-                              type="button"
-                              className="gs-secondary-btn"
-                              onClick={() => goToPickerStep(2)}
-                            >
-                              {t("generic.back")}
-                            </button>
-                          </div>
-                        </div>
-                      </section>
-
-                      <section
-                        className="gs-home-picker-slide"
-                        aria-hidden={pickerStep !== 4}
-                        tabIndex={pickerStep === 4 ? 0 : -1}
-                      >
-                        <div className="gs-home-question is-compact gs-home-picker-panel" aria-label="Optional lane refinement">
-                          <div className="gs-home-picker-step-copy">
-                            <span className="gs-home-step-number">+</span>
-                            <div>
-                              <h4>{t("picker.signalTitle")}</h4>
-                              <p>{t("picker.signalBody")}</p>
-                            </div>
-                          </div>
-                          <div className="gs-home-compact-choice-grid">
-                            {signalOptions.map((option) => (
-                              <button
-                                key={option.id}
-                                type="button"
-                                className={classNames("gs-home-choice is-compact", activeSignal.id === option.id && "is-active")}
-                                onClick={() => updateSignalAndAdvance(option.id)}
-                                aria-pressed={activeSignal.id === option.id}
-                              >
-                                <strong>{getSignalLabel(option.id)}</strong>
-                              </button>
-                            ))}
-                          </div>
-                          <div className="gs-home-picker-nav">
-                            <button
-                              type="button"
-                              className="gs-secondary-btn"
-                              onClick={() => goToPickerStep(3)}
-                            >
-                              {t("generic.back")}
-                            </button>
-                            <button
-                              type="button"
-                              className="gs-secondary-btn"
-                              onClick={() => goToPickerStep(pickerResultStep)}
-                            >
-                              {t("generic.skipToGift")}
-                            </button>
-                          </div>
-                        </div>
-                      </section>
-
-                      <section
-                        className="gs-home-picker-slide"
-                        aria-hidden={pickerStep !== pickerResultStep}
-                        tabIndex={pickerStep === pickerResultStep ? 0 : -1}
-                      >
-                        <div className="gs-home-picker-panel gs-home-picker-panel-result">
-                          <aside className="gs-home-result-card" aria-live="polite" aria-atomic="true">
-                            <p className="gs-overline">{t("home.currentRecommendation")}</p>
-                            {leadRecommendation ? (
-                              <>
-                                <div className="gs-home-result-head">
-                                  <h4>{leadRecommendation.name}</h4>
-                                  <p>{leadRecommendation.hook}</p>
-                                </div>
-                                <div className="gs-home-result-tags">
-                                  <span>{relationshipLabel}</span>
-                                  <span>{budgetLabel}</span>
-                                  <span>{intentLabel}</span>
-                                  <span>{signalLabel}</span>
-                                </div>
-                                <div className="gs-home-result-points is-condensed">
-                                  <p>{leadRecommendation.why}</p>
-                                  <div className="gs-home-result-mini-meta">
-                                    <span>{t("home.bestFor", { value: leadRecommendation.bestFor })}</span>
-                                    <span>{activeGuideChipLabel}</span>
+                              {activeQuickStartLanes.map((lane) => (
+                                <article
+                                  key={lane.id}
+                                  className="gs-home-quick-start-card gs-home-picker-shortcut is-condensed"
+                                >
+                                  <div className="gs-home-quick-start-copy">
+                                    <span className="gs-seo-guide-eyebrow">{getQuickStartLaneText(lane, "eyebrow")}</span>
+                                    <h4>{getQuickStartLaneText(lane, "title")}</h4>
+                                    <p>{getQuickStartLaneText(lane, "description")}</p>
                                   </div>
-                                </div>
-                                <div className="gs-home-result-actions">
-                                  <a
-                                    className="gs-primary-btn"
-                                    href={buildAffiliateLink(leadRecommendation)}
-                                    target="_blank"
-                                    rel={getGiftCommerceRel(leadRecommendation)}
-                                    {...getAffiliateAnchorData(leadRecommendation, "home-decision-primary")}
-                                    aria-label={getGiftCommerceAriaLabel(leadRecommendation)}
-                                  >
-                                    {getGiftPrimaryCtaText(leadRecommendation)}
-                                  </a>
-                                  <a className="gs-secondary-btn" href={activeGuide.href}>
-                                    {t("generic.openGuide")}
-                                  </a>
-                                </div>
-                                <p className="gs-home-result-helper">
-                                  {t("home.needSpeedInstead")}
-                                </p>
-                              </>
-                            ) : (
-                              <p className="gs-home-result-empty">{t("home.noRecommendation")}</p>
-                            )}
-                          </aside>
-                          <div className="gs-home-picker-nav is-result">
-                            <button
-                              type="button"
-                              className="gs-secondary-btn"
-                              onClick={() => goToPickerStep(1)}
-                            >
-                              {t("generic.editAnswers")}
-                            </button>
-                            <button
-                              type="button"
-                              className="gs-secondary-btn"
-                              onClick={() => goToPickerStep(0)}
-                            >
-                              {t("picker.start")}
-                            </button>
+                                  <div className="gs-home-quick-start-actions is-inline">
+                                    <button
+                                      type="button"
+                                      className="gs-secondary-btn"
+                                      onClick={() => applyBriefSelection(lane.selection)}
+                                    >
+                                      {getQuickStartLaneText(lane, "cta")}
+                                    </button>
+                                    <a href={lane.guideHref} className="gs-home-inline-link">
+                                      {getQuickStartLaneText(lane, "guideLabel")}
+                                    </a>
+                                  </div>
+                                </article>
+                              ))}
+                            </div>
+                            <div className="gs-home-picker-footer">
+                              <button
+                                type="button"
+                                className="gs-primary-btn"
+                                onClick={() => goToPickerStep(1)}
+                              >
+                                {activePickerIntro.buildManualLabel}
+                              </button>
+                              <a href={activePickerIntro.speedHref} className="gs-home-inline-link">
+                                {activePickerIntro.speedLabel}
+                              </a>
+                            </div>
                           </div>
-                        </div>
-                      </section>
+                        </section>
+
+                        <section
+                          className="gs-home-picker-slide"
+                          aria-hidden={pickerStep !== 1}
+                          tabIndex={pickerStep === 1 ? 0 : -1}
+                        >
+                          <div className="gs-home-question gs-home-picker-panel" aria-label="Relationship stage">
+                            <div className="gs-home-picker-step-copy">
+                              <span className="gs-home-step-number">01</span>
+                              <div>
+                                <h4>{t("picker.relationshipTitle")}</h4>
+                                <p>{t("picker.relationshipBody")}</p>
+                              </div>
+                            </div>
+                            <div className="gs-home-choice-grid">
+                              {relationshipOptions.map((option, index) => (
+                                <button
+                                  key={option.id}
+                                  type="button"
+                                  className={classNames("gs-home-choice", brief.relationship === index && "is-active")}
+                                  onClick={() => updateBriefAndAdvance("relationship", index, 2)}
+                                  aria-pressed={brief.relationship === index}
+                                >
+                                  <strong>{getRelationshipLabel(option.id)}</strong>
+                                  <span>{option.note}</span>
+                                </button>
+                              ))}
+                            </div>
+                            <div className="gs-home-picker-nav">
+                              <button
+                                type="button"
+                                className="gs-secondary-btn"
+                                onClick={() => goToPickerStep(0)}
+                              >
+                                {t("generic.back")}
+                              </button>
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          className="gs-home-picker-slide"
+                          aria-hidden={pickerStep !== 2}
+                          tabIndex={pickerStep === 2 ? 0 : -1}
+                        >
+                          <div className="gs-home-question gs-home-picker-panel" aria-label="Budget">
+                            <div className="gs-home-picker-step-copy">
+                              <span className="gs-home-step-number">02</span>
+                              <div>
+                                <h4>{t("picker.budgetTitle")}</h4>
+                                <p>{t("picker.budgetBody")}</p>
+                              </div>
+                            </div>
+                            <div className="gs-home-choice-grid">
+                              {budgetOptions.map((option, index) => (
+                                <button
+                                  key={option.id}
+                                  type="button"
+                                  className={classNames("gs-home-choice", brief.budget === index && "is-active")}
+                                  onClick={() => updateBriefAndAdvance("budget", index, 3)}
+                                  aria-pressed={brief.budget === index}
+                                >
+                                  <strong>{getBudgetLabel(option.id)}</strong>
+                                  <span>{option.note}</span>
+                                </button>
+                              ))}
+                            </div>
+                            <div className="gs-home-picker-nav">
+                              <button
+                                type="button"
+                                className="gs-secondary-btn"
+                                onClick={() => goToPickerStep(1)}
+                              >
+                                {t("generic.back")}
+                              </button>
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          className="gs-home-picker-slide"
+                          aria-hidden={pickerStep !== 3}
+                          tabIndex={pickerStep === 3 ? 0 : -1}
+                        >
+                          <div className="gs-home-question gs-home-picker-panel" aria-label="Vibe or use case">
+                            <div className="gs-home-picker-step-copy">
+                              <span className="gs-home-step-number">03</span>
+                              <div>
+                                <h4>{t("picker.intentTitle")}</h4>
+                                <p>{t("picker.intentBody")}</p>
+                              </div>
+                            </div>
+                            <div className="gs-home-choice-grid">
+                              {intentOptions.map((option, index) => (
+                                <button
+                                  key={option.id}
+                                  type="button"
+                                  className={classNames("gs-home-choice", brief.intent === index && "is-active")}
+                                  onClick={() => updateBriefAndAdvance("intent", index, 4)}
+                                  aria-pressed={brief.intent === index}
+                                >
+                                  <strong>{getIntentLabel(option.id)}</strong>
+                                  <span>{option.note}</span>
+                                </button>
+                              ))}
+                            </div>
+                            <div className="gs-home-picker-nav">
+                              <button
+                                type="button"
+                                className="gs-secondary-btn"
+                                onClick={() => goToPickerStep(2)}
+                              >
+                                {t("generic.back")}
+                              </button>
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          className="gs-home-picker-slide"
+                          aria-hidden={pickerStep !== 4}
+                          tabIndex={pickerStep === 4 ? 0 : -1}
+                        >
+                          <div className="gs-home-question is-compact gs-home-picker-panel" aria-label="Optional lane refinement">
+                            <div className="gs-home-picker-step-copy">
+                              <span className="gs-home-step-number">+</span>
+                              <div>
+                                <h4>{t("picker.signalTitle")}</h4>
+                                <p>{t("picker.signalBody")}</p>
+                              </div>
+                            </div>
+                            <div className="gs-home-compact-choice-grid">
+                              {signalOptions.map((option) => (
+                                <button
+                                  key={option.id}
+                                  type="button"
+                                  className={classNames("gs-home-choice is-compact", activeSignal.id === option.id && "is-active")}
+                                  onClick={() => updateSignalAndAdvance(option.id)}
+                                  aria-pressed={activeSignal.id === option.id}
+                                >
+                                  <strong>{getSignalLabel(option.id)}</strong>
+                                </button>
+                              ))}
+                            </div>
+                            <div className="gs-home-picker-nav">
+                              <button
+                                type="button"
+                                className="gs-secondary-btn"
+                                onClick={() => goToPickerStep(3)}
+                              >
+                                {t("generic.back")}
+                              </button>
+                              <button
+                                type="button"
+                                className="gs-secondary-btn"
+                                onClick={() => goToPickerStep(pickerResultStep)}
+                              >
+                                {t("generic.skipToGift")}
+                              </button>
+                            </div>
+                          </div>
+                        </section>
+
+                        <section
+                          className="gs-home-picker-slide"
+                          aria-hidden={pickerStep !== pickerResultStep}
+                          tabIndex={pickerStep === pickerResultStep ? 0 : -1}
+                        >
+                          <div className="gs-home-picker-panel gs-home-picker-panel-result">
+                            <aside className="gs-home-result-card" aria-live="polite" aria-atomic="true">
+                              <p className="gs-overline">{t("home.currentRecommendation")}</p>
+                              {leadRecommendation ? (
+                                <>
+                                  <div className="gs-home-result-head">
+                                    <h4>{leadRecommendation.name}</h4>
+                                    <p>{leadRecommendation.hook}</p>
+                                  </div>
+                                  <div className="gs-home-result-tags">
+                                    <span>{relationshipLabel}</span>
+                                    <span>{budgetLabel}</span>
+                                    <span>{intentLabel}</span>
+                                    <span>{signalLabel}</span>
+                                  </div>
+                                  <div className="gs-home-result-points is-condensed">
+                                    <p>{leadRecommendation.why}</p>
+                                    <div className="gs-home-result-mini-meta">
+                                      <span>{t("home.bestFor", { value: leadRecommendation.bestFor })}</span>
+                                      <span>{activeGuideChipLabel}</span>
+                                    </div>
+                                  </div>
+                                  <div className="gs-home-result-actions">
+                                    <a
+                                      className="gs-primary-btn"
+                                      href={buildAffiliateLink(leadRecommendation)}
+                                      target="_blank"
+                                      rel={getGiftCommerceRel(leadRecommendation)}
+                                      {...getAffiliateAnchorData(leadRecommendation, "home-decision-primary")}
+                                      aria-label={getGiftCommerceAriaLabel(leadRecommendation)}
+                                    >
+                                      {getGiftPrimaryCtaText(leadRecommendation)}
+                                    </a>
+                                    <a className="gs-secondary-btn" href={activeGuide.href}>
+                                      {t("generic.openGuide")}
+                                    </a>
+                                  </div>
+                                  <p className="gs-home-result-helper">
+                                    {t("home.needSpeedInstead")}
+                                  </p>
+                                </>
+                              ) : (
+                                <p className="gs-home-result-empty">{t("home.noRecommendation")}</p>
+                              )}
+                            </aside>
+                            <div className="gs-home-picker-nav is-result">
+                              <button
+                                type="button"
+                                className="gs-secondary-btn"
+                                onClick={() => goToPickerStep(1)}
+                              >
+                                {t("generic.editAnswers")}
+                              </button>
+                              <button
+                                type="button"
+                                className="gs-secondary-btn"
+                                onClick={() => goToPickerStep(0)}
+                              >
+                                {t("picker.start")}
+                              </button>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
                     </div>
                   </div>
                 </section>
