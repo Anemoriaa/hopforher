@@ -1,0 +1,14 @@
+<svg width="800" height="960" viewBox="0 0 800 960" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="960" rx="48" fill="#F3F0EA"/>
+  <rect x="56" y="56" width="688" height="848" rx="36" fill="#FCFBF8" stroke="#D9D2C7" stroke-width="8"/>
+  <path d="M240 300C240 273.49 261.49 252 288 252H512C538.51 252 560 273.49 560 300V352H240V300Z" fill="#111111"/>
+  <path d="M268 352H532V640C532 666.51 510.51 688 484 688H316C289.49 688 268 666.51 268 640V352Z" fill="#E8E1D5"/>
+  <path d="M400 252V688" stroke="#FCFBF8" stroke-width="12" stroke-linecap="round"/>
+  <path d="M400 252V688" stroke="#111111" stroke-opacity="0.08" stroke-width="20" stroke-linecap="round"/>
+  <text x="400" y="772" text-anchor="middle" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700" letter-spacing="4">
+    SHOPFORHER
+  </text>
+  <text x="400" y="830" text-anchor="middle" fill="#6B655D" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" letter-spacing="8">
+    GIFT PICK
+  </text>
+</svg>

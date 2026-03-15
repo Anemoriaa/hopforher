@@ -39,6 +39,7 @@ import {
 import { createI18n } from "./lib/i18n.js";
 import { applyDocumentLocale, buildLocaleBadge, formatDateForLocales, getLocaleProfile } from "./lib/locale.js";
 import { getHomeSurfaceMeta, resolveHomeSurface } from "./content/home-surfaces.js";
+import { getProductMedia } from "../../../packages/catalog/media.js";
 
 const slides = [
   { id: "popular", label: "Popular", number: "01" },
@@ -155,6 +156,29 @@ const guideByRelationship = {
   },
 };
 
+const bookGuideByRelationship = {
+  girlfriend: {
+    href: "/books-for-her/",
+    label: "Open the books guide",
+    chipLabel: "Books guide",
+  },
+  wife: {
+    href: "/book-lover-gifts-for-her/",
+    label: "Open the book-lover guide",
+    chipLabel: "Book-lover guide",
+  },
+  anniversary: {
+    href: "/book-lover-gifts-for-her/",
+    label: "Open the book-lover guide",
+    chipLabel: "Book-lover guide",
+  },
+  "new-relationship": {
+    href: "/kindle-gifts-for-her/",
+    label: "Open the Kindle guide",
+    chipLabel: "Kindle guide",
+  },
+};
+
 const pickerSlides = [
   { id: "start", label: "Start" },
   { id: "relationship", label: "Relationship" },
@@ -174,6 +198,7 @@ const HOT_FEED_MAX_BATCH_COUNT = 5;
 const HOT_FEED_ROTATION_STEP = 3;
 const previewReelFrameDurationMs = 1500;
 const TIKTOK_PLAYER_ORIGIN = "https://www.tiktok.com";
+const giftImageFallbackUrl = "/brand-art/gift-fallback.svg";
 
 function getStableSeed(...parts) {
   return parts.join("-").split("").reduce((total, char) => total + char.charCodeAt(0), 0);
@@ -538,6 +563,15 @@ function getGiftImageUrl(gift) {
   return gift?.imageUrl || gift?.image || "/logo1.png";
 }
 
+function getGiftFallbackImageUrl(gift) {
+  const productMedia = getProductMedia(gift?.id);
+  const localImageCandidates = [gift?.imageUrl, gift?.image, productMedia.imageUrl].filter(
+    (value) => typeof value === "string" && value.startsWith("/")
+  );
+
+  return localImageCandidates[0] || giftImageFallbackUrl;
+}
+
 function getGiftHeroImageUrl(gift) {
   return getGiftImageList(gift)[0] || getGiftImageUrl(gift);
 }
@@ -559,6 +593,32 @@ function getGiftImageFrameProps(gift, baseClassName) {
     className: classNames(baseClassName, productShot && "is-product-shot"),
     style: getGiftImageStyleVars(gift),
   };
+}
+
+function ResilientImage({ src, fallbackSrc, alt, ...props }) {
+  const initialSrc = src || fallbackSrc || "";
+  const [activeSrc, setActiveSrc] = useState(initialSrc);
+
+  useEffect(() => {
+    setActiveSrc(initialSrc);
+  }, [initialSrc]);
+
+  if (!activeSrc) {
+    return null;
+  }
+
+  return (
+    <img
+      {...props}
+      src={activeSrc}
+      alt={alt}
+      onError={() => {
+        if (fallbackSrc && activeSrc !== fallbackSrc) {
+          setActiveSrc(fallbackSrc);
+        }
+      }}
+    />
+  );
 }
 
 function AnimatedBentoCard({
@@ -597,13 +657,25 @@ function AnimatedBentoCard({
           aria-label={`Preview ${gift.name}`}
         >
           <div {...getGiftImageFrameProps(gift, "gs-bento-image-wrap")}>
-            <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
+            <ResilientImage
+              src={getGiftImageUrl(gift)}
+              fallbackSrc={getGiftFallbackImageUrl(gift)}
+              alt={gift.name}
+              className="gs-bento-image"
+              loading="lazy"
+            />
           </div>
         </button>
       ) : (
         <>
           <div {...getGiftImageFrameProps(gift, "gs-bento-image-wrap")}>
-            <img src={getGiftImageUrl(gift)} alt={gift.name} className="gs-bento-image" loading="lazy" />
+            <ResilientImage
+              src={getGiftImageUrl(gift)}
+              fallbackSrc={getGiftFallbackImageUrl(gift)}
+              alt={gift.name}
+              className="gs-bento-image"
+              loading="lazy"
+            />
           </div>
           <div className="gs-bento-content">
             <div className="gs-bento-copy">
@@ -678,7 +750,15 @@ function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
   return (
     <div className="gs-hot-feed-media">
       <div className="gs-hot-feed-video-placeholder" aria-hidden={embedUrl && embedLoaded ? "true" : undefined}>
-        {posterUrl ? <img src={posterUrl} alt="" className="gs-hot-feed-poster" loading="lazy" /> : null}
+        {posterUrl ? (
+          <ResilientImage
+            src={posterUrl}
+            fallbackSrc={getGiftFallbackImageUrl(gift)}
+            alt=""
+            className="gs-hot-feed-poster"
+            loading="lazy"
+          />
+        ) : null}
         <span className="gs-hot-feed-video-placeholder-scrim" aria-hidden="true" />
         <span>{item.mediaLabel === "TikTok" ? "Open video" : "Open preview"}</span>
       </div>
@@ -1140,7 +1220,13 @@ export default function App() {
     speedLabel: t("picker.needSpeed"),
     quickStartAriaLabel: "Audience quick starts",
   };
-  const getSlideLabel = (slideId) => t(`nav.${slideId === "guides" ? "dates" : slideId}`);
+  const getSlideLabel = (slideId) => {
+    if (slideId === "guides") {
+      return homeSurface.id === "books" ? "Read" : t("nav.dates");
+    }
+
+    return t(`nav.${slideId}`);
+  };
   const getRelationshipLabel = (relationshipId) => t(`relationship.${relationshipId}`);
   const getBudgetLabel = (budgetId) => t(`budget.${budgetId}`);
   const getSignalLabel = (signalId) => t(`signal.${signalId}`);
@@ -1341,6 +1427,18 @@ export default function App() {
       body: "Open faster-moving gift lanes when you want the current angle before the evergreen guide.",
     },
   };
+  const activeReadingSection = homeSurface.id === "books"
+    ? {
+        overline: "Reading",
+        title: "Keep the books lane moving.",
+        body: "Use this tab for faster reader-first follow-through: quick lanes, exact book pages, and stronger guide paths without leaving BooksForHer.",
+        quickStarts: {
+          overline: "Quick starts",
+          title: "Three faster reading lanes",
+          body: "Apply a lane straight into the picker result or open the matching guide first.",
+        },
+      }
+    : null;
   const leadRecommendation = useMemo(() => {
     if (Array.isArray(homeSurface.topPickIds) && homeSurface.topPickIds.length) {
       const allowedIds = new Set(homeSurface.topPickIds);
@@ -1357,8 +1455,14 @@ export default function App() {
 
     return topPicks[0] || popularHeroProducts[0] || null;
   }, [homeSurface.topPickIds, popularHeroProducts, rankedMatches, surfaceTopPicks, topPicks]);
-  const activeGuide = guideByRelationship[activeRelationship.id] || guideByRelationship.girlfriend;
-  const activeGuideChipLabel = getGuideText(activeRelationship.id, "chip");
+  const surfaceGuideByRelationship = homeSurface.id === "books" ? bookGuideByRelationship : guideByRelationship;
+  const activeGuide = surfaceGuideByRelationship[activeRelationship.id] || surfaceGuideByRelationship.girlfriend;
+  const activeGuideChipLabel =
+    homeSurface.id === "books" ? activeGuide.chipLabel : getGuideText(activeRelationship.id, "chip");
+  const allGuidesHref = homeSurface.id === "books" ? "/booksforher/" : "/guides/";
+  const allGuidesLabel = homeSurface.id === "books" ? "BooksForHer home" : t("home.allGuides");
+  const pickerResultHelper = homeSurface.id === "books" ? "Need speed instead? Open the Kindle guide." : t("home.needSpeedInstead");
+  const shouldShowDateCityPanel = homeSurface.id !== "books";
   const pickerResultStep = pickerSlides.length - 1;
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
   const datesSlideIndex = slides.findIndex((slide) => slide.id === "guides");
@@ -1668,10 +1772,10 @@ export default function App() {
   }
 
   useEffect(() => {
-    if (activeSlide === datesSlideIndex && geoState.status === "idle") {
+    if (homeSurface.id !== "books" && activeSlide === datesSlideIndex && geoState.status === "idle") {
       useMyArea();
     }
-  }, [activeSlide, datesSlideIndex, geoState.status]);
+  }, [activeSlide, datesSlideIndex, geoState.status, homeSurface.id]);
 
   useEffect(() => {
     const frameId = window.requestAnimationFrame(() => {
@@ -2328,7 +2432,13 @@ export default function App() {
     return (
       <article key={`${gift.id}-saved`} className="gs-saved-row" role="listitem">
         <div {...getGiftImageFrameProps(gift, "gs-saved-image-wrap")}>
-          <img src={imageUrl} alt={gift.name} className="gs-saved-image" loading="lazy" />
+          <ResilientImage
+            src={imageUrl}
+            fallbackSrc={getGiftFallbackImageUrl(gift)}
+            alt={gift.name}
+            className="gs-saved-image"
+            loading="lazy"
+          />
         </div>
         <div className="gs-saved-content">
           <div className="gs-saved-main">
@@ -2885,7 +2995,7 @@ export default function App() {
                                     </a>
                                   </div>
                                   <p className="gs-home-result-helper">
-                                    {t("home.needSpeedInstead")}
+                                    {pickerResultHelper}
                                   </p>
                                 </>
                               ) : (
@@ -3006,10 +3116,10 @@ export default function App() {
                             <ArrowUpRight size={16} />
                           </a>
                         ))}
-                        <a href="/guides/" className="gs-popular-library-link is-all">
+                        <a href={allGuidesHref} className="gs-popular-library-link is-all">
                           <div>
                             <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
-                            <strong>{t("home.allGuides")}</strong>
+                            <strong>{allGuidesLabel}</strong>
                           </div>
                           <ArrowUpRight size={16} />
                         </a>
@@ -3046,31 +3156,33 @@ export default function App() {
                         ) : null}
                       </div>
                     </article>
-                    <article className="gs-popular-library-panel">
-                      <div className="gs-popular-library-head">
-                        <span className="gs-overline">{t("footer.plans")}</span>
-                        <strong>Date city pages</strong>
-                        <p>Browse city landing pages when the gift search turns into an actual plan.</p>
-                      </div>
-                      <div className="gs-popular-library-list">
-                        {seoDateCities.slice(0, 4).map((city) => (
-                          <a key={city.slug} href={`/dates/${city.slug}/`} className="gs-popular-library-link">
+                    {shouldShowDateCityPanel ? (
+                      <article className="gs-popular-library-panel">
+                        <div className="gs-popular-library-head">
+                          <span className="gs-overline">{t("footer.plans")}</span>
+                          <strong>Date city pages</strong>
+                          <p>Browse city landing pages when the gift search turns into an actual plan.</p>
+                        </div>
+                        <div className="gs-popular-library-list">
+                          {seoDateCities.slice(0, 4).map((city) => (
+                            <a key={city.slug} href={`/dates/${city.slug}/`} className="gs-popular-library-link">
+                              <div>
+                                <span className="gs-seo-guide-eyebrow">{t("plans.overline")}</span>
+                                <strong>{city.city}</strong>
+                              </div>
+                              <ArrowUpRight size={16} />
+                            </a>
+                          ))}
+                          <a href="/dates/" className="gs-popular-library-link is-all">
                             <div>
-                              <span className="gs-seo-guide-eyebrow">{t("plans.overline")}</span>
-                              <strong>{city.city}</strong>
+                              <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                              <strong>{t("plans.allDatePages")}</strong>
                             </div>
                             <ArrowUpRight size={16} />
                           </a>
-                        ))}
-                        <a href="/dates/" className="gs-popular-library-link is-all">
-                          <div>
-                            <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
-                            <strong>{t("plans.allDatePages")}</strong>
-                          </div>
-                          <ArrowUpRight size={16} />
-                        </a>
-                      </div>
-                    </article>
+                        </div>
+                      </article>
+                    ) : null}
                   </div>
                 </section>
                 {renderFooter()}
@@ -3183,208 +3295,330 @@ export default function App() {
               tabIndex={activeSlide === 2 ? 0 : -1}
             >
               <div className="gs-slide-scroll" ref={(node) => setSlideScrollRef(2, node)}>
-                <div className="gs-parallax-copy">
-                  <p className="gs-overline">{t("plans.overline")}</p>
-                  <h2>{t("plans.title")}</h2>
-                  <p>{t("plans.body")}</p>
-                </div>
-
-                <section className="gs-date-shell">
-                  <div className="gs-date-toolbar">
-                    <div className="gs-date-area">
-                      <p className="gs-overline">{t("plans.areaOverline")}</p>
-                      <strong>{dateResults.areaLabel || geoState.label}</strong>
+                {homeSurface.id === "books" ? (
+                  <>
+                    <div className="gs-parallax-copy">
+                      <p className="gs-overline">{activeReadingSection.overline}</p>
+                      <h2>{activeReadingSection.title}</h2>
+                      <p>{activeReadingSection.body}</p>
                     </div>
-                    <button
-                      type="button"
-                      className="gs-date-locate"
-                      onClick={useMyArea}
-                      aria-label={t("plans.useMyAreaAria")}
-                    >
-                      {geoState.status === "loading" ? t("plans.locating") : t("plans.useMyArea")}
-                    </button>
-                  </div>
 
-                  <div className="gs-date-search">
-                    <label className="gs-date-field">
-                      <span>{t("plans.party")}</span>
-                      <select
-                        value={dateSearch.partySize}
-                        onChange={(event) => updateDateSearch("partySize", event.target.value)}
-                      >
-                        {datePartySizeOptions.map((partySize) => (
-                          <option key={partySize} value={partySize}>
-                            {partySize} {partySize === 1 ? t("date.person") : t("date.people")}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                    <label className="gs-date-field is-wide">
-                      <span>{t("plans.when")}</span>
-                      <input
-                        type="datetime-local"
-                        value={dateSearch.dateTime}
-                        onChange={(event) => updateDateSearch("dateTime", event.target.value)}
-                      />
-                    </label>
-                  </div>
-
-                  <div
-                    className={classNames("gs-date-status", dateResults.status === "error" && "is-error")}
-                    role="status"
-                    aria-live="polite"
-                    aria-atomic="true"
-                  >
-                    <div>
-                      <span>{dateStatusLabel}</span>
-                      <p>{dateResults.note}</p>
-                    </div>
-                    <a
-                      className="gs-date-status-link"
-                      href={activeDateSecondaryUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`${activeDateSecondaryLabel} for ${dateResults.areaLabel || t("plans.yourArea")}`}
-                    >
-                      {activeDateSecondaryLabel}
-                    </a>
-                  </div>
-
-                  {activeDateSpot ? (
-                    <article className="gs-date-feature">
-                      <div className="gs-date-feature-head">
-                        <div>
-                          <p className="gs-overline">{activeDateSpot.type}</p>
-                          <h3>{activeDateSpot.name}</h3>
-                        </div>
-                        <span className="gs-date-distance">
-                          {getDateSpotSummaryLabel(activeDateSpot)}
-                        </span>
+                    <section className="gs-seo-guide-section" aria-label={activeReadingSection.quickStarts.title}>
+                      <div className="gs-section-head">
+                        <p className="gs-overline">{activeReadingSection.quickStarts.overline}</p>
+                        <h3>{activeReadingSection.quickStarts.title}</h3>
                       </div>
-                      <p className="gs-date-copy">{activeDateSpot.description}</p>
-                      {activeDateMeta.length ? (
-                        <div className="gs-date-meta">
-                          {activeDateMeta.map((value) => (
-                            <span key={`${activeDateSpot.id}-${value}`}>{value}</span>
-                          ))}
-                        </div>
-                      ) : null}
-                      {activeDateSpot.nextSlots?.length ? (
-                        <div className="gs-date-times">
-                          {activeDateSpot.nextSlots.map((slot) => (
-                            <a
-                              key={`${activeDateSpot.id}-${slot}`}
-                              className="gs-date-time"
-                              href={activeDateSpot.bookingUrl}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              {slot}
+                      <p className="gs-popular-library-note">
+                        {activeReadingSection.quickStarts.body}
+                      </p>
+                      <div className="gs-home-quick-start-row" aria-label="Book reading quick starts">
+                        {activeQuickStartLanes.map((lane) => (
+                          <article key={lane.id} className="gs-home-quick-start-card">
+                            <div className="gs-home-quick-start-copy">
+                              <span className="gs-seo-guide-eyebrow">{getQuickStartLaneText(lane, "eyebrow")}</span>
+                              <h4>{getQuickStartLaneText(lane, "title")}</h4>
+                              <p>{getQuickStartLaneText(lane, "description")}</p>
+                            </div>
+                            <div className="gs-home-quick-start-actions is-inline">
+                              <button
+                                type="button"
+                                className="gs-secondary-btn"
+                                onClick={() => applyBriefSelection(lane.selection)}
+                              >
+                                {getQuickStartLaneText(lane, "cta")}
+                              </button>
+                              <a href={lane.guideHref} className="gs-home-inline-link">
+                                {getQuickStartLaneText(lane, "guideLabel")}
+                              </a>
+                            </div>
+                          </article>
+                        ))}
+                      </div>
+                    </section>
+
+                    <section className="gs-popular-library" aria-label="Books reading panel">
+                      <div className="gs-popular-library-grid">
+                        <article className="gs-popular-library-panel">
+                          <div className="gs-popular-library-head">
+                            <span className="gs-overline">{activeContinueSection.products.overline}</span>
+                            <strong>{activeContinueSection.products.title}</strong>
+                            <p>{activeContinueSection.products.body}</p>
+                          </div>
+                          <div className="gs-popular-library-list">
+                            {surfaceLibraryProducts.slice(0, 5).map((gift) => (
+                              <a key={gift.slug} href={getProductPageHref(gift.slug)} className="gs-popular-library-link">
+                                <div>
+                                  <span className="gs-seo-guide-eyebrow">{gift.badge}</span>
+                                  <strong>{gift.name}</strong>
+                                </div>
+                                <ArrowUpRight size={16} />
+                              </a>
+                            ))}
+                          </div>
+                        </article>
+                        <article className="gs-popular-library-panel">
+                          <div className="gs-popular-library-head">
+                            <span className="gs-overline">{activeContinueSection.guides.overline}</span>
+                            <strong>{activeContinueSection.guides.title}</strong>
+                            <p>{activeContinueSection.guides.body}</p>
+                          </div>
+                          <div className="gs-popular-library-list">
+                            {surfaceFeaturedGuides.map((guide) => (
+                              <a key={guide.slug} href={`/${guide.slug}/`} className="gs-popular-library-link">
+                                <div>
+                                  <span className="gs-seo-guide-eyebrow">{guide.groupLabel}</span>
+                                  <strong>{guide.label}</strong>
+                                </div>
+                                <ArrowUpRight size={16} />
+                              </a>
+                            ))}
+                            <a href={allGuidesHref} className="gs-popular-library-link is-all">
+                              <div>
+                                <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                                <strong>{allGuidesLabel}</strong>
+                              </div>
+                              <ArrowUpRight size={16} />
                             </a>
-                          ))}
+                          </div>
+                        </article>
+                        <article className="gs-popular-library-panel">
+                          <div className="gs-popular-library-head">
+                            <span className="gs-overline">{activeContinueSection.hot.overline}</span>
+                            <strong>{activeContinueSection.hot.title}</strong>
+                            <p>{activeContinueSection.hot.body}</p>
+                          </div>
+                          <div className="gs-popular-library-list">
+                            {surfaceHotGuides.slice(0, 5).map((story) => (
+                              <a key={story.slug} href={`/${story.slug}/`} className="gs-popular-library-link">
+                                <div>
+                                  <span className="gs-seo-guide-eyebrow">{story.trendLabel || story.groupLabel || "Books"}</span>
+                                  <strong>{story.h1}</strong>
+                                </div>
+                                <ArrowUpRight size={16} />
+                              </a>
+                            ))}
+                            {activeHotFeedSection.allPagesHref ? (
+                              <a href={activeHotFeedSection.allPagesHref} className="gs-popular-library-link is-all">
+                                <div>
+                                  <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                                  <strong>{activeHotFeedSection.allPagesLabel}</strong>
+                                </div>
+                                <ArrowUpRight size={16} />
+                              </a>
+                            ) : null}
+                          </div>
+                        </article>
+                      </div>
+                    </section>
+                  </>
+                ) : (
+                  <>
+                    <div className="gs-parallax-copy">
+                      <p className="gs-overline">{t("plans.overline")}</p>
+                      <h2>{t("plans.title")}</h2>
+                      <p>{t("plans.body")}</p>
+                    </div>
+
+                    <section className="gs-date-shell">
+                      <div className="gs-date-toolbar">
+                        <div className="gs-date-area">
+                          <p className="gs-overline">{t("plans.areaOverline")}</p>
+                          <strong>{dateResults.areaLabel || geoState.label}</strong>
                         </div>
-                      ) : (
-                        <p className="gs-date-availability">{activeDateSpot.availabilityLabel}</p>
-                      )}
-                      <div className="gs-date-actions">
-                        <a
-                          className="gs-date-primary"
-                          href={activeDateSpot.bookingUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          aria-label={`${activeDateSpot.actionLabel} for ${activeDateSpot.name}`}
+                        <button
+                          type="button"
+                          className="gs-date-locate"
+                          onClick={useMyArea}
+                          aria-label={t("plans.useMyAreaAria")}
                         >
-                          {activeDateSpot.actionLabel}
-                        </a>
+                          {geoState.status === "loading" ? t("plans.locating") : t("plans.useMyArea")}
+                        </button>
+                      </div>
+
+                      <div className="gs-date-search">
+                        <label className="gs-date-field">
+                          <span>{t("plans.party")}</span>
+                          <select
+                            value={dateSearch.partySize}
+                            onChange={(event) => updateDateSearch("partySize", event.target.value)}
+                          >
+                            {datePartySizeOptions.map((partySize) => (
+                              <option key={partySize} value={partySize}>
+                                {partySize} {partySize === 1 ? t("date.person") : t("date.people")}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                        <label className="gs-date-field is-wide">
+                          <span>{t("plans.when")}</span>
+                          <input
+                            type="datetime-local"
+                            value={dateSearch.dateTime}
+                            onChange={(event) => updateDateSearch("dateTime", event.target.value)}
+                          />
+                        </label>
+                      </div>
+
+                      <div
+                        className={classNames("gs-date-status", dateResults.status === "error" && "is-error")}
+                        role="status"
+                        aria-live="polite"
+                        aria-atomic="true"
+                      >
+                        <div>
+                          <span>{dateStatusLabel}</span>
+                          <p>{dateResults.note}</p>
+                        </div>
                         <a
-                          className="gs-date-secondary"
+                          className="gs-date-status-link"
                           href={activeDateSecondaryUrl}
                           target="_blank"
                           rel="noreferrer"
-                          aria-label={`${activeDateSecondaryLabel} for ${activeDateSpot.name}`}
+                          aria-label={`${activeDateSecondaryLabel} for ${dateResults.areaLabel || t("plans.yourArea")}`}
                         >
                           {activeDateSecondaryLabel}
                         </a>
                       </div>
-                    </article>
-                  ) : (
-                    <article className="gs-date-empty">
-                      <strong>{t("plans.emptyTitle")}</strong>
-                      <p>{t("plans.emptyBody")}</p>
-                    </article>
-                  )}
 
-                  {dateResults.spots.length > 0 ? (
-                    <section className="gs-date-list" role="list" aria-label="Nearby plans">
-                      {dateResults.spots.map((spot) => (
-                        <article
-                          key={spot.id}
-                          role="listitem"
-                          className={classNames("gs-date-row", activeDateSpot?.id === spot.id && "is-active")}
-                        >
-                          <button
-                            type="button"
-                            className="gs-date-row-main"
-                            onClick={() => setActiveDateSpotId(spot.id)}
-                            aria-pressed={activeDateSpot?.id === spot.id}
-                            aria-label={`Show details for ${spot.name}`}
-                          >
-                            <span className="gs-date-row-icon">
-                              <MapPin size={16} />
+                      {activeDateSpot ? (
+                        <article className="gs-date-feature">
+                          <div className="gs-date-feature-head">
+                            <div>
+                              <p className="gs-overline">{activeDateSpot.type}</p>
+                              <h3>{activeDateSpot.name}</h3>
+                            </div>
+                            <span className="gs-date-distance">
+                              {getDateSpotSummaryLabel(activeDateSpot)}
                             </span>
-                            <span className="gs-date-row-copy">
-                              <span className="gs-date-row-top">
-                                <strong>{spot.name}</strong>
-                                <span>{getDateSpotSummaryLabel(spot)}</span>
-                              </span>
-                              <span className="gs-date-row-bottom">
-                                {getDateRowSummary(spot)}
-                              </span>
-                            </span>
-                          </button>
-                          <a
-                            className="gs-date-row-action"
-                            href={spot.bookingUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            aria-label={`${spot.actionLabel} for ${spot.name}`}
-                          >
-                            {spot.actionLabel}
-                          </a>
+                          </div>
+                          <p className="gs-date-copy">{activeDateSpot.description}</p>
+                          {activeDateMeta.length ? (
+                            <div className="gs-date-meta">
+                              {activeDateMeta.map((value) => (
+                                <span key={`${activeDateSpot.id}-${value}`}>{value}</span>
+                              ))}
+                            </div>
+                          ) : null}
+                          {activeDateSpot.nextSlots?.length ? (
+                            <div className="gs-date-times">
+                              {activeDateSpot.nextSlots.map((slot) => (
+                                <a
+                                  key={`${activeDateSpot.id}-${slot}`}
+                                  className="gs-date-time"
+                                  href={activeDateSpot.bookingUrl}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                >
+                                  {slot}
+                                </a>
+                              ))}
+                            </div>
+                          ) : (
+                            <p className="gs-date-availability">{activeDateSpot.availabilityLabel}</p>
+                          )}
+                          <div className="gs-date-actions">
+                            <a
+                              className="gs-date-primary"
+                              href={activeDateSpot.bookingUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              aria-label={`${activeDateSpot.actionLabel} for ${activeDateSpot.name}`}
+                            >
+                              {activeDateSpot.actionLabel}
+                            </a>
+                            <a
+                              className="gs-date-secondary"
+                              href={activeDateSecondaryUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              aria-label={`${activeDateSecondaryLabel} for ${activeDateSpot.name}`}
+                            >
+                              {activeDateSecondaryLabel}
+                            </a>
+                          </div>
                         </article>
-                      ))}
-                    </section>
-                  ) : null}
+                      ) : (
+                        <article className="gs-date-empty">
+                          <strong>{t("plans.emptyTitle")}</strong>
+                          <p>{t("plans.emptyBody")}</p>
+                        </article>
+                      )}
 
-                <div className="gs-date-powered">
-                  <span>{dateResults.sourceLabel}</span>
-                  <p>{datePoweredCopy}</p>
-                </div>
-                <section className="gs-seo-guide-section" aria-label="Browse date city pages">
-                  <div className="gs-section-head">
-                    <p className="gs-overline">{t("plans.citiesOverline")}</p>
-                    <h3>{t("plans.citiesTitle")}</h3>
-                  </div>
-                  <div className="gs-seo-guide-list">
-                    {seoDateCities.map((city) => (
-                      <a key={city.slug} href={`/dates/${city.slug}/`} className="gs-seo-guide-link">
-                        <div>
-                          <span className="gs-seo-guide-eyebrow">{t("plans.overline")}</span>
-                          <strong>{city.city}</strong>
-                        </div>
-                        <ArrowUpRight size={16} />
-                      </a>
-                    ))}
-                    <a href="/dates/" className="gs-seo-guide-link is-all">
-                      <div>
-                        <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
-                        <strong>{t("plans.allDatePages")}</strong>
+                      {dateResults.spots.length > 0 ? (
+                        <section className="gs-date-list" role="list" aria-label="Nearby plans">
+                          {dateResults.spots.map((spot) => (
+                            <article
+                              key={spot.id}
+                              role="listitem"
+                              className={classNames("gs-date-row", activeDateSpot?.id === spot.id && "is-active")}
+                            >
+                              <button
+                                type="button"
+                                className="gs-date-row-main"
+                                onClick={() => setActiveDateSpotId(spot.id)}
+                                aria-pressed={activeDateSpot?.id === spot.id}
+                                aria-label={`Show details for ${spot.name}`}
+                              >
+                                <span className="gs-date-row-icon">
+                                  <MapPin size={16} />
+                                </span>
+                                <span className="gs-date-row-copy">
+                                  <span className="gs-date-row-top">
+                                    <strong>{spot.name}</strong>
+                                    <span>{getDateSpotSummaryLabel(spot)}</span>
+                                  </span>
+                                  <span className="gs-date-row-bottom">
+                                    {getDateRowSummary(spot)}
+                                  </span>
+                                </span>
+                              </button>
+                              <a
+                                className="gs-date-row-action"
+                                href={spot.bookingUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                aria-label={`${spot.actionLabel} for ${spot.name}`}
+                              >
+                                {spot.actionLabel}
+                              </a>
+                            </article>
+                          ))}
+                        </section>
+                      ) : null}
+
+                      <div className="gs-date-powered">
+                        <span>{dateResults.sourceLabel}</span>
+                        <p>{datePoweredCopy}</p>
                       </div>
-                      <ArrowUpRight size={16} />
-                    </a>
-                  </div>
-                </section>
-                </section>
+                      {shouldShowDateCityPanel ? (
+                        <section className="gs-seo-guide-section" aria-label="Browse date city pages">
+                          <div className="gs-section-head">
+                            <p className="gs-overline">{t("plans.citiesOverline")}</p>
+                            <h3>{t("plans.citiesTitle")}</h3>
+                          </div>
+                          <div className="gs-seo-guide-list">
+                            {seoDateCities.map((city) => (
+                              <a key={city.slug} href={`/dates/${city.slug}/`} className="gs-seo-guide-link">
+                                <div>
+                                  <span className="gs-seo-guide-eyebrow">{t("plans.overline")}</span>
+                                  <strong>{city.city}</strong>
+                                </div>
+                                <ArrowUpRight size={16} />
+                              </a>
+                            ))}
+                            <a href="/dates/" className="gs-seo-guide-link is-all">
+                              <div>
+                                <span className="gs-seo-guide-eyebrow">{t("generic.index")}</span>
+                                <strong>{t("plans.allDatePages")}</strong>
+                              </div>
+                              <ArrowUpRight size={16} />
+                            </a>
+                          </div>
+                        </section>
+                      ) : null}
+                    </section>
+                  </>
+                )}
 
                 {renderFooter()}
               </div>
@@ -3628,8 +3862,9 @@ export default function App() {
                       aria-pressed={previewPlaybackActive}
                       aria-label={`${previewPlaybackActive ? "Pause" : "Play"} the ${previewGift.name} reel`}
                     >
-                      <img
+                      <ResilientImage
                         src={activePreviewReelFrame || activePreviewPoster || getGiftImageUrl(previewGift)}
+                        fallbackSrc={getGiftFallbackImageUrl(previewGift)}
                         alt={previewGift.name}
                         className="gs-preview-image"
                       />
@@ -3651,8 +3886,9 @@ export default function App() {
                       </span>
                     </button>
                   ) : (
-                    <img
+                    <ResilientImage
                       src={activePreviewPoster || getGiftImageUrl(previewGift)}
+                      fallbackSrc={getGiftFallbackImageUrl(previewGift)}
                       alt={previewGift.name}
                       className="gs-preview-image"
                     />
@@ -3675,8 +3911,9 @@ export default function App() {
                         aria-pressed={index === previewMediaIndex}
                         aria-label={`View ${getPreviewMediaBadgeLabel(media).toLowerCase()} ${index + 1} of ${previewMediaItems.length} for ${previewGift.name}`}
                       >
-                        <img
+                        <ResilientImage
                           src={getPreviewMediaThumbnailUrl(media) || getGiftImageUrl(previewGift)}
+                          fallbackSrc={getGiftFallbackImageUrl(previewGift)}
                           alt=""
                           className="gs-preview-thumb-image"
                         />
