@@ -894,6 +894,23 @@ export default function App() {
   const i18n = useMemo(() => createI18n(localeProfile), [localeProfile]);
   const t = i18n.t;
   const popularLocaleBadge = useMemo(() => buildLocaleBadge(localeProfile), [localeProfile]);
+  const homeUpdatedSource = seoSite.updatedAt || new Date().toISOString().slice(0, 10);
+  const homeUpdatedLabel = formatDateForLocales(`${homeUpdatedSource}T00:00:00`, localeProfile.locales, {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+  const homeSurface = useMemo(
+    () =>
+      resolveHomeSurface({
+        search: typeof window !== "undefined" ? window.location.search : "",
+        pathname: typeof window !== "undefined" ? window.location.pathname : "",
+        t,
+        updatedLabel: homeUpdatedLabel,
+      }),
+    [homeUpdatedLabel, t]
+  );
+  const homeSurfaceMeta = useMemo(() => getHomeSurfaceMeta(homeSurface.id), [homeSurface.id]);
 
   const { affiliateConfig, gifts } = catalog;
   const liveGiftById = useMemo(() => new Map(gifts.map((gift) => [gift.id, gift])), [gifts]);
@@ -1112,23 +1129,6 @@ export default function App() {
   const budgetLabel = t(`budget.${activeBudget.id}`);
   const signalLabel = t(`signal.${activeSignal.id}`);
   const intentLabel = t(`intent.${activeIntent.id}`);
-  const homeUpdatedSource = seoSite.updatedAt || new Date().toISOString().slice(0, 10);
-  const homeUpdatedLabel = formatDateForLocales(`${homeUpdatedSource}T00:00:00`, localeProfile.locales, {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  });
-  const homeSurface = useMemo(
-    () =>
-      resolveHomeSurface({
-        search: typeof window !== "undefined" ? window.location.search : "",
-        pathname: typeof window !== "undefined" ? window.location.pathname : "",
-        t,
-        updatedLabel: homeUpdatedLabel,
-      }),
-    [homeUpdatedLabel, t]
-  );
-  const homeSurfaceMeta = useMemo(() => getHomeSurfaceMeta(homeSurface.id), [homeSurface.id]);
   const activeDecisionModule = homeSurface.decisionModule || {
     overline: t("home.moduleOverline"),
     title: t("home.moduleTitle"),
