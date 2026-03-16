@@ -84,15 +84,15 @@
     }
   ],
   "summary": {
-    "totalPages": 108,
-    "searchIndexablePages": 104,
+    "totalPages": 112,
+    "searchIndexablePages": 108,
     "blockedPages": 4,
     "byPageType": {
       "date-city": 4,
       "guide": 27,
       "hot-story": 11,
       "index": 7,
-      "product": 56,
+      "product": 60,
       "trust": 3
     },
     "byArchetype": {
@@ -101,7 +101,7 @@
       "edition-home-shell": 1,
       "gift-guide": 27,
       "home-shell": 1,
-      "product-detail": 56,
+      "product-detail": 60,
       "trend-roundup": 11,
       "trust-page": 3
     },
@@ -189,24 +189,16 @@
   "ops": {
     "guidesNeedingEditorialRefresh": [
       {
-        "slug": "books-for-her",
-        "pageUrl": "https://shopforher.org/books-for-her/"
+        "slug": "anniversary-gifts-for-her",
+        "pageUrl": "https://shopforher.org/anniversary-gifts-for-her/"
       },
       {
-        "slug": "kindle-gifts-for-her",
-        "pageUrl": "https://shopforher.org/kindle-gifts-for-her/"
+        "slug": "mothers-day-gifts-for-wife",
+        "pageUrl": "https://shopforher.org/mothers-day-gifts-for-wife/"
       },
       {
-        "slug": "cozy-gifts-for-readers",
-        "pageUrl": "https://shopforher.org/cozy-gifts-for-readers/"
-      },
-      {
-        "slug": "book-lover-gifts-for-her",
-        "pageUrl": "https://shopforher.org/book-lover-gifts-for-her/"
-      },
-      {
-        "slug": "booktok-gifts-for-her",
-        "pageUrl": "https://shopforher.org/booktok-gifts-for-her/"
+        "slug": "cozy-home-gifts-for-her",
+        "pageUrl": "https://shopforher.org/cozy-home-gifts-for-her/"
       }
     ],
     "searchSuppressedGuides": [],
@@ -737,7 +729,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -1037,7 +1029,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -1480,7 +1472,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": false
+        "needsEditorialRefresh": true
       }
     },
     {
@@ -1547,7 +1539,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1559,7 +1551,7 @@
       "pageUrl": "https://shopforher.org/kindle-gifts-for-her/",
       "title": "Kindle gifts for her in 2026 | ShopForHer",
       "h1": "Kindle gifts for her in 2026",
-      "description": "Kindle gifts for her, built around actual Kindle editions with current demand instead of devices or accessories.",
+      "description": "Kindle gifts for her, built around one stronger device upgrade, two cleaner Kindle add-ons, and exact Kindle editions that already have demand.",
       "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
@@ -1595,26 +1587,29 @@
             "looks-expensive",
             "under-100"
           ],
-          "priceBands": []
+          "priceBands": [
+            "over-150",
+            "under-25"
+          ]
         }
       },
       "entities": {
-        "featuredGiftId": "fourth-wing-kindle",
+        "featuredGiftId": "strapsicle-straps",
         "productIds": [
+          "strapsicle-straps",
+          "strapsicle-clutch",
+          "kindle-paperwhite",
           "fourth-wing-kindle",
-          "the-women-kindle",
-          "the-wedding-people-kindle",
-          "acotar-kindle",
-          "empyrean-box-set"
+          "acotar-kindle"
         ],
         "relatedGuideSlugs": [
           "books-for-her",
           "booktok-gifts-for-her",
-          "book-lover-gifts-for-her"
+          "cozy-gifts-for-readers"
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1626,7 +1621,7 @@
       "pageUrl": "https://shopforher.org/cozy-gifts-for-readers/",
       "title": "Cozy gifts for readers in 2026 | ShopForHer",
       "h1": "Cozy gifts for readers in 2026",
-      "description": "Cozier book gifts for readers, built around comfort-read Kindle editions, softer fiction, and one bingeable boxed set.",
+      "description": "Cozy gifts for readers, built around softer fiction and two low-friction reading-light upgrades instead of a general reader-gadget pile.",
       "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
@@ -1664,26 +1659,30 @@
             "looks-expensive",
             "under-100"
           ],
-          "priceBands": []
+          "priceBands": [
+            "under-100",
+            "under-25",
+            "under-50"
+          ]
         }
       },
       "entities": {
-        "featuredGiftId": "the-wedding-people-kindle",
+        "featuredGiftId": "glocusent-book-light",
         "productIds": [
+          "glocusent-book-light",
+          "glocusent-neck-light",
           "the-wedding-people-kindle",
           "the-women-kindle",
-          "fourth-wing-kindle",
-          "acotar-kindle",
-          "empyrean-box-set"
+          "ugg-slippers"
         ],
         "relatedGuideSlugs": [
           "books-for-her",
           "kindle-gifts-for-her",
-          "book-lover-gifts-for-her"
+          "gifts-for-homebodies"
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1695,7 +1694,7 @@
       "pageUrl": "https://shopforher.org/book-lover-gifts-for-her/",
       "title": "Book-lover gifts for her in 2026 | ShopForHer",
       "h1": "Book-lover gifts for her in 2026",
-      "description": "Book-lover gifts for her, built around actual books, Kindle editions, and one stronger stack-worthy set.",
+      "description": "Book-lover gifts for her, built around one visible book set, one e-reader carry upgrade, and a few stronger reading-life upgrades.",
       "updatedAt": "2026-03-12",
       "searchIndexable": true,
       "indexStatus": "search-facing",
@@ -1731,26 +1730,29 @@
             "looks-expensive",
             "under-100"
           ],
-          "priceBands": []
+          "priceBands": [
+            "over-150",
+            "under-25"
+          ]
         }
       },
       "entities": {
-        "featuredGiftId": "empyrean-box-set",
+        "featuredGiftId": "strapsicle-clutch",
         "productIds": [
+          "strapsicle-clutch",
           "empyrean-box-set",
-          "fourth-wing-kindle",
-          "the-women-kindle",
-          "the-wedding-people-kindle",
-          "acotar-kindle"
+          "kindle-paperwhite",
+          "glocusent-book-light",
+          "cashmere-robe"
         ],
         "relatedGuideSlugs": [
           "books-for-her",
-          "kindle-gifts-for-her",
-          "booktok-gifts-for-her"
+          "booktok-gifts-for-her",
+          "gifts-for-homebodies"
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -1817,7 +1819,7 @@
         ]
       },
       "ops": {
-        "needsEditorialRefresh": true
+        "needsEditorialRefresh": false
       }
     },
     {
@@ -4373,7 +4375,8 @@
         "guideSlugs": [
           "anniversary-gifts-for-her",
           "mothers-day-gifts-for-wife",
-          "cozy-home-gifts-for-her"
+          "cozy-home-gifts-for-her",
+          "book-lover-gifts-for-her"
         ],
         "hotStorySlugs": [
           "mothers-day-gifts-for-wife-right-now",
@@ -4439,7 +4442,238 @@
           "birthday-gifts-for-wife",
           "luxury-gifts-for-her",
           "practical-gifts-for-her",
+          "kindle-gifts-for-her",
+          "book-lover-gifts-for-her",
           "daily-use-gifts-for-her"
+        ],
+        "hotStorySlugs": []
+      }
+    },
+    {
+      "id": "product:strapsicle-e-reader-hand-straps",
+      "slug": "strapsicle-e-reader-hand-straps",
+      "path": "/gift/strapsicle-e-reader-hand-straps/",
+      "pageType": "product",
+      "pageArchetype": "product-detail",
+      "pageUrl": "https://shopforher.org/gift/strapsicle-e-reader-hand-straps/",
+      "title": "Strapsicle E-Reader Hand Straps | ShopForHer",
+      "h1": "Strapsicle E-Reader Hand Straps",
+      "description": "Useful when she already reads on a Kindle or Kobo and would notice the comfort upgrade immediately without replacing the device.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "easy e-reader comfort"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
+      "commerce": {
+        "merchantName": "Strapsicle",
+        "merchantPathType": "direct-merchant-url",
+        "checkout": "offsite"
+      },
+      "entities": {
+        "catalogGiftId": "strapsicle-straps",
+        "guideSlugs": [
+          "kindle-gifts-for-her"
+        ],
+        "hotStorySlugs": []
+      }
+    },
+    {
+      "id": "product:strapsicle-clutch-e-reader-cover",
+      "slug": "strapsicle-clutch-e-reader-cover",
+      "path": "/gift/strapsicle-clutch-e-reader-cover/",
+      "pageType": "product",
+      "pageArchetype": "product-detail",
+      "pageUrl": "https://shopforher.org/gift/strapsicle-clutch-e-reader-cover/",
+      "title": "Strapsicle Clutch E-Reader Cover | ShopForHer",
+      "h1": "Strapsicle Clutch E-Reader Cover",
+      "description": "Stronger than a generic pouch when the gift should feel reader-specific, useful, and a little more finished.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "bookish everyday carry"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
+      "commerce": {
+        "merchantName": "Strapsicle",
+        "merchantPathType": "direct-merchant-url",
+        "checkout": "offsite"
+      },
+      "entities": {
+        "catalogGiftId": "strapsicle-clutch",
+        "guideSlugs": [
+          "kindle-gifts-for-her",
+          "book-lover-gifts-for-her"
+        ],
+        "hotStorySlugs": []
+      }
+    },
+    {
+      "id": "product:glocusent-bookmark-style-reading-light",
+      "slug": "glocusent-bookmark-style-reading-light",
+      "path": "/gift/glocusent-bookmark-style-reading-light/",
+      "pageType": "product",
+      "pageArchetype": "product-detail",
+      "pageUrl": "https://shopforher.org/gift/glocusent-bookmark-style-reading-light/",
+      "title": "Glocusent Bookmark Style Reading Light | ShopForHer",
+      "h1": "Glocusent Bookmark Style Reading Light",
+      "description": "Better than a generic lamp add-on when you want one reading-specific accessory she can use the same night.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "small reading upgrade"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
+      "commerce": {
+        "merchantName": "Glocusent",
+        "merchantPathType": "direct-merchant-url",
+        "checkout": "offsite"
+      },
+      "entities": {
+        "catalogGiftId": "glocusent-book-light",
+        "guideSlugs": [
+          "cozy-gifts-for-readers",
+          "book-lover-gifts-for-her"
+        ],
+        "hotStorySlugs": []
+      }
+    },
+    {
+      "id": "product:glocusent-led-neck-reading-light",
+      "slug": "glocusent-led-neck-reading-light",
+      "path": "/gift/glocusent-led-neck-reading-light/",
+      "pageType": "product",
+      "pageArchetype": "product-detail",
+      "pageUrl": "https://shopforher.org/gift/glocusent-led-neck-reading-light/",
+      "title": "Glocusent LED Neck Reading Light | ShopForHer",
+      "h1": "Glocusent LED Neck Reading Light",
+      "description": "Works when she already reads at night and would use a more comfortable personal light more than another decor item.",
+      "updatedAt": "2026-03-12",
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "hands-free cozy reading"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
+      "commerce": {
+        "merchantName": "Glocusent",
+        "merchantPathType": "direct-merchant-url",
+        "checkout": "offsite"
+      },
+      "entities": {
+        "catalogGiftId": "glocusent-neck-light",
+        "guideSlugs": [
+          "cozy-gifts-for-readers"
         ],
         "hotStorySlugs": []
       }
@@ -4497,8 +4731,6 @@
         "guideSlugs": [
           "books-for-her",
           "kindle-gifts-for-her",
-          "cozy-gifts-for-readers",
-          "book-lover-gifts-for-her",
           "booktok-gifts-for-her"
         ],
         "hotStorySlugs": []
@@ -4555,9 +4787,7 @@
         "catalogGiftId": "the-women-kindle",
         "guideSlugs": [
           "books-for-her",
-          "kindle-gifts-for-her",
           "cozy-gifts-for-readers",
-          "book-lover-gifts-for-her",
           "booktok-gifts-for-her"
         ],
         "hotStorySlugs": []
@@ -4614,9 +4844,7 @@
         "catalogGiftId": "the-wedding-people-kindle",
         "guideSlugs": [
           "books-for-her",
-          "kindle-gifts-for-her",
           "cozy-gifts-for-readers",
-          "book-lover-gifts-for-her",
           "booktok-gifts-for-her"
         ],
         "hotStorySlugs": []
@@ -4675,8 +4903,6 @@
         "guideSlugs": [
           "books-for-her",
           "kindle-gifts-for-her",
-          "cozy-gifts-for-readers",
-          "book-lover-gifts-for-her",
           "booktok-gifts-for-her"
         ],
         "hotStorySlugs": []
@@ -4733,8 +4959,6 @@
         "catalogGiftId": "empyrean-box-set",
         "guideSlugs": [
           "books-for-her",
-          "kindle-gifts-for-her",
-          "cozy-gifts-for-readers",
           "book-lover-gifts-for-her",
           "booktok-gifts-for-her"
         ],
@@ -5031,7 +5255,8 @@
         "guideSlugs": [
           "best-gifts-under-75",
           "best-gifts-under-100",
-          "cozy-home-gifts-for-her"
+          "cozy-home-gifts-for-her",
+          "cozy-gifts-for-readers"
         ],
         "hotStorySlugs": []
       }

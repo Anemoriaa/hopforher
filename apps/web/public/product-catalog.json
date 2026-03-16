@@ -1228,6 +1228,312 @@
       "updatedAt": "2026-03-12"
     },
     {
+      "id": "strapsicle-straps",
+      "slug": "strapsicle-e-reader-hand-straps",
+      "name": "Strapsicle E-Reader Hand Straps",
+      "brand": "Strapsicle",
+      "searchQuery": "Strapsicle hand straps for Kindle Kobo gift",
+      "pageUrl": "https://shopforher.org/gift/strapsicle-e-reader-hand-straps/",
+      "affiliateUrl": "https://www.amazon.com/s?k=Strapsicle+hand+straps+for+Kindle+Kobo+gift&tag=shopforher0b7-20",
+      "merchantName": "Strapsicle",
+      "merchantProductUrl": "https://www.strapsicle.com/en-us/products/neon-range-straps-set-of-two",
+      "affiliatePathType": "direct-merchant-url",
+      "checkout": "offsite",
+      "price": {
+        "currency": "USD",
+        "display": "$22.99",
+        "low": 22.99,
+        "high": 22.99
+      },
+      "availability": "https://schema.org/InStock",
+      "asin": null,
+      "image": "https://www.strapsicle.com/cdn/shop/files/Strapsicle_Handstrap_BondiBlue_product.jpg?v=1738817003",
+      "additionalImages": [],
+      "summary": "Useful when she already reads on a Kindle or Kobo and would notice the comfort upgrade immediately without replacing the device.",
+      "bestFor": "girlfriend / wife / Kindle or Kobo reader",
+      "vibe": "easy e-reader comfort",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "everyday"
+      ],
+      "tabTags": [
+        "under-100",
+        "daily-use",
+        "best-overall"
+      ],
+      "priceBand": "under-25",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "easy e-reader comfort"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
+      "updatedAt": "2026-03-12"
+    },
+    {
+      "id": "strapsicle-clutch",
+      "slug": "strapsicle-clutch-e-reader-cover",
+      "name": "Strapsicle Clutch E-Reader Cover",
+      "brand": "Strapsicle",
+      "searchQuery": "Strapsicle clutch e-reader cover gift",
+      "pageUrl": "https://shopforher.org/gift/strapsicle-clutch-e-reader-cover/",
+      "affiliateUrl": "https://www.amazon.com/s?k=Strapsicle+clutch+e-reader+cover+gift&tag=shopforher0b7-20",
+      "merchantName": "Strapsicle",
+      "merchantProductUrl": "https://www.strapsicle.com/en-us/products/strapsicle-clutch",
+      "affiliatePathType": "direct-merchant-url",
+      "checkout": "offsite",
+      "price": {
+        "currency": "USD",
+        "display": "$24.99",
+        "low": 24.99,
+        "high": 24.99
+      },
+      "availability": "https://schema.org/InStock",
+      "asin": null,
+      "image": "https://www.strapsicle.com/cdn/shop/files/KindleClutch_CandyPink_product.jpg?v=1748476800",
+      "additionalImages": [],
+      "summary": "Stronger than a generic pouch when the gift should feel reader-specific, useful, and a little more finished.",
+      "bestFor": "girlfriend / wife / Kindle or Kobo reader",
+      "vibe": "bookish everyday carry",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "looks-expensive",
+        "everyday"
+      ],
+      "tabTags": [
+        "under-100",
+        "best-overall",
+        "looks-expensive"
+      ],
+      "priceBand": "under-25",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "everyday",
+            "looks-expensive",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "best-overall",
+            "looks-expensive",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "bookish everyday carry"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
+      "updatedAt": "2026-03-12"
+    },
+    {
+      "id": "glocusent-book-light",
+      "slug": "glocusent-bookmark-style-reading-light",
+      "name": "Glocusent Bookmark Style Reading Light",
+      "brand": "Glocusent",
+      "searchQuery": "Glocusent bookmark style reading light gift",
+      "pageUrl": "https://shopforher.org/gift/glocusent-bookmark-style-reading-light/",
+      "affiliateUrl": "https://www.amazon.com/s?k=Glocusent+bookmark+style+reading+light+gift&tag=shopforher0b7-20",
+      "merchantName": "Glocusent",
+      "merchantProductUrl": "https://glocusent.com/products/glocusent-bookmark-style-best-reading-light",
+      "affiliatePathType": "direct-merchant-url",
+      "checkout": "offsite",
+      "price": {
+        "currency": "USD",
+        "display": "$18.99",
+        "low": 18.99,
+        "high": 18.99
+      },
+      "availability": "https://schema.org/InStock",
+      "asin": null,
+      "image": "https://glocusent.com/cdn/shop/files/1_0ee0cb0b-4be7-4785-b1c2-2d5ff8babfaf.png?v=1757663890",
+      "additionalImages": [],
+      "summary": "Better than a generic lamp add-on when you want one reading-specific accessory she can use the same night.",
+      "bestFor": "girlfriend / wife / bedtime reader",
+      "vibe": "small reading upgrade",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "new-relationship",
+        "anyone"
+      ],
+      "intentTags": [
+        "thoughtful",
+        "everyday",
+        "cozy"
+      ],
+      "tabTags": [
+        "under-100",
+        "daily-use",
+        "cozy-home"
+      ],
+      "priceBand": "under-25",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anyone",
+            "girlfriend",
+            "new-relationship",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-25"
+          ],
+          "vibes": [
+            "small reading upgrade"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
+      "updatedAt": "2026-03-12"
+    },
+    {
+      "id": "glocusent-neck-light",
+      "slug": "glocusent-led-neck-reading-light",
+      "name": "Glocusent LED Neck Reading Light",
+      "brand": "Glocusent",
+      "searchQuery": "Glocusent neck reading light gift",
+      "pageUrl": "https://shopforher.org/gift/glocusent-led-neck-reading-light/",
+      "affiliateUrl": "https://www.amazon.com/s?k=Glocusent+neck+reading+light+gift&tag=shopforher0b7-20",
+      "merchantName": "Glocusent",
+      "merchantProductUrl": "https://glocusent.com/products/glocusent-ergonomic-led-neck-light",
+      "affiliatePathType": "direct-merchant-url",
+      "checkout": "offsite",
+      "price": {
+        "currency": "USD",
+        "display": "$25.49",
+        "low": 25.49,
+        "high": 25.49
+      },
+      "availability": "https://schema.org/InStock",
+      "asin": null,
+      "image": "https://glocusent.com/cdn/shop/files/A101.jpg?v=1757663835",
+      "additionalImages": [],
+      "summary": "Works when she already reads at night and would use a more comfortable personal light more than another decor item.",
+      "bestFor": "girlfriend / wife / night reader",
+      "vibe": "hands-free cozy reading",
+      "relationshipTags": [
+        "girlfriend",
+        "wife",
+        "anniversary",
+        "anyone"
+      ],
+      "intentTags": [
+        "cozy",
+        "everyday",
+        "thoughtful"
+      ],
+      "tabTags": [
+        "under-100",
+        "cozy-home",
+        "daily-use"
+      ],
+      "priceBand": "under-50",
+      "taxonomy": {
+        "primary": {
+          "relationshipTags": [
+            "anniversary",
+            "anyone",
+            "girlfriend",
+            "wife"
+          ],
+          "intentTags": [
+            "cozy",
+            "everyday",
+            "thoughtful"
+          ],
+          "tabTags": [
+            "cozy-home",
+            "daily-use",
+            "under-100"
+          ],
+          "priceBands": [
+            "under-50"
+          ],
+          "vibes": [
+            "hands-free cozy reading"
+          ]
+        },
+        "coverage": {
+          "merchantTypes": [
+            "direct-merchant-url"
+          ]
+        }
+      },
+      "searchIndexable": true,
+      "indexStatus": "direct-merchant-url",
+      "updatedAt": "2026-03-12"
+    },
+    {
       "id": "fourth-wing-kindle",
       "slug": "fourth-wing-kindle-edition",
       "name": "Fourth Wing Kindle Edition",

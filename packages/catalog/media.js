@@ -220,6 +220,18 @@ export const productMedia = {
       "https://m.media-amazon.com/images/I/81ZMyYYj2lL._AC_SL1500_.jpg",
     ],
   },
+  "strapsicle-straps": {
+    imageUrl: "https://www.strapsicle.com/cdn/shop/files/Strapsicle_Handstrap_BondiBlue_product.jpg?v=1738817003",
+  },
+  "strapsicle-clutch": {
+    imageUrl: "https://www.strapsicle.com/cdn/shop/files/KindleClutch_CandyPink_product.jpg?v=1748476800",
+  },
+  "glocusent-book-light": {
+    imageUrl: "https://glocusent.com/cdn/shop/files/1_0ee0cb0b-4be7-4785-b1c2-2d5ff8babfaf.png?v=1757663890",
+  },
+  "glocusent-neck-light": {
+    imageUrl: "https://glocusent.com/cdn/shop/files/A101.jpg?v=1757663835",
+  },
   "ninja-creami": {
     imageUrl: "https://m.media-amazon.com/images/I/71t9VcZQVVL._AC_SL1500_.jpg",
     galleryImages: [
