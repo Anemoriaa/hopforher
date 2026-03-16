@@ -159,24 +159,23 @@ const guideByRelationship = {
 const bookGuideByRelationship = {
   girlfriend: {
     href: "/books-for-her/",
-    label: "Open the books guide",
-    chipLabel: "Books guide",
   },
   wife: {
     href: "/book-lover-gifts-for-her/",
-    label: "Open the book-lover guide",
-    chipLabel: "Book-lover guide",
   },
   anniversary: {
     href: "/book-lover-gifts-for-her/",
-    label: "Open the book-lover guide",
-    chipLabel: "Book-lover guide",
   },
   "new-relationship": {
     href: "/kindle-gifts-for-her/",
-    label: "Open the Kindle guide",
-    chipLabel: "Kindle guide",
   },
+};
+
+const bookGuideChipKeysByRelationship = {
+  girlfriend: "bookGuide.books",
+  wife: "bookGuide.bookLover",
+  anniversary: "bookGuide.bookLover",
+  "new-relationship": "bookGuide.kindle",
 };
 
 const pickerSlides = [
@@ -229,6 +228,10 @@ function buildLoopedHotStories(stories, cycleIndex, rotationOffset = 0) {
 function buildHotStoryImage(giftId, storyId) {
   const imageHeight = getHotStoryHeight(giftId, storyId);
   return `https://picsum.photos/seed/${encodeURIComponent(`${giftId}-${storyId}-story`)}/480/${imageHeight}`;
+}
+
+function translateText(t, key, fallback, variables = {}) {
+  return typeof t === "function" ? t(key, variables) : fallback;
 }
 
 function formatDurationLabel(totalSeconds) {
@@ -361,24 +364,26 @@ function getPreviewMediaThumbnailUrl(media) {
   return media.posterUrl || "";
 }
 
-function getPreviewMediaBadgeLabel(media) {
+function getPreviewMediaBadgeLabel(media, t) {
   if (!media) {
-    return "Still";
+    return translateText(t, "media.badge.still", "Still");
   }
 
   if (media.kind === "video") {
-    return "Video";
+    return translateText(t, "media.badge.video", "Video");
   }
 
   if (media.kind === "embed") {
-    return media.provider === "tiktok" ? "TikTok" : "Embed";
+    return media.provider === "tiktok"
+      ? translateText(t, "media.badge.tiktok", "TikTok")
+      : translateText(t, "media.badge.embed", "Embed");
   }
 
   if (media.kind === "reel") {
-    return "Reel";
+    return translateText(t, "media.badge.reel", "Reel");
   }
 
-  return "Still";
+  return translateText(t, "media.badge.still", "Still");
 }
 
 function buildGiftPreviewMedia(gift) {
@@ -495,56 +500,56 @@ function getHotMediaSourceMark(media) {
   return "PK";
 }
 
-function getHotMediaSourceLabel(media) {
+function getHotMediaSourceLabel(media, t) {
   if (media?.kind === "image") {
-    return "Book cover";
+    return translateText(t, "media.bookCover", "Book cover");
   }
 
   return media?.creatorHandle || media?.creatorName || media?.sourceLabel || "ShopForHer";
 }
 
-function getHotFallbackLabel(gift) {
+function getHotFallbackLabel(gift, t) {
   if (gift.relationships?.includes("wife")) {
-    return "For wives";
+    return translateText(t, "relationship.wife", "Wife");
   }
 
   if (gift.relationships?.includes("girlfriend")) {
-    return "For girlfriends";
+    return translateText(t, "relationship.girlfriend", "Girlfriend");
   }
 
   if (gift.tabs?.includes("looks-expensive")) {
-    return "Polished";
+    return translateText(t, "intent.looks-expensive", "Polished");
   }
 
   if (gift.tabs?.includes("daily-use")) {
-    return "Actually useful";
+    return translateText(t, "signal.daily-use", "Actually useful");
   }
 
   if (gift.tabs?.includes("cozy-home")) {
-    return "Cozy home";
+    return translateText(t, "signal.cozy-home", "Cozy home");
   }
 
-  return "Trending";
+  return translateText(t, "hot.fallback.trending", "Trending");
 }
 
-function getHotFallbackHeat(gift) {
+function getHotFallbackHeat(gift, t) {
   if (gift.priceValue <= 50) {
-    return "Quick buy";
+    return translateText(t, "hot.heat.quickBuy", "Quick buy");
   }
 
   if (gift.tabs?.includes("looks-expensive")) {
-    return "Looks strong";
+    return translateText(t, "hot.heat.looksStrong", "Looks strong");
   }
 
   if (gift.tabs?.includes("daily-use")) {
-    return "Repeat use";
+    return translateText(t, "hot.heat.repeatUse", "Repeat use");
   }
 
   if (gift.tabs?.includes("cozy-home")) {
-    return "Soft lane";
+    return translateText(t, "hot.heat.softLane", "Soft lane");
   }
 
-  return "Rising";
+  return translateText(t, "hot.heat.rising", "Rising");
 }
 
 function getProductPageHref(slug) {
@@ -744,7 +749,7 @@ function AnimatedBentoCard({
   );
 }
 
-function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
+function HotFeedMedia({ item, gift, shouldLoadEmbed, t }) {
   const media = useMemo(() => {
     const mediaItems = buildGiftPreviewMedia(gift);
 
@@ -780,7 +785,7 @@ function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
           />
         ) : null}
         <span className="gs-hot-feed-video-placeholder-scrim" aria-hidden="true" />
-        <span>{item.mediaLabel === "TikTok" ? "Open video" : "Open preview"}</span>
+        <span>{item.mediaLabel === translateText(t, "media.badge.tiktok", "TikTok") ? t("hot.media.openVideo") : t("hot.media.openPreview")}</span>
       </div>
 
       {embedUrl ? (
@@ -798,7 +803,7 @@ function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
         <div className="gs-hot-feed-media-badges" aria-hidden="true">
           <span className="gs-hot-feed-floating-chip">
             <Play size={12} />
-            <span>Watch</span>
+            <span>{t("hot.media.watch")}</span>
           </span>
           {item.mediaLabel ? <span className="gs-hot-feed-floating-chip">{item.mediaLabel}</span> : null}
           {item.durationLabel ? <span className="gs-hot-feed-floating-chip">{item.durationLabel}</span> : null}
@@ -808,7 +813,7 @@ function HotFeedMedia({ item, gift, shouldLoadEmbed }) {
   );
 }
 
-function AnimatedHotCard({ item, index, onOpenHotPreview }) {
+function AnimatedHotCard({ item, index, onOpenHotPreview, t }) {
   const { ref, inView } = useInView({ triggerOnce: false, rootMargin: "180px 0px 180px 0px" });
   const [hasEntered, setHasEntered] = useState(false);
   const gift = item.gift;
@@ -840,9 +845,13 @@ function AnimatedHotCard({ item, index, onOpenHotPreview }) {
         type="button"
         className="gs-hot-feed-hit"
         onClick={() => onOpenHotPreview(item)}
-        aria-label={`Open ${gift.name} ${item.mediaLabel === "TikTok" ? "video" : "preview"}`}
+        aria-label={
+          item.mediaLabel === translateText(t, "media.badge.tiktok", "TikTok")
+            ? t("hot.card.openVideo", { name: gift.name })
+            : t("hot.card.openPreview", { name: gift.name })
+        }
       >
-        <HotFeedMedia item={item} gift={gift} shouldLoadEmbed={inView || hasEntered} />
+        <HotFeedMedia item={item} gift={gift} shouldLoadEmbed={inView || hasEntered} t={t} />
         <div className="gs-hot-feed-body">
           <div className="gs-hot-feed-chip-row">
             <span className="gs-hot-feed-chip">{item.label}</span>
@@ -1009,7 +1018,7 @@ export default function App() {
       }),
     [homeUpdatedLabel, t]
   );
-  const homeSurfaceMeta = useMemo(() => getHomeSurfaceMeta(homeSurface.id), [homeSurface.id]);
+  const homeSurfaceMeta = useMemo(() => getHomeSurfaceMeta(homeSurface.id, t), [homeSurface.id, t]);
 
   const { affiliateConfig, gifts } = catalog;
   const liveGiftById = useMemo(() => new Map(gifts.map((gift) => [gift.id, gift])), [gifts]);
@@ -1242,11 +1251,11 @@ export default function App() {
     buildManualLabel: t("picker.buildManually"),
     speedHref: "/amazon-gifts-for-her/",
     speedLabel: t("picker.needSpeed"),
-    quickStartAriaLabel: "Audience quick starts",
+    quickStartAriaLabel: t("picker.quickStartsAria"),
   };
   const getSlideLabel = (slideId) => {
     if (slideId === "guides") {
-      return homeSurface.id === "books" ? "Read" : t("nav.dates");
+      return homeSurface.id === "books" ? t("nav.read") : t("nav.dates");
     }
 
     return t(`nav.${slideId}`);
@@ -1257,6 +1266,10 @@ export default function App() {
   const getIntentLabel = (intentId) => t(`intent.${intentId}`);
   const getLaneText = (laneId, field) => t(`lane.${laneId}.${field}`);
   const getGuideText = (relationshipId, field) => t(`guide.${relationshipId}.${field}`);
+  const getRelationshipNote = (relationshipId) => t(`relationship.${relationshipId}.note`);
+  const getBudgetNote = (budgetId) => t(`budget.${budgetId}.note`);
+  const getIntentNote = (intentId) => t(`intent.${intentId}.note`);
+  const getStoryHeat = (heatId) => t(`hot.heat.${heatId}`);
 
   const activeFilters = useMemo(
     () => ({
@@ -1432,7 +1445,7 @@ export default function App() {
     overline: t("home.featuredOverline"),
     title: t("home.featuredTitle"),
     note: t("home.featuredNote"),
-    ariaLabel: "New exact product picks",
+    ariaLabel: t("popular.featuredAria"),
   };
   const activeContinueSection = homeSurface.sections?.continue || {
     overline: t("home.continueOverline"),
@@ -1450,19 +1463,19 @@ export default function App() {
     },
     hot: {
       overline: t("footer.hot"),
-      title: "Trending pages",
-      body: "Open faster-moving gift lanes when you want the current angle before the evergreen guide.",
+      title: t("popular.trendingTitle"),
+      body: t("popular.trendingBody"),
     },
   };
   const activeReadingSection = homeSurface.id === "books"
     ? {
-        overline: "Reading",
-        title: "Keep the books lane moving.",
-        body: "Use this tab for faster reader-first follow-through: quick lanes, exact book pages, and stronger guide paths without leaving BooksForHer.",
+        overline: t("reading.overline"),
+        title: t("reading.title"),
+        body: t("reading.body"),
         quickStarts: {
-          overline: "Quick starts",
-          title: "Three faster reading lanes",
-          body: "Apply a lane straight into the picker result or open the matching guide first.",
+          overline: t("reading.quickStartsOverline"),
+          title: t("reading.quickStartsTitle"),
+          body: t("reading.quickStartsBody"),
         },
       }
     : null;
@@ -1485,10 +1498,12 @@ export default function App() {
   const surfaceGuideByRelationship = homeSurface.id === "books" ? bookGuideByRelationship : guideByRelationship;
   const activeGuide = surfaceGuideByRelationship[activeRelationship.id] || surfaceGuideByRelationship.girlfriend;
   const activeGuideChipLabel =
-    homeSurface.id === "books" ? activeGuide.chipLabel : getGuideText(activeRelationship.id, "chip");
+    homeSurface.id === "books"
+      ? t(bookGuideChipKeysByRelationship[activeRelationship.id] || bookGuideChipKeysByRelationship.girlfriend)
+      : getGuideText(activeRelationship.id, "chip");
   const allGuidesHref = homeSurface.id === "books" ? "/booksforher/" : "/guides/";
-  const allGuidesLabel = homeSurface.id === "books" ? "BooksForHer home" : t("home.allGuides");
-  const pickerResultHelper = homeSurface.id === "books" ? "Need speed instead? Open the Kindle guide." : t("home.needSpeedInstead");
+  const allGuidesLabel = homeSurface.id === "books" ? t("home.allGuidesBooks") : t("home.allGuides");
+  const pickerResultHelper = homeSurface.id === "books" ? t("home.needSpeedBooks") : t("home.needSpeedInstead");
   const shouldShowDateCityPanel = homeSurface.id !== "books";
   const pickerResultStep = pickerSlides.length - 1;
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
@@ -1531,154 +1546,154 @@ export default function App() {
       ? [
           {
             id: "kindle-first",
-            label: "Kindle-first",
-            heat: "Main event",
+            label: t("story.books.kindleFirst"),
+            heat: getStoryHeat("mainEvent"),
             filters: { budget: "premium", tab: "best-overall", intent: "thoughtful" },
           },
           {
             id: "reader-comfort",
-            label: "Reader comfort",
-            heat: "Cozy lane",
+            label: t("story.books.readerComfort"),
+            heat: getStoryHeat("cozyLane"),
             filters: { budget: "under-100", tab: "cozy-home", intent: "cozy" },
           },
           {
             id: "reading-session",
-            label: "Long session",
-            heat: "Repeat use",
+            label: t("story.books.readingSession"),
+            heat: getStoryHeat("repeatUse"),
             filters: { budget: "under-100", tab: "daily-use", intent: "everyday" },
           },
           {
             id: "book-lover",
-            label: "Book lover",
-            heat: "Quiet win",
+            label: t("story.books.bookLover"),
+            heat: getStoryHeat("quietWin"),
             filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
           },
           {
             id: "reader-upgrade",
-            label: "Reader upgrade",
-            heat: "Higher signal",
+            label: t("story.books.readerUpgrade"),
+            heat: getStoryHeat("higherSignal"),
             filters: { relationship: "wife", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
           },
         ]
       : [
           {
             id: "women",
-            label: "For women",
-            heat: "Rising",
+            label: t("story.label.forWomen"),
+            heat: getStoryHeat("rising"),
             filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
           },
           {
             id: "wives",
-            label: "For wives",
-            heat: "Most booked",
+            label: t("relationship.wife"),
+            heat: getStoryHeat("mostBooked"),
             filters: { relationship: "wife", budget: "premium", tab: "looks-expensive", intent: "looks-expensive" },
           },
           {
             id: "girlfriends",
-            label: "For girlfriends",
-            heat: "Easy win",
+            label: t("relationship.girlfriend"),
+            heat: getStoryHeat("easyWin"),
             filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
           },
           {
             id: "under-100",
-            label: "Under $100",
-            heat: "Under budget",
+            label: t("budget.under-100"),
+            heat: getStoryHeat("underBudget"),
             filters: { budget: "under-100", tab: "best-overall", intent: "everyday" },
           },
           {
             id: "expensive",
-            label: "Looks expensive",
-            heat: "Looks strong",
+            label: t("signal.looks-expensive"),
+            heat: getStoryHeat("looksStrong"),
             filters: { tab: "looks-expensive", budget: "premium", intent: "looks-expensive" },
           },
           {
             id: "useful",
-            label: "Actually useful",
-            heat: "Repeat use",
+            label: t("signal.daily-use"),
+            heat: getStoryHeat("repeatUse"),
             filters: { tab: "daily-use", budget: "under-100", intent: "everyday" },
           },
           {
             id: "anniversary",
-            label: "Anniversary",
-            heat: "Higher signal",
+            label: t("relationship.anniversary"),
+            heat: getStoryHeat("higherSignal"),
             filters: { relationship: "anniversary", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
           },
           {
             id: "new-relationship",
-            label: "New relationship",
-            heat: "Low pressure",
+            label: t("relationship.new-relationship"),
+            heat: getStoryHeat("lowPressure"),
             filters: { relationship: "new-relationship", budget: "under-50", tab: "best-overall", intent: "thoughtful" },
           },
           {
             id: "cozy",
-            label: "Cozy home",
-            heat: "Soft lane",
+            label: t("signal.cozy-home"),
+            heat: getStoryHeat("softLane"),
             filters: { budget: "under-100", tab: "cozy-home", intent: "cozy" },
           },
           {
             id: "daily-upgrade",
-            label: "Daily upgrade",
-            heat: "Used daily",
+            label: t("story.label.dailyUpgrade"),
+            heat: getStoryHeat("usedDaily"),
             filters: { relationship: "wife", budget: "under-100", tab: "daily-use", intent: "everyday" },
           },
           {
             id: "wife-under-100",
-            label: "Wife under $100",
-            heat: "Safe buy",
+            label: t("story.label.wifeUnder100"),
+            heat: getStoryHeat("safeBuy"),
             filters: { relationship: "wife", budget: "under-100", tab: "best-overall", intent: "everyday" },
           },
           {
             id: "girlfriend-premium",
-            label: "Girlfriend premium",
-            heat: "Higher spend",
+            label: t("story.label.girlfriendPremium"),
+            heat: getStoryHeat("higherSpend"),
             filters: { relationship: "girlfriend", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
           },
           {
             id: "under-50",
-            label: "Under $50",
-            heat: "Quick buy",
+            label: t("budget.under-50"),
+            heat: getStoryHeat("quickBuy"),
             filters: { budget: "under-50", tab: "best-overall", intent: "everyday" },
           },
           {
             id: "thoughtful",
-            label: "Thoughtful",
-            heat: "Cleaner choice",
+            label: t("intent.thoughtful"),
+            heat: getStoryHeat("cleanerChoice"),
             filters: { tab: "best-overall", intent: "thoughtful" },
           },
           {
             id: "polished",
-            label: "Polished",
-            heat: "Looks better",
+            label: t("intent.looks-expensive"),
+            heat: getStoryHeat("looksBetter"),
             filters: { tab: "looks-expensive", intent: "looks-expensive" },
           },
           {
             id: "soft",
-            label: "Soft",
-            heat: "Cozy lane",
+            label: t("intent.cozy"),
+            heat: getStoryHeat("cozyLane"),
             filters: { tab: "cozy-home", intent: "cozy" },
           },
           {
             id: "birthday",
-            label: "Birthday",
-            heat: "Gift-ready",
+            label: t("story.label.birthday"),
+            heat: getStoryHeat("giftReady"),
             filters: { relationship: "girlfriend", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
           },
           {
             id: "wife-premium",
-            label: "Wife premium",
-            heat: "Big move",
+            label: t("story.label.wifePremium"),
+            heat: getStoryHeat("bigMove"),
             filters: { relationship: "wife", budget: "premium", tab: "looks-expensive", intent: "thoughtful" },
           },
           {
             id: "anniversary-under-100",
-            label: "Anniversary under $100",
-            heat: "Smart spend",
+            label: t("story.label.anniversaryUnder100"),
+            heat: getStoryHeat("smartSpend"),
             filters: { relationship: "anniversary", budget: "under-100", tab: "best-overall", intent: "thoughtful" },
           },
           {
             id: "daily-soft",
-            label: "Daily soft",
-            heat: "Easy home",
+            label: t("story.label.dailySoft"),
+            heat: getStoryHeat("easyHome"),
             filters: { budget: "under-100", tab: "cozy-home", intent: "everyday" },
           },
         ];
@@ -1734,9 +1749,9 @@ export default function App() {
           surfaceId: homeSurface.id,
           mediaId: primaryVideo.id,
           mediaKind: primaryVideo.kind,
-          mediaLabel: getPreviewMediaBadgeLabel(primaryVideo),
+          mediaLabel: getPreviewMediaBadgeLabel(primaryVideo, t),
           sourceMark: getHotMediaSourceMark(primaryVideo),
-          sourceLabel: getHotMediaSourceLabel(primaryVideo),
+          sourceLabel: getHotMediaSourceLabel(primaryVideo, t),
           durationLabel: formatDurationLabel(primaryVideo.durationSeconds || 0),
         };
       })
@@ -1765,22 +1780,22 @@ export default function App() {
 
         return {
           id: `fallback-${gift.id}`,
-          label: getHotFallbackLabel(gift),
-          heat: getHotFallbackHeat(gift),
+          label: getHotFallbackLabel(gift, t),
+          heat: getHotFallbackHeat(gift, t),
           gift,
           surfaceId: homeSurface.id,
           mediaId: primaryVideo.id,
           mediaKind: primaryVideo.kind,
-          mediaLabel: getPreviewMediaBadgeLabel(primaryVideo),
+          mediaLabel: getPreviewMediaBadgeLabel(primaryVideo, t),
           sourceMark: getHotMediaSourceMark(primaryVideo),
-          sourceLabel: getHotMediaSourceLabel(primaryVideo),
+          sourceLabel: getHotMediaSourceLabel(primaryVideo, t),
           durationLabel: formatDurationLabel(primaryVideo.durationSeconds || 0),
         };
       })
       .filter(Boolean);
 
     return [...seededStories, ...fallbackStories].slice(0, HOT_FEED_TARGET_COUNT);
-  }, [surfaceHotGifts, homeSurface.id, activeFilters]);
+  }, [surfaceHotGifts, homeSurface.id, activeFilters, t]);
   const leadingHotFeedCycle = hotFeedCycles[0] ?? null;
   const trailingHotFeedCycles = hotFeedCycles.slice(1);
 
@@ -2822,7 +2837,7 @@ export default function App() {
                           aria-hidden={pickerStep !== 1}
                           tabIndex={pickerStep === 1 ? 0 : -1}
                         >
-                          <div className="gs-home-question gs-home-picker-panel" aria-label="Relationship stage">
+                          <div className="gs-home-question gs-home-picker-panel" aria-label={t("picker.relationshipAria")}>
                             <div className="gs-home-picker-step-copy">
                               <span className="gs-home-step-number">01</span>
                               <div>
@@ -2840,7 +2855,7 @@ export default function App() {
                                   aria-pressed={brief.relationship === index}
                                 >
                                   <strong>{getRelationshipLabel(option.id)}</strong>
-                                  <span>{option.note}</span>
+                                  <span>{getRelationshipNote(option.id)}</span>
                                 </button>
                               ))}
                             </div>
@@ -2861,7 +2876,7 @@ export default function App() {
                           aria-hidden={pickerStep !== 2}
                           tabIndex={pickerStep === 2 ? 0 : -1}
                         >
-                          <div className="gs-home-question gs-home-picker-panel" aria-label="Budget">
+                          <div className="gs-home-question gs-home-picker-panel" aria-label={t("picker.budgetAria")}>
                             <div className="gs-home-picker-step-copy">
                               <span className="gs-home-step-number">02</span>
                               <div>
@@ -2879,7 +2894,7 @@ export default function App() {
                                   aria-pressed={brief.budget === index}
                                 >
                                   <strong>{getBudgetLabel(option.id)}</strong>
-                                  <span>{option.note}</span>
+                                  <span>{getBudgetNote(option.id)}</span>
                                 </button>
                               ))}
                             </div>
@@ -2900,7 +2915,7 @@ export default function App() {
                           aria-hidden={pickerStep !== 3}
                           tabIndex={pickerStep === 3 ? 0 : -1}
                         >
-                          <div className="gs-home-question gs-home-picker-panel" aria-label="Vibe or use case">
+                          <div className="gs-home-question gs-home-picker-panel" aria-label={t("picker.intentAria")}>
                             <div className="gs-home-picker-step-copy">
                               <span className="gs-home-step-number">03</span>
                               <div>
@@ -2918,7 +2933,7 @@ export default function App() {
                                   aria-pressed={brief.intent === index}
                                 >
                                   <strong>{getIntentLabel(option.id)}</strong>
-                                  <span>{option.note}</span>
+                                  <span>{getIntentNote(option.id)}</span>
                                 </button>
                               ))}
                             </div>
@@ -2939,7 +2954,7 @@ export default function App() {
                           aria-hidden={pickerStep !== 4}
                           tabIndex={pickerStep === 4 ? 0 : -1}
                         >
-                          <div className="gs-home-question is-compact gs-home-picker-panel" aria-label="Optional lane refinement">
+                          <div className="gs-home-question is-compact gs-home-picker-panel" aria-label={t("picker.signalAria")}>
                             <div className="gs-home-picker-step-copy">
                               <span className="gs-home-step-number">+</span>
                               <div>
@@ -3086,7 +3101,7 @@ export default function App() {
                     )}
                   </div>
                 </section>
-                <section className="gs-popular-library" aria-label="Popular page organization">
+                <section className="gs-popular-library" aria-label={t("popular.libraryAria")}>
                   <div className="gs-section-head">
                     <p className="gs-overline">{activeContinueSection.overline}</p>
                     <h3>{activeContinueSection.title}</h3>
@@ -3187,8 +3202,8 @@ export default function App() {
                       <article className="gs-popular-library-panel">
                         <div className="gs-popular-library-head">
                           <span className="gs-overline">{t("footer.plans")}</span>
-                          <strong>Date city pages</strong>
-                          <p>Browse city landing pages when the gift search turns into an actual plan.</p>
+                          <strong>{t("popular.dateCitiesTitle")}</strong>
+                          <p>{t("popular.dateCitiesBody")}</p>
                         </div>
                         <div className="gs-popular-library-list">
                           {seoDateCities.slice(0, 4).map((city) => (
@@ -3251,10 +3266,10 @@ export default function App() {
                       className="gs-masonry-grid"
                       columnClassName="gs-masonry-grid_column"
                       role="list"
-                      aria-label="Hot gift stories"
+                      aria-label={t("hot.feedAria")}
                     >
                       {buildLoopedHotStories(videoStories, leadingHotFeedCycle, hotFeedRotationOffset).map((item, index) => (
-                        <AnimatedHotCard key={item.instanceId} item={item} index={index} onOpenHotPreview={openHotPreview} />
+                        <AnimatedHotCard key={item.instanceId} item={item} index={index} onOpenHotPreview={openHotPreview} t={t} />
                       ))}
                     </Masonry>
                   </section>
@@ -3300,10 +3315,10 @@ export default function App() {
                       className="gs-masonry-grid"
                       columnClassName="gs-masonry-grid_column"
                       role="list"
-                      aria-label={`More hot gift stories batch ${cycleIndex + 1}`}
+                      aria-label={t("hot.moreBatchAria", { batch: cycleIndex + 1 })}
                     >
                       {buildLoopedHotStories(videoStories, cycleIndex, hotFeedRotationOffset).map((item, index) => (
-                        <AnimatedHotCard key={item.instanceId} item={item} index={index} onOpenHotPreview={openHotPreview} />
+                        <AnimatedHotCard key={item.instanceId} item={item} index={index} onOpenHotPreview={openHotPreview} t={t} />
                       ))}
                     </Masonry>
                   </section>
@@ -3338,7 +3353,7 @@ export default function App() {
                       <p className="gs-popular-library-note">
                         {activeReadingSection.quickStarts.body}
                       </p>
-                      <div className="gs-home-quick-start-row" aria-label="Book reading quick starts">
+                      <div className="gs-home-quick-start-row" aria-label={t("reading.quickStartsAria")}>
                         {activeQuickStartLanes.map((lane) => (
                           <article key={lane.id} className="gs-home-quick-start-card">
                             <div className="gs-home-quick-start-copy">
@@ -3363,7 +3378,7 @@ export default function App() {
                       </div>
                     </section>
 
-                    <section className="gs-popular-library" aria-label="Books reading panel">
+                    <section className="gs-popular-library" aria-label={t("reading.panelAria")}>
                       <div className="gs-popular-library-grid">
                         <article className="gs-popular-library-panel">
                           <div className="gs-popular-library-head">
@@ -3418,7 +3433,7 @@ export default function App() {
                             {surfaceHotGuides.slice(0, 5).map((story) => (
                               <a key={story.slug} href={`/${story.slug}/`} className="gs-popular-library-link">
                                 <div>
-                                  <span className="gs-seo-guide-eyebrow">{story.trendLabel || story.groupLabel || "Books"}</span>
+                                  <span className="gs-seo-guide-eyebrow">{story.trendLabel || story.groupLabel || t("nav.books")}</span>
                                   <strong>{story.h1}</strong>
                                 </div>
                                 <ArrowUpRight size={16} />
@@ -3572,7 +3587,7 @@ export default function App() {
                       )}
 
                       {dateResults.spots.length > 0 ? (
-                        <section className="gs-date-list" role="list" aria-label="Nearby plans">
+                        <section className="gs-date-list" role="list" aria-label={t("plans.nearbyAria")}>
                           {dateResults.spots.map((spot) => (
                             <article
                               key={spot.id}
@@ -3618,7 +3633,7 @@ export default function App() {
                         <p>{datePoweredCopy}</p>
                       </div>
                       {shouldShowDateCityPanel ? (
-                        <section className="gs-seo-guide-section" aria-label="Browse date city pages">
+                        <section className="gs-seo-guide-section" aria-label={t("plans.cityPagesAria")}>
                           <div className="gs-section-head">
                             <p className="gs-overline">{t("plans.citiesOverline")}</p>
                             <h3>{t("plans.citiesTitle")}</h3>

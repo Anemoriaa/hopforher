@@ -13,7 +13,7 @@ test("books surface keeps guide routing inside the books lane", () => {
   );
   assert.match(appSource, /const allGuidesHref = homeSurface\.id === "books" \? "\/booksforher\/" : "\/guides\/";/);
   assert.match(appSource, /const shouldShowDateCityPanel = homeSurface\.id !== "books";/);
-  assert.match(appSource, /return homeSurface\.id === "books" \? "Read" : t\("nav\.dates"\);/);
+  assert.match(appSource, /return homeSurface\.id === "books" \? t\("nav\.read"\) : t\("nav\.dates"\);/);
   assert.match(
     appSource,
     /if \(homeSurface\.id !== "books" && activeSlide === datesSlideIndex && geoState\.status === "idle"\)/

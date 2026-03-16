@@ -4,8 +4,10 @@ import {
   booksSurfaceGiftIds,
   booksSurfaceGuideSlugs,
   filterCatalogGiftsForSurface,
+  getHomeSurfaceMeta,
   resolveHomeSurface,
 } from "../../apps/web/src/content/home-surfaces.js";
+import { translateUi } from "../../apps/web/src/lib/i18n.js";
 import { gifts } from "../../packages/catalog/index.js";
 
 const passthroughT = (key) => key;
@@ -52,4 +54,24 @@ test("default surface gift pool excludes books while books surface stays book-on
   assert.ok(defaultGiftIds.length > 0);
   assert.ok(defaultGiftIds.every((giftId) => !booksSurfaceGiftIds.includes(giftId)));
   assert.deepEqual(booksGiftIds, booksSurfaceGiftIds);
+});
+
+test("books surface resolves localized copy and metadata for locale-aware shells", () => {
+  const tEs = (key, variables) => translateUi(key, ["es-ES"], variables);
+  const booksSurface = resolveHomeSurface({
+    pathname: "/booksforher/",
+    t: tEs,
+    updatedLabel: "16 de marzo de 2026",
+  });
+  const booksMeta = getHomeSurfaceMeta("books", tEs);
+
+  assert.equal(booksSurface.brandHomeAria, "Inicio de BooksForHer");
+  assert.equal(booksSurface.hero.overline, "Vía de libros");
+  assert.equal(booksSurface.decisionModule.overline, "Selector de libros");
+  assert.equal(booksSurface.hotFeed.storiesTitle, "Leer las páginas de libros");
+  assert.equal(booksMeta.title, "BooksForHer | Regalos de libros para ella, comprados rápido");
+  assert.equal(
+    booksMeta.description,
+    "BooksForHer ayuda a los hombres a comprar rápido libros reales, ediciones Kindle y selecciones en caja para ella."
+  );
 });
