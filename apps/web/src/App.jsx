@@ -1492,7 +1492,6 @@ export default function App() {
       : getGuideText(activeRelationship.id, "chip");
   const allGuidesHref = homeSurface.id === "books" ? "/booksforher/" : "/guides/";
   const allGuidesLabel = homeSurface.id === "books" ? t("home.allGuidesBooks") : t("home.allGuides");
-  const pickerResultHelper = homeSurface.id === "books" ? t("home.needSpeedBooks") : t("home.needSpeedInstead");
   const shouldShowDateCityPanel = homeSurface.id !== "books";
   const pickerResultStep = pickerSlides.length - 1;
   const savedSlideIndex = slides.findIndex((slide) => slide.id === "saved");
@@ -2803,7 +2802,6 @@ export default function App() {
                               <span className="gs-home-step-number">01</span>
                               <div>
                                 <h4>{t("picker.relationshipTitle")}</h4>
-                                <p>{t("picker.relationshipBody")}</p>
                               </div>
                             </div>
                             <div className="gs-home-choice-grid">
@@ -2833,7 +2831,6 @@ export default function App() {
                               <span className="gs-home-step-number">02</span>
                               <div>
                                 <h4>{t("picker.budgetTitle")}</h4>
-                                <p>{t("picker.budgetBody")}</p>
                               </div>
                             </div>
                             <div className="gs-home-choice-grid">
@@ -2850,15 +2847,6 @@ export default function App() {
                                 </button>
                               ))}
                             </div>
-                            <div className="gs-home-picker-nav">
-                              <button
-                                type="button"
-                                className="gs-secondary-btn"
-                                onClick={() => goToPickerStep(0)}
-                              >
-                                {t("generic.back")}
-                              </button>
-                            </div>
                           </div>
                         </section>
 
@@ -2872,7 +2860,6 @@ export default function App() {
                               <span className="gs-home-step-number">03</span>
                               <div>
                                 <h4>{t("picker.intentTitle")}</h4>
-                                <p>{t("picker.intentBody")}</p>
                               </div>
                             </div>
                             <div className="gs-home-choice-grid">
@@ -2889,15 +2876,6 @@ export default function App() {
                                 </button>
                               ))}
                             </div>
-                            <div className="gs-home-picker-nav">
-                              <button
-                                type="button"
-                                className="gs-secondary-btn"
-                                onClick={() => goToPickerStep(1)}
-                              >
-                                {t("generic.back")}
-                              </button>
-                            </div>
                           </div>
                         </section>
 
@@ -2913,7 +2891,6 @@ export default function App() {
                                 <>
                                   <div className="gs-home-result-head">
                                     <h4>{leadRecommendation.name}</h4>
-                                    <p>{leadRecommendation.hook}</p>
                                   </div>
                                   <div className="gs-home-result-tags">
                                     <span>{relationshipLabel}</span>
@@ -2921,7 +2898,6 @@ export default function App() {
                                     <span>{intentLabel}</span>
                                   </div>
                                   <div className="gs-home-result-refine">
-                                    <p className="gs-seo-guide-eyebrow">{t("picker.signalTitle")}</p>
                                     <div className="gs-home-result-lane-grid">
                                       {signalOptions.map((option) => (
                                         <button
@@ -2959,23 +2935,11 @@ export default function App() {
                                       {t("generic.openGuide")}
                                     </a>
                                   </div>
-                                  <p className="gs-home-result-helper">
-                                    {pickerResultHelper}
-                                  </p>
                                 </>
                               ) : (
                                 <p className="gs-home-result-empty">{t("home.noRecommendation")}</p>
                               )}
                             </aside>
-                            <div className="gs-home-picker-nav is-result">
-                              <button
-                                type="button"
-                                className="gs-secondary-btn"
-                                onClick={() => goToPickerStep(0)}
-                              >
-                                {t("generic.editAnswers")}
-                              </button>
-                            </div>
                           </div>
                         </section>
                       </div>
