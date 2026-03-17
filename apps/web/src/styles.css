@@ -707,16 +707,17 @@ h2, h3 {
 }
 
 .gs-home-hero {
-  gap: 24px;
+  gap: 18px;
 }
 
 .gs-home-hero-copy {
-  gap: 18px;
+  max-width: 34rem;
+  gap: 14px;
 }
 
 .gs-home-hero-head {
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .gs-home-hero-copy h1 {
@@ -739,7 +740,7 @@ h2, h3 {
 .gs-home-hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
 }
 
 .gs-home-hero-actions .gs-primary-btn,
@@ -749,11 +750,18 @@ h2, h3 {
   padding-right: 16px;
 }
 
+.gs-home-hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
 .gs-home-hero-summary {
-  max-width: 32rem;
+  flex: 1 1 18rem;
   margin: 0;
   font-family: var(--font-display);
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -770,9 +778,9 @@ h2, h3 {
   background: transparent;
   color: var(--text-soft);
   font-family: var(--font-display);
-  font-size: 0.68rem;
+  font-size: 0.62rem;
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   cursor: pointer;
   transition: color 0.2s ease;
@@ -1160,11 +1168,13 @@ h2, h3 {
 
 @media (min-width: 640px) {
   .gs-popular-hero {
-    grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
-    align-items: end;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 24rem);
+    align-items: center;
   }
 
   .gs-popular-hero-visual {
+    width: min(100%, 24rem);
+    justify-self: end;
     min-height: 392px;
   }
 
@@ -1202,7 +1212,7 @@ h2, h3 {
 .gs-home-decision-shell {
   display: grid;
   gap: 12px;
-  width: min(100%, 820px);
+  width: min(100%, 40rem);
   margin-inline: auto;
 }
 
@@ -1213,9 +1223,9 @@ h2, h3 {
 
 .gs-home-decision-module {
   display: grid;
-  gap: 14px;
-  justify-items: center;
-  padding: 14px;
+  gap: 10px;
+  justify-items: stretch;
+  padding: 12px;
   border: 1px solid var(--border);
   border-radius: 16px;
   background: var(--surface);
@@ -1224,22 +1234,22 @@ h2, h3 {
 
 .gs-home-module-head {
   width: 100%;
-  max-width: 30rem;
+  max-width: none;
   display: grid;
-  gap: 10px;
-  justify-items: center;
-  text-align: center;
+  gap: 6px;
+  justify-items: start;
+  text-align: left;
 }
 
 .gs-home-module-copy {
   display: grid;
-  gap: 6px;
-  justify-items: center;
+  gap: 4px;
+  justify-items: start;
 }
 
 .gs-home-module-copy h3 {
-  max-width: 16ch;
-  font-size: clamp(1.2rem, 2.7vw, 1.65rem);
+  max-width: none;
+  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
   line-height: 1;
 }
 
@@ -1257,26 +1267,26 @@ h2, h3 {
 }
 
 .gs-home-picker-stage {
-  width: min(100%, 22rem);
+  width: 100%;
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .gs-home-picker-progress {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4px;
-  padding: 4px;
+  padding: 3px;
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 12px;
   background: rgba(240, 240, 240, 0.7);
 }
 
 .gs-home-picker-progress-step {
-  min-height: 30px;
+  min-height: 28px;
   padding: 5px 6px;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: 8px;
   background: transparent;
   color: var(--text-soft);
   font-family: var(--font-display);
@@ -1301,8 +1311,8 @@ h2, h3 {
 .gs-home-picker-viewport {
   overflow: hidden;
   border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 6px;
+  border-radius: 16px;
+  padding: 4px;
   background:
     linear-gradient(180deg, rgba(240, 240, 240, 0.76), rgba(255, 255, 255, 0.96));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
@@ -1325,8 +1335,8 @@ h2, h3 {
 .gs-home-picker-panel {
   width: 100%;
   display: grid;
-  gap: 10px;
-  min-height: 22rem;
+  gap: 8px;
+  min-height: 18rem;
   align-content: start;
 }
 
@@ -1352,8 +1362,14 @@ h2, h3 {
 .gs-home-picker-step-copy {
   display: grid;
   gap: 6px;
-  justify-items: center;
-  text-align: center;
+  justify-items: start;
+  text-align: left;
+}
+
+.gs-home-picker-step-copy {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 8px;
 }
 
 .gs-home-picker-copy h4,
@@ -1369,7 +1385,7 @@ h2, h3 {
 
 .gs-home-picker-copy p,
 .gs-home-picker-step-copy p {
-  max-width: 28ch;
+  max-width: none;
   margin: 0;
   color: var(--text-soft);
   font-size: 0.68rem;
@@ -1380,7 +1396,7 @@ h2, h3 {
 .gs-home-picker-nav {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 6px;
 }
 
@@ -1541,8 +1557,8 @@ h2, h3 {
 
 .gs-home-question {
   display: grid;
-  gap: 8px;
-  padding: 12px;
+  gap: 10px;
+  padding: 10px;
   background: var(--surface);
 }
 
@@ -1574,13 +1590,14 @@ h2, h3 {
 .gs-home-choice {
   display: grid;
   gap: 0;
-  min-height: 42px;
+  min-height: 40px;
+  align-content: center;
   padding: 8px 10px;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--surface);
   color: var(--text);
-  text-align: center;
+  text-align: left;
   cursor: pointer;
   transition:
     border-color 0.2s ease,
@@ -1623,9 +1640,9 @@ h2, h3 {
 
 .gs-home-result-card {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   min-height: 100%;
-  padding: 12px;
+  padding: 14px;
   align-content: start;
   background: var(--text);
   border-color: var(--text);
@@ -1668,6 +1685,52 @@ h2, h3 {
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+}
+
+.gs-home-result-refine {
+  display: grid;
+  gap: 8px;
+}
+
+.gs-home-result-refine .gs-seo-guide-eyebrow {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.gs-home-result-lane-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.gs-home-result-lane {
+  padding: 8px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.8);
+  font-family: var(--font-display);
+  font-size: 0.58rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+@media (hover: hover) {
+  .gs-home-result-lane:hover {
+    border-color: rgba(255, 255, 255, 0.36);
+  }
+}
+
+.gs-home-result-lane.is-active {
+  border-color: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--surface);
 }
 
 .gs-home-result-points {
@@ -1733,7 +1796,7 @@ h2, h3 {
 
 @media (min-width: 640px) {
   .gs-home-decision-module {
-    padding: 18px;
+    padding: 16px;
   }
 
   .gs-home-quick-start-row {
@@ -1751,11 +1814,11 @@ h2, h3 {
   }
 
   .gs-home-picker-nav.is-result {
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 
   .gs-home-picker-stage .gs-home-picker-nav.is-result {
-    justify-content: center;
+    justify-content: flex-start;
   }
 }
 
@@ -1765,7 +1828,7 @@ h2, h3 {
   }
 
   .gs-home-picker-panel {
-    min-height: 20rem;
+    min-height: 16.5rem;
   }
 
   .gs-home-hero-actions .gs-primary-btn,
