@@ -1,24 +1,40 @@
 # ShopForHer full index
 
 Base URL: https://shopforher.org/
-Updated: 2026-03-07
+Updated: 2026-03-15
 
+- Guides index: https://shopforher.org/guides/
+- Hot index: https://shopforher.org/hot/
+- Products index: https://shopforher.org/gift/
+- Plans index: https://shopforher.org/dates/
 - About: https://shopforher.org/about.html
 - Editorial policy: https://shopforher.org/editorial-policy.html
 - Contact: https://shopforher.org/contact.html
 - Site map: https://shopforher.org/site-map.html
 - Feed: https://shopforher.org/feed.xml
+- Page catalog: https://shopforher.org/page-catalog.json
+- Guide catalog: https://shopforher.org/guide-catalog.json
+- Product catalog: https://shopforher.org/product-catalog.json
+- llms.txt: https://shopforher.org/llms.txt
+- llms-full.txt: https://shopforher.org/llms-full.txt
 - Best gifts for girlfriends in 2026: https://shopforher.org/gifts-for-girlfriend/
 - Best gifts for wives in 2026: https://shopforher.org/gifts-for-wife/
 - Best anniversary gifts for her in 2026: https://shopforher.org/anniversary-gifts-for-her/
 - Best birthday gifts for girlfriends in 2026: https://shopforher.org/birthday-gifts-for-girlfriend/
 - Best birthday gifts for wives in 2026: https://shopforher.org/birthday-gifts-for-wife/
+- Best Easter gifts for wives in 2026: https://shopforher.org/easter-gifts-for-wife/
+- Best Mother's Day gifts for wives in 2026: https://shopforher.org/mothers-day-gifts-for-wife/
 - Best gifts for her under $75 in 2026: https://shopforher.org/best-gifts-under-75/
 - Best gifts for her under $100 in 2026: https://shopforher.org/best-gifts-under-100/
 - Viral gifts for her in 2026: https://shopforher.org/viral-gifts-for-her/
 - Luxury gifts for her in 2026: https://shopforher.org/luxury-gifts-for-her/
 - Practical gifts for her in 2026: https://shopforher.org/practical-gifts-for-her/
 - Cozy home gifts for her in 2026: https://shopforher.org/cozy-home-gifts-for-her/
+- Book gifts for her in 2026: https://shopforher.org/books-for-her/
+- Kindle gifts for her in 2026: https://shopforher.org/kindle-gifts-for-her/
+- Cozy gifts for readers in 2026: https://shopforher.org/cozy-gifts-for-readers/
+- Book-lover gifts for her in 2026: https://shopforher.org/book-lover-gifts-for-her/
+- BookTok gifts for her in 2026: https://shopforher.org/booktok-gifts-for-her/
 - Tech gifts for her in 2026: https://shopforher.org/tech-gifts-for-her/
 - Best new relationship gifts for her in 2026: https://shopforher.org/new-relationship-gifts-for-her/
 - Best gifts for her who has everything in 2026: https://shopforher.org/gifts-for-her-who-has-everything/
@@ -28,6 +44,9 @@ Updated: 2026-03-07
 - Best gifts for homebodies in 2026: https://shopforher.org/gifts-for-homebodies/
 - Best daily-use gifts for her in 2026: https://shopforher.org/daily-use-gifts-for-her/
 - Gifts for her that look expensive in 2026: https://shopforher.org/looks-expensive-gifts-for-her/
+- Easter gifts for wives right now in 2026: https://shopforher.org/hot/easter-gifts-for-wife-right-now/
+- Easter hostess gifts right now in 2026: https://shopforher.org/hot/easter-hostess-gifts-right-now/
+- Mother's Day gifts for wives right now in 2026: https://shopforher.org/hot/mothers-day-gifts-for-wife-right-now/
 - Viral gifts for girlfriends in 2026: https://shopforher.org/hot/viral-gifts-for-girlfriend/
 - Viral gifts for wives in 2026: https://shopforher.org/hot/viral-gifts-for-wife/
 - Viral gifts for her under $100 in 2026: https://shopforher.org/hot/viral-gifts-under-100/
@@ -55,6 +74,15 @@ Updated: 2026-03-07
 - LED Vanity Mirror: https://shopforher.org/gift/led-vanity-mirror/
 - Cashmere-Feel Robe: https://shopforher.org/gift/cashmere-feel-robe/
 - Kindle Paperwhite Signature Edition: https://shopforher.org/gift/kindle-paperwhite-signature-edition/
+- Strapsicle E-Reader Hand Straps: https://shopforher.org/gift/strapsicle-e-reader-hand-straps/
+- Strapsicle Clutch E-Reader Cover: https://shopforher.org/gift/strapsicle-clutch-e-reader-cover/
+- Glocusent Bookmark Style Reading Light: https://shopforher.org/gift/glocusent-bookmark-style-reading-light/
+- Glocusent LED Neck Reading Light: https://shopforher.org/gift/glocusent-led-neck-reading-light/
+- Fourth Wing Kindle Edition: https://shopforher.org/gift/fourth-wing-kindle-edition/
+- The Women Kindle Edition: https://shopforher.org/gift/the-women-kindle-edition/
+- The Wedding People Kindle Edition: https://shopforher.org/gift/the-wedding-people-kindle-edition/
+- A Court of Thorns and Roses Kindle Edition: https://shopforher.org/gift/a-court-of-thorns-and-roses-kindle-edition/
+- The Empyrean Series 3 Book Set: https://shopforher.org/gift/the-empyrean-series-3-book-set/
 - Ninja CREAMi Deluxe: https://shopforher.org/gift/ninja-creami-deluxe/
 - Nespresso Vertuo Next: https://shopforher.org/gift/nespresso-vertuo-next/
 - Owala FreeSip Sway Bottle: https://shopforher.org/gift/owala-freesip-sway-bottle/
@@ -64,3 +92,26 @@ Updated: 2026-03-07
 - LANEIGE Midnight Minis Lip Set: https://shopforher.org/gift/laneige-midnight-minis-lip-set/
 - Bose SoundLink Flex (2nd Gen): https://shopforher.org/gift/bose-soundlink-flex-2nd-gen/
 - Sol de Janeiro Bum Bum Jet Set: https://shopforher.org/gift/sol-de-janeiro-bum-bum-jet-set/
+- Saodimallsu Crochet Swim Cover Up Set: https://shopforher.org/gift/saodimallsu-crochet-cover-up-set/
+- RoseSeek Crochet Lace Cover Up Pants: https://shopforher.org/gift/roseseek-crochet-lace-cover-up-pants/
+- Saodimallsu Crochet Cardigan Cover Up Dress: https://shopforher.org/gift/saodimallsu-crochet-cardigan-cover-up-dress/
+- Sheer Crochet Poncho Top: https://shopforher.org/gift/sheer-crochet-poncho-top/
+- PanLuca Statement Necklace: https://shopforher.org/gift/panluca-statement-necklace/
+- Posadina Natural Stone Phone Charm: https://shopforher.org/gift/posadina-natural-stone-phone-charm/
+- Boxwood Bunny Topiary: https://shopforher.org/gift/boxwood-bunny-topiary/
+- Lenox Wicker Creek Bunny Candy Dish: https://shopforher.org/gift/lenox-wicker-creek-bunny-candy-dish/
+- Large Easter Bunny Porch Decor: https://shopforher.org/gift/large-easter-bunny-porch-decor/
+- OLIKER Speckled Easter Eggs: https://shopforher.org/gift/oliker-speckled-eggs/
+- Easter Gift Basket with Ribbons: https://shopforher.org/gift/easter-gift-basket-with-ribbons/
+- Oneida Bunny Hop Dinner Plates: https://shopforher.org/gift/oneida-bunny-hop-dinner-plates/
+- Satin Halter Backless Maxi Dress: https://shopforher.org/gift/satin-halter-backless-maxi-dress/
+- SOLY HUX Ruffle Layered Halter Maxi Dress: https://shopforher.org/gift/soly-hux-ruffle-layered-halter-maxi-dress/
+- KIRUNDO Pleated A-Line Maxi Dress: https://shopforher.org/gift/kirundo-pleated-a-line-maxi-dress/
+- PRETTYGARDEN One-Shoulder Ruched Maxi Dress: https://shopforher.org/gift/prettygarden-one-shoulder-maxi-dress/
+- MIYUKI Rustic Terracotta Vase: https://shopforher.org/gift/miyuki-rustic-terracotta-vase/
+- Rustic Vase Set of 3: https://shopforher.org/gift/rustic-vase-set-of-3/
+- Hugo Boss Bottled Beyond Eau de Parfum: https://shopforher.org/gift/hugo-boss-bottled-beyond/
+- Marc Jacobs Perfect Absolute Eau de Parfum: https://shopforher.org/gift/marc-jacobs-perfect-absolute/
+- Gucci Flora Gorgeous Magnolia Eau de Parfum: https://shopforher.org/gift/gucci-flora-gorgeous-magnolia/
+- Tall Faux Olive Tree with Planter: https://shopforher.org/gift/faux-olive-tree-planter/
+- Artificial Black Olive Tree: https://shopforher.org/gift/artificial-black-olive-tree/

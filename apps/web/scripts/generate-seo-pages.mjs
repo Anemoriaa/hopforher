@@ -2924,7 +2924,100 @@ function buildStaticDateSpotMapsUrl(city, spot) {
 }
 
 function uniqueDateCityAreas(city) {
-  return [...new Set((city?.spots || []).map((spot) => spot.area).filter(Boolean))];
+  return [...new Set([
+    ...(city?.spots || []).map((spot) => spot.area),
+    ...(city?.lanes || []).map((lane) => lane.area),
+  ].filter(Boolean))];
+}
+
+function uniqueDateCitySpotTypes(city) {
+  return uniqueSortedStrings((city?.spots || []).map((spot) => spot.type).filter(Boolean));
+}
+
+const defaultDateCityGuideSlugs = [
+  "date-night-gifts-for-her",
+  "anniversary-gifts-for-her",
+  "new-relationship-gifts-for-her",
+];
+
+function dateCityRelatedGuides(city) {
+  const guideSlugs =
+    Array.isArray(city?.relatedGuideSlugs) && city.relatedGuideSlugs.length
+      ? city.relatedGuideSlugs
+      : defaultDateCityGuideSlugs;
+
+  return guideSlugs
+    .map((slug) => guideBySlug.get(slug))
+    .filter(Boolean)
+    .filter(isIndexableGuidePage);
+}
+
+function dateCityKeywords(city) {
+  return uniqueSortedStrings([
+    `${city.city} date spots`,
+    `${city.city} date ideas`,
+    `${city.city} date night`,
+    ...uniqueDateCityAreas(city).slice(0, 4).map((area) => `${city.city} ${area} date ideas`),
+    ...uniqueDateCitySpotTypes(city).slice(0, 4).map((type) => `${city.city} ${String(type).toLowerCase()} date ideas`),
+  ]);
+}
+
+function buildDateCityPlaceSchema(city, canonical) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "City",
+    "@id": `${canonical}#city`,
+    name: city.city,
+    ...(city.region || city.regionCode
+      ? {
+          containedInPlace: {
+            "@type": "State",
+            ...(city.region ? { name: city.region } : {}),
+            ...(city.regionCode ? { identifier: city.regionCode } : {}),
+          },
+        }
+      : {}),
+    ...(
+      Number.isFinite(city.latitude) && Number.isFinite(city.longitude)
+        ? {
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: city.latitude,
+              longitude: city.longitude,
+            },
+          }
+        : {}
+    ),
+    ...(city.wikipediaUrl ? { sameAs: city.wikipediaUrl } : {}),
+  };
+}
+
+function buildDateCityPlanListSchema(city, canonical) {
+  const planItems = [
+    ...(city.spots || []).map((spot) => ({
+      name: `${spot.type} in ${spot.area}`,
+      description: spot.note,
+    })),
+    ...(city.lanes || []).map((lane) => ({
+      name: lane.title,
+      description: lane.note,
+    })),
+  ];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${canonical}#date-plans`,
+    name: `${city.city} date plan formats`,
+    url: canonical,
+    numberOfItems: planItems.length,
+    itemListElement: planItems.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      description: item.description,
+    })),
+  };
 }
 
 function dateCityIndexMeta(city) {
@@ -3089,11 +3182,14 @@ function renderGuideIndex(freshness = lastmodPlaceholder) {
 }
 
 function renderDatesIndex(freshness = lastmodPlaceholder) {
+  const citySummary = seoDateCities.map((city) => city.city).join(", ");
+  const indexTitle = "Best date spots by city | ShopForHer";
+  const indexDescription = `Neighborhood-led date pages for ${citySummary} with cleaner planning paths for dinner, drinks, and follow-up moves.`;
   const collectionPageSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: "Date spots",
-    description: "Neighborhood-led city date pages with cleaner planning paths for dinner, drinks, and follow-up moves.",
+    name: "Best date spots by city",
+    description: indexDescription,
     url: `${siteUrl}/dates/`,
     dateModified: freshness.isoDate,
     publisher: siteOrganizationSchema,
@@ -3111,15 +3207,15 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
     { label: "Home", href: `${siteUrl}/` },
     { label: "Plans", href: `${siteUrl}/dates/` },
   ]);
-  const itemListSchema = buildLinkedItemListSchema("Date spots", `${siteUrl}/dates/`, cityLinks);
+  const itemListSchema = buildLinkedItemListSchema("Best date spots by city", `${siteUrl}/dates/`, cityLinks);
 
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Date spots | ShopForHer</title>
-  <meta name="description" content="Neighborhood-led city date pages with cleaner planning paths for dinner, drinks, and follow-up moves.">
+  <title>${indexTitle}</title>
+  <meta name="description" content="${escapeHtml(indexDescription)}">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <link rel="canonical" href="${siteUrl}/dates/">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -3139,8 +3235,8 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
     <main class="discovery-main">
       <section class="discovery-hero">
         <p class="discovery-kicker">Plans</p>
-        <h1>Date spots</h1>
-        <p class="discovery-intro">Neighborhood-led city pages for dinner, drinks, and lower-friction date-night planning.</p>
+        <h1>Best date spots by city</h1>
+        <p class="discovery-intro">${escapeHtml(indexDescription)}</p>
         <div class="discovery-meta">
           <span>Updated ${escapeHtml(freshness.displayDate)}</span>
           <span>${seoDateCities.length} cities</span>
@@ -3175,9 +3271,14 @@ function renderDatesIndex(freshness = lastmodPlaceholder) {
 
 function renderDateCityPage(city, freshness = lastmodPlaceholder) {
   const canonical = `${siteUrl}/dates/${city.slug}/`;
-  const areaCount = uniqueDateCityAreas(city).length;
+  const areaLabels = uniqueDateCityAreas(city);
+  const areaCount = areaLabels.length;
+  const spotTypes = uniqueDateCitySpotTypes(city);
   const faqSchema = buildDateCityFaqSchema(city);
+  const relatedGuides = dateCityRelatedGuides(city);
   const relatedCities = seoDateCities.filter((entry) => entry.slug !== city.slug);
+  const dateCityPlaceSchema = buildDateCityPlaceSchema(city, canonical);
+  const dateCityPlanListSchema = buildDateCityPlanListSchema(city, canonical);
   const cityRail = renderPageRail([
     {
       kicker: "City snapshot",
@@ -3198,9 +3299,23 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
         { href: "#date-spots", label: "Simple date options", meta: `${city.spots.length} plan shape${city.spots.length === 1 ? "" : "s"}` },
         ...(city.lanes?.length ? [{ href: "#date-lanes", label: "Neighborhood reads", meta: `${city.lanes.length} lane${city.lanes.length === 1 ? "" : "s"}` }] : []),
         ...(city.planningTips?.length ? [{ href: "#date-tips", label: "Keep the plan easy", meta: `${city.planningTips.length} planning note${city.planningTips.length === 1 ? "" : "s"}` }] : []),
+        ...(relatedGuides.length ? [{ href: "#date-gift-guides", label: "Gift tie-ins", meta: `${relatedGuides.length} related guide${relatedGuides.length === 1 ? "" : "s"}` }] : []),
+        ...(relatedCities.length ? [{ href: "#date-other-cities", label: "Other cities", meta: `${relatedCities.length} city page${relatedCities.length === 1 ? "" : "s"}` }] : []),
         ...(city.faqs?.length ? [{ href: "#date-faq", label: "Quick answers", meta: `${city.faqs.length} FAQ${city.faqs.length === 1 ? "" : "s"}` }] : []),
       ],
     },
+    relatedGuides.length
+      ? {
+          kicker: "Gift follow-through",
+          title: "Pair the plan with a gift lane",
+          body: "Use a matching gift guide when the date also needs the cleaner gift move before or after the reservation.",
+          links: relatedGuides.map((guide) => ({
+            href: `/${guide.slug}/`,
+            label: guide.label,
+            meta: guide.groupLabel,
+          })),
+        }
+      : null,
     relatedCities.length
       ? {
           kicker: "Other cities",
@@ -3214,19 +3329,45 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
         }
       : null,
   ]);
-  const localBusinessSchema = {
+  const collectionPageSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: city.h1,
     description: city.description,
     url: canonical,
+    inLanguage: "en-US",
     dateModified: freshness.isoDate,
     mainEntityOfPage: canonical,
-    publisher: siteOrganizationSchema,
-    about: {
-      "@type": "Place",
-      name: city.city,
+    mainEntity: {
+      "@id": `${canonical}#date-plans`,
     },
+    publisher: siteOrganizationSchema,
+    about: [{ "@id": `${canonical}#city` }].concat(
+      areaLabels.slice(0, 6).map((area) => ({
+        "@type": "Place",
+        name: `${area}, ${city.city}`,
+      }))
+    ),
+    spatialCoverage: {
+      "@id": `${canonical}#city`,
+    },
+    mentions: spotTypes.slice(0, 6).map((type) => ({
+      "@type": "Thing",
+      name: `${city.city} ${String(type).toLowerCase()} date ideas`,
+    })).concat(
+      relatedGuides.slice(0, 3).map((guide) => ({
+        "@type": "WebPage",
+        name: guide.h1,
+        url: guideUrl(guide),
+      }))
+    ).concat(
+      relatedCities.slice(0, 3).map((entry) => ({
+        "@type": "WebPage",
+        name: entry.h1,
+        url: `${siteUrl}/dates/${entry.slug}/`,
+      }))
+    ),
+    keywords: dateCityKeywords(city).join(", "),
     ...pageTrustSchemaFields(),
   };
 
@@ -3249,7 +3390,9 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
   <link rel="stylesheet" href="/discovery.css">
   ${attributionScriptTag()}
   ${renderSiteIdentityJsonLd()}
-  ${jsonLdScript(localBusinessSchema)}
+  ${jsonLdScript(dateCityPlaceSchema)}
+  ${jsonLdScript(collectionPageSchema)}
+  ${jsonLdScript(dateCityPlanListSchema)}
   ${jsonLdScript(breadcrumbSchema)}
   ${faqSchema ? jsonLdScript(faqSchema) : ""}
 </head>
@@ -3271,6 +3414,14 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
           <span>${areaCount} neighborhood${areaCount === 1 ? "" : "s"}</span>
           <span>Maps or booking handoff</span>
         </div>
+        ${
+          areaLabels.length || spotTypes.length
+            ? `<div class="discovery-pill-row">
+          ${areaLabels.slice(0, 5).map((area) => `<span>${escapeHtml(area)}</span>`).join("")}
+          ${spotTypes.slice(0, 4).map((type) => `<span>${escapeHtml(type)}</span>`).join("")}
+        </div>`
+            : ""
+        }
       </section>
       <div class="discovery-page-main">
         <div class="discovery-page-stack">
@@ -3343,6 +3494,48 @@ function renderDateCityPage(city, freshness = lastmodPlaceholder) {
                 <h3>${escapeHtml(tip.title)}</h3>
                 <p>${escapeHtml(tip.body)}</p>
               </article>`
+                )
+                .join("")}
+            </div>
+          </section>`
+              : ""
+          }
+          ${
+            relatedGuides.length
+              ? `<section class="discovery-section" id="date-gift-guides">
+            <div class="discovery-section-head">
+              <p class="discovery-kicker">Gift follow-through</p>
+              <h2>Pair the plan with a matching gift guide</h2>
+            </div>
+            <p class="discovery-section-note">Use one of these guides when the night also needs the gift decision handled without leaving the same planning lane.</p>
+            <div class="discovery-related">
+              ${relatedGuides
+                .map(
+                  (guide) => `<a class="discovery-related-link" href="/${guide.slug}/">
+                <span>${escapeHtml(guide.groupLabel)}</span>
+                <strong>${escapeHtml(guide.label)}</strong>
+              </a>`
+                )
+                .join("")}
+            </div>
+          </section>`
+              : ""
+          }
+          ${
+            relatedCities.length
+              ? `<section class="discovery-section" id="date-other-cities">
+            <div class="discovery-section-head">
+              <p class="discovery-kicker">Other cities</p>
+              <h2>Browse the rest of the city-date cluster</h2>
+            </div>
+            <p class="discovery-section-note">Use another city page when travel changed, the plan moved, or you want a different local lane before you book.</p>
+            <div class="discovery-related">
+              ${relatedCities
+                .map(
+                  (entry) => `<a class="discovery-related-link" href="/dates/${entry.slug}/">
+                <span>${escapeHtml(entry.regionCode || "City page")}</span>
+                <strong>${escapeHtml(entry.city)}</strong>
+              </a>`
                 )
                 .join("")}
             </div>
@@ -4648,8 +4841,8 @@ function buildStaticPageCatalogEntries() {
       path: "/dates/",
       pageType: "index",
       pageArchetype: "discovery-index",
-      title: "Date spots | ShopForHer",
-      description: "Neighborhood-led city date pages with cleaner planning paths for dinner, drinks, and follow-up moves.",
+      title: "Best date spots by city | ShopForHer",
+      description: `Neighborhood-led date pages for ${seoDateCities.map((city) => city.city).join(", ")} with cleaner planning paths for dinner, drinks, and follow-up moves.`,
       taxonomy: {
         primary: {
           intents: ["browse"],
@@ -4741,25 +4934,41 @@ function buildHotPageCatalogEntries() {
 }
 
 function buildDatePageCatalogEntries() {
-  return seoDateCities.map((city) => ({
-    id: `date-city:${city.slug}`,
-    slug: city.slug,
-    path: `/dates/${city.slug}/`,
-    pageType: "date-city",
-    pageArchetype: "city-date-guide",
-    pageUrl: `${siteUrl}/dates/${city.slug}/`,
-    title: city.title,
-    h1: city.h1,
-    description: city.description,
-    updatedAt: pageLastmod(`${siteUrl}/dates/${city.slug}/`),
-    searchIndexable: true,
-    indexStatus: "search-facing",
-    taxonomy: buildDateCityTaxonomy(city),
-    entities: {
-      spotCount: (city.spots || []).length,
-      laneCount: (city.lanes || []).length,
-    },
-  }));
+  return seoDateCities.map((city) => {
+    const neighborhoods = uniqueDateCityAreas(city);
+    const spotTypes = uniqueDateCitySpotTypes(city);
+    const relatedGuides = dateCityRelatedGuides(city);
+    const relatedCities = seoDateCities.filter((entry) => entry.slug !== city.slug);
+
+    return {
+      id: `date-city:${city.slug}`,
+      slug: city.slug,
+      path: `/dates/${city.slug}/`,
+      pageType: "date-city",
+      pageArchetype: "city-date-guide",
+      pageUrl: `${siteUrl}/dates/${city.slug}/`,
+      title: city.title,
+      h1: city.h1,
+      description: city.description,
+      updatedAt: pageLastmod(`${siteUrl}/dates/${city.slug}/`),
+      searchIndexable: true,
+      indexStatus: "search-facing",
+      taxonomy: buildDateCityTaxonomy(city),
+      entities: {
+        spotCount: (city.spots || []).length,
+        laneCount: (city.lanes || []).length,
+        neighborhoodCount: neighborhoods.length,
+        neighborhoods,
+        spotTypes,
+        region: city.region || "",
+        regionCode: city.regionCode || "",
+        latitude: city.latitude ?? null,
+        longitude: city.longitude ?? null,
+        relatedGuideSlugs: relatedGuides.map((guide) => guide.slug),
+        relatedCitySlugs: relatedCities.map((entry) => entry.slug),
+      },
+    };
+  });
 }
 
 function buildPageTypeCounts(pages = [], key = "pageType") {

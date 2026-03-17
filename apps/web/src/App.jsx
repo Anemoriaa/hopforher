@@ -2726,8 +2726,11 @@ export default function App() {
                     </button>
                   </div>
                   <div
-                    className="gs-popular-hero-visual is-image-surface"
-                    aria-hidden="true"
+                    className={classNames(
+                      "gs-popular-hero-visual",
+                      "is-image-surface",
+                      popularHeroProducts.length && "has-floating-stack"
+                    )}
                     style={{
                       transform: `translate3d(0, ${heroParallax * -10}px, 0)`,
                     }}
@@ -2737,7 +2740,35 @@ export default function App() {
                       alt=""
                       className="gs-popular-hero-image"
                       loading="lazy"
+                      aria-hidden="true"
                     />
+                    {popularHeroProducts.length ? (
+                      <div className="gs-popular-hero-stack">
+                        {popularHeroProducts.map((gift, index) => (
+                          <a
+                            key={gift.slug || gift.id}
+                            href={buildAffiliateLink(gift)}
+                            target="_blank"
+                            rel={getGiftCommerceRel(gift)}
+                            {...getAffiliateAnchorData(gift, `popular-hero-card-${index + 1}`)}
+                            aria-label={getGiftCommerceAriaLabel(gift)}
+                            {...getGiftImageFrameProps(gift, `gs-popular-hero-card is-layer-${index + 1}`)}
+                          >
+                            <ResilientImage
+                              src={getGiftHeroImageUrl(gift)}
+                              fallbackSrc={getGiftFallbackImageUrl(gift)}
+                              alt={gift.name}
+                              loading="lazy"
+                            />
+                            <span className="gs-popular-hero-card-copy">
+                              <span className="gs-popular-hero-card-badge">{gift.badge}</span>
+                              <strong>{gift.name}</strong>
+                              <span>{gift.priceLabel}</span>
+                            </span>
+                          </a>
+                        ))}
+                      </div>
+                    ) : null}
                   </div>
                 </section>
 

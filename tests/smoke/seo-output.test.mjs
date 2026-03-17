@@ -77,9 +77,9 @@ test("reader cluster guides stay generated with their own canonicals and cross-l
   assert.match(bookTokGuideHtml, /href="\/books-for-her\/"/);
   assert.doesNotMatch(booksGuideHtml, /Bose SoundLink Flex|Sunrise Alarm Clock/);
   assert.doesNotMatch(booksGuideHtml, /Kindle Paperwhite Signature Edition|Luxury Throw Blanket|Candle Warmer Lamp|Temperature-Control Mug|Koolaburra by UGG Burree Slipper/);
-  assert.doesNotMatch(kindleGuideHtml, /Bose SoundLink Flex|Sunrise Alarm Clock|MagSafe Charging Stand|Noise-Canceling Earbuds|Kindle Paperwhite Signature Edition|Luxury Throw Blanket|Candle Warmer Lamp|Temperature-Control Mug|Koolaburra by UGG Burree Slipper/);
-  assert.doesNotMatch(cozyGuideHtml, /Nespresso Vertuo Next|Sunrise Alarm Clock|Mulberry Silk Pillowcase Set|Kindle Paperwhite Signature Edition|Luxury Throw Blanket|Candle Warmer Lamp|Temperature-Control Mug|Koolaburra by UGG Burree Slipper/);
-  assert.doesNotMatch(bookLoverGuideHtml, /Bose SoundLink Flex|Sunrise Alarm Clock|Nespresso Vertuo Next|Kindle Paperwhite Signature Edition|Luxury Throw Blanket|Candle Warmer Lamp|Temperature-Control Mug|Koolaburra by UGG Burree Slipper/);
+  assert.doesNotMatch(kindleGuideHtml, /Bose SoundLink Flex|Sunrise Alarm Clock|MagSafe Charging Stand|Noise-Canceling Earbuds|Luxury Throw Blanket|Candle Warmer Lamp|Temperature-Control Mug|Koolaburra by UGG Burree Slipper/);
+  assert.doesNotMatch(cozyGuideHtml, /Nespresso Vertuo Next|Sunrise Alarm Clock|Mulberry Silk Pillowcase Set|Kindle Paperwhite Signature Edition|Luxury Throw Blanket|Candle Warmer Lamp|Temperature-Control Mug/);
+  assert.doesNotMatch(bookLoverGuideHtml, /Bose SoundLink Flex|Sunrise Alarm Clock|Nespresso Vertuo Next|Luxury Throw Blanket|Candle Warmer Lamp|Temperature-Control Mug|Koolaburra by UGG Burree Slipper/);
   assert.doesNotMatch(bookTokGuideHtml, /Bose SoundLink Flex|Sunrise Alarm Clock|Nespresso Vertuo Next|MagSafe Charging Stand|Noise-Canceling Earbuds|Kindle Paperwhite Signature Edition|Luxury Throw Blanket|Candle Warmer Lamp|Temperature-Control Mug|Koolaburra by UGG Burree Slipper/);
 });
 
@@ -91,4 +91,19 @@ test("blocked product pages remain noindex and search-facing guides stop linking
   assert.doesNotMatch(guideHtml, /href="\/gift\/mchic-colorful-beaded-choker\/"/);
   assert.doesNotMatch(guideHtml, /https:\/\/shopforher\.org\/gift\/mchic-colorful-beaded-choker\//);
   assert.match(guideHtml, /href="https:\/\/www\.amazon\.com\/s\?/);
+});
+
+test("date pages emit stronger geo scaffolding and guide cross-links", () => {
+  const datesIndexHtml = readFixture("apps/web/public/dates/index.html");
+  const losAngelesHtml = readFixture("apps/web/public/dates/los-angeles/index.html");
+
+  assert.match(datesIndexHtml, /<title>Best date spots by city \| ShopForHer<\/title>/);
+  assert.match(datesIndexHtml, /Los Angeles, New York, Chicago, and Miami|Los Angeles, New York, Chicago, Miami/);
+  assert.match(losAngelesHtml, /"@type":"City"/);
+  assert.match(losAngelesHtml, /"latitude":34\.0522/);
+  assert.match(losAngelesHtml, /West Hollywood, Los Angeles/);
+  assert.match(losAngelesHtml, /href="\/date-night-gifts-for-her\/"/);
+  assert.match(losAngelesHtml, /href="\/anniversary-gifts-for-her\/"/);
+  assert.match(losAngelesHtml, /href="\/new-relationship-gifts-for-her\/"/);
+  assert.match(losAngelesHtml, /href="\/dates\/new-york\/"/);
 });

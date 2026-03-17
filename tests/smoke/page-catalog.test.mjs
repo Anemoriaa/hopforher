@@ -54,3 +54,18 @@ test("page catalog exposes guide and product taxonomy fields", () => {
   );
   assert.ok(Array.isArray(pageCatalog.ops.productsMissingDirectMerchantPath));
 });
+
+test("date city pages expose geo coverage and related crawl paths", () => {
+  const losAngelesPage = pageCatalog.pages.find((page) => page.id === "date-city:los-angeles");
+
+  assert.ok(losAngelesPage, "expected Los Angeles date-city entry");
+  assert.equal(losAngelesPage.entities.regionCode, "CA");
+  assert.equal(losAngelesPage.entities.neighborhoodCount, 4);
+  assert.ok(losAngelesPage.entities.neighborhoods.includes("West Hollywood"));
+  assert.ok(losAngelesPage.entities.spotTypes.includes("Dinner"));
+  assert.ok(losAngelesPage.entities.relatedGuideSlugs.includes("date-night-gifts-for-her"));
+  assert.ok(losAngelesPage.entities.relatedGuideSlugs.includes("anniversary-gifts-for-her"));
+  assert.ok(losAngelesPage.entities.relatedCitySlugs.includes("new-york"));
+  assert.equal(losAngelesPage.entities.latitude, 34.0522);
+  assert.equal(losAngelesPage.entities.longitude, -118.2437);
+});

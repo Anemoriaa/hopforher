@@ -384,9 +384,9 @@
       "pageType": "index",
       "pageArchetype": "discovery-index",
       "pageUrl": "https://shopforher.org/dates/",
-      "title": "Date spots | ShopForHer",
-      "h1": "Date spots",
-      "description": "Neighborhood-led city date pages with cleaner planning paths for dinner, drinks, and follow-up moves.",
+      "title": "Best date spots by city | ShopForHer",
+      "h1": "Best date spots by city",
+      "description": "Neighborhood-led date pages for Los Angeles, New York, Chicago, Miami with cleaner planning paths for dinner, drinks, and follow-up moves.",
       "updatedAt": "2026-03-17",
       "searchIndexable": true,
       "indexStatus": "search-facing",
@@ -3358,7 +3358,34 @@
       },
       "entities": {
         "spotCount": 4,
-        "laneCount": 3
+        "laneCount": 3,
+        "neighborhoodCount": 4,
+        "neighborhoods": [
+          "West Hollywood",
+          "Silver Lake",
+          "Downtown LA",
+          "Beverly Grove"
+        ],
+        "spotTypes": [
+          "After dinner",
+          "Dinner",
+          "Drinks",
+          "Night out"
+        ],
+        "region": "California",
+        "regionCode": "CA",
+        "latitude": 34.0522,
+        "longitude": -118.2437,
+        "relatedGuideSlugs": [
+          "date-night-gifts-for-her",
+          "anniversary-gifts-for-her",
+          "new-relationship-gifts-for-her"
+        ],
+        "relatedCitySlugs": [
+          "new-york",
+          "chicago",
+          "miami"
+        ]
       }
     },
     {
@@ -3404,7 +3431,34 @@
       },
       "entities": {
         "spotCount": 4,
-        "laneCount": 3
+        "laneCount": 3,
+        "neighborhoodCount": 4,
+        "neighborhoods": [
+          "West Village",
+          "Lower East Side",
+          "SoHo",
+          "Brooklyn"
+        ],
+        "spotTypes": [
+          "Day date",
+          "Dessert",
+          "Dinner",
+          "Drinks"
+        ],
+        "region": "New York",
+        "regionCode": "NY",
+        "latitude": 40.7128,
+        "longitude": -74.006,
+        "relatedGuideSlugs": [
+          "date-night-gifts-for-her",
+          "anniversary-gifts-for-her",
+          "new-relationship-gifts-for-her"
+        ],
+        "relatedCitySlugs": [
+          "los-angeles",
+          "chicago",
+          "miami"
+        ]
       }
     },
     {
@@ -3450,7 +3504,34 @@
       },
       "entities": {
         "spotCount": 4,
-        "laneCount": 3
+        "laneCount": 3,
+        "neighborhoodCount": 4,
+        "neighborhoods": [
+          "West Loop",
+          "River North",
+          "Lincoln Park",
+          "Wicker Park"
+        ],
+        "spotTypes": [
+          "After dinner",
+          "Day date",
+          "Dinner",
+          "Drinks"
+        ],
+        "region": "Illinois",
+        "regionCode": "IL",
+        "latitude": 41.8781,
+        "longitude": -87.6298,
+        "relatedGuideSlugs": [
+          "date-night-gifts-for-her",
+          "anniversary-gifts-for-her",
+          "new-relationship-gifts-for-her"
+        ],
+        "relatedCitySlugs": [
+          "los-angeles",
+          "new-york",
+          "miami"
+        ]
       }
     },
     {
@@ -3496,7 +3577,34 @@
       },
       "entities": {
         "spotCount": 4,
-        "laneCount": 3
+        "laneCount": 3,
+        "neighborhoodCount": 4,
+        "neighborhoods": [
+          "Brickell",
+          "Wynwood",
+          "Design District",
+          "Coconut Grove"
+        ],
+        "spotTypes": [
+          "After dinner",
+          "Day date",
+          "Dinner",
+          "Drinks"
+        ],
+        "region": "Florida",
+        "regionCode": "FL",
+        "latitude": 25.7617,
+        "longitude": -80.1918,
+        "relatedGuideSlugs": [
+          "date-night-gifts-for-her",
+          "anniversary-gifts-for-her",
+          "new-relationship-gifts-for-her"
+        ],
+        "relatedCitySlugs": [
+          "los-angeles",
+          "new-york",
+          "chicago"
+        ]
       }
     },
     {
