@@ -6,7 +6,7 @@ import { normalizeSeoCatalog } from "../../../../packages/catalog/schema.js";
 export const seoSite = {
   name: "ShopForHer",
   url: "https://shopforher.org",
-  updatedAt: "2026-03-15",
+  updatedAt: "2026-03-17",
   description: "Sharper gift picks for men buying for her.",
   contactEmail: "hello@shopforher.org",
   aboutPath: "/about.html",
@@ -2822,19 +2822,19 @@ export const featuredSeoGuides = [
 
 export const heroSeoProducts = [
   "digital-frame",
-  "ninja-creami",
+  "owala-bottle",
   "silk-pillowcase",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const featuredSeoProducts = [
   "sol-de-janeiro",
   "luxury-throw",
-  "ugg-slippers",
+  "jewelry-case",
   "kindle-paperwhite",
   "nespresso-machine",
   "digital-frame",
   "theragun-relief",
-  "empyrean-box-set",
+  "mini-photo-printer",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const seoDateCities = [

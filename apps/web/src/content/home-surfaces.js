@@ -100,8 +100,8 @@ const surfaceBuilders = {
       topPickIds: [
         "silk-pillowcase",
         "digital-frame",
-        "ninja-creami",
         "owala-bottle",
+        "sol-de-janeiro",
         "laneige-set",
         "candle-warmer",
       ],

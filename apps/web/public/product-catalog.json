@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-12T00:00:00Z",
+  "generatedAt": "2026-03-17T00:00:00Z",
   "site": {
     "name": "ShopForHer",
     "url": "https://shopforher.org/",
@@ -96,7 +96,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "temperature-mug",
@@ -182,7 +182,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "digital-frame",
@@ -264,7 +264,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "mini-photo-printer",
@@ -341,7 +341,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "sunrise-alarm",
@@ -422,7 +422,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "luxury-throw",
@@ -506,7 +506,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "walking-pad",
@@ -588,7 +588,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "earbuds",
@@ -670,7 +670,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "projector",
@@ -752,7 +752,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "magsafe-stand",
@@ -825,7 +825,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "jewelry-case",
@@ -911,7 +911,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "candle-warmer",
@@ -993,7 +993,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "vanity-mirror",
@@ -1066,7 +1066,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "cashmere-robe",
@@ -1141,7 +1141,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "kindle-paperwhite",
@@ -1225,7 +1225,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "strapsicle-straps",
@@ -1300,7 +1300,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "strapsicle-clutch",
@@ -1377,7 +1377,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "glocusent-book-light",
@@ -1454,7 +1454,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "glocusent-neck-light",
@@ -1531,7 +1531,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "fourth-wing-kindle",
@@ -1608,7 +1608,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "the-women-kindle",
@@ -1683,7 +1683,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "the-wedding-people-kindle",
@@ -1758,7 +1758,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "acotar-kindle",
@@ -1835,7 +1835,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "empyrean-box-set",
@@ -1910,7 +1910,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "ninja-creami",
@@ -1994,7 +1994,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "nespresso-machine",
@@ -2078,7 +2078,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "owala-bottle",
@@ -2162,7 +2162,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "theragun-relief",
@@ -2246,7 +2246,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "ugg-slippers",
@@ -2331,7 +2331,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "stanley-quencher",
@@ -2412,7 +2412,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "laneige-set",
@@ -2496,7 +2496,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "bose-speaker",
@@ -2580,7 +2580,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "sol-de-janeiro",
@@ -2659,7 +2659,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "saodimallsu-crochet-coverup-set",
@@ -2741,7 +2741,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "roseseek-crochet-lace-pants",
@@ -2818,7 +2818,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "saodimallsu-crochet-cardigan-dress",
@@ -2897,7 +2897,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "sheer-crochet-poncho-top",
@@ -2979,7 +2979,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "panluca-statement-necklace",
@@ -3061,7 +3061,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "posadina-phone-charm",
@@ -3147,7 +3147,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "mchic-beaded-choker",
@@ -3228,7 +3228,7 @@
       },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "boxwood-bunny-topiary",
@@ -3305,7 +3305,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "lenox-bunny-candy-dish",
@@ -3384,7 +3384,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "easter-bunny-porch-decor",
@@ -3457,7 +3457,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-url",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "oliker-speckled-eggs",
@@ -3526,7 +3526,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "easter-gift-basket",
@@ -3595,7 +3595,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "oneida-bunny-hop-plates",
@@ -3670,7 +3670,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "satin-halter-maxi-dress",
@@ -3751,7 +3751,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "soly-hux-ruffle-maxi-dress",
@@ -3828,7 +3828,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "kirundo-pleated-maxi-dress",
@@ -3907,7 +3907,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "prettygarden-one-shoulder-maxi",
@@ -3984,7 +3984,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "miyuki-rustic-vase",
@@ -4061,7 +4061,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "ceramic-floor-vase",
@@ -4138,7 +4138,7 @@
       },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "rustic-vase-set",
@@ -4215,7 +4215,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "ninehaoou-scroll-vase",
@@ -4288,7 +4288,7 @@
       },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "hugo-boss-bottled-beyond",
@@ -4366,7 +4366,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "marc-jacobs-perfect-absolute",
@@ -4444,7 +4444,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "gucci-flora-gorgeous-magnolia",
@@ -4526,7 +4526,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "artificial-olive-tree-1026",
@@ -4603,7 +4603,7 @@
       },
       "searchIndexable": false,
       "indexStatus": "merchant-search-fallback",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "faux-olive-tree-planter",
@@ -4680,7 +4680,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     },
     {
       "id": "black-olive-tree",
@@ -4753,7 +4753,7 @@
       },
       "searchIndexable": true,
       "indexStatus": "direct-merchant-path",
-      "updatedAt": "2026-03-12"
+      "updatedAt": "2026-03-17"
     }
   ]
 }

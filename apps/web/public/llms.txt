@@ -147,7 +147,7 @@
 - A small set of overlapping guide pages are intentionally kept out of search indexing until they are more distinct.
 - Editorial policy is published on-site.
 - Product catalog JSON includes merchant-path and price-band metadata.
-- Discovery files refreshed: March 12, 2026.
+- Discovery files refreshed: March 17, 2026.
 
 ## Contact
 - hello@shopforher.org
