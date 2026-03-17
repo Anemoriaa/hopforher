@@ -801,6 +801,8 @@ h2, h3 {
 }
 
 .gs-popular-hero-visual.has-floating-stack {
+  display: block;
+  width: 100%;
   min-height: 350px;
 }
 
@@ -896,6 +898,7 @@ h2, h3 {
 .gs-popular-hero-stack {
   position: relative;
   z-index: 1;
+  width: 100%;
   min-height: 350px;
   overflow: visible;
   isolation: isolate;
