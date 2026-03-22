@@ -2827,12 +2827,12 @@ export const heroSeoProducts = [
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const featuredSeoProducts = [
-  "sol-de-janeiro",
   "candle-warmer",
   "jewelry-case",
   "kindle-paperwhite",
-  "nespresso-machine",
   "theragun-relief",
+  "faux-olive-tree-planter",
+  "gucci-flora-gorgeous-magnolia",
   "mini-photo-printer",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 

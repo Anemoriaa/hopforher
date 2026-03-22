@@ -1,3 +1,7 @@
+import { getTrendingGiftIds } from "../../../../packages/catalog/trending.js";
+
+const defaultTrendingGiftIds = getTrendingGiftIds("default");
+
 function normalizeSurfaceId(value) {
   if (typeof value !== "string") {
     return "default";
@@ -92,22 +96,23 @@ const surfaceBuilders = {
         openHotAria: t("home.openHotAria"),
         openHotLabel: t("home.openHotLabel"),
       },
-      heroProductIds: [],
+      heroProductIds: defaultTrendingGiftIds.slice(0, 3),
       decisionModule: null,
       pickerIntro: null,
       quickStartLanes: null,
       sections: null,
-      topPickIds: [
-        "silk-pillowcase",
-        "digital-frame",
-        "owala-bottle",
-        "laneige-set",
-        "sol-de-janeiro",
-        "candle-warmer",
-      ],
-      featuredProductIds: [],
-      libraryProductIds: [],
-      guideSlugs: [],
+      topPickIds: defaultTrendingGiftIds.slice(0, 6),
+      featuredProductIds: defaultTrendingGiftIds.slice(6, 12),
+      libraryProductIds: Array.from(new Set([
+        ...defaultTrendingGiftIds.slice(0, 4),
+        "kindle-paperwhite",
+        "temperature-mug",
+        "theragun-relief",
+        "faux-olive-tree-planter",
+      ])),
+      guideSlugs: ["viral-gifts-for-her", "amazon-gifts-for-her", "looks-expensive-gifts-for-her", "tech-gifts-for-her"],
+      hotGiftIds: defaultTrendingGiftIds,
+      hotGuideSlugs: ["viral-gifts-for-her", "amazon-gifts-for-her", "looks-expensive-gifts-going-viral", "viral-gifts-under-100"],
       footerTagline: "",
     };
   },

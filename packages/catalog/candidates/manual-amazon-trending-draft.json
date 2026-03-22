@@ -1,0 +1,25 @@
+{
+  "default": {
+    "id": "amazon-curated-trending",
+    "label": "Curated Amazon trending picks",
+    "refreshMode": "manual-curated",
+    "source": "amazon-curated-refresh",
+    "note": "Manual refresh list for current Amazon-leaning picks. This is curated editorial selection, not live Amazon trend ingestion. Promotion draft generated from readyForTrending manual candidates; review before applying.",
+    "updatedAt": "2026-03-22",
+    "ids": [
+      "digital-frame",
+      "owala-bottle",
+      "silk-pillowcase",
+      "laneige-set",
+      "posadina-phone-charm",
+      "stanley-quencher",
+      "candle-warmer",
+      "jewelry-case",
+      "kindle-paperwhite",
+      "theragun-relief",
+      "faux-olive-tree-planter",
+      "gucci-flora-gorgeous-magnolia",
+      "mini-photo-printer"
+    ]
+  }
+}
