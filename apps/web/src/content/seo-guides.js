@@ -2822,8 +2822,17 @@ export const featuredSeoGuides = [
 
 export const heroSeoProducts = [
   "digital-frame",
-  "owala-bottle",
+  "mini-photo-printer",
   "silk-pillowcase",
+].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
+
+export const weeklyTopSeoProducts = [
+  "digital-frame",
+  "silk-pillowcase",
+  "owala-bottle",
+  "laneige-set",
+  "stanley-quencher",
+  "candle-warmer",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const featuredSeoProducts = [
