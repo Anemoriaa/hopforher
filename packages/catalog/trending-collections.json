@@ -5,20 +5,20 @@
     "refreshMode": "manual-curated",
     "source": "amazon-curated-refresh",
     "note": "Manual refresh list for current Amazon-leaning picks. This is curated editorial selection, not live Amazon trend ingestion.",
-    "updatedAt": "2026-03-22",
+    "updatedAt": "2026-03-26",
     "ids": [
       "digital-frame",
-      "owala-bottle",
+      "mini-photo-printer",
       "silk-pillowcase",
+      "owala-bottle",
       "laneige-set",
-      "posadina-phone-charm",
-      "stanley-quencher",
       "candle-warmer",
       "jewelry-case",
       "kindle-paperwhite",
       "theragun-relief",
+      "gucci-flora-gorgeous-magnolia",
       "faux-olive-tree-planter",
-      "gucci-flora-gorgeous-magnolia"
+      "temperature-mug"
     ]
   }
 }

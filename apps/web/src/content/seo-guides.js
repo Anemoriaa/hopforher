@@ -2828,21 +2828,20 @@ export const heroSeoProducts = [
 
 export const weeklyTopSeoProducts = [
   "digital-frame",
+  "mini-photo-printer",
   "silk-pillowcase",
   "owala-bottle",
   "laneige-set",
-  "stanley-quencher",
   "candle-warmer",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const featuredSeoProducts = [
-  "candle-warmer",
   "jewelry-case",
   "kindle-paperwhite",
   "theragun-relief",
-  "faux-olive-tree-planter",
   "gucci-flora-gorgeous-magnolia",
-  "mini-photo-printer",
+  "faux-olive-tree-planter",
+  "temperature-mug",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const seoDateCities = [
