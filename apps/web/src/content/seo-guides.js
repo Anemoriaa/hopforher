@@ -2822,16 +2822,16 @@ export const featuredSeoGuides = [
 
 export const heroSeoProducts = [
   "digital-frame",
-  "mini-photo-printer",
+  "owala-bottle",
   "silk-pillowcase",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
 export const weeklyTopSeoProducts = [
   "digital-frame",
-  "mini-photo-printer",
-  "silk-pillowcase",
   "owala-bottle",
+  "silk-pillowcase",
   "laneige-set",
+  "sol-de-janeiro",
   "candle-warmer",
 ].map((id) => seoCatalog.find((gift) => gift.id === id)).filter(Boolean);
 
